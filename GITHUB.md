@@ -18,7 +18,8 @@
 
 ## Words to add before commit messages
 
-Add-> when adding a file or folder or logic or styles in the project
-Feat-> when implementing a new feature
-Modify-> when modifying a logic or style
-Remove-> when removing or cleaning unused code
+- **Add** -> when adding a file or folder or logic or styles in the project
+- **Feat** -> when implementing a new feature
+- **Modify** -> when modifying a logic or style
+- **Remove** -> when removing or cleaning unused code
+- **Fix** -> when fixing an issue in logic or style
