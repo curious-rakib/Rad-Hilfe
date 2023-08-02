@@ -1,88 +1,175 @@
-import { Box, Button, Flex, FormControl, FormLabel, HStack, Heading, Input, InputGroup, InputRightElement, Link, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
+
+
+import {
+    Image,
+    Box,
+    Center,
+    Flex,
+    HStack,
+    Heading,
+    Stack,
+    Text,
+} from '@chakra-ui/react';
+import { ChangeEvent } from 'react';
+import InputField from "../../components/InputField";
+import SubmitButton from '../../components/Button';
+import logo from '../../assets/logo.svg'
 
 const SignUp = () => {
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        // const { name, value } = event.target;
+    }
     return (
         <Flex
 
             align={'center'}
             justify={'center'}
 
-            bg={useColorModeValue('blue.900', 'blue.900')}>
-            <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                <Stack align={'center'}>
-                    <Heading fontSize={'4xl'} textAlign={'center'} color={"green.300"}>
-                        Slipstream
-                    </Heading>
+        >
+            <Stack spacing={8} mx={'auto'} maxW={'lg'}  >
 
-                </Stack>
-                <Box
-                    rounded={'xl'}
+                <Center>
+                    <HStack>
+                        <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
+                            Slipstream
 
-                    boxShadow={'lg'}
-                    p={4}>
-                    <Stack>
+                        </Heading>
+                        <Image src={logo} boxSize='50px' />
+
+                    </HStack>
+                </Center>
+                <Text fontSize={'2xl'} fontWeight={'bold'} pt={2} px={2} textAlign={'left'} color={'accent'}>
+                    Sign up
+                </Text>
+
+                <Box rounded={'xl'} pb={4}>
+                    <Stack spacing={5}>
                         <HStack>
-                            <Box>
-                                <FormControl id="firstName" isRequired>
+                            <InputField
+                                id='firstName'
+                                isRequired={true}
+                                type='text'
+                                placeholder='First Name'
+                                onChange={handleChange}
+                                name='first'
+                                borderColor='accent'
+                            />
 
-                                    <Input type="text"
-                                        placeholder="First Name"
-                                    />
-                                </FormControl>
-                            </Box>
-                            <Box>
-                                <FormControl id="lastName">
+                            <InputField
+                                id='lastName'
+                                isRequired={true}
+                                type='text'
+                                placeholder='Last Name'
+                                onChange={handleChange}
+                                name='last'
+                                borderColor='accent'
 
-                                    <Input type="text"
-                                        placeholder="Last Name" />
-                                </FormControl>
-                            </Box>
+                            />
                         </HStack>
-                        <FormControl id="email" isRequired>
 
-                            <Input type="email" placeholder="Email" />
-                        </FormControl>
-                        <FormControl id="password" isRequired>
 
-                            <InputGroup>
-                                <Input type={'password'} placeholder="Password" />
-                                <InputRightElement h={'full'}>
-                                    <Button
-                                        variant={'ghost'}
-                                    >
+                        <InputField
+                            id='contact'
+                            isRequired={true}
+                            type='contact'
+                            placeholder='Contact'
+                            onChange={handleChange}
+                            name='contact'
+                            borderColor='accent'
 
-                                    </Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </FormControl>
+
+                        />
+                        <InputField
+                            id='email'
+                            isRequired={true}
+                            type='email'
+                            placeholder='Email'
+                            onChange={handleChange}
+                            name='email'
+                            borderColor='accent'
+
+
+                        />
+                        <InputField
+                            id='password'
+                            isRequired={true}
+                            type='password'
+                            placeholder='Password'
+                            onChange={handleChange}
+                            name='password'
+                            borderColor='accent'
+
+
+                        />
+                        <InputField
+                            id='confirmpassword'
+                            isRequired={true}
+                            type='password'
+                            placeholder='Confirm Password'
+                            onChange={handleChange}
+                            name='confirmpassword'
+                            borderColor='accent'
+
+
+                        />
+
+
                         <Stack spacing={10} pt={2}>
-                            <Button
-                                loadingText="Submitting"
-                                size="lg"
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                                Sign up
-                            </Button>
+                            <SubmitButton
+                                loadingText='Submitting'
+                                size='lg'
+                                bg='accent'
+                                color='secondary'
+                                text='Sign Up'
+
+                            />
+
+
+
                         </Stack>
-                        <Stack pt={6}>
-                            <Text align={'center'}>
-                                Already a user? <Link color={'blue.400'}>Login</Link>
+                        <Flex
+                            align={'center'}
+                            justify={'space-between'}
+                            color={'accent'}
+
+                        >
+                            <Text >
+                                Have an account?
                             </Text>
+                            <Text >
+                                SignIn
+                            </Text>
+                        </Flex>
+
+                        <Stack spacing={5} pt={2}>
+
+                            <SubmitButton
+                                loadingText='Submitting'
+                                size='lg'
+                                bg='third'
+                                color='secondary'
+                                text='Continue With Google'
+
+                            />
+                            <SubmitButton
+                                loadingText='Submitting'
+                                size='lg'
+                                bg='fourth'
+                                color='secondary'
+                                text='Continue With Facebook'
+
+                            />
+
+
                         </Stack>
+
                     </Stack>
                 </Box>
             </Stack>
         </Flex>
-    )
+    );
 };
 
 export default SignUp;
-
-
-
-
-
