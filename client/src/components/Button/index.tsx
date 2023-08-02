@@ -4,17 +4,19 @@ const SubmitButton = ({
     loadingText,
     bg,
     size,
+    w,
     color,
     text,
 }: {
     loadingText: string;
+    w: string;
     bg: string;
     size: string;
     color: string;
     text: string;
 }) => {
     return (
-        <Button loadingText={loadingText} size={size} bg={bg} color={color}>
+        <Button w={w} loadingText={loadingText} size={size} bg={bg} color={color}>
             {text}
         </Button>
     );

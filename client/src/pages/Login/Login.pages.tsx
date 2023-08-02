@@ -10,12 +10,12 @@ const Login = () => {
     }
     return (
         <Box
-            p={4}
 
+            p={4}
 
         >
             <Stack spacing={8} mx={'auto'} maxW={'lg'}>
-                <Center my={4}>
+                <Center mt={10}>
                     <HStack>
                         <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
                             Slipstream
@@ -59,6 +59,7 @@ const Login = () => {
                             <SubmitButton
                                 loadingText='Submitting'
                                 size='lg'
+                                w=''
                                 bg='accent'
                                 color='secondary'
                                 text='Sign In'
@@ -81,6 +82,7 @@ const Login = () => {
                             <SubmitButton
                                 loadingText='Submitting'
                                 size='lg'
+                                w=''
                                 bg='third'
                                 color='secondary'
                                 text='Continue With Google'
@@ -89,6 +91,7 @@ const Login = () => {
                             <SubmitButton
                                 loadingText='Submitting'
                                 size='lg'
+                                w=''
                                 bg='fourth'
                                 color='secondary'
                                 text='Continue With Facebook'

@@ -6,6 +6,7 @@ const theme = extendTheme({
       body: {
         bg: '#001F3F',
         maxHeight: '100vh',
+        // borderRadius: 'md',
       },
     },
   },
@@ -41,6 +42,8 @@ const theme = extendTheme({
 });
 export default theme;
 
-export function deleteColorModeInLocalStorage() {
-  window.localStorage.removeItem('chakra-ui-color-mode');
-}
+// !not working
+
+// export function deleteColorModeInLocalStorage() {
+//   window.localStorage.removeItem('chakra-ui-color-mode');
+// }

@@ -20,7 +20,7 @@ const SignUp = () => {
     return (
         <Box p={4}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'}>
-                <Center my={4}>
+                <Center mt={10}>
                     <HStack>
                         <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
                             Slipstream
@@ -104,6 +104,7 @@ const SignUp = () => {
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='accent'
+                                w=''
                                 color='secondary'
                                 text='Sign Up'
                             />
@@ -118,6 +119,7 @@ const SignUp = () => {
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='third'
+                                w=''
                                 color='secondary'
                                 text='Continue With Google'
                             />
@@ -125,6 +127,7 @@ const SignUp = () => {
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='fourth'
+                                w=''
                                 color='secondary'
                                 text='Continue With Facebook'
                             />
