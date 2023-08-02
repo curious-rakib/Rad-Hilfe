@@ -1,6 +1,3 @@
-
-
-
 import {
     Image,
     Box,
@@ -12,39 +9,36 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
-import InputField from "../../components/InputField";
+import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg';
 
 const SignUp = () => {
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         // const { name, value } = event.target;
-    }
+    };
     return (
-        <Flex
-
-            align={'center'}
-            justify={'center'}
-
-        >
-            <Stack spacing={8} mx={'auto'} maxW={'lg'}  >
-
-                <Center>
+        <Box p={4}>
+            <Stack spacing={8} mx={'auto'} maxW={'lg'}>
+                <Center my={4}>
                     <HStack>
                         <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
                             Slipstream
-
                         </Heading>
                         <Image src={logo} boxSize='50px' />
-
                     </HStack>
                 </Center>
-                <Text fontSize={'2xl'} fontWeight={'bold'} pt={2} px={2} textAlign={'left'} color={'accent'}>
-                    Sign up
-                </Text>
 
                 <Box rounded={'xl'} pb={4}>
+                    <Text
+                        fontSize={'2xl'}
+                        fontWeight={'bold'}
+                        py={6}
+                        textAlign={'left'}
+                        color={'accent'}
+                    >
+                        Sign up
+                    </Text>
                     <Stack spacing={5}>
                         <HStack>
                             <InputField
@@ -65,10 +59,8 @@ const SignUp = () => {
                                 onChange={handleChange}
                                 name='last'
                                 borderColor='accent'
-
                             />
                         </HStack>
-
 
                         <InputField
                             id='contact'
@@ -78,8 +70,6 @@ const SignUp = () => {
                             onChange={handleChange}
                             name='contact'
                             borderColor='accent'
-
-
                         />
                         <InputField
                             id='email'
@@ -89,8 +79,6 @@ const SignUp = () => {
                             onChange={handleChange}
                             name='email'
                             borderColor='accent'
-
-
                         />
                         <InputField
                             id='password'
@@ -100,8 +88,6 @@ const SignUp = () => {
                             onChange={handleChange}
                             name='password'
                             borderColor='accent'
-
-
                         />
                         <InputField
                             id='confirmpassword'
@@ -111,10 +97,7 @@ const SignUp = () => {
                             onChange={handleChange}
                             name='confirmpassword'
                             borderColor='accent'
-
-
                         />
-
 
                         <Stack spacing={10} pt={2}>
                             <SubmitButton
@@ -123,35 +106,20 @@ const SignUp = () => {
                                 bg='accent'
                                 color='secondary'
                                 text='Sign Up'
-
                             />
-
-
-
                         </Stack>
-                        <Flex
-                            align={'center'}
-                            justify={'space-between'}
-                            color={'accent'}
-
-                        >
-                            <Text >
-                                Have an account?
-                            </Text>
-                            <Text >
-                                SignIn
-                            </Text>
+                        <Flex align={'center'} justify={'space-between'} color={'accent'}>
+                            <Text>Have an account?</Text>
+                            <Text>SignIn</Text>
                         </Flex>
 
                         <Stack spacing={5} pt={2}>
-
                             <SubmitButton
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='third'
                                 color='secondary'
                                 text='Continue With Google'
-
                             />
                             <SubmitButton
                                 loadingText='Submitting'
@@ -159,16 +127,12 @@ const SignUp = () => {
                                 bg='fourth'
                                 color='secondary'
                                 text='Continue With Facebook'
-
                             />
-
-
                         </Stack>
-
                     </Stack>
                 </Box>
             </Stack>
-        </Flex>
+        </Box>
     );
 };
 

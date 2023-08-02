@@ -16,19 +16,21 @@ function SetupDailyRoute() {
         if (mapContainerRef.current) {
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
-                style: 'mapbox://styles/mapbox/satellite-streets-v12?optimize=true',
+                style: 'mapbox://styles/mapbox/streets-v12?optimize=true',
                 center: [90.30857818617242, 23.880958224097034],
                 zoom: 16,
-            })
-        }
+            });
+        };
     }, [])
 
 
     return (
-        <div
-            style={{ width: '100vw', height: '100vh' }}
-            ref={mapContainerRef}
-        />
+        <>
+            <div
+                style={{ width: '100vw', height: '100vh' }}
+                ref={mapContainerRef}
+            />
+        </>
     );
 }
 

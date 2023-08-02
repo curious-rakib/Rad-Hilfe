@@ -14,8 +14,8 @@ const Login = () => {
 
 
         >
-            <Stack spacing={8} py={10} mx={'auto'} maxW={'lg'}>
-                <Center>
+            <Stack spacing={8} mx={'auto'} maxW={'lg'}>
+                <Center my={4}>
                     <HStack>
                         <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
                             Slipstream
@@ -24,8 +24,11 @@ const Login = () => {
                         <Image src={logo} boxSize='50px' />
 
                     </HStack>
+
                 </Center>
-                <Box rounded={'xl'} p={4}>
+
+                <Box rounded={'xl'} px={4} mt={16}>
+                    <Text color={'accent'} fontWeight={'semibold'} fontSize={'2xl'} mb={5} >Sign In</Text>
                     <Stack spacing={5}>
 
                         <InputField
