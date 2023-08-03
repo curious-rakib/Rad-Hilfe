@@ -33,5 +33,15 @@ const getBicycle = async (req: Request, res: Response) => {
 		console.error(error);
 	}
 };
+const getBicycleHealth = async (req: Request, res: Response) => {
+	try {
+		const bicycleId: string = req.params.id;
+		const bicycle = await findBicycleById(bicycleId);
+		//get the health of bicycle by calculating the average health of subparts
+		res.status(200).send(bicycle);
+	} catch (error) {
+		console.error(error);
+	}
+};
 
-export { setUpBicycle, getBicycle };
+export { setUpBicycle, getBicycle, getBicycleHealth };

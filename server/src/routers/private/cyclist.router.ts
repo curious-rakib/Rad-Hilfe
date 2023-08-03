@@ -12,7 +12,7 @@ cyclistRouter.get('/cyclist-name');
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
-cyclistRouter.get('/bicycle-health'); //only average bicycle health
+cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth); //only average bicycle health
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
 
 // case
