@@ -27,7 +27,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
 		const session: SessionData | undefined = getSession(token);
 		if (session) {
 			const cyclist = await findCyclistByEmail(session.userEmail);
-			console.log('cyclist', cyclist);
+
 			cyclist && (cyclist.bike = createdBicycle?._id) && (await cyclist.save());
 			res.status(201).send(createdBicycle);
 		} else throw new Error('Session Unavailable!');
@@ -36,6 +36,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
 		res.status(500).send('Server Error!');
 	}
 };
+
 const getBicycle = async (req: Request, res: Response) => {
 	try {
 		const bicycleId: string = req.params.id;
