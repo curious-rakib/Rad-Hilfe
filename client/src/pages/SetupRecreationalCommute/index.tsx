@@ -15,7 +15,7 @@ const Recreation = () => {
     return (
         <Container>
             <Center my={20}>
-                <ProgressBar color={'fourth'}></ProgressBar>
+                <ProgressBar color={'fourth'} pagenumber={4}></ProgressBar>
             </Center>
             <Box mb={10}>
                 <Text
@@ -24,22 +24,24 @@ const Recreation = () => {
                     fontSize={'xl'}
                     fontWeight={'semibold'}
                 >
-                    Frequency of daily commute
+                    Frequency of recreational commute
                 </Text>
                 <Text color={'fourth'} opacity={'60%'}>
                     Select which days you ride your bike to work
                 </Text>
             </Box>
 
-            <Box my={10}>
+            <Center my={10}>
                 <Days colorScheme='fourth'></Days>
-            </Box>
+            </Center>
             <Stack spacing={4}>
                 <Text color={'fourth'}
                     textAlign={'left'}
                     fontSize={'xl'}
                     fontWeight={'semibold'}>Recreational activities bike used for</Text>
-                <RecreationButton></RecreationButton>
+                <Center>
+                    <RecreationButton></RecreationButton>
+                </Center>
             </Stack>
 
             <Stack spacing={4}>

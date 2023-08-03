@@ -73,6 +73,7 @@ const Days = ({
             {sevenDays.map((day, index) => (
 
                 <Circle
+
                     key={index}
                     bg={day.chosen ? colorScheme : 'transparent'}
                     color={day.chosen ? 'secondary' : colorScheme}
@@ -80,7 +81,7 @@ const Days = ({
                     border={day.chosen ? 'none' : `2px solid`}
                     borderColor={day.chosen ? 'none' : colorScheme}
                     onClick={() => handleChange(day)}
-                    size={'40px'}
+                    size={'45px'}
 
 
                 >

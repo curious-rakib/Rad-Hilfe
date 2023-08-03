@@ -1,6 +1,7 @@
 
 
-import './App.css'
+import './App.css';
+
 import Login from './pages/Login/Login.pages'
 import SignUp from './pages/SignUp/SignUp.pages'
 import {
@@ -16,6 +17,7 @@ import Days from './components/Days';
 import SetupDailyCommute from './pages/SetupDailyCommute';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute/index';
 import HealthBar from './pages/HealthBar';
+import Home from './pages/Home';
 
 function App() {
 
@@ -26,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/setup-daily-route" element={<SetupDailyRoute />} />
           <Route path="/setup-bike-details" element={<SetupBikeDetails />} />
           <Route path='/setup-commute-details' element={<SetupDailyCommute />} />

@@ -13,12 +13,13 @@ import SetSwitch from '../../components/Switch';
 import { Text } from '@chakra-ui/react';
 import ProgressBar from '../../components/ProgressBar';
 import SubmitButton from '../../components/Button';
-
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 const SetupDailyCommute = () => {
     return (
         <Container>
             <Center my={20}>
-                <ProgressBar color={'accent'}></ProgressBar>
+                <ProgressBar color={'accent'} pagenumber={3}></ProgressBar>
             </Center>
             <Box mb={10}>
                 <Text
@@ -34,9 +35,9 @@ const SetupDailyCommute = () => {
                 </Text>
             </Box>
 
-            <Box my={10}>
+            <Center my={10}>
                 <Days colorScheme='accent'></Days>
-            </Box>
+            </Center>
             <Text color={'accent'}
                 textAlign={'left'}
                 fontSize={'xl'}
@@ -57,17 +58,21 @@ const SetupDailyCommute = () => {
                 <SetSwitch></SetSwitch>
                 <Text color={'accent'}>Yes</Text>
             </HStack>
-            <Center my={16}>
-                <SubmitButton
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    text='Next'
 
-                />
-            </Center>
+            <ChakraLink as={ReactRouterLink} to='/setup-recreation-details'>
+                <Center my={16}>
+                    <SubmitButton
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='accent'
+                        w='200px'
+                        color='secondary'
+                        text='Next'
+
+                    />
+                </Center>
+            </ChakraLink>
+
         </Container>
     );
 };

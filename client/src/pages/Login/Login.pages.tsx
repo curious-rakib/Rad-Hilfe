@@ -38,7 +38,7 @@ const Login = () => {
                             placeholder='Email'
                             onChange={handleChange}
                             name='email'
-                            borderColor='accent'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
 
 
                         />
@@ -48,7 +48,7 @@ const Login = () => {
                             type='password'
                             placeholder='Password'
                             onChange={handleChange}
-                            name='password'
+                            name='password' _placeholder={{ color: 'accent', opacity: '60%' }}
                             borderColor='accent'
 
 

@@ -1,4 +1,5 @@
 import { Box, FormControl, Input } from '@chakra-ui/react';
+import { color } from 'framer-motion';
 
 const InputField = ({
   id,
@@ -8,6 +9,7 @@ const InputField = ({
   onChange,
   name,
   borderColor,
+  _placeholder
 }: {
   id: string;
   isRequired: boolean;
@@ -16,6 +18,10 @@ const InputField = ({
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   name: string;
   borderColor: string;
+  _placeholder?: {
+    color: string,
+    opacity: string
+  }
 }) => {
   return (
     <Box>
@@ -27,10 +33,7 @@ const InputField = ({
           onChange={onChange}
           name={name}
           borderColor={borderColor}
-          _placeholder={{
-            color: 'accent',
-            opacity: '60%',
-          }}
+          _placeholder={_placeholder}
         />
       </FormControl>
     </Box>

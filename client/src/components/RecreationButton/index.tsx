@@ -41,8 +41,9 @@ const RecreationButton = () => {
                         variant={'unstyled'}
 
                         onClick={() => handleClick(button)}
-                        w={20}
-                        borderRadius='25%'
+                        w={28}
+                        h={12}
+                        borderRadius='20%'
                         bg={button.chosen ? 'fourth' : 'transparent'}
                         color={button.chosen ? 'secondary' : 'fourth'}
                         border={button.chosen ? 'none' : `2px solid`}

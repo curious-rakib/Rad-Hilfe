@@ -49,6 +49,7 @@ const SignUp = () => {
                                 onChange={handleChange}
                                 name='first'
                                 borderColor='accent'
+                                _placeholder={{ color: 'accent', opacity: '60%' }}
                             />
 
                             <InputField
@@ -58,7 +59,7 @@ const SignUp = () => {
                                 placeholder='Last Name'
                                 onChange={handleChange}
                                 name='last'
-                                borderColor='accent'
+                                borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
                             />
                         </HStack>
 
@@ -69,7 +70,7 @@ const SignUp = () => {
                             placeholder='Contact'
                             onChange={handleChange}
                             name='contact'
-                            borderColor='accent'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
                         />
                         <InputField
                             id='email'
@@ -78,7 +79,7 @@ const SignUp = () => {
                             placeholder='Email'
                             onChange={handleChange}
                             name='email'
-                            borderColor='accent'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
                         />
                         <InputField
                             id='password'
@@ -87,7 +88,7 @@ const SignUp = () => {
                             placeholder='Password'
                             onChange={handleChange}
                             name='password'
-                            borderColor='accent'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
                         />
                         <InputField
                             id='confirmpassword'
@@ -96,7 +97,7 @@ const SignUp = () => {
                             placeholder='Confirm Password'
                             onChange={handleChange}
                             name='confirmpassword'
-                            borderColor='accent'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
                         />
 
                         <Stack spacing={10} pt={2}>
