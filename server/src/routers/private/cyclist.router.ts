@@ -31,7 +31,9 @@ cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth); //
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
 
 // case
+cyclistRouter.get('/create-case');
 cyclistRouter.get('/get-all-cases');
+cyclistRouter.get('/get-case-by-id');
 // order
 cyclistRouter.get('/get-plan');
 cyclistRouter.post('/order');

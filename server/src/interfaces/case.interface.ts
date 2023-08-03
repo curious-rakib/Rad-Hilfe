@@ -1,7 +1,7 @@
 import { Types } from '../models/database';
 
 interface Case {
-	caseNumber: number;
+	caseNumber?: number;
 	status: string;
 	cyclist: Types.ObjectId;
 	technician: Types.ObjectId;

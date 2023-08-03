@@ -4,7 +4,7 @@ import { interventionDertailsSchema } from './interventionDetails.schema';
 import { noteSchema } from './note.schema';
 
 const caseSchema = new Schema({
-	caseNumber: { type: Number, required: true },
+	caseNumber: { type: Number },
 	status: { type: String, required: true },
 	cyclist: { type: Schema.Types.ObjectId, ref: 'CyclistModel', required: true },
 	technician: { type: Schema.Types.ObjectId, ref: 'TechnicianModel', required: true },
