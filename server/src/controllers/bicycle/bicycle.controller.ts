@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { createBicycle, findBicycleById } from '../../models/bicycle/bicycle.query';
+import { getSession } from '../../middlewares/sessionManagement';
+import { SessionData } from '../../interfaces/session.interface';
+import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
 
 const setUpBicycle = async (req: Request, res: Response) => {
 	try {
@@ -17,12 +20,17 @@ const setUpBicycle = async (req: Request, res: Response) => {
 			recreationalCommute,
 		};
 		const createdBicycle = await createBicycle(newBicycle);
-		res.status(201).send(createdBicycle);
+
 		//create subparts model and add the id to bicycle
-		//add bike id to cyclist
 
 		const token = req.cookies.accessToken;
-
+		const session: SessionData | undefined = getSession(token);
+		if (session) {
+			const cyclist = await findCyclistByEmail(session.userEmail);
+			console.log('cyclist', cyclist);
+			cyclist && (cyclist.bike = createdBicycle?._id) && (await cyclist.save());
+			res.status(201).send(createdBicycle);
+		} else throw new Error('Session Unavailable!');
 	} catch (error) {
 		console.log(error);
 		res.status(500).send('Server Error!');
