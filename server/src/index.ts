@@ -10,9 +10,9 @@ dotenv.config({ path: __dirname + '/.env' });
 const app: Application = express();
 
 const corsConfig = {
-  origin: `${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}`,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+	origin: `${process.env.CLIENT_URL}:${process.env.CLIENT_PORT}`,
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
+	credentials: true,
 };
 
 app.use(cors(corsConfig));
@@ -21,11 +21,11 @@ app.use(cookieParser());
 app.use(router);
 
 try {
-  mongoose.connection.on('open', () => console.log('Connected to Database'));
+	mongoose.connection.on('open', () => console.log('🍁 Connected to Database'));
 
-  app.listen(process.env.SERVER_PORT, () => {
-    console.log(`Server is listening on port http://localhost:${process.env.SERVER_PORT}`);
-  });
+	app.listen(process.env.SERVER_PORT, () => {
+		console.log(`🚀 Server is listening on port http://localhost:${process.env.SERVER_PORT}`);
+	});
 } catch (error) {
-  console.log(error);
+	console.log(error);
 }
