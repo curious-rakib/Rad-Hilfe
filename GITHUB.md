@@ -23,3 +23,5 @@
 - **Modify** -> when modifying a logic or style
 - **Remove** -> when removing or cleaning unused code
 - **Fix** -> when fixing an issue in logic or style
+
+- **Misc** -> when nothing else comes to mind
