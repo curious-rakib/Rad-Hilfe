@@ -9,7 +9,7 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 const SECRET_KEY: string = process.env.SECRET_KEY || 'HELLO WORLD';
 const blockedList: string[] = [];
 
-const createSession = (userEmail: string): string => {
+const createSession = (userEmail: string) => {
   const expiry = new Date();
   expiry.setMonth(expiry.getMonth() + 1);
 
@@ -21,11 +21,14 @@ const createSession = (userEmail: string): string => {
   return jwt.sign(newSession, SECRET_KEY);
 };
 
-const getSession = (token: string): SessionData | undefined => {
+const getSession = (token: string) => {
   try {
     if (blockedList.includes(token)) return undefined;
 
-    const sessionData = jwt.verify(token, SECRET_KEY) as unknown as SessionData;
+    const sessionData: SessionData | undefined = jwt.verify(
+      token,
+      SECRET_KEY
+    ) as unknown as SessionData;
     if (sessionData.expiresAt < Date.now()) {
       console.log('Token has expired.');
       return undefined;
