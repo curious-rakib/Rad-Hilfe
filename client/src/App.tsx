@@ -14,6 +14,9 @@ import SetupDailyRoute from './pages/SetupDailyRoute';
 import SetupBikeDetails from './pages/SetupBikeDetails';
 import Days from './components/Days';
 import SetupDailyCommute from './pages/SetupDailyCommute';
+import SetupRecreationalCommute from './pages/SetupRecreationalCommute/index';
+import HealthBar from './pages/HealthBar';
+
 function App() {
 
 
@@ -25,7 +28,9 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/setup-daily-route" element={<SetupDailyRoute />} />
           <Route path="/setup-bike-details" element={<SetupBikeDetails />} />
-          <Route path='/setup-commute-details' element={<SetupDailyCommute />}></Route>
+          <Route path='/setup-commute-details' element={<SetupDailyCommute />} />
+          <Route path='/setup-recreation-details' element={<SetupRecreationalCommute />} />
+          <Route path='/bike-health' element={<HealthBar />} />
         </Routes>
 
       </Router>

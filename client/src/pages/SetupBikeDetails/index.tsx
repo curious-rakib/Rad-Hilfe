@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stack, HStack, VStack, Box, Heading } from '@chakra-ui/react'
-import Progress from '../../components/Progress'
+import Progress from '../../components/ProgressBar'
 function SetupBikeDetails() {
     return (
         <VStack

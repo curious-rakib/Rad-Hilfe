@@ -35,6 +35,10 @@ const theme = extendTheme({
     xl: '0.75rem',
     '2xl': '1rem',
   },
+  colorScheme: {
+    accent: '#C1FAA6',
+    third: '#EDCBEF',
+  },
   config: {
     initialColorMode: 'dark',
     useSystemColorMode: true,

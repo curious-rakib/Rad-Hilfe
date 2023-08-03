@@ -12,7 +12,7 @@ const SetSlider = () => {
     }
     return (
         <Box pt={6} pb={2} color={'accent'}>
-            <Slider aria-label='slider-ex-6' onChange={(val) => setSliderValue(val)}>
+            <Slider colorScheme='#C1FAA6' onChange={(val) => setSliderValue(val)}>
                 <SliderMark value={25} {...labelStyles}>
                     25%
                 </SliderMark>
@@ -25,7 +25,7 @@ const SetSlider = () => {
                 <SliderMark
                     value={sliderValue}
                     textAlign='center'
-                    bg='blue.500'
+                    bg='accent'
                     color='white'
                     mt='-10'
                     ml='-5'
@@ -33,8 +33,8 @@ const SetSlider = () => {
                 >
                     {sliderValue}%
                 </SliderMark>
-                <SliderTrack>
-                    <SliderFilledTrack />
+                <SliderTrack >
+                    <SliderFilledTrack bg={'accent'} />
                 </SliderTrack>
                 <SliderThumb />
             </Slider>
