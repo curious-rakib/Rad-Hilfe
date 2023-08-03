@@ -13,6 +13,7 @@ const cyclistSchema = new Schema({
 	plan: { type: String, enum: ['basic', 'quover', 'jobrad'], required: true },
 	orders: [{ type: Types.ObjectId, ref: 'OrderModel' }],
 	cases: [{ type: Types.ObjectId, ref: 'CaseModel' }],
+	imageUrl: { type: String },
 });
 
 const CyclistModel = model<Cyclist>('Cyclist', cyclistSchema);
