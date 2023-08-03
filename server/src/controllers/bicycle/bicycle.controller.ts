@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { createBicycle, findBicycleById } from '../../models/bicycle/bicycle.query';
-import { Schema, Types } from '../../models/database';
-import { SchemaTypeOptions } from 'mongoose';
+
 const setUpBicycle = async (req: Request, res: Response) => {
 	try {
 		const { brand, model, serialNumber, purchaseMonth, purchaseYear, isRevised, revisionMonth, revisionYear, dailyCommute, recreationalCommute } = req.body;
@@ -19,6 +18,11 @@ const setUpBicycle = async (req: Request, res: Response) => {
 		};
 		const createdBicycle = await createBicycle(newBicycle);
 		res.status(201).send(createdBicycle);
+		//create subparts model and add the id to bicycle
+		//add bike id to cyclist
+
+		const token = req.cookies.accessToken;
+
 	} catch (error) {
 		console.log(error);
 		res.status(500).send('Server Error!');
