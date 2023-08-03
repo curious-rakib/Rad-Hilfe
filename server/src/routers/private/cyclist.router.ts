@@ -32,12 +32,16 @@ cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
 
 // case
 cyclistRouter.get('/get-all-cases');
+
 // order
 cyclistRouter.get('/get-plan');
 cyclistRouter.post('/order');
+
 // subpart
+cyclistRouter.get('/add-subpart');
 cyclistRouter.get('/parts-health');
 cyclistRouter.get('/maintenance-log');
+
 // technician
 
 export { cyclistRouter };
