@@ -4,10 +4,11 @@ import * as cyclistController from '../../controllers/cyclist/cyclist.controller
 const cyclistRouter = Router();
 
 // public
+cyclistRouter;
 
 // cyclist
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
-cyclistRouter.get('/weather-data');
+cyclistRouter.get('/weather-data', cyclistController.weatherData);
 cyclistRouter.get('/cyclist-name');
 
 // bicycle

@@ -5,6 +5,7 @@ import { cyclistRouter } from './private/cyclist.router';
 import { technicianRouter } from './private/technician.router';
 
 import * as accountController from '../controllers/account/user.controller';
+
 // *account controllers*
 router.post('/sign-up', accountController.signUp);
 router.post('/sign-in', accountController.signIn);
