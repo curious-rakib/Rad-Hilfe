@@ -1,6 +1,5 @@
 import { Bicycle } from '../../interfaces/bicycle.interface';
 import { BicycleModel } from './bicycle.model';
-import { Schema } from '../database';
 
 const createBicycle = async (bicycle: Bicycle) => {
 	try {
@@ -9,6 +8,7 @@ const createBicycle = async (bicycle: Bicycle) => {
 		console.error(error);
 	}
 };
+
 const findBicycleById = async (bicycleId: string) => {
 	return await BicycleModel.find({ _id: bicycleId });
 };

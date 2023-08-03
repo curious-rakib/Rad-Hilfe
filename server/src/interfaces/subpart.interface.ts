@@ -6,7 +6,8 @@ interface SubPart {
 }
 
 interface DepreciationRate {
-  // Define properties for depreciationRate here if needed
+  unpavedRoute: number;
+  pavedRoute: number;
 }
 
 export { SubPart };

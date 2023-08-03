@@ -4,6 +4,7 @@ import { cyclistAuthorizer } from '../../middlewares/authorizer';
 
 import * as cyclistController from '../../controllers/cyclist/cyclist.controller';
 import * as bicycleController from '../../controllers/bicycle/bicycle.controller';
+import * as subpartController from '../../controllers/subpart/subpart.controller';
 
 const cyclistRouter = Router();
 
@@ -14,7 +15,7 @@ cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 
 // private router
-cyclistRouter.use(authenticator, cyclistAuthorizer);
+// cyclistRouter.use(authenticator, cyclistAuthorizer);
 
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
@@ -38,7 +39,7 @@ cyclistRouter.get('/get-plan');
 cyclistRouter.post('/order');
 
 // subpart
-cyclistRouter.get('/add-subpart');
+cyclistRouter.post('/add-subpart', subpartController.addSubpart);
 cyclistRouter.get('/parts-health');
 cyclistRouter.get('/maintenance-log');
 
