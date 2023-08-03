@@ -1,5 +1,5 @@
 import { Bicycle } from '../../interfaces/bicycle.interface';
-import { Schema, model } from '../database';
+import { Schema, Types, model } from '../database';
 import { bicyclePartsSchema } from './bicyclePart.schema';
 import { dailyCommuteSchema } from './dailyCommute.schema';
 import { recreationalCommuteSchema } from './recreationalCommute.schema';
