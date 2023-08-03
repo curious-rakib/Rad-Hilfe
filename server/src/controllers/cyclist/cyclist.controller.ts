@@ -14,7 +14,6 @@ import {
   updateCyclistPassword,
 } from '../../models/cyclist/cyclist.query';
 import { getWeatherData } from '../../apis/weather.apis';
-import { Cyclist } from '../../interfaces/cyclist.interface';
 
 let storedOTP: OTP | null = null;
 
