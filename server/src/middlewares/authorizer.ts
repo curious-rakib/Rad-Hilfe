@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { SessionData } from '../interfaces/session.interface';
 import { getSession } from './../middlewares/sessionManagement';
-import { findUserByEmail } from '../models/account/user.query';
+import { findCyclistByEmail } from '../models/cyclist/cyclist.query';
 
 const cyclistAuthorizer = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.accessToken;
   const session: SessionData | undefined = getSession(token);
 
   if (session) {
-    const user = await findUserByEmail(session.userEmail);
+    const user = await findCyclistByEmail(session.userEmail);
 
     if (user && user.role === 'cyclist') {
       next();
@@ -21,7 +21,7 @@ const techniciarAuthorizer = async (req: Request, res: Response, next: NextFunct
   const session: SessionData | undefined = getSession(token);
 
   if (session) {
-    const user = await findUserByEmail(session.userEmail);
+    const user = await findCyclistByEmail(session.userEmail);
 
     if (user && user.role === 'technician') {
       next();
