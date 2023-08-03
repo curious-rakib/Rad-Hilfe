@@ -33,4 +33,18 @@ const addCyclistAddress = async (email: string, homeAddress: string, workAddress
   }
 };
 
-export { createCyclist, findCyclistByEmail, updateCyclistPassword, addCyclistAddress };
+const addCyclistPlan = async (email: string, plan: string) => {
+  try {
+    return await CyclistModel.findOneAndUpdate({ email: email }, { plan });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  createCyclist,
+  findCyclistByEmail,
+  updateCyclistPassword,
+  addCyclistAddress,
+  addCyclistPlan,
+};

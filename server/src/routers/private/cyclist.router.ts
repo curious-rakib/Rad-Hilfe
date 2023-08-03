@@ -19,10 +19,10 @@ cyclistRouter.use(authenticator, cyclistAuthorizer);
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
-cyclistRouter.put('/set-up-address-edit');
+cyclistRouter.put('/set-up-address-edit', cyclistController.setUpAddressEdit);
 cyclistRouter.get('/weather-data', cyclistController.weatherData);
-cyclistRouter.get('/cyclist-name');
-cyclistRouter.put('/select-plan');
+cyclistRouter.get('/cyclist-name', cyclistController.cyclistName);
+cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);

@@ -8,6 +8,7 @@ import { getSession, createSession, destroySession } from '../../middlewares/ses
 import { sendOTP } from './mailer.controller';
 import {
   addCyclistAddress,
+  addCyclistPlan,
   createCyclist,
   findCyclistByEmail,
   updateCyclistPassword,
@@ -146,8 +147,8 @@ const profile = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
 
     if (session) {
-      const profile = await findCyclistByEmail(session.userEmail);
-      res.status(200).send(profile);
+      const cyclist = await findCyclistByEmail(session.userEmail);
+      res.status(200).send(cyclist);
       return;
     }
   } catch (error) {
@@ -189,6 +190,25 @@ const setUpAddress = async (req: Request, res: Response) => {
   }
 };
 
+const setUpAddressEdit = async (req: Request, res: Response) => {
+  try {
+    const { homeAddress, workAddress } = req.body;
+
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+
+    if (session) {
+      await addCyclistAddress(session.userEmail, homeAddress, workAddress);
+
+      res.status(200).send('Home address and work address added');
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server Error!');
+  }
+};
+
 const weatherData = async (req: Request, res: Response) => {
   try {
     const { longitude, latitude } = req.params;
@@ -202,6 +222,39 @@ const weatherData = async (req: Request, res: Response) => {
   }
 };
 
+const cyclistName = async (req: Request, res: Response) => {
+  try {
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+
+    if (session) {
+      const cyclist = await findCyclistByEmail(session.userEmail);
+      res.status(200).send(cyclist && cyclist.name);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const selectPlan = async (req: Request, res: Response) => {
+  try {
+    const { plan } = req.body;
+
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+
+    if (session) {
+      await addCyclistPlan(session.userEmail, plan);
+
+      res.status(200).send();
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   signUp,
   signIn,
@@ -210,5 +263,8 @@ export {
   profile,
   signOut,
   setUpAddress,
+  setUpAddressEdit,
   weatherData,
+  cyclistName,
+  selectPlan,
 };
