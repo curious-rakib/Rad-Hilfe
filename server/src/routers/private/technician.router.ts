@@ -4,6 +4,7 @@ import { authenticator } from '../../middlewares/authenticator';
 import { technicianAuthorizer } from '../../middlewares/authorizer';
 
 import * as technicianController from '../../controllers/technician/technician.controller';
+import * as caseController from '../../controllers/case/case.controller';
 
 const technicianRouter = Router();
 
@@ -24,8 +25,8 @@ technicianRouter.post('/technician/set-up-technician');
 // bicycle
 
 // case
-technicianRouter.get('/technician/get-all-cases');
-technicianRouter.get('/technician/get-case-by-id');
+technicianRouter.get('/technician/get-all-cases', caseController.getAllCases);
+technicianRouter.get('/technician/get-case-by-id', caseController.getCaseById);
 
 // order
 
