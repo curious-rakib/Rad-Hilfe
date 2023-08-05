@@ -3,9 +3,11 @@ import HealthRadialChart from '../../components/HealthRadialChart';
 import HealthBarAccordion from '../../components/HealthBarAccordion';
 import SubmitButton from '../../components/Button';
 import { Flex } from '@chakra-ui/react';
+import Navbar from '../../components/Navbar';
 function HealthBar() {
     return (
         <>
+
             <HealthRadialChart />
             <HealthBarAccordion />
             <Flex pt={'15vh'} justifyContent={'center'}>

@@ -1,7 +1,7 @@
 export const radialHealthData = [
   {
     name: 'Wheel',
-    health: 25,
+    health: 2,
     fill: '#3B82F6',
   },
   {

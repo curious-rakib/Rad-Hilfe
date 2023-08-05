@@ -19,11 +19,12 @@ const theme = extendTheme({
       // ...
       900: '#171923',
     },
-    accent: '#C1FAA6',
-    secondary: '#001F3F',
+    accent: '#C1FAA6', //neon
+    secondary: '#001F3F', //blue
     primary: '#FFFFF',
-    third: '#EDCBEF',
-    fourth: '#E3DD39',
+    third: '#EDCBEF', //pink
+    fourth: '#E3DD39', //yellow
+    green: '#52D4A5',
     // ...
   },
   borderRadius: {
@@ -38,6 +39,25 @@ const theme = extendTheme({
   colorScheme: {
     accent: '#C1FAA6',
     third: '#EDCBEF',
+  },
+  textStyles: {
+    h1: {
+      // you can also use responsive styles
+      fontSize: ['48px', '72px'],
+      fontWeight: 'bold',
+    },
+    h2: {
+      fontSize: ['32px', '48px'],
+      fontWeight: 'bold',
+    },
+    h3: {
+      fontSize: ['20px', '36px'],
+      fontWeight: 'bold',
+    },
+    h6: {
+      fontSize: ['8px', '10px'],
+      fontWeight: 'bold',
+    },
   },
   config: {
     initialColorMode: 'dark',

@@ -11,9 +11,8 @@ import {
     Circle
 } from '@chakra-ui/react'
 
-import { radialHealthData } from '../../data/radialHealthData';
 import HealthBar from '../HealthBar';
-
+import { parts } from '../../data/partsData';
 function HealthBarAccordion() {
     return (
         <Flex alignItems="center" direction={'column'}>
@@ -27,29 +26,42 @@ function HealthBarAccordion() {
                     <h2>
                         <AccordionButton>
                             <Flex as="span" flex='1' textAlign='left'>
-                                <Circle bg="#3B82F6" size={'25px'} mr={'5px'}>{" "}</Circle> Wheel
+                                <Circle bg="blue.400" size={'25px'} mr={'5px'}>{" "}</Circle>
+                                {/* <Box bg="#3B82F6" mr={'5px'}></Box>  */}
+                                Wheel
                             </Flex>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        <HealthBar health={34} colorScheme='green' />
+                        {
+                            parts.map((part) => {
+                                return (
+                                    part.category === 'Wheel' && <HealthBar health={parseInt(part.health)} partname={part.name} />
+                                );
+                            })
+                        }
+
+
                     </AccordionPanel>
                 </AccordionItem>
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
                             <Flex as="span" flex='1' textAlign='left'>
-                                <Circle bg="#EDCBEF" size={'25px'} mr={'5px'}>{" "}</Circle> Bike Frame
+                                <Circle bg="#EDCBEF" size={'25px'} mr={'5px'}>{" "}</Circle> Frame
                             </Flex>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
+                        {
+                            parts.map((part) => {
+                                return (
+                                    part.category === 'Frame' && <HealthBar health={parseInt(part.health)} partname={part.name} />
+                                );
+                            })
+                        }
                     </AccordionPanel>
                 </AccordionItem>
                 <AccordionItem>
@@ -62,26 +74,32 @@ function HealthBarAccordion() {
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
+                        {
+                            parts.map((part) => {
+                                return (
+                                    part.category === 'Brake' && <HealthBar health={parseInt(part.health)} partname={part.name} />
+                                );
+                            })
+                        }
                     </AccordionPanel>
                 </AccordionItem>
                 <AccordionItem>
                     <h2>
                         <AccordionButton>
                             <Flex as="span" flex='1' textAlign='left'>
-                                <Circle bg="#52D4A5" size={'25px'} mr={'5px'}>{" "}</Circle>  Drive Mechanics
+                                <Circle bg="#52D4A5" size={'25px'} mr={'5px'}>{" "}</Circle>  Drivetrain
                             </Flex>
                             <AccordionIcon />
                         </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat.
+                        {
+                            parts.map((part) => {
+                                return (
+                                    part.category === 'Drivetrain' && <HealthBar health={parseInt(part.health)} partname={part.name} />
+                                );
+                            })
+                        }
                     </AccordionPanel>
                 </AccordionItem>
             </Accordion>

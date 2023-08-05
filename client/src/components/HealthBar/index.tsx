@@ -1,11 +1,16 @@
 import React from 'react';
-import { Progress } from '@chakra-ui/react';
+import { Progress, Flex, Text, Grid, GridItem } from '@chakra-ui/react';
 
-function HealthBar({ health, colorScheme }: { health: number, colorScheme: string }) {
+function HealthBar({ health, partname }: { health: number, partname: string }) {
     return (
-        <>
-            <Progress value={health} colorScheme={colorScheme} />
-        </>
+        <Grid templateColumns='repeat(7, 1fr)'>
+            <GridItem colSpan={2}>
+                <Text>{partname}</Text>
+            </GridItem>
+            <GridItem colSpan={5} alignItems={'center'} marginTop={'auto'} marginBottom={'auto'}>
+                <Progress value={health} colorScheme='yellow' borderRadius={'8px'} />
+            </GridItem>
+        </Grid>
     )
 }
 

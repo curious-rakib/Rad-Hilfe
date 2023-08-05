@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Flex, Stack, Text, VStack } from '@chakra-ui/react'
 import mapboxgl, { Map } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { motion } from "framer-motion";
+import { useDisclosure } from "@chakra-ui/react";
 // import { MapboxSearchBox } from '@mapbox/search-js-web';
 import 'mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +14,8 @@ import { Box } from '@chakra-ui/react';
 function SetupDailyRoute() {
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<Map | null>(null);
+    const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
+    const [hidden, setHidden] = useState(!isOpen);
 
     mapboxgl.accessToken = config.mapboxAccess;
     useEffect(() => {
@@ -40,23 +44,43 @@ function SetupDailyRoute() {
 
 
             />
-            <Stack p={4} spacing={7}
+            <motion.div
+                {...getDisclosureProps()}
+                hidden={hidden}
+                initial={true}
+                onAnimationStart={() => setHidden(false)}
+                onAnimationComplete={() => setHidden(!isOpen)}
+                animate={{ height: isOpen ? 250 : 0 }}
                 style={{
-                    borderRadius: '20px',
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    position: 'absolute',
-                    width: '100%',
-                    height: '40%',
-                    backgroundColor: '#001F3F',
-                    zIndex: 1
+
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    position: "absolute",
+                    right: "0",
+                    width: "100vw",
+                    top: "0",
+                    zIndex: 100
                 }}
 
             >
-                <Text color={'accent'}>Your daily commute details</Text>
-                <HomeOfficeAddressLayOver />
-            </Stack>
+                <Stack p={4} spacing={7}
+                    style={{
+                        borderRadius: '20px',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        position: 'absolute',
+                        width: '100%',
+                        height: '40%',
+                        backgroundColor: '#001F3F',
+                        zIndex: 1
+                    }}
+
+                >
+                    <Text color={'accent'}>Your daily commute details</Text>
+                    <HomeOfficeAddressLayOver />
+                </Stack>
+            </motion.div >
         </VStack>
     );
 }

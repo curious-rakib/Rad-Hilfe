@@ -1,41 +1,101 @@
-import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import Cards from "../../components/Cards";
+import { Container, Center, Flex, Grid, GridItem, Text, Box } from '@chakra-ui/react';
+import Cards from '../../components/Cards';
+import { FaCloud } from 'react-icons/fa'
 
 
 const Home = () => {
     return (
-        <div>
-            <Text>Good Morning, <br /> Urich</Text>
+
+        <Container p={4}>
+            <Box mt={32}>
+                <Text textStyle='h2' color='accent'>
+                    Good Morning, <br /> Urich
+                </Text>
+                <Flex
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                    color='accent'
+
+                >
+                    <Text fontSize='xs' >Riding Condition:  Fair</Text>
+                    <Flex>
+                        <FaCloud color='accent'></FaCloud>
+                        <Text fontSize='xs'>18°C    </Text>
+                    </Flex>
+                </Flex>
+            </Box>
+            <br />
+            <br />
             <Flex
-                justifyContent={'space-between'}
-                alignItems={'center'}
-
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="flex-end"
+                height="calc(50vh)"
             >
-                <Text>Riding Condition:Fair</Text>
-                <Text>18°C</Text>
+                <Grid
+
+                    templateRows='repeat(6, 1fr)'
+                    templateColumns='repeat(6, 1fr)'
+                    gap={4}
+                >
+                    <GridItem rowSpan={6} colSpan={3}>
+                        <Cards
+
+                            name={'My Bike'}
+                            textStyle={'h1'}
+                            w={''}
+                            h={'258px'}
+                            bg={'fourth'}
+                            color={'black'}
+                            px='4'
+                            py='8'
+                        ></Cards>
+                    </GridItem>
+                    <GridItem colSpan={3} rowSpan={3} bg=''>
+
+                        <Cards
+                            name={'My Care Plans'}
+                            textStyle={'h3'}
+                            w={''}
+                            h={'120px'}
+                            bg={'accent'}
+                            color={'black'}
+                            px='4'
+                            py='12'
+                        ></Cards>
+
+                    </GridItem>
+                    <GridItem colSpan={3} rowSpan={3} bg=''>
+                        <Cards
+                            name={'Request Support'}
+                            textStyle={'h3'}
+                            w={''}
+                            h={'120px'}
+                            bg={'third'}
+                            color={'black'}
+                            px='12'
+                            py='8'
+                        ></Cards>
+                    </GridItem>
+                    <GridItem colSpan={6} bg=''>
+
+                        <Cards
+                            name={'My Bike Health'}
+                            textStyle={'h2'}
+                            w={''}
+                            h={'140px'}
+                            bg={'accent'}
+                            color={'black'}
+                            px='4'
+                            py='4'
+                        ></Cards>
+
+
+
+                    </GridItem>
+                </Grid>
             </Flex>
-            <Grid
-                p={4}
-
-                templateRows='repeat(4, 1fr)'
-                templateColumns='repeat(6, 1fr)'
-                gap={4}
-            >
-                <GridItem rowSpan={4} colSpan={2}  >
-                    <Cards name={"My Bike"} w={""} h={"200px"} bg={"fourth"} color={'black'} ></Cards>
-                </GridItem>
-                <GridItem colSpan={4} rowSpan={2} bg='' >
-                    <Cards name={"My Care Plans"} w={""} h={"90px"} bg={"accent"} color={'black'} ></Cards>
-                </GridItem>
-                <GridItem colSpan={4} rowSpan={2} bg='' >
-                    <Cards name={"Request Support"} w={""} h={"90px"} bg={"third"} color={'black'} ></Cards>
-                </GridItem>
-                <GridItem colSpan={6} bg='' >
-                    <Cards name={"My Bike Health"} w={""} h={"90px"} bg={"accent"} color={'black'} ></Cards>
-                </GridItem>
-
-            </Grid>
-        </div>
+        </Container>
     );
 };
 

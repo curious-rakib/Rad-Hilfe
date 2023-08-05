@@ -2,6 +2,7 @@ export const parts = [
   {
     name: 'Body Frame',
     price: 150,
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -11,6 +12,7 @@ export const parts = [
   {
     name: 'Tyres',
     price: 15,
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -20,6 +22,7 @@ export const parts = [
   {
     name: 'Rim',
     price: 20,
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -29,6 +32,7 @@ export const parts = [
   {
     name: 'Brakes',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -38,6 +42,7 @@ export const parts = [
   {
     name: 'Gear Shifters',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -47,6 +52,7 @@ export const parts = [
   {
     name: 'Hub',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -56,6 +62,7 @@ export const parts = [
   {
     name: 'Disc Rotor',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -65,6 +72,7 @@ export const parts = [
   {
     name: 'Chain',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -74,6 +82,7 @@ export const parts = [
   {
     name: 'Crank arm',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -83,6 +92,7 @@ export const parts = [
   {
     name: 'Front Derailer',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -92,6 +102,7 @@ export const parts = [
   {
     name: 'Rear Derailer',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -101,6 +112,7 @@ export const parts = [
   {
     name: 'Pedal',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -110,6 +122,7 @@ export const parts = [
   {
     name: 'Chain ring',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -119,6 +132,7 @@ export const parts = [
   {
     name: 'Chain stay',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',
@@ -128,6 +142,7 @@ export const parts = [
   {
     name: 'Rear Casette',
     price: '',
+    health: '34',
     depreciationRate: {
       unpavedRoute: '',
       pavedRoute: '',

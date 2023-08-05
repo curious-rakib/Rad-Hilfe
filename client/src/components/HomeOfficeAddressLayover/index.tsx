@@ -22,6 +22,7 @@ function HomeOfficeAddressLayover() {
                 onChange={handleChange}
                 name='home'
                 borderColor='accent'
+
             />
             <InputField
                 id='work'
