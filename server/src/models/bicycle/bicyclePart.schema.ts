@@ -1,9 +1,32 @@
-import { Schema } from '../database';
+import { Schema, Types } from '../database';
+import bicycleSubparts from './subparts.json';
+
+const bicycleSubpartsArray = bicycleSubparts.map((bicycleSubpart) => {
+  return {
+    name: {
+      type: String,
+      default: bicycleSubpart.name,
+      required: true,
+      unique: true,
+    },
+    subpart: {
+      type: Types.ObjectId,
+      default: bicycleSubpart._id,
+      ref: 'SubpartModel',
+    },
+    health: {
+      type: Number,
+      default: 100,
+    },
+    lastMaintained: {
+      type: Date,
+      default: Date.now,
+    },
+  };
+});
 
 const bicyclePartsSchema = new Schema({
-  subPart: { type: Schema.Types.ObjectId, ref: 'SubPartModel', required: true },
-  health: { type: Number, required: true },
-  lastMaintained: { type: Date, required: true },
+  bicycleSubpartsArray,
 });
 
 export { bicyclePartsSchema };

@@ -41,8 +41,8 @@ cyclistRouter.post('/order');
 
 // subpart
 cyclistRouter.post('/add-subpart', subpartController.addSubpart);
-cyclistRouter.get('/parts-health');
-cyclistRouter.get('/maintenance-log');
+cyclistRouter.get('/subpart-health', subpartController.subpartHealth);
+cyclistRouter.get('/maintenance-log', subpartController.maintenanceLog);
 
 // technician
 
