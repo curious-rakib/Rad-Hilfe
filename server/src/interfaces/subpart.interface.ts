@@ -1,4 +1,4 @@
-interface SubPart {
+interface Subpart {
   name: string;
   Price: number;
   depreciationRate?: DepreciationRate;
@@ -10,4 +10,4 @@ interface DepreciationRate {
   pavedRoute: number;
 }
 
-export { SubPart };
+export { Subpart };

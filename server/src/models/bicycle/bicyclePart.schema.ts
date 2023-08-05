@@ -3,12 +3,6 @@ import bicycleSubparts from './subparts.json';
 
 const bicycleSubpartsArray = bicycleSubparts.map((bicycleSubpart) => {
   return {
-    name: {
-      type: String,
-      default: bicycleSubpart.name,
-      required: true,
-      unique: true,
-    },
     subpart: {
       type: Types.ObjectId,
       default: bicycleSubpart._id,

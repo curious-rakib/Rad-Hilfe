@@ -1,9 +1,8 @@
 import { Order } from '../../interfaces/order.interface';
-import { Schema, model } from '../database';
-import { cartSchema } from './cart.schema';
+import { Schema, Types, model } from '../database';
 
 const orderSchema = new Schema({
-  carts: [cartSchema],
+  bicycleParts: { type: [Types.ObjectId], ref: 'SubpartModel', required: true },
   deliveryAddress: { type: String, required: true },
   contactNumber: { type: String, required: true },
   note: { type: String },
