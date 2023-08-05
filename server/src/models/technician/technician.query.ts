@@ -42,15 +42,25 @@ const addTechnicianPlan = async (email: string, plan: string) => {
   }
 };
 
-const findTechnicianId = async (technicianId: Types.ObjectId) => {
+const findTechnicianById = async (technicianId: Types.ObjectId) => {
   return await TechnicianModel.findOne({ _id: technicianId });
+};
+
+const addTechnicianDetails = async (email: string, setTechnician: any) => {
+  try {
+    const technician = await TechnicianModel.findOne({ email: email });
+    //need to work on it more
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export {
   createTechnician,
   findTechnicianByEmail,
-  findTechnicianId,
+  findTechnicianById,
   updateTechnicianPassword,
   addTechnicianAddress,
   addTechnicianPlan,
+  addTechnicianDetails,
 };

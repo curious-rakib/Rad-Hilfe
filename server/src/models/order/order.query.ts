@@ -9,7 +9,7 @@ const createOrder = async (order: Order) => {
 
 const addOrder = async (email: string, orderId: Types.ObjectId) => {
   const cyclist = await findCyclistByEmail(email);
-  await cyclist?.orders?.push(orderId);
+  cyclist?.orders?.push(orderId);
   await cyclist?.save();
 };
 

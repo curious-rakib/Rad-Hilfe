@@ -75,6 +75,7 @@ const getBicycleHealth = async (req: Request, res: Response) => {
 
 const setUpBicycleEdit = async (req: Request, res: Response) => {
   try {
+    const bicycleId = req.params.id;
 
     const {
       brand,
@@ -88,6 +89,7 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
       dailyCommute,
       recreationalCommute,
     } = req.body;
+
     const newBicycle = {
       brand,
       model,
@@ -99,15 +101,12 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
       revisionYear,
       dailyCommute,
       recreationalCommute,
-      totalHealth: 100,
     };
-    const updatedBicycle = await updateBicycle(newBicycle);
+    const updatedBicycle = await updateBicycle(new Types.ObjectId(bicycleId), newBicycle);
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
     if (session) {
-      const bicycleId = new Types.ObjectId(updatedBicycle!._id);
-      await addBicycle(session.userEmail, bicycleId);
       res.status(201).send(updatedBicycle);
     } else throw new Error('Session Unavailable!');
   } catch (error) {

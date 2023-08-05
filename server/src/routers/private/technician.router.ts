@@ -9,6 +9,7 @@ const technicianRouter = Router();
 // public
 technicianRouter.post('/sign-up', technicianController.signUp);
 technicianRouter.post('/sign-in', technicianController.signIn);
+technicianRouter.get('/sign-out', technicianController.signOut);
 technicianRouter.post('/forgot-password', technicianController.forgotPassword);
 technicianRouter.post('/reset-password', technicianController.resetPassword);
 
@@ -24,7 +25,7 @@ technicianRouter.post('/set-up-technician', technicianController.setUpTechnician
 
 // case
 technicianRouter.get('/get-all-cases', caseController.getAllCases);
-technicianRouter.get('/get-case-by-id', caseController.getCaseById);
+technicianRouter.get('/get-case-by-id/:id', caseController.getCaseById);
 
 // order
 

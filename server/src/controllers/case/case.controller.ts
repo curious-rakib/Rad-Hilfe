@@ -19,7 +19,7 @@ const createCase = async (req: Request, res: Response) => {
         return res.status(404).send('Cyclist not found.');
       }
 
-      const technicianId = new Types.ObjectId('64ce30a6a8cdaed3f4aab717');
+      const technicianId = new Types.ObjectId('64ce42ea789542ad94fa1988'); //need to add dynamic to it when chatbot decides which technician it will go to.
 
       const newCase = {
         cyclist: cyclist._id,
@@ -36,7 +36,7 @@ const createCase = async (req: Request, res: Response) => {
       };
 
       const createdCase = await createNewCase(newCase);
-      await cyclist.cases?.push(createdCase._id);
+      cyclist.cases?.push(createdCase._id);
       await cyclist.save();
       res.status(200).send(createdCase);
     } else {
@@ -52,6 +52,7 @@ const getAllCases = async (req: Request, res: Response) => {
   try {
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
+
     if (session) {
       const cases = await findAllCases(session.userEmail);
       res.status(200).send(cases);
@@ -70,4 +71,5 @@ const getCaseById = async (req: Request, res: Response) => {
     console.error('Could not get case!');
   }
 };
+
 export { createCase, getAllCases, getCaseById };

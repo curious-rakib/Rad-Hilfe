@@ -1,17 +1,18 @@
 [
   {
-    "_id": "64cbcf8e43f15baa70980484",
+    "_id": "64ce7964290f8264107ba546",
     "name": "BodyFrame",
     "price": 150,
     "depreciationRate": {
       "unpavedRoute": 2,
       "pavedRoute": 1
     },
-    "category": "Frame"
+    "category": "Frame",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa70980486",
-    "name": "Tyres",
+    "_id": "64ce7964290f8264107ba548",
+    "name": "TyresAndRim",
     "price": 30,
     "depreciationRate": {
       "unpavedRoute": 1,
@@ -21,59 +22,40 @@
     "plan": ["Qover"]
   },
   {
-    "_id": "64cbcf8e43f15baa70980488",
-    "name": "Rim",
-    "price": 20,
-    "depreciationRate": {
-      "unpavedRoute": 0.75,
-      "pavedRoute": 0.4
-    },
-    "category": "Wheel",
-    "plan": ["Qover"]
-  },
-  {
-    "_id": "64cbcf8e43f15baa7098048a",
+    "_id": "64ce7964290f8264107ba54a",
     "name": "Brakes",
     "price": 60,
     "depreciationRate": {
       "unpavedRoute": 1.5,
       "pavedRoute": 0.9
     },
-    "category": "Brake"
+    "category": "Brake",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa7098048c",
+    "_id": "64ce7964290f8264107ba54c",
     "name": "GearShifters",
     "price": 40,
     "depreciationRate": {
       "unpavedRoute": 1,
       "pavedRoute": 0.6
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa7098048e",
-    "name": "Hub",
-    "price": 15,
+    "_id": "64ce7964290f8264107ba54e",
+    "name": "HubAndDiscRotor",
+    "price": 45,
     "depreciationRate": {
       "unpavedRoute": 0.7,
       "pavedRoute": 0.35
     },
     "category": "DriveMechanics",
-    "plan": ["Qover"]
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa70980490",
-    "name": "DiscRotor",
-    "price": 30,
-    "depreciationRate": {
-      "unpavedRoute": 0.75,
-      "pavedRoute": 0.4
-    },
-    "category": "DriveMechanics"
-  },
-  {
-    "_id": "64cbcf8e43f15baa70980492",
+    "_id": "64ce7964290f8264107ba550",
     "name": "Chain",
     "price": 15,
     "depreciationRate": {
@@ -81,76 +63,72 @@
       "pavedRoute": 0.3
     },
     "category": "DriveMechanics",
-    "plan": ["Qover"]
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa70980494",
+    "_id": "64ce7964290f8264107ba552",
     "name": "CrankArm",
     "price": 10,
     "depreciationRate": {
       "unpavedRoute": 0.6,
       "pavedRoute": 0.3
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa70980496",
-    "name": "FrontDerailer",
+    "_id": "64ce7964290f8264107ba554",
+    "name": "FrontAndBackDerailleur",
     "price": 25,
     "depreciationRate": {
       "unpavedRoute": 0.75,
       "pavedRoute": 0.4
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa70980498",
-    "name": "RearDerailer",
-    "price": 30,
-    "depreciationRate": {
-      "unpavedRoute": 0.8,
-      "pavedRoute": 0.45
-    },
-    "category": "DriveMechanics"
-  },
-  {
-    "_id": "64cbcf8e43f15baa7098049a",
+    "_id": "64ce7964290f8264107ba556",
     "name": "Pedal",
     "price": 8,
     "depreciationRate": {
       "unpavedRoute": 0.3,
       "pavedRoute": 0.2
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": ["Qover"]
   },
   {
-    "_id": "64cbcf8e43f15baa7098049c",
+    "_id": "64ce7964290f8264107ba558",
     "name": "ChainRing",
     "price": 20,
     "depreciationRate": {
       "unpavedRoute": 0.5,
       "pavedRoute": 0.3
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa7098049e",
+    "_id": "64ce7964290f8264107ba55a",
     "name": "ChainStay",
     "price": 30,
     "depreciationRate": {
       "unpavedRoute": 0.75,
       "pavedRoute": 0.4
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   },
   {
-    "_id": "64cbcf8e43f15baa709804a0",
+    "_id": "64ce7964290f8264107ba55c",
     "name": "RearCasette",
     "price": 40,
     "depreciationRate": {
       "unpavedRoute": 0.8,
       "pavedRoute": 0.45
     },
-    "category": "DriveMechanics"
+    "category": "DriveMechanics",
+    "plan": []
   }
 ]

@@ -31,16 +31,17 @@ cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
 cyclistRouter.put('/set-up-bicycle-edit/:id', bicycleController.setUpBicycleEdit);
-cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth); //only average bicycle health
+cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth);
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
+
+// order
+cyclistRouter.get('/get-plan', orderController.getPlan);
+cyclistRouter.post('/create-order', orderController.setUpOrder);
 
 // case
 cyclistRouter.post('/create-case', caseController.createCase);
 cyclistRouter.get('/get-all-cases', caseController.getAllCases);
 cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
-// order
-cyclistRouter.get('/get-plan', orderController.getPlan);
-cyclistRouter.post('/create-order', orderController.setUpOrder);
 
 // subpart
 cyclistRouter.post('/add-subpart', subpartController.addSubpart);

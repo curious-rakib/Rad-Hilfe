@@ -12,7 +12,7 @@ interface Bicycle {
   dailyCommute: DailyCommute;
   recreationalCommute?: RecreationalCommute;
   bicycleParts?: BicycleParts[];
-  totalHealth: number;
+  totalHealth?: number;
 }
 
 interface DailyCommute {

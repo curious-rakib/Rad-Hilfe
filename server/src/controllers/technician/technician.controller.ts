@@ -152,7 +152,21 @@ const signOut = async (req: Request, res: Response) => {
   }
 };
 
-const setUpTechnician = async (req: Request, res: Response) => {};
+const setUpTechnician = async (req: Request, res: Response) => {
+  try {
+    const { imageUrl, address, phone, bicycleExpertise, componentExpertise } = req.body;
+    const setTechnician = { imageUrl, address, phone, bicycleExpertise, componentExpertise };
+
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+    if (session) {
+      // const newTechnician
+    } else throw new Error('Technician Not Found!');
+  } catch (error) {
+    console.error('Could not set up technician!');
+    res.status(501).send('Error while setting up technician.');
+  }
+};
 const editProfile = async (req: Request, res: Response) => {};
 
 export {

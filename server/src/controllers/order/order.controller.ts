@@ -3,8 +3,6 @@ import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 
 import { addOrder, createOrder, fetchCyclistPlan } from '../../models/order/order.query';
-import { Types } from '../../models/database';
-import { Order } from '../../interfaces/order.interface';
 
 const setUpOrder = async (req: Request, res: Response) => {
   try {
@@ -43,4 +41,5 @@ const getPlan = async (req: Request, res: Response) => {
     console.error('Could not get plan!');
   }
 };
+
 export { setUpOrder, getPlan };

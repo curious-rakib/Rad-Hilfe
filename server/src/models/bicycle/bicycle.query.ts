@@ -28,9 +28,19 @@ const findBicycleHealthById = async (bicycleId: Types.ObjectId) => {
   }
 };
 
-const updateBicycle = async (bicycle: Bicycle) => {
+const updateBicycle = async (bicycleId: Types.ObjectId, bicycle: Bicycle) => {
   try {
-    return await BicycleModel.create(bicycle);
+    const updatedBicycle = await BicycleModel.findOneAndUpdate(
+      { _id: bicycleId },
+      { $set: bicycle },
+      { new: true }
+    ).exec();
+
+    if (!updatedBicycle) {
+      throw new Error('Bicycle not found!');
+    }
+
+    return updatedBicycle;
   } catch (error) {
     console.error(error);
   }
