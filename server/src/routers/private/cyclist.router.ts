@@ -13,6 +13,7 @@ const cyclistRouter = Router();
 // public
 cyclistRouter.post('/sign-up', cyclistController.signUp);
 cyclistRouter.post('/sign-in', cyclistController.signIn);
+cyclistRouter.get('/sign-out', cyclistController.signOut);
 cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 

@@ -4,7 +4,7 @@ const router = Router();
 import { cyclistRouter } from './private/cyclist.router';
 import { technicianRouter } from './private/technician.router';
 
-router.use(cyclistRouter);
-router.use(technicianRouter);
+router.use('/cyclist', cyclistRouter);
+router.use('/technician', technicianRouter);
 
 export { router };

@@ -27,7 +27,6 @@ const signUp = async (req: Request, res: Response) => {
       name,
       email,
       password: hashedPassword,
-
       role,
     });
 
@@ -153,4 +152,16 @@ const signOut = async (req: Request, res: Response) => {
   }
 };
 
-export { signUp, signIn, forgotPassword, resetPassword, profile, signOut };
+const setUpTechnician = async (req: Request, res: Response) => {};
+const editProfile = async (req: Request, res: Response) => {};
+
+export {
+  signUp,
+  signIn,
+  forgotPassword,
+  resetPassword,
+  profile,
+  signOut,
+  setUpTechnician,
+  editProfile,
+};
