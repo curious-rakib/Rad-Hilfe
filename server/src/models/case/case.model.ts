@@ -11,11 +11,11 @@ const caseSchema = new Schema({
   bicycle: { type: Schema.Types.ObjectId, ref: 'BicycleModel', required: true },
   type: { type: String, required: true },
   tags: [{ type: String }],
-  order: [{ type: Schema.Types.ObjectId, ref: 'OrderModel' }],
+  order: { type: Schema.Types.ObjectId, ref: 'OrderModel' },
   note: [noteSchema],
-  timestamp: { type: Date, required: true },
+  timeStamp: { type: Date, required: true },
   interventionDetails: interventionDertailsSchema,
-  VideoURL: { type: String },
+  videoURL: { type: String },
 });
 
 const CaseModel = model<Case>('Case', caseSchema);

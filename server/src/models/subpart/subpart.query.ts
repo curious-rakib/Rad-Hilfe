@@ -1,8 +1,8 @@
 import { SubpartModel } from './subpart.model';
-import { SubPart } from '../../interfaces/subpart.interface';
+import { Subpart } from '../../interfaces/subpart.interface';
 import { Types } from '../database';
 
-const addAllSubpart = async (subparts: SubPart[]) => {
+const addAllSubpart = async (subparts: Subpart[]) => {
   try {
     return await SubpartModel.insertMany(subparts);
   } catch (error) {

@@ -11,8 +11,8 @@ interface Bicycle {
   revisionYear?: number;
   dailyCommute: DailyCommute;
   recreationalCommute?: RecreationalCommute;
-  bicycleParts?: BicycleParts;
-  totalHealth?: number;
+  bicycleParts?: BicycleParts[];
+  totalHealth: number;
 }
 
 interface DailyCommute {
@@ -28,10 +28,9 @@ interface RecreationalCommute {
 }
 
 interface BicycleParts {
-  name: string;
-  subPart: Types.ObjectId;
+  subpart: Types.ObjectId;
   health: number;
   lastMaintained: Date;
 }
 
-export { Bicycle };
+export { Bicycle, BicycleParts };

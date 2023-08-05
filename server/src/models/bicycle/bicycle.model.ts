@@ -1,8 +1,15 @@
-import { Bicycle } from '../../interfaces/bicycle.interface';
 import { Schema, Types, model } from '../database';
-import { bicyclePartsSchema } from './bicyclePart.schema';
+import { Bicycle, BicycleParts } from '../../interfaces/bicycle.interface';
+import bicycleSubparts from './subparts.json';
 import { dailyCommuteSchema } from './dailyCommute.schema';
 import { recreationalCommuteSchema } from './recreationalCommute.schema';
+import { bicyclePartsSchema } from './bicyclePart.schema';
+
+const bicyclePartDefaults: BicycleParts[] = bicycleSubparts.map((bicycleSubpart) => ({
+  subpart: new Types.ObjectId(bicycleSubpart._id),
+  health: 100,
+  lastMaintained: new Date(),
+}));
 
 const bicycleSchema = new Schema({
   brand: { type: String, required: true },
@@ -15,7 +22,11 @@ const bicycleSchema = new Schema({
   revisionYear: { type: Number },
   dailyCommute: dailyCommuteSchema,
   recreationalCommute: recreationalCommuteSchema,
-  bicycleParts: bicyclePartsSchema,
+  bicycleParts: {
+    type: [bicyclePartsSchema],
+    default: bicyclePartDefaults,
+  },
+
   totalHealth: { type: Number, default: 100, required: true },
 });
 

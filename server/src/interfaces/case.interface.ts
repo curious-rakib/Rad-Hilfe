@@ -3,14 +3,16 @@ import { Types } from '../models/database';
 interface Case {
   caseNumber?: number;
   status: string;
-  cyclist: Types.ObjectId;
-  technician: Types.ObjectId;
+  cyclist: Types.ObjectId | undefined;
+  technician: Types.ObjectId | undefined;
+  bicycle: Types.ObjectId | undefined;
   type: string;
   tags: string[];
   order?: Types.ObjectId;
   note?: Note[];
-  timestamp: Date;
+  timeStamp: Date;
   interventionDetails: InterventionDetails;
+  videoURL: string;
 }
 
 interface Note {

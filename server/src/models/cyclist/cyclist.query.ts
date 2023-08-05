@@ -1,4 +1,5 @@
 import { Cyclist } from '../../interfaces/cyclist.interface';
+import { Types } from '../database';
 import { CyclistModel } from './cyclist.model';
 
 const createCyclist = async (cyclistDetails: Cyclist) => {
@@ -27,7 +28,10 @@ const updateCyclistPassword = async (email: string, newPassword: string) => {
 
 const addCyclistAddress = async (email: string, homeAddress: string, workAddress: string) => {
   try {
-    return await CyclistModel.findOneAndUpdate({ email: email }, { homeAddress, workAddress });
+    return await CyclistModel.findOneAndUpdate(
+      { email: email },
+      { homeAddress: homeAddress, workAddress: workAddress }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +39,15 @@ const addCyclistAddress = async (email: string, homeAddress: string, workAddress
 
 const addCyclistPlan = async (email: string, plan: string) => {
   try {
-    return await CyclistModel.findOneAndUpdate({ email: email }, { plan });
+    return await CyclistModel.findOneAndUpdate({ email: email }, { plan: plan });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const addBicycle = async (email: string, bicycleId: Types.ObjectId) => {
+  try {
+    return await CyclistModel.findOneAndUpdate({ email: email }, { bicycle: bicycleId });
   } catch (error) {
     console.log(error);
   }
@@ -47,4 +59,5 @@ export {
   updateCyclistPassword,
   addCyclistAddress,
   addCyclistPlan,
+  addBicycle,
 };
