@@ -5,6 +5,8 @@ import { cyclistAuthorizer } from '../../middlewares/authorizer';
 import * as cyclistController from '../../controllers/cyclist/cyclist.controller';
 import * as bicycleController from '../../controllers/bicycle/bicycle.controller';
 import * as subpartController from '../../controllers/subpart/subpart.controller';
+import * as caseController from '../../controllers/case/case.controller';
+import * as orderController from '../../controllers/order/order.controller';
 
 const cyclistRouter = Router();
 
@@ -32,12 +34,12 @@ cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth); //
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
 
 // case
-cyclistRouter.get('/create-case');
-cyclistRouter.get('/get-all-cases');
-cyclistRouter.get('/get-case-by-id');
+cyclistRouter.get('/create-case', caseController.createCase);
+cyclistRouter.get('/get-all-cases', caseController.getAllCases);
+cyclistRouter.get('/get-case-by-id', caseController.getCaseById);
 // order
-cyclistRouter.get('/get-plan');
-cyclistRouter.post('/order');
+cyclistRouter.get('/get-plan', orderController.getPlan);
+cyclistRouter.post('/create-order', orderController.createOrder);
 
 // subpart
 cyclistRouter.post('/add-subpart', subpartController.addSubpart);
