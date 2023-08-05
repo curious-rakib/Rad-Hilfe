@@ -18,4 +18,22 @@ const findBicycleById = async (bicycleId: Types.ObjectId) => {
   }
 };
 
-export { createBicycle, findBicycleById };
+const findBicycleHealthById = async (bicycleId: Types.ObjectId) => {
+  try {
+    const bicycle = await BicycleModel.findById({ _id: bicycleId }, { totalHealth: 1 });
+    if (bicycle) return bicycle;
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const updateBicycle = async (bicycle: Bicycle) => {
+  try {
+    return await BicycleModel.create(bicycle);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { createBicycle, findBicycleById, findBicycleHealthById, updateBicycle };

@@ -29,7 +29,7 @@ cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
-cyclistRouter.put('/set-up-bicycle-edit');
+cyclistRouter.put('/set-up-bicycle-edit/:id', bicycleController.setUpBicycleEdit);
 cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth); //only average bicycle health
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
 

@@ -7,41 +7,47 @@ import { Types } from '../../models/database';
 
 const createCase = async (req: Request, res: Response) => {
   try {
-    const {
-      status = 'Ongoing',
-      type,
-      tags,
-      note,
-      timeStamp = new Date(),
-      interventionDetails,
-      videoURL,
-    } = req.body;
+    const { type, tags, note, interventionDetails, videoURL } = req.body;
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
+
     if (session) {
       const cyclist = await findCyclistByEmail(session.userEmail);
 
+      if (!cyclist) {
+        return res.status(404).send('Cyclist not found.');
+      }
+
+      const technicianId = new Types.ObjectId('64ce30a6a8cdaed3f4aab717');
+
       const newCase = {
-        cyclist: cyclist!._id,
-        bicycle: cyclist!.bicycle,
-        technician: new Types.ObjectId('64ce1824a26db125000ee5b8'),
-        order: new Types.ObjectId('64ce1836a26db125000ee5b9'),
-        status,
+        cyclist: cyclist._id,
+        bicycle: cyclist.bicycle,
+        technician: technicianId,
+        // order: cyclist.orders![cyclist.orders!.length - 1]!._id, have to fix this issue
+        status: 'Ongoing',
         type,
         tags,
         note,
-        timeStamp,
+        timeStamp: new Date(),
         interventionDetails,
         videoURL,
       };
+
       const createdCase = await createNewCase(newCase);
-      res.status(200).send(createCase);
+      await cyclist.cases?.push(createdCase._id);
+      await cyclist.save();
+      res.status(200).send(createdCase);
+    } else {
+      return res.status(401).send('Unauthorized');
     }
   } catch (error) {
-    console.error('Creating case failed!');
+    console.error('Creating case failed!', error);
+    res.status(501).send('Creating case failed!');
   }
 };
+
 const getAllCases = async (req: Request, res: Response) => {
   try {
     const token = req.cookies.accessToken;

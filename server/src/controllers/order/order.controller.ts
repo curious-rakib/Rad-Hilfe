@@ -2,7 +2,9 @@ import { Request, Response } from 'express';
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 
-import { createOrder, fetchCyclistPlan } from '../../models/order/order.query';
+import { addOrder, createOrder, fetchCyclistPlan } from '../../models/order/order.query';
+import { Types } from '../../models/database';
+import { Order } from '../../interfaces/order.interface';
 
 const setUpOrder = async (req: Request, res: Response) => {
   try {
@@ -16,7 +18,14 @@ const setUpOrder = async (req: Request, res: Response) => {
       totalPrice,
     };
     const createdOrder = await createOrder(newOrder);
-    res.status(201).send(createdOrder);
+
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+    if (session) {
+      const orderId = createdOrder!._id;
+      await addOrder(session.userEmail, orderId);
+      res.status(201).send(createdOrder);
+    } else throw new Error('Session Unavailable!');
   } catch (error) {
     console.error('Creating order failed!');
   }

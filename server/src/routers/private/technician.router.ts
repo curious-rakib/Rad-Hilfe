@@ -8,24 +8,24 @@ import * as technicianController from '../../controllers/technician/technician.c
 const technicianRouter = Router();
 
 // public
-technicianRouter.post('/sign-up', technicianController.signUp);
-technicianRouter.post('/sign-in', technicianController.signIn);
-technicianRouter.post('/forgot-password', technicianController.forgotPassword);
-technicianRouter.post('/reset-password', technicianController.resetPassword);
+technicianRouter.post('/technician/sign-up', technicianController.signUp);
+technicianRouter.post('/technician/sign-in', technicianController.signIn);
+technicianRouter.post('/technician/forgot-password', technicianController.forgotPassword);
+technicianRouter.post('/technician/reset-password', technicianController.resetPassword);
 
 // private router
 // cyclistRouter.use(authenticator, technicianAuthorizer);
 
 // technician
-technicianRouter.get('/profile', technicianController.profile);
-technicianRouter.put('/profile-edit');
-technicianRouter.post('/set-up-technician');
+technicianRouter.get('/technician/profile', technicianController.profile);
+technicianRouter.put('/technician/profile-edit');
+technicianRouter.post('/technician/set-up-technician');
 
 // bicycle
 
 // case
-technicianRouter.get('/get-all-cases');
-technicianRouter.get('/get-case-by-id');
+technicianRouter.get('/technician/get-all-cases');
+technicianRouter.get('/technician/get-case-by-id');
 
 // order
 
