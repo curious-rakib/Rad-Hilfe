@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { SessionData } from '../interfaces/session.interface';
-import { getSession } from './../middlewares/sessionManagement';
+import { getSession } from './sessionManagement';
 import { findCyclistByEmail } from '../models/cyclist/cyclist.query';
+import { findTechnicianByEmail } from '../models/technician/technician.query';
 
 const cyclistAuthorizer = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.accessToken;
@@ -16,12 +17,12 @@ const cyclistAuthorizer = async (req: Request, res: Response, next: NextFunction
   } else res.status(404).send('You are not authorized !!!');
 };
 
-const techniciarAuthorizer = async (req: Request, res: Response, next: NextFunction) => {
+const technicianAuthorizer = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies.accessToken;
   const session: SessionData | undefined = getSession(token);
 
   if (session) {
-    const user = await findCyclistByEmail(session.userEmail);
+    const user = await findTechnicianByEmail(session.userEmail);
 
     if (user && user.role === 'technician') {
       next();
@@ -29,4 +30,4 @@ const techniciarAuthorizer = async (req: Request, res: Response, next: NextFunct
   } else res.status(404).send('You are not authorized !!!');
 };
 
-export { cyclistAuthorizer, techniciarAuthorizer };
+export { cyclistAuthorizer, technicianAuthorizer };
