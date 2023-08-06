@@ -1,10 +1,12 @@
-import React from 'react'
-import { Flex, Box } from '@chakra-ui/react'
+import { Flex, Box, VStack, HStack, Text, Image } from '@chakra-ui/react'
 import { useDisclosure } from "@chakra-ui/react";
 import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import caseCyclist from '../../assets/cases-cyclist.svg'
+import maintenance from '../../assets/maintence.svg'
+import profile from '../../assets/profile.svg'
 import { themes } from '../../data/navbarTheme';
 import { themeCollections } from '../../data/navbarTheme';
 function Navbar({ theme }: { theme: keyof themeCollections }) {
@@ -38,7 +40,26 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
                 }}
 
             >
-                <Box p={'3vh 4vw 3vh 4vw'} ><CloseIcon color={themes[theme].cross} fontSize='xx-large' {...getButtonProps()} /></Box>
+                <Box p={'3vh 4vw 3vh 4vw'} ><CloseIcon color={themes[theme].cross} fontSize='xx-large' {...getButtonProps()} />
+
+                    <VStack>
+                        <HStack>
+                            <Image src={caseCyclist} />
+                            <Text fontWeight={'bold'}>Cases</Text>
+                        </HStack>
+                        <br />
+                        <HStack>
+                            <Image src={maintenance} />
+                            <Text fontWeight={'bold'}>Maintenance</Text>
+                        </HStack>
+                        <br />
+                        <HStack>
+                            <Image src={profile} />
+                            <Text fontWeight={'bold'}>Profile</Text>
+                        </HStack>
+                    </VStack>
+
+                </Box>
             </motion.div >
             <div>
                 <Outlet />

@@ -9,7 +9,8 @@ const InputField = ({
   onChange,
   name,
   borderColor,
-  _placeholder
+  _placeholder,
+  color
 }: {
   id: string;
   isRequired: boolean;
@@ -21,7 +22,8 @@ const InputField = ({
   _placeholder?: {
     color: string,
     opacity: string
-  }
+  };
+  color: string
 }) => {
   return (
     <Box>
@@ -31,6 +33,7 @@ const InputField = ({
           placeholder={placeholder}
           rounded={'xl'}
           onChange={onChange}
+          color={color}
           name={name}
           borderColor={borderColor}
           _placeholder={_placeholder}

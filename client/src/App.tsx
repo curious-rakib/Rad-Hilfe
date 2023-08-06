@@ -1,7 +1,4 @@
-
-
 import './App.css';
-
 import Login from './pages/Login/Login.pages'
 import SignUp from './pages/SignUp/SignUp.pages'
 import {
@@ -11,9 +8,7 @@ import {
   Link
 } from 'react-router-dom';
 import SetupDailyRoute from './pages/SetupDailyRoute';
-
 import SetupBikeDetails from './pages/SetupBikeDetails';
-
 import SetupDailyCommute from './pages/SetupDailyCommute';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute/index';
 import HealthBar from './pages/HealthBar';
@@ -24,9 +19,14 @@ import DelivaryDetails from './pages/DelivaryDetails';
 import Navbar from './components/Navbar';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import Cart from './pages/Cart';
+import Cases from './pages/Dashboard/Cases';
+
+
+
+
+
+
 function App() {
-
-
   return (
     <>
       <Router>
@@ -38,21 +38,28 @@ function App() {
           <Route path="/setup-bike-details" element={<SetupBikeDetails />} />
           <Route path='/setup-commute-details' element={<SetupDailyCommute />} />
           <Route path='/setup-recreation-details' element={<SetupRecreationalCommute />} />
+        </Routes>
 
+        <Routes >
           <Route element={<Navbar theme='secondary' />}>
             <Route path='/bike-health' element={<HealthBar />} />
-
-
             <Route path='/delivery-details' element={<DelivaryDetails />} />
             <Route path='/expert-call' element={<SetUpExpertCall />} />
             <Route path='/cart' element={<Cart />}></Route>
           </Route>
+        </Routes >
+
+        <Routes>
           <Route element={<Navbar theme='third' />}>
 
             <Route path='/care-plan' element={<CarePlan />} />
             <Route path='/my-bike' element={<MyBike />} />
 
           </Route>
+        </Routes>
+
+        <Routes>
+          <Route path='/cases' element={<Cases />}></Route>
         </Routes>
 
       </Router>

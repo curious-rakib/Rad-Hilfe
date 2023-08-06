@@ -107,7 +107,7 @@ const Cart = () => {
                     w='200px'
                     color='secondary'
                     mt={'40px'}
-                    borderRadius={16}
+                    borderRadius={12}
                     fontWeight={'bold'}
                 >
                     Buy now | €500

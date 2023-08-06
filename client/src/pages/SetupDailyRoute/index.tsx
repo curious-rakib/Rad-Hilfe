@@ -15,6 +15,7 @@ function SetupDailyRoute() {
     const mapContainerRef = useRef<HTMLDivElement>(null);
     const mapRef = useRef<Map | null>(null);
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
+    console.log(isOpen)
     const [hidden, setHidden] = useState(!isOpen);
 
     mapboxgl.accessToken = config.mapboxAccess;
@@ -48,9 +49,9 @@ function SetupDailyRoute() {
                 {...getDisclosureProps()}
                 hidden={hidden}
                 initial={true}
-                onAnimationStart={() => setHidden(false)}
-                onAnimationComplete={() => setHidden(!isOpen)}
-                animate={{ height: isOpen ? 250 : 0 }}
+                onAnimationStart={() => setHidden(true)}
+                onAnimationComplete={() => setHidden(isOpen)}
+                animate={{ height: isOpen ? 0 : '35vh' }}
                 style={{
 
                     overflow: "hidden",
@@ -58,8 +59,8 @@ function SetupDailyRoute() {
                     position: "absolute",
                     right: "0",
                     width: "100vw",
-                    top: "0",
-                    zIndex: 100
+                    bottom: 0,
+                    zIndex: 200
                 }}
 
             >
@@ -71,17 +72,18 @@ function SetupDailyRoute() {
                         right: 0,
                         position: 'absolute',
                         width: '100%',
-                        height: '40%',
+                        height: '35vh',
                         backgroundColor: '#001F3F',
-                        zIndex: 1
+                        zIndex: 200,
+
                     }}
 
                 >
-                    <Text color={'accent'}>Your daily commute details</Text>
+                    <Text color={'accent'} >Your daily commute details</Text>
                     <HomeOfficeAddressLayOver />
                 </Stack>
             </motion.div >
-        </VStack>
+        </VStack >
     );
 }
 
