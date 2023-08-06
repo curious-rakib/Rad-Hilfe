@@ -22,6 +22,7 @@ function HomeOfficeAddressLayover() {
                 onChange={handleChange}
                 name='home'
                 borderColor='accent'
+                color="accent"
 
             />
             <InputField
@@ -32,6 +33,7 @@ function HomeOfficeAddressLayover() {
                 onChange={handleChange}
                 name='work'
                 borderColor='accent'
+                color="accent"
             />
 
             <Center>

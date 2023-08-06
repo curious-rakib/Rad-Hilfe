@@ -1,4 +1,4 @@
-import { Container, Center, Flex, Grid, GridItem, Text, Box } from '@chakra-ui/react';
+import { Container, Flex, Grid, GridItem, Text, Box } from '@chakra-ui/react';
 import Cards from '../../components/Cards';
 import { FaCloud } from 'react-icons/fa'
 
@@ -9,7 +9,7 @@ const Home = () => {
         <Container p={4}>
             <Box mt={32}>
                 <Text textStyle='h2' color='accent'>
-                    Good Morning, <br /> Urich
+                    Good Morning, <br /> Ulrich
                 </Text>
                 <Flex
                     justifyContent={'space-between'}

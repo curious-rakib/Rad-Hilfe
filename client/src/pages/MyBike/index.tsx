@@ -21,7 +21,7 @@ import ReplaceButton from '../../components/ReplaceButton';
 const MyBike = () => {
     return (
         <Box bg='third'>
-            <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='60vh' pl={3} >
+            <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='57vh' pl={3} >
                 <GridItem w='100%' h={'100px'} ><Stack spacing={4} color={'secondary'}>
                     {' '}
                     <Box mt={"100px"}>
@@ -47,31 +47,9 @@ const MyBike = () => {
                 </GridItem>
 
             </Grid>
-            {/* <Flex h='50vh' justifyContent={'center'} alignItems={'center'}>
-                <Stack spacing={4} color={'secondary'}>
-                    {' '}
-                    <Box>
-                        <Text fontWeight='' >Bike Brand</Text>
-                        <Text textStyle='h3'>Cannonadale</Text>
-                    </Box>
-                    <Box>
-                        <Text fontWeight=''>Bike Model</Text>
-                        <Text textStyle='h3'>Quest</Text>
-                    </Box>
-                    <Box>
-                        <Text fontWeight=''>Serial Number</Text>
-                        <Text textStyle='h3'>CND765678</Text>
-                    </Box>
-                    <Box>
-                        <Text fontWeight=''>Start Date</Text>
-                        <Text textStyle='h3'>07 Aug 2020</Text>
-                    </Box>
-                </Stack>
 
-                <Image src={bike} boxSize='380px' />
-            </Flex> */}
-            <Stack bg={'secondary'} h='40vh' rounded={'30'} p={6}>
-                <Flex>
+            <Stack bg={'secondary'} h='43vh' rounded={'30'} p={6}>
+                <Flex mt={'30px'}>
                     <Text color={'accent'} mr={2} textStyle={'h3'}>
                         My bike's health{' '}
                     </Text>
@@ -87,7 +65,7 @@ const MyBike = () => {
                     </ChakraLink> */}
 
                 </Text>
-                <Center mt={5}>
+                <Center mt={"-10px"}>
                     <ReplaceButton
                         loadingText='Submitting'
                         size='lg'
