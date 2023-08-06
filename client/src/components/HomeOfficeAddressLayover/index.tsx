@@ -4,7 +4,7 @@ import { Box, Center, Flex, Stack } from "@chakra-ui/react"
 
 import InputField from "../InputField"
 import SubmitButton from "../Button"
-function HomeOfficeAddressLayover() {
+function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
     const handleChange = () => {
 
     }
@@ -23,6 +23,7 @@ function HomeOfficeAddressLayover() {
                 name='home'
                 borderColor='accent'
                 color="accent"
+                onToggle={onToggle}
 
             />
             <InputField
@@ -34,6 +35,8 @@ function HomeOfficeAddressLayover() {
                 name='work'
                 borderColor='accent'
                 color="accent"
+                onToggle={onToggle}
+
             />
 
             <Center>

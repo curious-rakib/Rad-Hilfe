@@ -4,6 +4,7 @@ import {
     RadialBar,
     Legend,
     ResponsiveContainer,
+
 } from "recharts";
 import { Flex } from '@chakra-ui/react';
 import { radialHealthData } from '../../data/radialHealthData';
@@ -12,22 +13,15 @@ import { radialHealthData } from '../../data/radialHealthData';
 const HealthRadialChart = () => {
 
 
-
-    const style = {
-        top: "50%",
-
-        transform: "translate(0, 0)",
-        lineHeight: "30px",
-    };
-
     return (
         <>
 
             <Flex alignItems={"center"} width={'100vw'}>
+
                 <RadialBarChart
-                    width={500}
+                    width={350}
                     height={290}
-                    cx={190}
+                    cx={210}
                     cy={150}
                     innerRadius={50}
                     outerRadius={140}
@@ -51,6 +45,7 @@ const HealthRadialChart = () => {
                         wrapperStyle={style}
                     /> */}
                 </RadialBarChart>
+
             </Flex>
         </>
     );

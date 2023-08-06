@@ -109,7 +109,7 @@ export const parts = [
   },
   {
     _id: '64ce7964290f8264107ba558',
-    name: 'ChainRing',
+    name: 'Chain Ring',
     price: 20,
     depreciationRate: {
       unpavedRoute: 0.5,
@@ -121,7 +121,7 @@ export const parts = [
   },
   {
     _id: '64ce7964290f8264107ba55a',
-    name: 'ChainStay',
+    name: 'Chain Stay',
     price: 30,
     depreciationRate: {
       unpavedRoute: 0.75,

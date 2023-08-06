@@ -1,4 +1,7 @@
+
+
 import './App.css';
+
 import Login from './pages/Login/Login.pages'
 import SignUp from './pages/SignUp/SignUp.pages'
 import {
@@ -8,7 +11,9 @@ import {
   Link
 } from 'react-router-dom';
 import SetupDailyRoute from './pages/SetupDailyRoute';
+
 import SetupBikeDetails from './pages/SetupBikeDetails';
+
 import SetupDailyCommute from './pages/SetupDailyCommute';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute/index';
 import HealthBar from './pages/HealthBar';
@@ -20,13 +25,11 @@ import Navbar from './components/Navbar';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import Cart from './pages/Cart';
 import Cases from './pages/Dashboard/Cases';
-
-
-
-
-
-
+import CyclistTabCases from './pages/CyclistTabCases';
+import IndividualCyclistCase from './pages/IndividualCyclistCase';
 function App() {
+
+
   return (
     <>
       <Router>
@@ -38,18 +41,17 @@ function App() {
           <Route path="/setup-bike-details" element={<SetupBikeDetails />} />
           <Route path='/setup-commute-details' element={<SetupDailyCommute />} />
           <Route path='/setup-recreation-details' element={<SetupRecreationalCommute />} />
-        </Routes>
 
-        <Routes >
           <Route element={<Navbar theme='secondary' />}>
             <Route path='/bike-health' element={<HealthBar />} />
+
+
             <Route path='/delivery-details' element={<DelivaryDetails />} />
             <Route path='/expert-call' element={<SetUpExpertCall />} />
             <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
+            <Route path='/individual-cyclist-case' element={<IndividualCyclistCase />}></Route>
           </Route>
-        </Routes >
-
-        <Routes>
           <Route element={<Navbar theme='third' />}>
 
             <Route path='/care-plan' element={<CarePlan />} />
@@ -59,7 +61,9 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path='/cases' element={<Cases />}></Route>
+          <Route
+            path='/cases' element={<Cases />}>
+          </Route>
         </Routes>
 
       </Router>

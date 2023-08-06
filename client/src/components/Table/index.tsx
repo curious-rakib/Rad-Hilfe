@@ -1,9 +1,9 @@
-import { TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/table"
+import { TableCaption, Table, Tbody, Td, Tfoot, Th, Thead, Tr, TableContainer } from "@chakra-ui/table"
 
 
-const Table = () => {
+const TableComponent = () => {
     return (
-        <>
+        <div>
             <TableContainer>
                 <Table variant='simple'>
                     <TableCaption>Imperial to metric conversion factors</TableCaption>
@@ -40,8 +40,8 @@ const Table = () => {
                     </Tfoot>
                 </Table>
             </TableContainer>
-        </>
+        </div>
     )
 }
 
-export default Table
+export default TableComponent

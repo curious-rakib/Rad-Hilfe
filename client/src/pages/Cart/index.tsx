@@ -106,7 +106,7 @@ const Cart = () => {
                     bg='accent'
                     w='200px'
                     color='secondary'
-                    mt={'40px'}
+                    mt={'120px'}
                     borderRadius={12}
                     fontWeight={'bold'}
                 >
