@@ -6,264 +6,239 @@ import { OTP } from '../../interfaces/account.interface';
 
 import { getSession, createSession, destroySession } from '../../middlewares/sessionManagement';
 import { sendOTP } from './mailer.controller';
-import {
-  addCyclistAddress,
-  addCyclistPlan,
-  createCyclist,
-  findCyclistByEmail,
-  updateCyclistPassword,
-} from '../../models/cyclist/cyclist.query';
+import { addCyclistAddress, addCyclistPlan, createCyclist, findCyclistByEmail, updateCyclistPassword } from '../../models/cyclist/cyclist.query';
 import { getWeatherData } from '../../apis/weather.apis';
 
 let storedOTP: OTP | null = null;
 
 const signUp = async (req: Request, res: Response) => {
-  try {
-    const {
-      name,
-      email,
-      password,
-      phone,
-      role = 'cyclist',
-      plan = 'basic',
-      homeAddress = '',
-      workAddress = '',
-    } = req.body;
+	try {
+		const { name, email, password, phone, role = 'cyclist', plan = 'basic', homeAddress = '', workAddress = '' } = req.body;
 
-    if (await findCyclistByEmail(email)) {
-      return res.status(401).send('Email already exists!');
-    }
+		if (await findCyclistByEmail(email)) {
+			return res.status(401).send('Email already exists!');
+		}
 
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+		const saltRounds = 10;
+		const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    const newCyclist = await createCyclist({
-      name,
-      email,
-      password: hashedPassword,
-      phone,
-      role,
-      plan,
-      homeAddress,
-      workAddress,
-    });
+		const newCyclist = await createCyclist({
+			name,
+			email,
+			password: hashedPassword,
+			phone,
+			role,
+			plan,
+			homeAddress,
+			workAddress,
+		});
 
-    res.status(200).send(newCyclist);
-  } catch (error) {
-    res.status(500).send('Failed to sign up');
-  }
+		res.status(200).send(newCyclist);
+	} catch (error) {
+		res.status(500).send('Server Error!');
+	}
 };
 
 const signIn = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body;
+	try {
+		const { email, password } = req.body;
 
-    const cyclist = await findCyclistByEmail(email);
+		const cyclist = await findCyclistByEmail(email);
 
-    if (!cyclist) {
-      res.status(400).send('There is no user with that email!');
-      return;
-    }
+		if (!cyclist) {
+			res.status(400).send('There is no user with that email!');
+			return;
+		}
 
-    const isCredentialsOk = await bcrypt.compare(password, cyclist.password);
+		const isCredentialsOk = await bcrypt.compare(password, cyclist.password);
 
-    if (!isCredentialsOk) {
-      res.status(401).send('Invalid password!');
-      return;
-    }
+		if (!isCredentialsOk) {
+			res.status(401).send('Invalid password!');
+			return;
+		}
 
-    const token = createSession(email);
-    res.cookie('accessToken', token, {
-      httpOnly: false,
-      secure: false,
-      sameSite: 'strict',
-    });
+		const token = createSession(email);
+		res.cookie('accessToken', token, {
+			httpOnly: false,
+			secure: false,
+			sameSite: 'strict',
+		});
 
-    res.status(200).send({ accessToken: token });
-  } catch (error) {
-    console.log(error);
-    res.status(500);
-  }
+		res.status(200).send({ accessToken: token });
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const forgotPassword = async (req: Request, res: Response) => {
-  try {
-    const { email } = req.body;
+	try {
+		const { email } = req.body;
 
-    const cyclist = await findCyclistByEmail(email);
+		const cyclist = await findCyclistByEmail(email);
 
-    if (!cyclist) {
-      res.status(400).send('There is no user with that email!');
-      return;
-    }
+		if (!cyclist) {
+			res.status(400).send('There is no user with that email!');
+			return;
+		}
 
-    const otp = Math.floor(Math.random() * 10000).toString();
-    storedOTP = { email, otp };
+		const otp = Math.floor(Math.random() * 10000).toString();
+		storedOTP = { email, otp };
 
-    const { name } = cyclist;
+		const { name } = cyclist;
 
-    await sendOTP(name, email, otp);
+		await sendOTP(name, email, otp);
 
-    res.status(200).send('OTP has been sent to your email!');
-  } catch (error) {
-    res.status(500);
-    console.log(error);
-  }
+		res.status(200).send('OTP has been sent to your email!');
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const resetPassword = async (req: Request, res: Response) => {
-  try {
-    const { email, newPassword, otp } = req.body;
+	try {
+		const { email, newPassword, otp } = req.body;
 
-    if (!storedOTP || storedOTP.email !== email || storedOTP.otp !== otp) {
-      res.status(400).send('Invalid OTP or email!');
-      return;
-    }
+		if (!storedOTP || storedOTP.email !== email || storedOTP.otp !== otp) {
+			res.status(400).send('Invalid OTP or email!');
+			return;
+		}
 
-    const cyclist = await findCyclistByEmail(email);
+		const cyclist = await findCyclistByEmail(email);
 
-    if (!cyclist) {
-      res.status(400).send('There is no user with that email!');
-      return;
-    }
+		if (!cyclist) {
+			res.status(400).send('There is no user with that email!');
+			return;
+		}
 
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+		const saltRounds = 10;
+		const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-    await updateCyclistPassword(email, hashedPassword);
-    storedOTP = null;
+		await updateCyclistPassword(email, hashedPassword);
+		storedOTP = null;
 
-    res.status(200).send('Password has been reset successfully!');
-  } catch (error) {
-    res.status(500);
-    console.log(error);
-  }
+		res.status(200).send('Password has been reset successfully!');
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const profile = async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies.accessToken;
-    const session: SessionData | undefined = getSession(token);
+	try {
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      const cyclist = await findCyclistByEmail(session.userEmail);
-      res.status(200).send(cyclist);
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+		if (session) {
+			const cyclist = await findCyclistByEmail(session.userEmail);
+			res.status(200).send(cyclist);
+			return;
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const signOut = async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies.accessToken;
-    if (!destroySession(token)) {
-      res.status(400).send('No session to logout.');
-      return;
-    }
+	try {
+		const token = req.cookies.accessToken;
+		if (!destroySession(token)) {
+			res.status(400).send('No session to logout.');
+			return;
+		}
 
-    res.status(200).send('successfully logged out!');
-  } catch (error) {
-    res.status(500);
-    console.log(error);
-  }
+		res.status(200).send('successfully logged out!');
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const setUpAddress = async (req: Request, res: Response) => {
-  try {
-    const { homeAddress, workAddress } = req.body;
+	try {
+		const { homeAddress, workAddress } = req.body;
 
-    const token = req.cookies.accessToken;
-    const session: SessionData | undefined = getSession(token);
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      await addCyclistAddress(session.userEmail, homeAddress, workAddress);
+		if (session) {
+			await addCyclistAddress(session.userEmail, homeAddress, workAddress);
 
-      res.status(200).send('Home address and work address added');
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error!');
-  }
+			res.status(200).send('Home address and work address added');
+			return;
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const setUpAddressEdit = async (req: Request, res: Response) => {
-  try {
-    const { homeAddress, workAddress } = req.body;
+	try {
+		const { homeAddress, workAddress } = req.body;
 
-    const token = req.cookies.accessToken;
-    const session: SessionData | undefined = getSession(token);
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      await addCyclistAddress(session.userEmail, homeAddress, workAddress);
+		if (session) {
+			await addCyclistAddress(session.userEmail, homeAddress, workAddress);
 
-      res.status(200).send('Home address and work address added');
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error!');
-  }
+			res.status(200).send('Home address and work address added');
+			return;
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const weatherData = async (req: Request, res: Response) => {
-  try {
-    const { longitude, latitude } = req.body;
+	try {
+		const { longitude, latitude } = req.body;
 
-    const weatherData = await getWeatherData(Number(longitude), Number(latitude));
+		const weatherData = await getWeatherData(Number(longitude), Number(latitude));
 
-    res.status(200).send(weatherData);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Server Error!');
-  }
+		res.status(200).send(weatherData);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
 const cyclistName = async (req: Request, res: Response) => {
-  try {
-    const token = req.cookies.accessToken;
-    const session: SessionData | undefined = getSession(token);
+	try {
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      const cyclist = await findCyclistByEmail(session.userEmail);
-      res.status(200).send(cyclist && cyclist.name);
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+		if (session) {
+			const cyclist = await findCyclistByEmail(session.userEmail);
+			res.status(200).send(cyclist && cyclist.name);
+			return;
+		}
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const selectPlan = async (req: Request, res: Response) => {
-  try {
-    const { plan } = req.body;
+	try {
+		const { plan } = req.body;
 
-    const token = req.cookies.accessToken;
-    const session: SessionData | undefined = getSession(token);
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      await addCyclistPlan(session.userEmail, plan);
+		if (session) {
+			await addCyclistPlan(session.userEmail, plan);
 
-      res.status(200).send(`Your selected ${plan} plan`);
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+			res.status(200).send(`Your selected ${plan} plan`);
+			return;
+		}
+	} catch (error) {
+		console.log(error);
+		res.status(500).send('Server Error!');
+	}
 };
 
-export {
-  signUp,
-  signIn,
-  forgotPassword,
-  resetPassword,
-  profile,
-  signOut,
-  setUpAddress,
-  setUpAddressEdit,
-  weatherData,
-  cyclistName,
-  selectPlan,
-};
+export { signUp, signIn, forgotPassword, resetPassword, profile, signOut, setUpAddress, setUpAddressEdit, weatherData, cyclistName, selectPlan };
