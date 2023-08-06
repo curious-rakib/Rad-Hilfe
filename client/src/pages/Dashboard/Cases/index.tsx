@@ -1,11 +1,12 @@
-import Table from "../../../components/Table"
+import Table from '../../../components/Table';
 
 const Cases = () => {
-    return (
-        <>
-            <Table />
-        </>
-    )
-}
+	console.log('working!');
+	return (
+		<>
+			<div>Hello World!</div>
+		</>
+	);
+};
 
-export default Cases
+export default Cases;
