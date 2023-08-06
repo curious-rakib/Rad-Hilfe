@@ -25,7 +25,9 @@ const TableComponent = () => {
 							<Tr key={index}>
 								<Td className="table-data">{dummyCase['Case No']}</Td>
 								<Td className="table-data">{dummyCase['Case Type']}</Td>
-								<Td className="table-data">{dummyCase['Status']}</Td>
+								<Td className="table-data">
+									<strong>{dummyCase['Status']}</strong>
+								</Td>
 								<Td className="table-data">{dummyCase['Client Name']}</Td>
 								<Td className="table-data">{dummyCase['Date Created']}</Td>
 								<Td className="table-data">{dummyCase['Bicycle Health']}</Td>

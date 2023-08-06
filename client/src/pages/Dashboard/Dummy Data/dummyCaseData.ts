@@ -4,7 +4,7 @@ export const dummyCases = [
 		'Case Type': 'Active',
 		Status: 'In Progress',
 		'Client Name': 'John Doe',
-		'Date Created': '2023-08-06',
+		'Date Created': '06-08-2023',
 		'Bicycle Health': 80,
 	},
 	{
@@ -12,7 +12,7 @@ export const dummyCases = [
 		'Case Type': 'Passive',
 		Status: 'Closed',
 		'Client Name': 'Jane Smith',
-		'Date Created': '2023-08-05',
+		'Date Created': '05-08-2023',
 		'Bicycle Health': 60,
 	},
 	{
@@ -20,7 +20,7 @@ export const dummyCases = [
 		'Case Type': 'Active',
 		Status: 'Open',
 		'Client Name': 'Michael Johnson',
-		'Date Created': '2023-08-04',
+		'Date Created': '04-08-2023',
 		'Bicycle Health': 95,
 	},
 ];

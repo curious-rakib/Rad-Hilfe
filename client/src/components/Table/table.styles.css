@@ -9,19 +9,20 @@
 	flex-shrink: 0;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-	border: 1px solid #c1faa6;
 }
 .table-header-container {
 	background-color: #e2e8f0;
+	height: 70px;
 }
 .table-head {
 	text-transform: capitalize !important;
+	letter-spacing: 0 !important;
 	color: #001f3f !important;
 	text-align: center !important;
 	font-family: 'Inter', sans-serif !important;
 	font-size: 20px !important;
 	font-style: normal !important;
-	font-weight: 600 !important;
+	font-weight: 600 !important; /*semibold*/
 	line-height: 20px !important;
 }
 .table-data {
@@ -30,7 +31,7 @@
 	font-family: 'Inter', sans-serif;
 	font-size: 18px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 400; /*Regular*/
 	line-height: 20px;
 	text-align: center !important;
 }
