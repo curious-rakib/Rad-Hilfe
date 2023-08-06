@@ -1,11 +1,10 @@
 import Table from '../../../components/Table';
 
 const Cases = () => {
-	console.log('working!');
 	return (
-		<>
-			<div>Hello World!</div>
-		</>
+		<div style={{ backgroundColor: 'white', height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+			<Table />
+		</div>
 	);
 };
 

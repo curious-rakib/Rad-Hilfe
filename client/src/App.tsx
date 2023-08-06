@@ -81,7 +81,7 @@ function App() {
 						/>
 					</Route>
 				</Routes>
-				//Technician routes
+
 				<Routes>
 					<Route
 						path="/cases"
