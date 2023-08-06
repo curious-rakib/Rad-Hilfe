@@ -166,6 +166,17 @@ const setUpTechnician = async (req: Request, res: Response) => {
 		res.status(500).send('Server Error !');
 	}
 };
-const editProfile = async (req: Request, res: Response) => {};
+const editProfile = async (req: Request, res: Response) => {
+	try {
+		const token = req.cookies.accessToken;
+		const session: SessionData | undefined = getSession(token);
+		if (session) {
+			//need to work on it later.
+		}
+	} catch (error) {
+		console.error('Failed to edit technician!');
+		res.status(500).send('Server Error !');
+	}
+};
 
 export { signUp, signIn, forgotPassword, resetPassword, profile, signOut, setUpTechnician, editProfile };
