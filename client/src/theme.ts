@@ -21,7 +21,7 @@ const theme = extendTheme({
 		},
 		accent: '#C1FAA6', //neon green
 		secondary: '#001F3F', //midnight blue
-		primary: '#FFFFF', //white
+		primary: '#FFFFFF', //white
 		third: '#EDCBEF', //lilac
 		fourth: '#E3DD39', //yellow
 		green: '#52D4A5',
@@ -34,6 +34,7 @@ const theme = extendTheme({
 		md: '0.375rem',
 		lg: '0.5rem',
 		xl: '0.75rem',
+
 		'2xl': '1rem',
 	},
 	colorScheme: {

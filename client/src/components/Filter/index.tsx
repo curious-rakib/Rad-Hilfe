@@ -1,4 +1,4 @@
-import { Select, background } from '@chakra-ui/react';
+import { Select } from '@chakra-ui/react';
 import './filter.styles.css';
 
 const FilterComponent = ({ name, options }: { name: string; options: string[] }) => {

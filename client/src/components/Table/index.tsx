@@ -5,12 +5,13 @@ import { Flex } from '@chakra-ui/react';
 import SearchBox from '../Search Box';
 import FilterComponent from '../Filter';
 import { Button } from '@chakra-ui/react';
+import PaginationComponent from '../Pagination';
 
 const TableComponent = () => {
 	return (
 		<>
 			<TableContainer className="table-container">
-				<Flex
+				{/* <Flex
 					justifyContent={'space-between'}
 					p={2}>
 					<SearchBox />
@@ -26,7 +27,7 @@ const TableComponent = () => {
 							options={['Active', 'Passive']}
 						/>
 					</Flex>
-				</Flex>
+				</Flex> */}
 				<Table
 					variant="simple"
 					size="lg">
@@ -101,6 +102,11 @@ const TableComponent = () => {
 					</Tbody>
 				</Table>
 			</TableContainer>
+			{/* <PaginationComponent
+				currentPage={1}
+				totalPages={10}
+				onPageChange={undefined}
+			/> */}
 		</>
 	);
 };
