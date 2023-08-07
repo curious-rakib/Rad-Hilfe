@@ -1,9 +1,10 @@
 import { Schema } from '../../models/database';
-const interventionDertailsSchema = new Schema({
+
+const interventionDetailsSchema = new Schema({
 	firstCall: {
-		type: [String, Date],
+		type: Schema.Types.Mixed,
 	},
-	followUpCall: { type: [String, Date] },
+	followUpCall: { type: Schema.Types.Mixed },
 	supportQuality: { type: Number },
 });
-export { interventionDertailsSchema };
+export { interventionDetailsSchema };
