@@ -135,7 +135,7 @@ const CarePlan = () => {
             </Box>
 
             <Flex>
-                <VStack bg={'accent'} p={3} ml={4} mr={5} rounded={'xl'}>
+                <VStack bg={'#52D4A5'} p={3} ml={4} mr={5} rounded={'xl'}>
                     <Text style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Qover Care Plan</Text>
                     <Text mt={"14px"}>
                         <span style={{ fontWeight: 'bold', fontSize: '2rem', }}>€8</span> / month

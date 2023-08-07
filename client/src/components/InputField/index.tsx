@@ -10,7 +10,8 @@ const InputField = ({
   name,
   borderColor,
   _placeholder,
-  color
+  color,
+  onToggle
 }: {
   id: string;
   isRequired: boolean;
@@ -24,10 +25,12 @@ const InputField = ({
     opacity: string
   };
   color: string
+  onToggle?: Function
+
 }) => {
   return (
     <Box>
-      <FormControl id={id} isRequired={isRequired}>
+      <FormControl id={id} isRequired={isRequired} >
         <Input
           type={type}
           placeholder={placeholder}
@@ -37,6 +40,7 @@ const InputField = ({
           name={name}
           borderColor={borderColor}
           _placeholder={_placeholder}
+          onFocus={() => onToggle()}
         />
       </FormControl>
     </Box>

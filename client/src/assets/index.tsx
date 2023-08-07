@@ -18,7 +18,6 @@ import { useState } from 'react';
 import caseCyclist from '../../assets/cases-cyclist.svg';
 import maintenance from '../../assets/maintence.svg';
 import profile from '../../assets/profile.svg';
-import profileBlue from '../../assets/profile-blue.svg'
 import avatar from '../../assets/avatar.svg';
 import signout from '../../assets/signout.svg';
 import { themes } from '../../data/navbarTheme';
