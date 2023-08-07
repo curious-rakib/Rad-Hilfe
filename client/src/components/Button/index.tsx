@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/react';
 
 const SubmitButton = ({
+
     loadingText,
     bg,
     size,
@@ -8,6 +9,7 @@ const SubmitButton = ({
     color,
     text,
 }: {
+
     loadingText: string;
     w: string;
     bg: string;

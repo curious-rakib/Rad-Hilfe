@@ -8,15 +8,34 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 
+const initialUserInfo = {
+    first: '',
+    last: '',
+    contact: '',
+    email: '',
+    password: '',
+    confirmpassword: ''
+};
+
 const SignUp = () => {
+    const [signup, setSignup] = useState(initialUserInfo)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        // const { name, value } = event.target;
+        const { name, value } = event.target;
+        setSignup((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
     };
+    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
+
+    }
+    console.log(signup);
     return (
         <Box p={4}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'}>
@@ -49,8 +68,7 @@ const SignUp = () => {
                                 onChange={handleChange}
                                 name='first'
                                 borderColor='accent'
-                                _placeholder={{ color: 'accent', opacity: '60%' }}
-                            />
+                                _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
 
                             <InputField
                                 id='lastName'
@@ -59,8 +77,7 @@ const SignUp = () => {
                                 placeholder='Last Name'
                                 onChange={handleChange}
                                 name='last'
-                                borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-                            />
+                                borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
                         </HStack>
 
                         <InputField
@@ -70,8 +87,7 @@ const SignUp = () => {
                             placeholder='Contact'
                             onChange={handleChange}
                             name='contact'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-                        />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
                         <InputField
                             id='email'
                             isRequired={true}
@@ -79,8 +95,7 @@ const SignUp = () => {
                             placeholder='Email'
                             onChange={handleChange}
                             name='email'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-                        />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
                         <InputField
                             id='password'
                             isRequired={true}
@@ -88,8 +103,7 @@ const SignUp = () => {
                             placeholder='Password'
                             onChange={handleChange}
                             name='password'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-                        />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
                         <InputField
                             id='confirmpassword'
                             isRequired={true}
@@ -97,11 +111,12 @@ const SignUp = () => {
                             placeholder='Confirm Password'
                             onChange={handleChange}
                             name='confirmpassword'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-                        />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
 
                         <Stack spacing={10} pt={2}>
                             <SubmitButton
+                                onClick={handleClick}
+
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='accent'
@@ -117,6 +132,7 @@ const SignUp = () => {
 
                         <Stack spacing={5} pt={2}>
                             <SubmitButton
+
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='third'
