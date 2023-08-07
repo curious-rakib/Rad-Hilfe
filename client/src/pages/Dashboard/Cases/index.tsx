@@ -1,9 +1,9 @@
-import Table from '../../../components/Table';
-
+import TableComponent from '../../../components/Table';
+import './cases.styles.css';
 const Cases = () => {
 	return (
-		<div style={{ backgroundColor: 'white', height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-			<Table />
+		<div className="cases-container">
+			<TableComponent />
 		</div>
 	);
 };

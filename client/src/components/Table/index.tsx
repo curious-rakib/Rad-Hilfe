@@ -1,11 +1,21 @@
 import { TableCaption, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/table';
 import './table.styles.css';
 import { dummyCases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
+import { Flex } from '@chakra-ui/react';
+import FilterAccordionComponent from '../Filter Accordion';
+import SearchBox from '../Search Box';
 
 const TableComponent = () => {
 	return (
 		<>
 			<TableContainer className="table-container">
+				<Flex
+					width={'100%'}
+					justifyContent={'space-between'}
+					p={2}>
+					<SearchBox />
+					<FilterAccordionComponent />
+				</Flex>
 				<Table
 					variant="simple"
 					size="lg">
