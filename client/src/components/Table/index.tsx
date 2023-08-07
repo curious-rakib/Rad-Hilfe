@@ -5,12 +5,12 @@ import { Flex } from '@chakra-ui/react';
 import SearchBox from '../Search Box';
 import FilterComponent from '../Filter';
 import { Button } from '@chakra-ui/react';
+
 const TableComponent = () => {
 	return (
 		<>
 			<TableContainer className="table-container">
 				<Flex
-					width={'100%'}
 					justifyContent={'space-between'}
 					p={2}>
 					<SearchBox />
@@ -20,12 +20,10 @@ const TableComponent = () => {
 						<FilterComponent
 							name={'Status'}
 							options={['Open', 'In Progress', 'Closed']}
-							width={'35'}
 						/>
 						<FilterComponent
 							name={'Case Type'}
 							options={['Active', 'Passive']}
-							width={'49'}
 						/>
 					</Flex>
 				</Flex>
@@ -76,11 +74,23 @@ const TableComponent = () => {
 												borderBottom={'0'}
 												className="table-data">
 												<Button
-													w={'10'}
+													w={'20'}
+													h={'10'}
 													size={'10'}
+													mr={'2'}
+													borderRadius={15}
 													bg={'secondary'}
 													color={'accent'}>
 													Raise
+												</Button>
+												<Button
+													w={'20'}
+													h={'10'}
+													size={'10'}
+													bg={'third'}
+													borderRadius={15}
+													color={'secondary'}>
+													View
 												</Button>
 											</Td>
 										);
