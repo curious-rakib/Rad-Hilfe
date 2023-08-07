@@ -1,4 +1,4 @@
-export const dummyCases = [
+export const cases = [
 	{
 		'Case No': '#2354',
 		'Case Type': 'Active',
@@ -6,6 +6,7 @@ export const dummyCases = [
 		'Client Name': 'John Doe',
 		'Date Created': '06-08-2023',
 		'Bicycle Health': 80,
+		Action: null,
 	},
 	{
 		'Case No': '#2355',
@@ -14,6 +15,7 @@ export const dummyCases = [
 		'Client Name': 'Jane Smith',
 		'Date Created': '05-08-2023',
 		'Bicycle Health': 60,
+		Action: null,
 	},
 	{
 		'Case No': '#2356',
@@ -22,5 +24,6 @@ export const dummyCases = [
 		'Client Name': 'Michael Johnson',
 		'Date Created': '04-08-2023',
 		'Bicycle Health': 95,
+		Action: null,
 	},
 ];

@@ -2,7 +2,7 @@
 
 .table-container {
 	background-color: white;
-	width: 95%;
+	width: 80vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -13,6 +13,7 @@
 .table-header-container {
 	background-color: #e2e8f0;
 	height: 70px;
+	border-radius: 12px;
 }
 .table-head {
 	text-transform: capitalize !important;

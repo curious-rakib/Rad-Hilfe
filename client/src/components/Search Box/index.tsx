@@ -27,7 +27,10 @@ const SearchBox = () => {
 
 				{showSpinner && (
 					<InputRightElement>
-						<Spinner color="secondary" />
+						<Spinner
+							color="secondary"
+							size="sm"
+						/>
 					</InputRightElement>
 				)}
 			</InputGroup>

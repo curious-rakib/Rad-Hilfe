@@ -15,6 +15,7 @@ import Navbar from './components/Navbar';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import Cart from './pages/Cart';
 import Cases from './pages/Dashboard/Cases';
+import NavbarDashboard from './components/NavbarDashboard';
 
 function App() {
 	return (
@@ -83,9 +84,12 @@ function App() {
 				</Routes>
 
 				<Routes>
-					<Route
-						path="/cases"
-						element={<Cases />}></Route>
+					<Route element={<NavbarDashboard theme="third" />}>
+						<Route
+							path="/cases"
+							element={<Cases />}
+						/>
+					</Route>
 				</Routes>
 			</Router>
 		</>
