@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Text } from '@chakra-ui/react';
 import TableComponent from '../../../components/Table';
 import './cases.styles.css';
 const Cases = () => {
@@ -6,13 +6,10 @@ const Cases = () => {
 		<div className="cases-container">
 			<Flex
 				justifyContent={'space-between'}
+				gap={'600px'}
 				color={'secondary'}>
-				<Heading
-					as="h3"
-					size="md">
-					Support Cases
-				</Heading>
-				<Heading>Slipstream</Heading>
+				<Text fontSize="xl">Support Cases</Text>
+				<Heading as="h2">Slipstream</Heading>
 			</Flex>
 			<TableComponent />
 		</div>
