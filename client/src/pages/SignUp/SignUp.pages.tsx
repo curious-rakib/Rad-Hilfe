@@ -35,6 +35,14 @@ const SignUp = () => {
         event.preventDefault();
 
     }
+    const handleGoogleAuth = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+
+    }
+    const handleFacebookAuth = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+
+    }
     console.log(signup);
     return (
         <Box p={4}>
@@ -132,7 +140,7 @@ const SignUp = () => {
 
                         <Stack spacing={5} pt={2}>
                             <SubmitButton
-
+                                onClick={handleGoogleAuth}
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='third'
@@ -141,6 +149,7 @@ const SignUp = () => {
                                 text='Continue With Google'
                             />
                             <SubmitButton
+                                onClick={handleFacebookAuth}
                                 loadingText='Submitting'
                                 size='lg'
                                 bg='fourth'

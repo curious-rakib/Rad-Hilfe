@@ -5,8 +5,8 @@ import { router } from './routers/router';
 
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
-// dotenv.config({ path: __dirname + '/.env' });
-require('dotenv').config();
+dotenv.config({ path: __dirname + '/.env' });
+// require('dotenv').config();
 
 const app: Application = express();
 
