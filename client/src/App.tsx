@@ -83,12 +83,12 @@ function App() {
 				</Routes>
 
 				<Routes>
-					{/* <Route element={<NavbarDashboard theme="third" />}> */}
-					<Route
-						path="/cases"
-						element={<Cases />}
-					/>
-					{/* </Route> */}
+					<Route element={<NavbarDashboard theme="third" />}>
+						<Route
+							path="/cases"
+							element={<Cases />}
+						/>
+					</Route>
 				</Routes>
 			</Router>
 		</>

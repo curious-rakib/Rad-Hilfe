@@ -28,11 +28,11 @@ const Cases = () => {
 	return (
 		<>
 			<HStack>
-				<Box
+				{/* <Box
 					h={'100vh'}
 					w={'12vw'}>
 					<Text>Navbar</Text>
-				</Box>
+				</Box> */}
 
 				<Box
 					bg="primary"

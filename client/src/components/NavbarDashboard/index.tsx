@@ -38,10 +38,10 @@ function NavbarDashboard({ theme }: { theme: keyof themeCollections }) {
 				</Box>
 			</Flex> */}
 			<HStack>
-				<Box p={'3vh 4vw 3vh 4vw'}>
+				<Box p={'3vh 1vw 3vh 1vw'}>
 					<CloseIcon
 						color={themes[theme].cross}
-						fontSize="xx-large"
+						fontSize="large"
 						{...getButtonProps()}
 					/>
 					<HStack mt="30px">
@@ -53,9 +53,9 @@ function NavbarDashboard({ theme }: { theme: keyof themeCollections }) {
 							<Text>
 								<span
 									style={{
-										marginLeft: '80px',
+										marginLeft: '20px',
 										fontWeight: 'bold',
-										fontSize: '18px',
+										fontSize: '10px',
 									}}>
 									Anna
 								</span>

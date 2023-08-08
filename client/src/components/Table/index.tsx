@@ -1,4 +1,4 @@
-import { TableCaption, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/table';
+import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import './table.styles.css';
 import { cases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
@@ -9,7 +9,6 @@ const TableComponent = () => {
 		<>
 			<TableContainer
 				bg="primary"
-				w={'100vw'}
 				borderRadius={'5px'}
 				boxShadow={'0px 4px 4px 0px rgba(0, 0, 0, 0.25);'}>
 				{/* <Flex
@@ -32,19 +31,17 @@ const TableComponent = () => {
 
 				<Table
 					variant="simple"
-					size="md"
-					w={'100vw'}>
+					size="md">
 					<Thead
 						bg={'#e2e8f0'}
-						height={'11.5vh'}
-						w={'100vw'}>
+						height={'8.5vh'}>
 						<Tr>
 							{Object.keys(cases[0]).map((header, index) => {
 								return (
 									<>
 										<Th
-											maxWidth={'2vw'}
-											p={'1.5vh 1vw 1.5vh 1vw'}
+											maxWidth={'1vw'}
+											p={'1vh 1vw 1vh 1vw'}
 											key={index}
 											borderBottom={'0'}
 											textTransform="capitalize"
@@ -52,10 +49,10 @@ const TableComponent = () => {
 											color="secondary"
 											textAlign="center"
 											fontFamily="Inter"
-											fontSize="20px"
+											fontSize="0.9rem"
 											fontStyle="normal"
 											fontWeight="600"
-											lineHeight="20px">
+											lineHeight="0.5rem">
 											{header}
 										</Th>
 									</>
@@ -71,16 +68,16 @@ const TableComponent = () => {
 										return (
 											<Td
 												borderRadius={'10px'}
-												p={'2.5vh 1vw 2.5vh 1vw'}
+												p={'1rem 1rem 1rem 1rem'}
 												maxWidth={'1vw'}
 												borderBottom={'0'}>
 												<Box
 													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
 													fontFamily="Inter"
-													fontSize="18px"
+													fontSize="1rem"
 													fontStyle={'normal'}
 													fontWeight={'400'}
-													lineHeight={'32px'}
+													lineHeight={'2rem'}
 													borderRadius={'10px'}>
 													<Center>{index === 2 ? <Text as="b">{value}</Text> : <Text>{value}</Text>}</Center>
 												</Box>
