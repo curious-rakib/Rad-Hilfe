@@ -9,26 +9,9 @@ const TableComponent = () => {
 		<>
 			<TableContainer
 				bg="primary"
-				borderRadius={'5px'}
-				boxShadow={'0px 4px 4px 0px rgba(0, 0, 0, 0.25);'}>
-				{/* <Flex
-					justifyContent={'space-between'}
-					p={2}>
-					<SearchBox />
-					<Flex
-						mt={5}
-						mr={5}>
-						<FilterComponent
-							name={'Status'}
-							options={['Open', 'In Progress', 'Closed']}
-						/>
-						<FilterComponent
-							name={'Case Type'}
-							options={['Active', 'Passive']}
-						/>
-					</Flex>
-				</Flex> */}
-
+				borderRadius={'.5rem'}
+				boxShadow={'0 .5rem .5rem 0 rgba(0, 0, 0, 0.25);'}
+				overflow={'hidden'}>
 				<Table
 					variant="simple"
 					size="md">
@@ -50,7 +33,6 @@ const TableComponent = () => {
 											textAlign="center"
 											fontFamily="Inter"
 											fontSize="1.25rem"
-											fontStyle="normal"
 											fontWeight="600"
 											lineHeight="0.5rem">
 											{header}
@@ -67,9 +49,8 @@ const TableComponent = () => {
 									if (value) {
 										return (
 											<Td
-												borderRadius={'10px'}
 												p={'1rem 1rem 1rem 1rem'}
-												maxWidth={'.15vw'}
+												w={'11.65vw'}
 												borderBottom={'0'}>
 												<Box
 													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
@@ -78,7 +59,7 @@ const TableComponent = () => {
 													fontStyle={'normal'}
 													fontWeight={'400'}
 													lineHeight={'2rem'}
-													borderRadius={'10px'}>
+													borderRadius={'1rem'}>
 													<Center>{index === 2 ? <Text as="b">{value}</Text> : <Text>{value}</Text>}</Center>
 												</Box>
 											</Td>
@@ -86,12 +67,12 @@ const TableComponent = () => {
 									} else {
 										return (
 											<Td
-												maxWidth={'1vw'}
+												w={'11.65vw'}
 												p={'2.5vh 1vw 2.5vh 1vw'}
 												key={index}
 												borderBottom={'0'}>
 												<Button
-													_hover={{ background: 'primary', color: '#93ef67', outlineColor: 'secondary' }}
+													_hover={{ background: '#d1fbbd', color: 'secondary', outlineColor: 'secondary' }}
 													w={'20'}
 													h={'10'}
 													size={'10'}
@@ -120,11 +101,6 @@ const TableComponent = () => {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			{/* <PaginationComponent
-				currentPage={1}
-				totalPages={10}
-				onPageChange={undefined}
-			/> */}
 		</>
 	);
 };
