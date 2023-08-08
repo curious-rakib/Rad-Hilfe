@@ -10,11 +10,20 @@ const addAllSubpart = async (subparts: Subpart[]) => {
   }
 };
 
-const getSubpartHealth = async (subpartId: Types.ObjectId) => {
+const getAllSubpart = async () => {
+  try {
+    return await SubpartModel.find({});
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getSubpartById = async (subpartId: Types.ObjectId) => {
   try {
     return await SubpartModel.findById(subpartId);
   } catch (error) {
     console.log(error);
   }
 };
-export { addAllSubpart, getSubpartHealth };
+
+export { addAllSubpart, getAllSubpart, getSubpartById };

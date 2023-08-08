@@ -6,6 +6,7 @@ import { findTechnicianByEmail } from '../technician/technician.query';
 const createNewCase = async (item: Case) => {
   return await CaseModel.create(item);
 };
+
 const findAllCases = async (email: string) => {
   const cyclist = await findCyclistByEmail(email);
   const technician = await findTechnicianByEmail(email);
@@ -16,4 +17,5 @@ const findAllCases = async (email: string) => {
 const findCaseById = async (caseId: string) => {
   return await CaseModel.find({ _id: caseId });
 };
+
 export { createNewCase, findAllCases, findCaseById };
