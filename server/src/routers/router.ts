@@ -3,6 +3,11 @@ const router = Router();
 
 import { cyclistRouter } from './private/cyclist.router';
 import { technicianRouter } from './private/technician.router';
+import { bicycleHealthAlgorithm } from '../utilities/bicycleHealth.algorithm';
+
+(async function test() {
+  await bicycleHealthAlgorithm();
+})();
 
 router.use('/cyclist', cyclistRouter);
 router.use('/technician', technicianRouter);

@@ -5,7 +5,7 @@ const recreationalCommuteSchema = new Schema({
     type: [String],
     require: true,
   },
-  activityType: { type: String, required: true },
+  activityType: { type: [String], required: true },
   lengthOfRide: { type: Number, required: true },
 });
 

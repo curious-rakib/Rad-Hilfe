@@ -45,7 +45,6 @@ cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
 
 // subpart
 cyclistRouter.post('/add-subpart', subpartController.addSubpart);
-cyclistRouter.get('/subpart-health', subpartController.subpartHealth);
 cyclistRouter.get('/maintenance-log', subpartController.maintenanceLog);
 
 // technician

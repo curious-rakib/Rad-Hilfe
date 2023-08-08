@@ -1,13 +1,16 @@
 interface Subpart {
   name: string;
   Price: number;
-  depreciationRate?: DepreciationRate;
+  depreciationRate: number;
   category: string;
 }
 
-interface DepreciationRate {
-  unpavedRoute: number;
-  pavedRoute: number;
+interface DependencyPart {
+  _id: string;
+  name: string;
+  roadConditionFactor: number;
+  dependentPartId: string;
+  dependentPartName: string;
 }
 
-export { Subpart };
+export { Subpart, DependencyPart };
