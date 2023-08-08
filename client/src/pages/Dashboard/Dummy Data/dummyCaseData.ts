@@ -26,4 +26,13 @@ export const cases = [
 		'Bicycle Health': 95,
 		Action: null,
 	},
+	{
+		'Case No': '#2357',
+		'Case Type': 'Passive',
+		Status: 'Closed',
+		'Client Name': 'Clark kent',
+		'Date Created': '10-08-2023',
+		'Bicycle Health': 34,
+		Action: null,
+	},
 ];

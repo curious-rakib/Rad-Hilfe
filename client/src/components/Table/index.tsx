@@ -1,47 +1,40 @@
-import { TableCaption, Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from '@chakra-ui/table';
+import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import './table.styles.css';
 import { cases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
-import { Flex } from '@chakra-ui/react';
-import SearchBox from '../Search Box';
-import FilterComponent from '../Filter';
-import { Button } from '@chakra-ui/react';
-import PaginationComponent from '../Pagination';
+import { Box, Button, Center, Text } from '@chakra-ui/react';
+import { statusColor } from '../../data/statusColor';
 
 const TableComponent = () => {
 	return (
 		<>
-			<TableContainer className="table-container">
-				{/* <Flex
-					justifyContent={'space-between'}
-					p={2}>
-					<SearchBox />
-					<Flex
-						mt={5}
-						mr={5}>
-						<FilterComponent
-							name={'Status'}
-							options={['Open', 'In Progress', 'Closed']}
-						/>
-						<FilterComponent
-							name={'Case Type'}
-							options={['Active', 'Passive']}
-						/>
-					</Flex>
-				</Flex> */}
+			<TableContainer
+				bg="primary"
+				borderRadius={'.5rem'}
+				boxShadow={'0 .5rem .5rem 0 rgba(0, 0, 0, 0.25);'}
+				overflow={'hidden'}>
 				<Table
 					variant="simple"
-					size="lg">
-					<Thead className="table-header-container">
+					size="md">
+					<Thead
+						bg={'#e2e8f0'}
+						height={'8.5vh'}>
 						<Tr>
 							{Object.keys(cases[0]).map((header, index) => {
 								return (
 									<>
 										<Th
-											maxWidth={'4vw'}
-											p={'1.5vh 1vw 1.5vh 1vw'}
+											maxWidth={'1vw'}
+											p={'1vh 1vw 1vh 1vw'}
 											key={index}
 											borderBottom={'0'}
-											className="table-head">
+											textTransform="capitalize"
+											letterSpacing={0}
+											color="secondary"
+											textAlign="center"
+											fontFamily="Inter"
+											fontSize="1.25rem"
+											fontWeight="600"
+											lineHeight="0.5rem">
 											{header}
 										</Th>
 									</>
@@ -55,26 +48,31 @@ const TableComponent = () => {
 								{Object.values(Case).map((value, index) => {
 									if (value) {
 										return (
-											<>
-												<Td
-													maxWidth={'4vw'}
-													p={'4vh 1vw 4vh 1vw'}
-													key={index}
-													borderBottom={'0'}
-													className="table-data">
-													{value}
-												</Td>
-											</>
+											<Td
+												p={'1rem 1rem 1rem 1rem'}
+												w={'11.65vw'}
+												borderBottom={'0'}>
+												<Box
+													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
+													fontFamily="Inter"
+													fontSize="1rem"
+													fontStyle={'normal'}
+													fontWeight={'400'}
+													lineHeight={'2rem'}
+													borderRadius={'1rem'}>
+													<Center>{index === 2 ? <Text as="b">{value}</Text> : <Text>{value}</Text>}</Center>
+												</Box>
+											</Td>
 										);
 									} else {
 										return (
 											<Td
-												maxWidth={'4vw'}
-												p={'4vh 1vw 4vh 1vw'}
+												w={'11.65vw'}
+												p={'2.5vh 1vw 2.5vh 1vw'}
 												key={index}
-												borderBottom={'0'}
-												className="table-data">
+												borderBottom={'0'}>
 												<Button
+													_hover={{ background: '#d1fbbd', color: 'secondary', outlineColor: 'secondary' }}
 													w={'20'}
 													h={'10'}
 													size={'10'}
@@ -85,6 +83,7 @@ const TableComponent = () => {
 													Raise
 												</Button>
 												<Button
+													_hover={{ background: 'primary', color: 'secondary', outlineColor: 'third' }}
 													w={'20'}
 													h={'10'}
 													size={'10'}
@@ -102,11 +101,6 @@ const TableComponent = () => {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			{/* <PaginationComponent
-				currentPage={1}
-				totalPages={10}
-				onPageChange={undefined}
-			/> */}
 		</>
 	);
 };

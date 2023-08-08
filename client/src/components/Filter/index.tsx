@@ -1,10 +1,19 @@
-import { Select } from '@chakra-ui/react';
+import { Box, Select } from '@chakra-ui/react';
 import './filter.styles.css';
 
-const FilterComponent = ({ name, options }: { name: string; options: string[] }) => {
+const FilterComponent = ({ name, options, onChange }: { name: string; options: string[]; onChange: (newOption: string) => void }) => {
+	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		event.preventDefault();
+		const selectedValue = event.target.value;
+
+		if (onChange) {
+			onChange(selectedValue);
+		}
+	};
 	return (
 		<>
 			<Select
+				w={'fit-content'}
 				bg={'inherit'}
 				color="secondary"
 				variant="unstyled"
@@ -15,16 +24,21 @@ const FilterComponent = ({ name, options }: { name: string; options: string[] })
 				fontSize={16}
 				fontWeight={400}
 				focusBorderColor="secondary"
-				iconSize="30">
-				{options.map((option, index) => (
-					<option
-						style={{ backgroundColor: 'white' }}
-						key={index}
-						value={option}
-						color="secondary">
-						{option}
-					</option>
-				))}
+				iconSize="30"
+				textAlign={'end'}
+				mr={2}
+				onChange={handleOptionChange}>
+				<Box>
+					{options.map((option, index) => (
+						<option
+							style={{ backgroundColor: 'white' }}
+							key={index}
+							value={option}
+							color="secondary">
+							{option}
+						</option>
+					))}
+				</Box>
 			</Select>
 		</>
 	);
