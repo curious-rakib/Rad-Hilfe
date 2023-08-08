@@ -25,6 +25,8 @@ const FilterComponent = ({ name, options, onChange }: { name: string; options: s
 				fontWeight={400}
 				focusBorderColor="secondary"
 				iconSize="30"
+				textAlign={'end'}
+				mr={2}
 				onChange={handleOptionChange}>
 				{options.map((option, index) => (
 					<option

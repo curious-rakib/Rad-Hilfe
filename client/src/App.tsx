@@ -83,7 +83,7 @@ function App() {
 				</Routes>
 
 				<Routes>
-					<Route element={<NavbarDashboard theme="third" />}>
+					<Route element={<NavbarDashboard />}>
 						<Route
 							path="/cases"
 							element={<Cases />}

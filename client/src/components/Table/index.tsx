@@ -49,7 +49,7 @@ const TableComponent = () => {
 											color="secondary"
 											textAlign="center"
 											fontFamily="Inter"
-											fontSize="0.9rem"
+											fontSize="1.25rem"
 											fontStyle="normal"
 											fontWeight="600"
 											lineHeight="0.5rem">
@@ -69,7 +69,7 @@ const TableComponent = () => {
 											<Td
 												borderRadius={'10px'}
 												p={'1rem 1rem 1rem 1rem'}
-												maxWidth={'1vw'}
+												maxWidth={'.15vw'}
 												borderBottom={'0'}>
 												<Box
 													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
