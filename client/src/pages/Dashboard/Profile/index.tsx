@@ -1,6 +1,6 @@
 import { Text, Box, HStack, VStack } from '@chakra-ui/react';
 import TechnicianWorkingDays from '../../../components/Technician Working Days';
-import InputTechnician from './../../../components/InputTechnician';
+import InputTechnician from '../../../components/Input Technician';
 
 const TechnicianProfile = () => {
 	return (
@@ -8,14 +8,13 @@ const TechnicianProfile = () => {
 			<HStack spacing={'3rem'}>
 				<VStack
 					color={'secondary'}
-					width={'100%'}
-					bg={'red'}>
+					width={'100%'}>
 					<InputTechnician
 						id={'fullName'}
 						isRequired={true}
 						type={'text'}
 						placeholder={'Enter Full Name'}></InputTechnician>
-					<Text>Rakib</Text>
+					{/* <Text>Rakib</Text> */}
 				</VStack>
 
 				<VStack

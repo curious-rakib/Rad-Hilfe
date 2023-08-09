@@ -1,4 +1,4 @@
-import { Box, FormControl, Input, Stack } from '@chakra-ui/react';
+import { Box, FormControl, Input } from '@chakra-ui/react';
 
 const InputTechnician = ({ id, isRequired, type, placeholder }: { id: string; isRequired: boolean; type: string; placeholder: string }) => {
 	return (
