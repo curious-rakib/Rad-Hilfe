@@ -45,7 +45,6 @@ const PaginationComponent = ({ currentPage, totalPages, onPageChange }: { curren
 			_dark={{
 				bg: '#ffffff',
 			}}
-			p={50}
 			w="full"
 			alignItems="center"
 			justifyContent="center">

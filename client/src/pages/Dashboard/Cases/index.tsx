@@ -90,9 +90,7 @@ const Cases = () => {
 					</Flex>
 					<TableComponent />
 				</Box>
-				<Box
-					p={'.25rem'}
-					mt={'2rem'}>
+				<Box mt={'2.5rem'}>
 					<PaginationComponent
 						currentPage={1}
 						totalPages={3}

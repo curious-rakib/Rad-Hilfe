@@ -55,7 +55,7 @@ const TableComponent = () => {
 												<Box
 													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
 													fontFamily="Inter"
-													fontSize="1rem"
+													fontSize="1.20rem"
 													fontStyle={'normal'}
 													fontWeight={'400'}
 													lineHeight={'2rem'}

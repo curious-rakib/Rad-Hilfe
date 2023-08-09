@@ -1,6 +1,10 @@
 import { Image, Text, Box, Flex, VStack, Center } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import avatar from './../../assets/avatar.svg';
+import agenda from './../../assets/agenda.svg';
+import cases from './../../assets/cases.svg';
+import profile from './../../assets/technician-profile.svg';
+import logout from './../../assets/logout.svg';
 
 function NavbarDashboard() {
 	return (
@@ -31,32 +35,62 @@ function NavbarDashboard() {
 								</Text>
 							</Flex>
 						</Center>
+
 						<Box mt={'23vh'}>
 							<Flex
 								direction={'column'}
-								alignItems={'center'}>
-								<Text
-									as="b"
-									fontSize={'1.35rem'}
-									mb={2}>
-									Agenda
-								</Text>
-								<Text
-									as="b"
-									fontSize={'1.35rem'}
-									mb={2}>
-									Cases
-								</Text>
-								<Text
-									as="b"
-									fontSize={'1.35rem'}
-									mb={2}>
-									Profile
-								</Text>
+								alignItems={'center'}
+								gap={'1.5rem'}>
+								<Flex gap={'.5rem'}>
+									<Image
+										src={agenda}
+										alt="calendar icon"></Image>
+
+									<Text
+										as="b"
+										fontSize={'1.35rem'}>
+										Agenda
+									</Text>
+								</Flex>
+
+								<Flex
+									gap={'.5rem'}
+									mr={'1rem'}>
+									<Image
+										src={cases}
+										alt="cases icon"></Image>
+									<Text
+										as="b"
+										fontSize={'1.35rem'}>
+										Cases
+									</Text>
+								</Flex>
+
+								<Flex
+									gap={'.5rem'}
+									mr={'.7rem'}>
+									<Image
+										src={profile}
+										alt="profile icon"></Image>
+									<Text
+										as="b"
+										fontSize={'1.35rem'}>
+										Profile
+									</Text>
+								</Flex>
 							</Flex>
 						</Box>
-						<Box>
-							<Text> Logout </Text>
+						<Box mt={'30vh'}>
+							<Flex gap={'.55rem'}>
+								<Image
+									src={logout}
+									alt="logout icon"></Image>
+								<Text
+									as="b"
+									fontSize={'1.35rem'}>
+									Logout
+								</Text>
+							</Flex>
 						</Box>
 					</VStack>
 				</Box>
