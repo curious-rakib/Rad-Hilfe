@@ -67,7 +67,7 @@ const TableComponent = () => {
 									} else {
 										return (
 											<Td
-												w={'11.65vw'}
+												w={'10vw'}
 												p={'2.5vh 1vw 2.5vh 1vw'}
 												key={index}
 												borderBottom={'0'}>
