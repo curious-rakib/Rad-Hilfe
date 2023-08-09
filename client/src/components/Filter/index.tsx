@@ -28,17 +28,15 @@ const FilterComponent = ({ name, options, onChange }: { name: string; options: s
 				textAlign={'end'}
 				mr={2}
 				onChange={handleOptionChange}>
-				<Box>
-					{options.map((option, index) => (
-						<option
-							style={{ backgroundColor: 'white' }}
-							key={index}
-							value={option}
-							color="secondary">
-							{option}
-						</option>
-					))}
-				</Box>
+				{options.map((option, index) => (
+					<option
+						style={{ backgroundColor: 'white' }}
+						key={index}
+						value={option}
+						color="secondary">
+						{option}
+					</option>
+				))}
 			</Select>
 		</>
 	);

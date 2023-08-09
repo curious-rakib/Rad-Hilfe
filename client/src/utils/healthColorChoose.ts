@@ -8,6 +8,6 @@ export function healthColorChoose(health: number) {
 			break;
 		}
 	}
-	console.log('color', color);
+
 	return color;
 }

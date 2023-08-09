@@ -50,6 +50,7 @@ const TableComponent = () => {
 									if (typeof value === 'string') {
 										return (
 											<Td
+												key={index}
 												p={'1rem 1rem 1rem 1rem'}
 												w={'11.65vw'}
 												borderBottom={'0'}>
