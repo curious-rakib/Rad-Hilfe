@@ -36,12 +36,14 @@ function NavbarDashboard() {
 							</Flex>
 						</Center>
 
-						<Box mt={'23vh'}>
+						<Box mt={'10rem'}>
 							<Flex
 								direction={'column'}
 								alignItems={'center'}
 								gap={'1.5rem'}>
-								<Flex gap={'.5rem'}>
+								<Flex
+									gap={'.5rem'}
+									_active={{ backgroundColor: 'third', color: 'secondary', w: '8.5vw', h: '5vh', borderRadius: 'md' }}>
 									<Image
 										src={agenda}
 										alt="calendar icon"></Image>
@@ -55,10 +57,12 @@ function NavbarDashboard() {
 
 								<Flex
 									gap={'.5rem'}
-									mr={'1rem'}>
+									mr={'1rem'}
+									_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
 									<Image
 										src={cases}
-										alt="cases icon"></Image>
+										alt="cases icon"
+										_active={{ color: 'secondary' }}></Image>
 									<Text
 										as="b"
 										fontSize={'1.35rem'}>
@@ -68,7 +72,8 @@ function NavbarDashboard() {
 
 								<Flex
 									gap={'.5rem'}
-									mr={'.7rem'}>
+									mr={'.7rem'}
+									_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
 									<Image
 										src={profile}
 										alt="profile icon"></Image>
@@ -80,8 +85,10 @@ function NavbarDashboard() {
 								</Flex>
 							</Flex>
 						</Box>
-						<Box mt={'30vh'}>
-							<Flex gap={'.55rem'}>
+						<Box mt={'14rem'}>
+							<Flex
+								gap={'.55rem'}
+								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
 								<Image
 									src={logout}
 									alt="logout icon"></Image>
