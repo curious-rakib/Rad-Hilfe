@@ -32,7 +32,7 @@ export const cases = [
 		Status: 'Closed',
 		'Client Name': 'Clark kent',
 		'Date Created': '10-08-2023',
-		'Bicycle Health': 34,
+		'Bicycle Health': 30,
 		Action: null,
 	},
 	{

@@ -3,6 +3,7 @@ import './table.styles.css';
 import { cases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
+import FullHealthBar from '../Bicycle Full Health Bar';
 
 const TableComponent = () => {
 	return (
@@ -46,7 +47,7 @@ const TableComponent = () => {
 						{cases.map((Case, index) => (
 							<Tr key={index}>
 								{Object.values(Case).map((value, index) => {
-									if (value) {
+									if (typeof value === 'string') {
 										return (
 											<Td
 												p={'1rem 1rem 1rem 1rem'}
@@ -62,6 +63,12 @@ const TableComponent = () => {
 													borderRadius={'1rem'}>
 													<Center>{index === 2 ? <Text as="b">{value}</Text> : <Text>{value}</Text>}</Center>
 												</Box>
+											</Td>
+										);
+									} else if (typeof value === 'number') {
+										return (
+											<Td>
+												<FullHealthBar health={value} />
 											</Td>
 										);
 									} else {

@@ -88,7 +88,7 @@ function NavbarDashboard() {
 						<Box mt={'14rem'}>
 							<Flex
 								gap={'.55rem'}
-								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
+								_active={{ backgroundColor: 'third', color: 'secondary', w: '8vw', h: '5vh', borderRadius: 'md' }}>
 								<Image
 									src={logout}
 									alt="logout icon"></Image>
