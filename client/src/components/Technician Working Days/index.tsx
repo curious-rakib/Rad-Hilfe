@@ -1,5 +1,6 @@
 import { Circle, HStack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import './technicianProfile.styles.css';
 
 interface Day {
 	id: string;
@@ -68,9 +69,9 @@ const TechnicianWorkingDays = ({ colorScheme }: { colorScheme: string }) => {
 					size={'3rem'}>
 					<Text
 						as="b"
-						fontSize={'2rem'}
-						fontWeight={'400'}
-						fontStyle={'Inter'}>
+						fontSize={'1.75rem'}
+						fontWeight={'600'}
+						fontFamily={'Inter'}>
 						{day.label}
 					</Text>
 				</Circle>

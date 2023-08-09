@@ -8,7 +8,7 @@ const InputTechnician = () => {
 				variant="flushed"
 				placeholder="Flushed"
 			/>
-		</Stack>
+
 	);
 };
 
