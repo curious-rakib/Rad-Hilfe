@@ -5,12 +5,64 @@ import {
     Stack,
     Text, Flex, Select
 } from '@chakra-ui/react';
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import Days from '../../components/Days';
 import SubmitButton from '../../components/Button';
 import ProgressBar from '../../components/ProgressBar';
 import RecreationButton from '../../components/RecreationButton';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { lengthOfRide } from '../../features/cyclist/recreationalCommute-slice';
+import { days } from '../../features/cyclist/recreationalCommute-slice';
+import { setUpBikeInfo } from '../../services/bikeDetails';
 
 const Recreation = () => {
+    const dispatch = useAppDispatch();
+    const [selectedValue, setSelectedValue] = useState('')
+    const handleSelectChange = (event: any) => {
+        setSelectedValue(event.target.value)
+    }
+
+    const handleClick = () => {
+        const [lower, upper] = selectedValue.split('-');
+        const lowerNum = parseInt(lower);
+
+        const upperNum = parseInt(upper);
+        const average = (lowerNum + upperNum) / 2;
+        const dataObj = { lengthOfRide: average }
+
+        dispatch(lengthOfRide(dataObj));
+
+
+    }
+    const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
+        (state) => state.rootSetBikeReducer
+    );
+    const bikeInfo = {
+        ...bikeDetails,
+        dailyCommute,
+        recreationalCommute,
+    };
+
+
+    console.log(bikeDetails, dailyCommute, recreationalCommute);
+    useEffect(() => {
+        const fetchData = async () => {
+
+            console.log("bike info from recreationl page:", bikeInfo);
+            const result = await setUpBikeInfo(bikeInfo);
+            console.log('result', result);
+        };
+        fetchData();
+    }, [])
+    // const { days, activityType, lengthOfRide } = useAppSelector((state) => state.recreation);
+    // console.log(days, activityType, lengthOfRide);
+    // useEffect(() => {
+    //     const recreationalCommute = { days, activityType, lengthOfRide };
+    //     localStorage.setItem('recreationalCommute', JSON.stringify(recreationalCommute))
+    // }, [])
+
 
     return (
         <Container>
@@ -32,7 +84,7 @@ const Recreation = () => {
             </Box>
 
             <Center my={10}>
-                <Days colorScheme='fourth'></Days>
+                <Days colorScheme='fourth' reducer={days}></Days>
             </Center>
             <Stack spacing={4}>
                 <Text color={'fourth'}
@@ -51,25 +103,31 @@ const Recreation = () => {
                     fontWeight={'semibold'} mt={10}>
                     Typical Length of Rides
                 </Text>
-                <Select placeholder='Select option' style={{ backgroundColor: '#001F3F' }} color={'fourth'}  >
-                    <option value='option1' style={{ backgroundColor: '#001F3F' }}>Option 1</option>
+                <Select
+                    onChange={handleSelectChange}
+                    placeholder='Select option' value={selectedValue} style={{ backgroundColor: '#001F3F' }} color={'fourth'}  >
+                    <option value='0-5km' style={{ backgroundColor: '#001F3F' }}>(0-5km)</option>
+                    <option value='5-10km' style={{ backgroundColor: '#001F3F' }}>(5-10km)</option>
+                    <option value='10-15km' style={{ backgroundColor: '#001F3F' }}>(10-15km)</option>
 
                 </Select>
 
             </Stack>
 
-            <Center my={16}>
-                <SubmitButton
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='fourth'
-                    w='200px'
-                    color='secondary'
-                    text='Submit'
+            <ChakraLink as={ReactRouterLink} to='/home'>
+                <Center my={16}>
+                    <SubmitButton
+                        onClick={handleClick}
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='fourth'
+                        w='200px'
+                        color='secondary'
+                        text='Submit'
 
-                />
-            </Center>
-
+                    />
+                </Center>
+            </ChakraLink>
 
         </Container>
     );

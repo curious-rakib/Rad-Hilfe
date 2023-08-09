@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Stack, HStack, VStack, Box, Heading, Text, Center, Select } from '@chakra-ui/react'
 import Progress from '../../components/ProgressBar'
 import InputField from '../../components/InputField'
@@ -7,17 +7,40 @@ import SubmitButton from '../../components/Button'
 import SetSwitch from '../../components/Switch'
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { bikeDetails } from '../../features/cyclist/bikeDetails-slice'
 function SetupBikeDetails() {
+    const [fullRevision, setFullrevision] = useState<boolean>(false)
+    const dispatch = useAppDispatch();
     const handleChange = (event: any) => {
         const { name, value } = event.target;
 
-        const dataObj = { [name]: value }
-        console.log(dataObj);
+        const dataObj = {
+            [name]: value,
+            isRevised: fullRevision
+        }
+        // console.log(dataObj);
+        dispatch(bikeDetails(dataObj))
 
     }
-    const handleClick = () => {
+    const { brand, model, serialNumber, purchaseMonth, purchaseYear, revisionMonth, revisionYear, isRevised } = useAppSelector((state) => state.bikeDetails)
 
+
+    const handleClick = async () => {
+
+
+        const bikeData = { brand, model, serialNumber, purchaseMonth, purchaseYear, revisionMonth, revisionYear, isRevised };
+
+        localStorage.setItem('bikeData', JSON.stringify(bikeData));
     }
+
+
+
+
+
+
+
+
     return (
         <VStack
 
@@ -42,7 +65,7 @@ function SetupBikeDetails() {
                 type='text'
                 placeholder='Bike Model'
                 onChange={handleChange}
-                name='bikemodel'
+                name='model'
                 borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'} />
             <InputField
                 id='serialnum'
@@ -50,17 +73,17 @@ function SetupBikeDetails() {
                 type='number'
                 placeholder='Serial Number'
                 onChange={handleChange}
-                name='serialnum'
+                name='serialNumber'
                 borderColor='third'
                 _placeholder={{ color: 'third', opacity: '100%' }} color={'third'} />
             <HStack>
                 <InputField
                     id='purchasemonth'
                     isRequired={true}
-                    type='text'
+                    type='number'
                     placeholder='Purchase Month'
                     onChange={handleChange}
-                    name='purchasemonth'
+                    name='purchaseMonth'
                     borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
                 <InputField
@@ -69,7 +92,7 @@ function SetupBikeDetails() {
                     type='number'
                     placeholder='purchase Year'
                     onChange={handleChange}
-                    name='purchaseyear'
+                    name='purchaseYear'
                     borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
             </HStack>
@@ -77,17 +100,19 @@ function SetupBikeDetails() {
             <Text color={'third'}>Did your bike have a full revision</Text>
             <HStack>
                 <Text color={'third'}>No</Text>
-                <SetSwitch></SetSwitch>
+                <SetSwitch
+                    setFullrevision={setFullrevision}
+                ></SetSwitch>
                 <Text color={'third'}>Yes</Text>
             </HStack>
             <HStack>
                 <InputField
                     id='revisionmonth'
                     isRequired={true}
-                    type='text'
+                    type='number'
                     placeholder='Revision Month'
                     onChange={handleChange}
-                    name='revisionmonth'
+                    name='revisionMonth'
                     borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
                 <InputField
@@ -96,7 +121,7 @@ function SetupBikeDetails() {
                     type='number'
                     placeholder='Revision Year'
                     onChange={handleChange}
-                    name='revisionyear'
+                    name='revisionYear'
                     borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
             </HStack>

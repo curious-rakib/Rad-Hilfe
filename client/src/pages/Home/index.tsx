@@ -3,9 +3,37 @@ import Cards from '../../components/Cards';
 import { FaCloud } from 'react-icons/fa'
 import { useEffect, useState } from 'react';
 import { profile } from '../../services/authentication';
+import { useAppSelector } from '../../app/hooks';
+import { setUpBikeInfo } from '../../services/bikeDetails';
+import { getWeatherData } from '../../services/weather';
 
 
 const Home = () => {
+    // const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
+    //     (state) => state.rootSetBikeReducer
+    // );
+    // const bikeInfo = {
+    //     ...bikeDetails,
+    //     dailyCommute,
+    //     recreationalCommute,
+    // };
+
+    // // console.log(bikeInfo);
+    // console.log(bikeDetails, dailyCommute, recreationalCommute);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const result = await setUpBikeInfo(bikeInfo);
+    //         console.log('from home', result);
+    //     };
+    //     fetchData();
+    // }, [])
+
+
+
+
+
+
+    //name
     const [name, setName] = useState('')
     useEffect(() => {
         const fetchData = async () => {
@@ -18,6 +46,47 @@ const Home = () => {
         fetchData();
 
     }, [])
+
+    //getting latitude,longitude
+    const initialState = {
+        longitude: 0,
+        latitude: 0
+
+    }
+    const initialWeather = {
+        description: '',
+        temperature: 0
+    }
+    const [locationData, setLocationData] = useState(initialState)
+    const [currentWeather, setCurrentWeather] = useState(initialWeather);
+    let userLoctaion = navigator.geolocation;
+    function myGeolocator() {
+        if (userLoctaion) {
+            userLoctaion.getCurrentPosition(success);
+        }
+    }
+    function success(data: {
+        coords: {
+            longitude: any; latitude: any;
+        };
+    }) {
+        let latitude = data.coords.latitude;
+        let longitude = data.coords.longitude;
+
+
+        setLocationData({ longitude, latitude })
+    }
+    useEffect(() => {
+        const fetchData = async () => {
+            await myGeolocator();
+            const weather = await getWeatherData(locationData);
+            setCurrentWeather(weather);
+        };
+
+        fetchData();
+    }, []);
+
+
     return (
 
         <Container p={4}>
@@ -31,10 +100,10 @@ const Home = () => {
                     color='accent'
 
                 >
-                    <Text fontSize='xs' >Riding Condition:  Fair</Text>
+                    <Text fontSize='xs' >Riding Condition:  {currentWeather.description}</Text>
                     <Flex>
                         <FaCloud color='accent'></FaCloud>
-                        <Text fontSize='xs'>18°C    </Text>
+                        <Text fontSize='xs' ml={1}> {currentWeather.temperature}°C    </Text>
                     </Flex>
                 </Flex>
             </Box>

@@ -15,7 +15,18 @@ import ProgressBar from '../../components/ProgressBar';
 import SubmitButton from '../../components/Button';
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import { commuteDays } from '../../features/cyclist/commuteDetails-slice';
+import { useAppSelector } from '../../app/hooks';
+import { useEffect } from 'react';
+
 const SetupDailyCommute = () => {
+    const { days, unpavedRoad, totalDistance } = useAppSelector((state) => state.commute)
+    const handleClick = async () => {
+        const dailyCommute = { days, unpavedRoad, totalDistance };
+        localStorage.setItem('dailyCommute', JSON.stringify(dailyCommute))
+    }
+
+
     return (
         <Container>
             <Center my={20}>
@@ -36,7 +47,7 @@ const SetupDailyCommute = () => {
             </Box>
 
             <Center my={10}>
-                <Days colorScheme='accent'></Days>
+                <Days colorScheme='accent' reducer={commuteDays} ></Days>
             </Center>
             <Text color={'accent'}
                 textAlign={'left'}
@@ -55,13 +66,14 @@ const SetupDailyCommute = () => {
 
             <HStack my={5}>
                 <Text color={'accent'}>No</Text>
-                <SetSwitch></SetSwitch>
+                {/* <SetSwitch></SetSwitch> */}
                 <Text color={'accent'}>Yes</Text>
             </HStack>
 
             <ChakraLink as={ReactRouterLink} to='/setup-recreation-details'>
                 <Center my={16}>
                     <SubmitButton
+                        onClick={handleClick}
                         loadingText='Submitting'
                         size='lg'
                         bg='accent'

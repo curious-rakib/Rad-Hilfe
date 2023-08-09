@@ -36,7 +36,7 @@ const SignUp = () => {
         //     ...prevState,
         //     [name]: value
         // }))
-        console.log(dataObj);
+        // console.log(dataObj);
         dispatch(signup(dataObj))
 
     };
