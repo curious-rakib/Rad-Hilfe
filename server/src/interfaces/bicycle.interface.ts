@@ -1,13 +1,14 @@
+import { Moment } from 'moment';
 import { Types } from '../models/database';
 
 interface Bicycle {
   brand: string;
   model: string;
   serialNumber: number;
-  purchaseMonth: string;
+  purchaseMonth: number;
   purchaseYear: number;
   isRevised: boolean;
-  revisionMonth?: string;
+  revisionMonth?: number;
   revisionYear?: number;
   dailyCommute: DailyCommute;
   recreationalCommute?: RecreationalCommute;
@@ -23,14 +24,14 @@ interface DailyCommute {
 
 interface RecreationalCommute {
   days: string[];
-  activityType: string;
+  activityType: string[];
   lengthOfRide: number;
 }
 
 interface BicycleParts {
   subpart: Types.ObjectId;
   health: number;
-  lastMaintained: Date;
+  lastMaintained: Moment;
 }
 
 export { Bicycle, BicycleParts };

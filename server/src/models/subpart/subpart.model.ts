@@ -1,11 +1,10 @@
 import { Subpart } from '../../interfaces/subpart.interface';
 import { Schema, model } from '../database';
-import { depreciationRateSchema } from './depreciationRate.schema';
 
 const subpartSchema = new Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
-  depreciationRate: depreciationRateSchema,
+  depreciationRate: { type: Number, required: true },
   category: { type: String, required: true },
   plan: { type: [String], default: [] },
 });

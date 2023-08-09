@@ -17,6 +17,7 @@
     "@mapbox/search-js-web": "^1.0.0-beta.17",
     "@reduxjs/toolkit": "^2.0.0-beta.0",
     "axios": "^1.4.0",
+    "@react-icons/all-files": "^4.1.0",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.15.1",
     "mapbox-gl": "^2.15.0",
