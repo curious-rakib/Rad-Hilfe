@@ -32,6 +32,7 @@ const RecreationButton = () => {
         const updatedButtonData = buttonsData.map((b) => b.id === button.id ? { ...b, chosen: !button.chosen } : b)
         setButtonsData(updatedButtonData);
     }
+    console.log(buttonsData);
     return (
         <HStack>
             {

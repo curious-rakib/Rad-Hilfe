@@ -1,15 +1,29 @@
 import { Container, Flex, Grid, GridItem, Text, Box } from '@chakra-ui/react';
 import Cards from '../../components/Cards';
 import { FaCloud } from 'react-icons/fa'
+import { useEffect, useState } from 'react';
+import { profile } from '../../services/authentication';
 
 
 const Home = () => {
+    const [name, setName] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const userInfo = await profile();
+
+            const userName = userInfo.name;
+
+            setName(userName)
+        };
+        fetchData();
+
+    }, [])
     return (
 
         <Container p={4}>
             <Box mt={32}>
                 <Text textStyle='h2' color='accent'>
-                    Good Morning, <br /> Ulrich
+                    Good Morning, <br /> {name}
                 </Text>
                 <Flex
                     justifyContent={'space-between'}

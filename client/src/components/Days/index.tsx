@@ -1,5 +1,9 @@
 import { Box, Button, Circle, HStack, Stack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useAppDispatch } from '../../app/hooks';
+import { commuteDays } from '../../features/cyclist/commuteDetails-slice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/store';
 
 interface Day {
     id: string,
@@ -11,7 +15,7 @@ const Days = ({
 
 }: { colorScheme: string }) => {
 
-    const [sevenDays, setSevenDays] = useState<Day[]>([])
+
     const allDays = [
         {
             label: 'M',
@@ -53,10 +57,8 @@ const Days = ({
 
 
     ]
-    useEffect(() => {
+    const [sevenDays, setSevenDays] = useState<Day[]>(allDays)
 
-        setSevenDays(allDays);
-    }, [])
 
 
     const handleChange = (day: Day) => {
@@ -67,6 +69,14 @@ const Days = ({
 
 
     }
+    const dispatch = useAppDispatch();
+    const chosenLabels = allDays.filter(item => item.chosen).map(item => item.label);
+    const dataObj = { days: chosenLabels }
+    console.log('dataObj', dataObj);
+    dispatch(commuteDays(dataObj));
+    // const commuteState = useSelector((state: RootState) => state.commute);
+    // console.log("::commute", commuteState);
+
 
     return (
         <HStack>

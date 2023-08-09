@@ -8,7 +8,14 @@ import SetSwitch from '../../components/Switch'
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 function SetupBikeDetails() {
-    const handleChange = () => {
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+
+        const dataObj = { [name]: value }
+        console.log(dataObj);
+
+    }
+    const handleClick = () => {
 
     }
     return (
@@ -36,18 +43,16 @@ function SetupBikeDetails() {
                 placeholder='Bike Model'
                 onChange={handleChange}
                 name='bikemodel'
-                borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }}
-            />
+                borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'} />
             <InputField
                 id='serialnum'
                 isRequired={true}
-                type='text'
+                type='number'
                 placeholder='Serial Number'
                 onChange={handleChange}
                 name='serialnum'
                 borderColor='third'
-                _placeholder={{ color: 'third', opacity: '100%' }}
-            />
+                _placeholder={{ color: 'third', opacity: '100%' }} color={'third'} />
             <HStack>
                 <InputField
                     id='purchasemonth'
@@ -56,16 +61,16 @@ function SetupBikeDetails() {
                     placeholder='Purchase Month'
                     onChange={handleChange}
                     name='purchasemonth'
-                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }}
+                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
                 <InputField
                     id='purchaseyear'
                     isRequired={true}
-                    type='text'
+                    type='number'
                     placeholder='purchase Year'
                     onChange={handleChange}
                     name='purchaseyear'
-                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }}
+                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
             </HStack>
 
@@ -83,16 +88,16 @@ function SetupBikeDetails() {
                     placeholder='Revision Month'
                     onChange={handleChange}
                     name='revisionmonth'
-                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }}
+                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
                 <InputField
                     id='revisionyear'
                     isRequired={true}
-                    type='text'
+                    type='number'
                     placeholder='Revision Year'
                     onChange={handleChange}
                     name='revisionyear'
-                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }}
+                    borderColor='third' _placeholder={{ color: 'third', opacity: '100%' }} color={'third'}
                 />
             </HStack>
             <Text color={'third'} opacity={'60%'}>Your best guesss works</Text>
@@ -101,6 +106,7 @@ function SetupBikeDetails() {
             <ChakraLink as={ReactRouterLink} to='/setup-commute-details'>
                 <Center>
                     <SubmitButton
+                        onClick={handleClick}
                         loadingText='Submitting'
                         size='lg'
                         bg='third'

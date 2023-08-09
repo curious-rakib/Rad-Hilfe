@@ -1,4 +1,5 @@
 import { Button } from '@chakra-ui/react';
+import { MouseEventHandler } from 'react';
 
 const SubmitButton = ({
     onClick,
@@ -9,7 +10,7 @@ const SubmitButton = ({
     color,
     text,
 }: {
-    onClick?: Function
+    onClick?: MouseEventHandler<HTMLButtonElement>
     loadingText: string;
     w: string;
     bg: string;
@@ -18,7 +19,7 @@ const SubmitButton = ({
     text: string;
 }) => {
     return (
-        <Button w={w} loadingText={loadingText} size={size} bg={bg} color={color}>
+        <Button onClick={onClick} w={w} loadingText={loadingText} size={size} bg={bg} color={color}>
             {text}
         </Button>
     );

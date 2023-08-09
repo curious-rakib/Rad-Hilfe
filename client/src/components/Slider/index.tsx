@@ -1,9 +1,15 @@
 import { Box, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Tooltip } from "@chakra-ui/react";
 
 import React, { useState } from "react";
+import { useAppDispatch } from "../../app/hooks";
+import { unpaved } from "../../features/cyclist/commuteDetails-slice";
 
 const SetSlider = () => {
-    const [sliderValue, setSliderValue] = useState(50)
+    const dispatch = useAppDispatch();
+    const [sliderValue, setSliderValue] = useState(50);
+    const dataObj = { unpavedRoad: sliderValue };
+    dispatch(unpaved(dataObj))
+
 
     const labelStyles = {
         mt: '2',

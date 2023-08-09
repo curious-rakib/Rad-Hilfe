@@ -3,10 +3,36 @@ import InputField from '../../components/InputField';
 import { ChangeEvent } from 'react';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg'
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { signin } from '../../features/cyclist/cyclistSignIn-slice';
+import { userLogin } from '../../services/authentication';
 
 const Login = () => {
+    const dispatch = useAppDispatch();
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        // const { name, value } = event.target;
+
+        event.preventDefault();
+        const { name, value } = event.target;
+
+        const dataObj = { [name]: value }
+
+        // console.log(dataObj);
+        dispatch(signin(dataObj))
+
+    }
+    const { email, password } = useAppSelector(
+        (state) => state.signInInput
+    );
+    // console.log(email, password);
+
+    const handleClick = async (event: any) => {
+
+        const signInUserData = { email, password };
+
+        const token = await userLogin(signInUserData);
+        console.log('signInUserUser     ', token);
+
+
     }
     return (
         <Box
@@ -38,8 +64,7 @@ const Login = () => {
                             placeholder='Email'
                             onChange={handleChange}
                             name='email'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }}
-
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'}
 
                         />
                         <InputField
@@ -49,14 +74,14 @@ const Login = () => {
                             placeholder='Password'
                             onChange={handleChange}
                             name='password' _placeholder={{ color: 'accent', opacity: '60%' }}
-                            borderColor='accent'
-
+                            borderColor='accent' color={'accent'}
 
                         />
 
 
                         <Stack spacing={10} pt={2}>
                             <SubmitButton
+                                onClick={handleClick}
                                 loadingText='Submitting'
                                 size='lg'
                                 w=''
@@ -109,3 +134,5 @@ const Login = () => {
 };
 
 export default Login;
+
+
