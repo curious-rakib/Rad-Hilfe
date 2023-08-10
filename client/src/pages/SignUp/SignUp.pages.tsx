@@ -12,38 +12,59 @@ import React, { ChangeEvent, useState } from 'react';
 import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
+import { signup } from '../../features/cyclist/cyclistSignup-slice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { createAccount } from '../../services/authentication';
 
-const initialUserInfo = {
-    first: '',
-    last: '',
-    contact: '',
-    email: '',
-    password: '',
-    confirmpassword: ''
-};
+// const initialUserInfo = {
+//     first: '',
+//     last: '',
+//     contact: '',
+//     email: '',
+//     password: '',
+//     confirmpassword: ''
+// };
 
 const SignUp = () => {
-    const [signup, setSignup] = useState(initialUserInfo)
+    const dispatch = useAppDispatch();
+    // const [signup, setSignup] = useState(initialUserInfo)
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setSignup((prevState) => ({
-            ...prevState,
-            [name]: value
-        }))
+
+        const dataObj = { [name]: value }
+        // setSignup((prevState) => ({
+        //     ...prevState,
+        //     [name]: value
+        // }))
+        // console.log(dataObj);
+        dispatch(signup(dataObj))
+
     };
-    const handleClick = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+    const { first, last, email, password, phone } = useAppSelector((state) => state.input);
+    console.log(first, last, email, password, phone);
+
+
+    const handleClick = async () => {
+
+        const name = first + last;
+        const userData = { name, email, password, phone };
+        localStorage.setItem('userData', JSON.stringify(userData));
+        const registeredUser = await createAccount(userData);
+        console.log('registeredUser     ', registeredUser);
+
+
+    }
+    const handleGoogleAuth = async (event: any) => {
         event.preventDefault();
+        console.log('heelo');
 
     }
-    const handleGoogleAuth = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-
-
-    }
-    const handleFacebookAuth = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleFacebookAuth = async (event: any) => {
 
 
     }
-    console.log(signup);
+    // console.log(signup);
     return (
         <Box p={4}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'}>
@@ -85,25 +106,26 @@ const SignUp = () => {
                                 placeholder='Last Name'
                                 onChange={handleChange}
                                 name='last'
-                                borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
+                                borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
                         </HStack>
 
                         <InputField
-                            id='contact'
+                            id='phone'
                             isRequired={true}
-                            type='contact'
+                            type='text'
                             placeholder='Contact'
                             onChange={handleChange}
-                            name='contact'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
+                            name='phone'
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
                         <InputField
                             id='email'
                             isRequired={true}
                             type='email'
+
                             placeholder='Email'
                             onChange={handleChange}
                             name='email'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
                         <InputField
                             id='password'
                             isRequired={true}
@@ -111,7 +133,7 @@ const SignUp = () => {
                             placeholder='Password'
                             onChange={handleChange}
                             name='password'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
                         <InputField
                             id='confirmpassword'
                             isRequired={true}
@@ -119,7 +141,7 @@ const SignUp = () => {
                             placeholder='Confirm Password'
                             onChange={handleChange}
                             name='confirmpassword'
-                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={''} />
+                            borderColor='accent' _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />
 
                         <Stack spacing={10} pt={2}>
                             <SubmitButton
@@ -166,3 +188,5 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+

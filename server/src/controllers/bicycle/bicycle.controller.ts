@@ -15,6 +15,7 @@ import { addBicycle } from '../../models/cyclist/cyclist.query';
 import { Types } from '../../models/database';
 
 const setUpBicycle = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const {
       brand,

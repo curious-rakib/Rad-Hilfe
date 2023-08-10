@@ -6,100 +6,48 @@ const CyclistTabCases = () => {
     return (
         <Box p={4} color={'accent'}>
             <Text color={'accent'} fontWeight={'bold'} my={8} fontSize='2xl' mx={4}>Cases</Text>
-            <Tabs variant='soft-rounded' colorScheme='red' isFitted  >
+            <Tabs variant='soft-rounded' isFitted boxShadow='md'>
                 <TabList border={'1px solid'} rounded={'full'} mx={4}>
-                    <Tab color={'accent'} >Resolved</Tab>
-                    <Tab color={'accent'}>Ongoing</Tab>
+                    <Tab _selected={{ bg: "#C1FAA6", color: 'secondary', boxShadow: '4px 0px 4px #C1FAA6' }} color='accent' boxShadow='md'>Resolved</Tab>
+                    <Tab _selected={{ bg: "#C1FAA6", color: 'secondary', boxShadow: '4px 0px 4px #C1FAA6' }} color={'accent'}>Ongoing</Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel my={8} rounded={'2xl'}>
-                        {/* <div className="Box">
-                            <div className="upper">
-                                <div className="upper-left">
-                                    <h2>Case #2562</h2>
-                                    <h6>Time to replace some parts...</h6>
-                                </div>
-                                <div className="upper-right">
-                                    <h6>23 Aug 2022</h6>
-                                    <h6>Passive check</h6>
-                                </div>
-                            </div>
+                    <TabPanel mt={4}
+                        mb={5}
+                        rounded={'2xl'} >
 
-                            <div className="lower">
-
-                                <div className="chip"> Body Frame</div>
-                                <div className="chip"> Brakes</div>
-                                <div className="chip"> Wheel</div>
-                                <div className="chip"> Crank arm</div>
-
-
-                            </div>
-                        </div> */}
-                        {/*                        .Box{
-    color: black;
-    border-left: 7px solid black;
-
-    
-}
-.upper-left h2{
-    font-weight: bold;
-    font-size: 20px
-}
-h6{
-    font-size: 12px;
-}
-.upper{
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid black;
-    padding: 0 0 5px 10px
-
-}
-
-.lower{
-    display: flex;
-    margin-top: 10px;
-    padding-left: 10px;
-    flex-wrap: wrap;
-}
-.chip{
-    background: red;
-    margin: 03px;
-    padding: 0 12px 5px 12px;
-    border-radius: 10px;
-     
-} */}
                         <Box bg={'accent'} p={4} rounded={'2xl'}>
                             <Box
 
                                 color="black"
-                                borderLeft="7px solid black"
-
+                                borderLeft="7px solid #001F3F"
 
 
                             >
                                 <Flex justifyContent="space-between" borderBottom="1px solid black" pl={3}>
                                     <Box >
-                                        <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>Case #2562</h2>
-                                        <h6 style={{ fontSize: "12px", marginBottom: "10px" }}>Time to replace some parts...</h6>
+                                        <h2 style={{ fontWeight: "bold", fontSize: "20px", color: "#001F3F" }}>Case #2562</h2>
+                                        <h6 style={{ fontSize: "12px", marginBottom: "10px", color: "#001F3F" }}>Time to replace some parts...</h6>
                                     </Box>
                                     <Box >
-                                        <h6 style={{ fontSize: "12px" }}>23 Aug 2022</h6>
-                                        <h6 style={{ fontSize: "12px" }}>Passive check</h6>
+                                        <VStack mt={1}>
+                                            <h6 style={{ fontSize: "12px", paddingTop: '1px', color: "#001F3F" }}>23 Aug 2022</h6>
+                                            <h6 style={{ fontSize: "12px", color: "#001F3F" }}>Passive check</h6>
+                                        </VStack>
                                     </Box>
                                 </Flex>
 
-                                <Flex mt={2} flexWrap="wrap" pl={2}>
-                                    <Box bg="third" m={1} p={2} borderRadius="10px">
+                                <Flex mt={2} flexWrap="wrap" pl={2} fontWeight={'bold'} fontSize={'sm'}>
+                                    <Box bg="third" m={1} p={2} px={4} borderRadius="10px"  >
                                         Body Frame
                                     </Box>
-                                    <Box bg="#E3DD39" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#E3DD39" m={1} p={2} px={4} borderRadius="10px">
                                         Brakes
                                     </Box>
-                                    <Box bg="#3B82F6" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#3B82F6" m={1} p={2} px={4} borderRadius="10px">
                                         Wheel
                                     </Box>
-                                    <Box bg="#17C05B" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#17C05B" m={1} p={2} px={4} borderRadius="10px">
                                         Crank arm
                                     </Box>
                                 </Flex>
@@ -112,33 +60,34 @@ h6{
                             <Box
 
                                 color="black"
-                                borderLeft="7px solid black"
-
+                                borderLeft="7px solid #001F3F"
 
 
                             >
                                 <Flex justifyContent="space-between" borderBottom="1px solid black" pl={3}>
                                     <Box >
-                                        <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>Case #2562</h2>
-                                        <h6 style={{ fontSize: "12px", marginBottom: "10px" }}>Time to replace some parts...</h6>
+                                        <h2 style={{ fontWeight: "bold", fontSize: "20px", color: "#001F3F" }}>Case #2562</h2>
+                                        <h6 style={{ fontSize: "12px", marginBottom: "10px", color: "#001F3F" }}>Time to replace some parts...</h6>
                                     </Box>
                                     <Box >
-                                        <h6 style={{ fontSize: "12px" }}>23 Aug 2022</h6>
-                                        <h6 style={{ fontSize: "12px" }}>Passive check</h6>
+                                        <VStack mt={1}>
+                                            <h6 style={{ fontSize: "12px", paddingTop: '1px', color: "#001F3F" }}>23 Aug 2022</h6>
+                                            <h6 style={{ fontSize: "12px", color: "#001F3F" }}>Passive check</h6>
+                                        </VStack>
                                     </Box>
                                 </Flex>
 
-                                <Flex mt={2} flexWrap="wrap" pl={2}>
-                                    <Box bg="third" m={1} p={2} borderRadius="10px">
+                                <Flex mt={2} flexWrap="wrap" pl={2} fontWeight={'bold'} fontSize={'sm'}>
+                                    <Box bg="third" m={1} p={2} px={4} borderRadius="10px" >
                                         Body Frame
                                     </Box>
-                                    <Box bg="#E3DD39" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#E3DD39" m={1} p={2} px={4} borderRadius="10px">
                                         Brakes
                                     </Box>
-                                    <Box bg="#3B82F6" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#3B82F6" m={1} p={2} px={4} borderRadius="10px">
                                         Wheel
                                     </Box>
-                                    <Box bg="#17C05B" m={1} p={2} borderRadius="10px">
+                                    <Box bg="#17C05B" m={1} p={2} px={4} borderRadius="10px">
                                         Crank arm
                                     </Box>
                                 </Flex>
@@ -152,44 +101,97 @@ h6{
 
 
                     </TabPanel>
-                    <TabPanel bg={'accent'} rounded={'2xl'} my={8}>
-                        <Box
+                    <TabPanel mt={4}
+                        mb={5} rounded={'2xl'} >
 
-                            color="black"
-                            borderLeft="7px solid black"
+                        <Box bg={'accent'} p={4} rounded={'2xl'}>
+                            <Box
+
+                                color="black"
+                                borderLeft="7px solid #001F3F"
 
 
-                        >
-                            <Flex justifyContent="space-between" borderBottom="1px solid black" pl={3}>
-                                <Box >
-                                    <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>Case #2562</h2>
-                                    <h6 style={{ fontSize: "12px", marginBottom: "10px" }}>Time to replace some parts...</h6>
-                                </Box>
-                                <Box >
-                                    <h6 style={{ fontSize: "12px" }}>23 Aug 2022</h6>
-                                    <h6 style={{ fontSize: "12px" }}>Passive check</h6>
-                                </Box>
-                            </Flex>
+                            >
+                                <Flex justifyContent="space-between" borderBottom="1px solid black" pl={3}>
+                                    <Box >
+                                        <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>Case #2562</h2>
+                                        <h6 style={{ fontSize: "12px", marginBottom: "10px" }}>Time to replace some parts...</h6>
+                                    </Box>
+                                    <Box >
+                                        <VStack mt={1}>
+                                            <h6 style={{ fontSize: "12px", paddingTop: '1px' }}>23 Aug 2022</h6>
+                                            <h6 style={{ fontSize: "12px" }}>Passive check</h6>
+                                        </VStack>
+                                    </Box>
+                                </Flex>
 
-                            <Flex mt={2} flexWrap="wrap" pl={3}>
-                                <Box bg="third" m={1} p={2} borderRadius="10px">
-                                    Body Frame
-                                </Box>
-                                <Box bg="#E3DD39" m={1} p={2} borderRadius="10px">
-                                    Brakes
-                                </Box>
-                                <Box bg="#3B82F6" m={1} p={2} borderRadius="10px">
-                                    Wheel
-                                </Box>
-                                <Box bg="#17C05B" m={1} p={2} borderRadius="10px">
-                                    Crank arm
-                                </Box>
-                            </Flex>
+                                <Flex mt={2} flexWrap="wrap" pl={2} fontWeight={'bold'} fontSize={'sm'}>
+                                    <Box bg="third" m={1} p={2} px={4} borderRadius="10px" >
+                                        Body Frame
+                                    </Box>
+                                    <Box bg="#E3DD39" m={1} p={2} px={4} borderRadius="10px">
+                                        Brakes
+                                    </Box>
+                                    <Box bg="#3B82F6" m={1} p={2} px={4} borderRadius="10px">
+                                        Wheel
+                                    </Box>
+                                    <Box bg="#17C05B" m={1} p={2} px={4} borderRadius="10px">
+                                        Crank arm
+                                    </Box>
+                                </Flex>
+                            </Box>
                         </Box>
+
+
+                        <br />
+                        <Box bg={'accent'} p={4} rounded={'2xl'}>
+                            <Box
+
+                                color="black"
+                                borderLeft="7px solid #001F3F"
+
+
+                            >
+                                <Flex justifyContent="space-between" borderBottom="1px solid black" pl={3}>
+                                    <Box >
+                                        <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>Case #2562</h2>
+                                        <h6 style={{ fontSize: "12px", marginBottom: "10px" }}>Time to replace some parts...</h6>
+                                    </Box>
+                                    <Box >
+                                        <VStack mt={1}>
+                                            <h6 style={{ fontSize: "12px", paddingTop: '1px' }}>23 Aug 2022</h6>
+                                            <h6 style={{ fontSize: "12px" }}>Passive check</h6>
+                                        </VStack>
+                                    </Box>
+                                </Flex>
+
+                                <Flex mt={2} flexWrap="wrap" pl={2} fontWeight={'bold'} fontSize={'sm'}>
+                                    <Box bg="third" m={1} p={2} px={4} borderRadius="10px" >
+                                        Body Frame
+                                    </Box>
+                                    <Box bg="#E3DD39" m={1} p={2} px={4} borderRadius="10px">
+                                        Brakes
+                                    </Box>
+                                    <Box bg="#3B82F6" m={1} p={2} px={4} borderRadius="10px">
+                                        Wheel
+                                    </Box>
+                                    <Box bg="#17C05B" m={1} p={2} px={4} borderRadius="10px">
+                                        Crank arm
+                                    </Box>
+                                </Flex>
+                            </Box>
+                        </Box>
+
+
+
+
+
+
+
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-        </Box>
+        </Box >
     );
 };
 

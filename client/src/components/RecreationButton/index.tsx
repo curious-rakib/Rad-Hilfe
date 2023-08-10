@@ -1,5 +1,7 @@
 import { Button, HStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
+import { useAppDispatch } from '../../app/hooks';
+import { activityType } from '../../features/cyclist/recreationalCommute-slice';
 interface RecreationButton {
     id: any;
     text: string,
@@ -7,7 +9,7 @@ interface RecreationButton {
 }
 
 const RecreationButton = () => {
-    const [buttonsData, setButtonsData] = useState<RecreationButton[]>([])
+
     const buttonsInfo = [
         {
             id: 1,
@@ -25,13 +27,32 @@ const RecreationButton = () => {
             chosen: false
         },
 
-    ]
+    ];
+    const [buttonsData, setButtonsData] = useState<RecreationButton[]>(buttonsInfo)
 
-    useEffect(() => setButtonsData(buttonsInfo), [])
+
+
+    const dispatch = useAppDispatch();
     const handleClick = (button: RecreationButton) => {
-        const updatedButtonData = buttonsData.map((b) => b.id === button.id ? { ...b, chosen: !button.chosen } : b)
+
+        const updatedButtonData = buttonsData.map((b) => b.id === button.id ? { ...b, chosen: true } : b)
+
         setButtonsData(updatedButtonData);
+
+
     }
+    useEffect(() => {
+        console.log(buttonsData);
+        const chosenTexts = buttonsData.filter(item => item.chosen).map(item => item.text);
+        const dataObj = { activityType: chosenTexts };
+
+        dispatch(activityType(dataObj));
+    }, [buttonsData])
+
+
+
+
+
     return (
         <HStack>
             {
