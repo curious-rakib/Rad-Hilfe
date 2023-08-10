@@ -31,7 +31,7 @@ const damageCalculateForOnePart = (
       CoefficientOfDamageOfFactorComponent = 1.5;
     }
 
-    subpart.health = Math.max(100 - CoefficientOfDamageOfFactorComponent * damage);
+    subpart.health = Math.max(100 - CoefficientOfDamageOfFactorComponent * damage, 0);
   }
 };
 
@@ -144,7 +144,7 @@ const bicycleHealthAlgorithm = async () => {
           return String(part.subpart._id) === dependencyPart._id;
         });
 
-        console.log(subpart[0].name, part.health);
+        // console.log(subpart[0].name, part.health);
       });
 
       bicycle.totalHealth = totalSubpartHealth / bicycle.bicycleParts!.length;

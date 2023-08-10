@@ -12,6 +12,6 @@ import { bicycleHealthAlgorithm } from '../utilities/bicycleHealth.algorithm';
 router.use('/cyclist', cyclistRouter);
 router.use('/technician', technicianRouter);
 
-router.use('*', (req: Request, res: Response) => res.status(404).send('Error, Not Found!'));
+router.use('*', (req: Request, res: Response) => res.status(404).send('404 Error, Not Found!'));
 
 export { router };
