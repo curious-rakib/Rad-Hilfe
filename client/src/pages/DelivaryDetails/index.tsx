@@ -9,7 +9,9 @@ import {
 } from '@chakra-ui/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { delivery } from '../../features/cyclist/order-slice';
+import { time } from '../../features/cyclist/order-slice';
 interface Slots {
     id: any;
     day: string;
@@ -17,8 +19,9 @@ interface Slots {
     chosen: boolean;
 }
 const DelivaryDetails = () => {
+    const dispatch = useAppDispatch();
     const [slots, setSlots] = useState<Slots[]>([]);
-    const [selectedSlot, setSelectedSlot] = useState({ days: '' })
+
 
 
     const deliverySlots = [
@@ -57,13 +60,14 @@ const DelivaryDetails = () => {
                 chosen: s.id === slot.id ? true : false,
             }))
             const chosenTime = updatedSlots.filter(item => item.chosen).map(item => item.time);
-            const dataObj = { days: chosenTime[0] };
-            setSelectedSlot(dataObj);
+            const slotObj = { slot: chosenTime[0] };
+
+            dispatch(time(slotObj))
 
             return updatedSlots;
         });
     };
-    const dispatch = useAppDispatch();
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 
         const { name, value } = event.target;
@@ -74,10 +78,12 @@ const DelivaryDetails = () => {
 
         }
 
+        dispatch(delivery(dataObj));
 
 
 
     };
+
 
 
     return (

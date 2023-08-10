@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { profile } from '../../services/authentication';
 import { useAppSelector } from '../../app/hooks';
 import { setUpBikeInfo } from '../../services/bikeDetails';
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import { getWeatherData } from '../../services/weather';
 
 
@@ -122,31 +124,33 @@ const Home = () => {
                     gap={4}
                 >
                     <GridItem rowSpan={6} colSpan={3}>
-                        <Cards
+                        <ChakraLink as={ReactRouterLink} to='/my-bike'>
+                            <Cards
 
-                            name={'My Bike'}
-                            textStyle={'h1'}
-                            w={''}
-                            h={'258px'}
-                            bg={'fourth'}
-                            color={'black'}
-                            px='4'
-                            py='8'
-                        ></Cards>
+                                name={'My Bike'}
+                                textStyle={'h1'}
+                                w={''}
+                                h={'258px'}
+                                bg={'fourth'}
+                                color={'black'}
+                                px='4'
+                                py='8'
+                            ></Cards>
+                        </ChakraLink>
                     </GridItem>
                     <GridItem colSpan={3} rowSpan={3} bg=''>
-
-                        <Cards
-                            name={'My Care Plans'}
-                            textStyle={'h3'}
-                            w={''}
-                            h={'120px'}
-                            bg={'accent'}
-                            color={'black'}
-                            px='4'
-                            py='12'
-                        ></Cards>
-
+                        <ChakraLink as={ReactRouterLink} to='/care-plan'>
+                            <Cards
+                                name={'My Care Plans'}
+                                textStyle={'h3'}
+                                w={''}
+                                h={'120px'}
+                                bg={'accent'}
+                                color={'black'}
+                                px='4'
+                                py='12'
+                            ></Cards>
+                        </ChakraLink>
                     </GridItem>
                     <GridItem colSpan={3} rowSpan={3} bg=''>
                         <Cards

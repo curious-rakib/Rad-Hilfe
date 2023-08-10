@@ -19,11 +19,12 @@ const recreationalSlice = createSlice({
     activityType: (state, action) => {
       return { ...state, ...action.payload };
     },
-    lengthOfRide: (state, action) => {
+    lengthOfRideDetails: (state, action) => {
       return { ...state, ...action.payload };
     },
   },
 });
 
-export const { days, activityType, lengthOfRide } = recreationalSlice.actions;
+export const { days, activityType, lengthOfRideDetails } =
+  recreationalSlice.actions;
 export default recreationalSlice.reducer;

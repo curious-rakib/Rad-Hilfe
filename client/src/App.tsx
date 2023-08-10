@@ -34,10 +34,7 @@ function App() {
 						path="/home"
 						element={<Home />}
 					/>
-					<Route
-						path="/location"
-						element={<CurrentLocation />}
-					/>
+
 
 
 					<Route

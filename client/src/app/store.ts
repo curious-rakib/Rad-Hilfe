@@ -4,7 +4,7 @@ import signinInputSliceReducer from '../features/cyclist/cyclistSignIn-slice';
 import commuteSliceReducer from '../features/cyclist/commuteDetails-slice';
 import recreationalSliceReducer from '../features/cyclist/recreationalCommute-slice';
 import bikeInputSliceReducer from '../features/cyclist/bikeDetails-slice';
-
+import orderSliceReducer from '../features/cyclist/order-slice';
 import rootSetBikeReducer from '../features/cyclist/setUpBike-slice';
 export const store = configureStore({
   reducer: {
@@ -14,6 +14,7 @@ export const store = configureStore({
     recreation: recreationalSliceReducer,
     bikeDetails: bikeInputSliceReducer,
     rootSetBikeReducer: rootSetBikeReducer,
+    order: orderSliceReducer,
   },
 });
 

@@ -42,7 +42,7 @@ const RecreationButton = () => {
 
     }
     useEffect(() => {
-        console.log(buttonsData);
+        // console.log(buttonsData);
         const chosenTexts = buttonsData.filter(item => item.chosen).map(item => item.text);
         const dataObj = { activityType: chosenTexts };
 
