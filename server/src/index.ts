@@ -6,7 +6,6 @@ import { router } from './routers/router';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 dotenv.config({ path: __dirname + '/.env' });
-// require('dotenv').config();
 
 const app: Application = express();
 
@@ -25,9 +24,7 @@ try {
   mongoose.connection.on('open', () => console.log('🍁 Connected to Database'));
 
   app.listen(process.env.SERVER_PORT, () => {
-    console.log(
-      `🚀 Server is listening on port http://localhost:${process.env.SERVER_PORT}`
-    );
+    console.log(`🚀 Server is listening on port http://localhost:${process.env.SERVER_PORT}`);
   });
 } catch (error) {
   console.log(error);

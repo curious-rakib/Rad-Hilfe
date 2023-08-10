@@ -1,4 +1,4 @@
-import { Schema, Types, model } from '../database';
+import { Schema, model } from '../database';
 import { Bicycle } from '../../interfaces/bicycle.interface';
 import { dailyCommuteSchema } from './dailyCommute.schema';
 import { recreationalCommuteSchema } from './recreationalCommute.schema';

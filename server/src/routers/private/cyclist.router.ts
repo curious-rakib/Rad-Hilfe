@@ -44,9 +44,7 @@ cyclistRouter.get('/get-all-cases', caseController.getAllCases);
 cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
 
 // subpart
-cyclistRouter.post('/add-subpart', subpartController.addSubpart);
-cyclistRouter.get('/maintenance-log', subpartController.maintenanceLog);
-
-// technician
+cyclistRouter.post('/add-subparts', subpartController.addSubparts);
+cyclistRouter.get('/all-subpart', subpartController.allSubpart);
 
 export { cyclistRouter };

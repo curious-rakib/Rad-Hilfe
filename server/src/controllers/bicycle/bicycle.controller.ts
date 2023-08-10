@@ -60,7 +60,10 @@ const setUpBicycle = async (req: Request, res: Response) => {
       await addBicycle(session.userEmail, bicycleId);
 
       res.status(201).send(createdBicycle);
-    } else throw new Error('Session Unavailable!');
+      return;
+    }
+
+    res.status(401).send('Session Unavailable!');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
@@ -71,7 +74,10 @@ const getBicycle = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
     const bicycle = await findBicycleById(new Types.ObjectId(bicycleId));
-    if (!bicycle) return res.status(401).send('Failed to find bicycle!');
+    if (!bicycle) {
+      return res.status(401).send('Failed to find bicycle!');
+    }
+
     res.status(200).send(bicycle);
   } catch (error) {
     res.status(500).send(error);
@@ -82,8 +88,12 @@ const getBicycleHealth = async (req: Request, res: Response) => {
   try {
     const bicycleId: string = req.params.id;
     const bicycle = await findBicycleHealthById(new Types.ObjectId(bicycleId));
-    if (!bicycle) res.status(401).send('Failed to find bicycle!');
-    if (bicycle) res.status(200).send(bicycle);
+    if (!bicycle) {
+      res.status(401).send('Failed to find bicycle!');
+      return;
+    }
+
+    res.status(200).send(bicycle);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error!');
@@ -140,7 +150,10 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
     if (session) {
       res.status(201).send(updatedBicycle);
-    } else throw new Error('Session Unavailable!');
+      return;
+    }
+
+    res.status(401).send('Session Unavailable!');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');

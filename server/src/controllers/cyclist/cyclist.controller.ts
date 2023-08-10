@@ -130,10 +130,11 @@ const resetPassword = async (req: Request, res: Response) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-    await updateCyclistPassword(email, hashedPassword);
-    storedOTP = null;
-
-    res.status(200).send('Password has been reset successfully!');
+    if (await updateCyclistPassword(email, hashedPassword)) {
+      storedOTP = null;
+      res.status(200).send('Password has been reset successfully!');
+      return;
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
@@ -150,6 +151,8 @@ const profile = async (req: Request, res: Response) => {
       res.status(200).send(cyclist);
       return;
     }
+
+    res.status(401).send('Session is invalid.');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
@@ -184,6 +187,8 @@ const setUpAddress = async (req: Request, res: Response) => {
       res.status(200).send('Home address and work address added');
       return;
     }
+
+    res.status(401).send('Session is invalid.');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
@@ -203,6 +208,8 @@ const setUpAddressEdit = async (req: Request, res: Response) => {
       res.status(200).send('Home address and work address added');
       return;
     }
+
+    res.status(401).send('Session is invalid.');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
@@ -229,9 +236,11 @@ const cyclistName = async (req: Request, res: Response) => {
 
     if (session) {
       const cyclist = await findCyclistByEmail(session.userEmail);
-      res.status(200).send(cyclist && cyclist.name);
+      cyclist && res.status(200).send(cyclist.name);
       return;
     }
+
+    res.status(401).send('Session is invalid.');
   } catch (error) {
     console.log(error);
   }
@@ -244,12 +253,12 @@ const selectPlan = async (req: Request, res: Response) => {
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
 
-    if (session) {
-      await addCyclistPlan(session.userEmail, plan);
-
+    if (session && (await addCyclistPlan(session.userEmail, plan))) {
       res.status(200).send(`Your selected ${plan} plan`);
       return;
     }
+
+    res.status(401).send('Session is invalid.');
   } catch (error) {
     console.log(error);
     res.status(500).send('Server Error!');
