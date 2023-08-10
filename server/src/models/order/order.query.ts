@@ -4,17 +4,29 @@ import { Types } from '../database';
 import { OrderModel } from './order.model';
 
 const createOrder = async (order: Order) => {
-  return await OrderModel.create(order);
+  try {
+    return await OrderModel.create(order);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const addOrder = async (email: string, orderId: Types.ObjectId) => {
-  const cyclist = await findCyclistByEmail(email);
-  cyclist?.orders?.push(orderId);
-  await cyclist?.save();
+  try {
+    const cyclist = await findCyclistByEmail(email);
+    cyclist?.orders?.push(orderId);
+    await cyclist?.save();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const findOrderById = async (orderId: Types.ObjectId) => {
-  return await OrderModel.findOne({ _id: orderId });
+  try {
+    return await OrderModel.findOne({ _id: orderId });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const fetchCyclistPlan = async (email: string) => {
