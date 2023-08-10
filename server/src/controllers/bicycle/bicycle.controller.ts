@@ -12,9 +12,9 @@ import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { addBicycle } from '../../models/cyclist/cyclist.query';
 import { Types } from '../../models/database';
+import { bicycleHealthAlgorithm } from '../../utilities/bicycleHealth.algorithm';
 
 const setUpBicycle = async (req: Request, res: Response) => {
-  console.log(req.body);
   try {
     const {
       brand,
@@ -59,7 +59,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
     if (session) {
       const bicycleId = new Types.ObjectId(createdBicycle!._id);
       await addBicycle(session.userEmail, bicycleId);
-
+      await bicycleHealthAlgorithm();
       res.status(201).send(createdBicycle);
     } else throw new Error('Session Unavailable!');
   } catch (error) {
