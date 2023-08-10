@@ -13,9 +13,9 @@ const Cases = () => {
 
 	const handleStatusFilter = (selectedStatus: string) => {
 		const filteredData = cases.filter((caseItem) => {
-			console.log(selectedStatus);
 			return selectedStatus.includes(caseItem['Status']);
 		});
+
 		setFilteredCases(filteredData);
 	};
 	const handleTypeFilter = (selectedType: string) => {

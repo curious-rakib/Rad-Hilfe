@@ -1,7 +1,7 @@
 import { Text, Box, Flex, Image, Button, Input } from '@chakra-ui/react';
 import TechnicianWorkingDays from '../../../components/Technician Working Days';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
-import { useEffect, useState, KeyboardEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { parts } from '../../../data/partsData';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bike Parts';
 import avatar from '../../../assets/avatarTechnician.svg';
@@ -24,12 +24,19 @@ const TechnicianProfile = () => {
 
 	return (
 		<>
-			<Flex>
+			<Flex gap={'2rem'}>
 				<Box
+					p={'2rem'}
 					color={'secondary'}
 					flex={0.5}>
-					<Box>
-						<Box>
+					<Box
+						mt={'1rem'}
+						mb={'2rem'}
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'flex-start'}
+						gap={'5rem'}>
+						<Box ml={'1rem'}>
 							<Image
 								src={avatar}
 								alt="Technician"></Image>
@@ -37,15 +44,23 @@ const TechnicianProfile = () => {
 
 						<Button
 							color={'#001F3F'}
-							
+							p={'0 2.5rem'}
 							bg={'#C1FAA6'}
+							borderRadius={'.75rem'}
 							_hover={{ color: '#C1FAA6', backgroundColor: '#001F3F' }}
-							size="lg">
-							Upload
+							size="md">
+							<Text
+								as="b"
+								fontFamily={'Inter'}>
+								Upload
+							</Text>
 						</Button>
 					</Box>
 
-					<Box>
+					<Box
+						width={'90%'}
+						m={'0 auto'}
+						mb={'3rem'}>
 						<InputTechnician
 							id={'fullName'}
 							isRequired={false}
@@ -53,10 +68,52 @@ const TechnicianProfile = () => {
 							label={'Full Name'}
 							placeholder={'Enter Full Name'}
 						/>
+
+						<InputTechnician
+							id={'fullName'}
+							isRequired={false}
+							type={'text'}
+							label={'Email'}
+							placeholder={'Enter Your Email '}
+						/>
 					</Box>
+
+					<Flex
+						justifyContent={'center'}
+						alignItems={'center'}
+						gap={'1.5rem'}>
+						<Button
+							color={'#001F3F'}
+							p={'0 3rem'}
+							bg={'#EDCBEF'}
+							borderRadius={'1.25rem'}
+							_hover={{ color: '#EDCBEF', backgroundColor: '#001F3F' }}
+							size="lg">
+							<Text
+								as="b"
+								fontFamily={'Inter'}>
+								Confirm
+							</Text>
+						</Button>
+
+						<Button
+							color={'#001F3F'}
+							p={'0 3rem'}
+							bg={'#EDCBEF'}
+							borderRadius={'1.25rem'}
+							_hover={{ color: '#EDCBEF', backgroundColor: '#001F3F' }}
+							size="lg">
+							<Text
+								as="b"
+								fontFamily={'Inter'}>
+								Cancel
+							</Text>
+						</Button>
+					</Flex>
 				</Box>
 
 				<Box
+					p={'2rem'}
 					color={'secondary'}
 					flex={0.5}>
 					<>
@@ -122,9 +179,17 @@ const TechnicianProfile = () => {
 											}
 										}}
 									/>
-
-
-
+									<Flex wrap={'wrap'}>
+										{brandList.map((brand, index) => {
+											return (
+												<LoopSlotOrPartsComponent
+													key={index}
+													item={brand}
+													onClick={() => console.log('first')}
+												/>
+											);
+										})}
+									</Flex>
 								</Flex>
 							</>
 

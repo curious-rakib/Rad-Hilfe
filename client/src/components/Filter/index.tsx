@@ -5,8 +5,9 @@ const FilterComponent = ({ name, options, onChange }: { name: string; options: s
 	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
 		const selectedValue = event.target.value;
+		console.log(selectedValue);
 
-		if (onChange) {
+		if (onChange && selectedValue) {
 			onChange(selectedValue);
 		}
 	};

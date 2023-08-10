@@ -16,6 +16,7 @@ import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
 import TechnicianProfile from './pages/Dashboard/Profile';
 import Dashboard from './pages/Dashboard';
+import TechnicianSetUp from './pages/Technician Setup/setUpBikeAndComponent';
 
 function App() {
 	return (
@@ -94,6 +95,13 @@ function App() {
 							element={<TechnicianProfile />}
 						/>
 					</Route>
+				</Routes>
+
+				<Routes>
+					<Route
+						path="/technician-setup"
+						element={<TechnicianSetUp />}
+					/>
 				</Routes>
 			</Router>
 		</>

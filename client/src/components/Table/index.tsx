@@ -1,9 +1,22 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import './table.styles.css';
-import { cases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
+import { cases } from './../../pages/Dashboard/Dummy Data/dummyCaseData';
+
+export interface CaseData {
+	'Case No': string;
+	'Case Type': string;
+	Status: string;
+	'Client Name': string;
+	'Date Created': string;
+	'Bicycle Health': number;
+	Action: null | any;
+}
+interface TableDataProps {
+	cases: CaseData[];
+}
 
 const TableComponent = () => {
 	return (

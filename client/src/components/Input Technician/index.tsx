@@ -12,6 +12,7 @@ const InputTechnician = ({ id, isRequired, type, label, placeholder }: { id: str
 					{label}
 				</Text>
 				<Input
+					mb={'2rem'}
 					type={type}
 					placeholder={placeholder}
 					variant={'unstyled'}
