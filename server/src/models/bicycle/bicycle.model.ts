@@ -5,7 +5,7 @@ import { recreationalCommuteSchema } from './recreationalCommute.schema';
 import { bicyclePartsSchema } from './bicyclePart.schema';
 
 const bicycleSchema = new Schema({
-  brand: { type: String, required: true },
+  brand: { type: String, required: false },
   model: { type: String, required: true },
   serialNumber: { type: Number, required: true },
   purchaseMonth: { type: Number, required: true },

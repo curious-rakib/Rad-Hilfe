@@ -22,7 +22,7 @@ const IndividualCyclistCase = () => {
             </Stack>
 
             <Box>
-                <Text fontWeight={'semibold'} fontSize={'xl'} mt={10}>Main issues</Text>
+                <Text fontWeight={'semibold'} fontSize={'lg'} mt={10}>Main issues</Text>
                 <Flex mt={2} flexWrap="wrap" color={'black'} fontWeight={'semibold'} >
                     <Box bg="#E3DD39" my={1} mr={2} p={2} borderRadius="10px">
                         #Body Frame
@@ -39,10 +39,10 @@ const IndividualCyclistCase = () => {
                 </Flex>
             </Box>
 
-            <Box my={8}>
-                <Text my={5} fontSize={'lg'} fontWeight={'bold'}>Parts replaced</Text>
+            <Box mb={8}>
+                <Text mt={5} mb={4} fontSize={'lg'} fontWeight={'bold'}>Parts replaced</Text>
                 <hr />
-                <Flex color='third' my={4} >
+                <Flex color='third' my={3} >
                     <Circle
                         sx={
                             {
@@ -54,8 +54,8 @@ const IndividualCyclistCase = () => {
 
                         bg={'#17C05B'} size={'25px'} mr={'8px'}>{" "}  </Circle>
                     <HStack spacing={44} >
-                        <Text>Chain (x1)</Text>
-                        <Text>€300</Text>
+                        <Text color={'white'}>Chain (x1)</Text>
+                        <Text color={'white'}>€300</Text>
                     </HStack>
                 </Flex>
                 <hr />
@@ -65,12 +65,12 @@ const IndividualCyclistCase = () => {
                 <Text fontSize={'lg'} fontWeight={'semibold'}>Intervention details</Text>
                 <Text>First call: 07 Aug 2023 | 18:00</Text>
                 <Text>Follow-up call: Pending</Text>
-                <Text>Support quality: </Text>
+                <Text>Support quality: ☆☆☆☆</Text>
             </Stack>
             <Box my={5}>
-                <Flex gap={4} rounded={'2xl'}>
-                    <Button bg={'third'} fontWeight={'bold'} p={6}>Open case notes</Button>
-                    <Button bg={'third'} fontWeight={'bold'} p={6}>Diagnostic video</Button>
+                <Flex gap={4} rounded={'full'}>
+                    <Button bg={'third'} fontWeight={'bold'} p={6} rounded={'xl'}>Open case notes</Button>
+                    <Button bg={'third'} fontWeight={'bold'} p={6} rounded={'xl'}>Diagnostic video</Button>
                 </Flex>
             </Box>
         </Box>

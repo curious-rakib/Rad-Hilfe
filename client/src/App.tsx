@@ -15,6 +15,7 @@ import MyBike from './pages/MyBike';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
+import CurrentLocation from './components/CurrentLocation';
 
 function App() {
 	return (
@@ -33,6 +34,12 @@ function App() {
 						path="/home"
 						element={<Home />}
 					/>
+					<Route
+						path="/location"
+						element={<CurrentLocation />}
+					/>
+
+
 					<Route
 						path="/setup-daily-route"
 						element={<SetupDailyRoute />}

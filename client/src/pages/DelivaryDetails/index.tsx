@@ -7,8 +7,9 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
+import { useAppDispatch } from '../../app/hooks';
 interface Slots {
     id: any;
     day: string;
@@ -17,7 +18,9 @@ interface Slots {
 }
 const DelivaryDetails = () => {
     const [slots, setSlots] = useState<Slots[]>([]);
-    const handleChange = () => { };
+    const [selectedSlot, setSelectedSlot] = useState({ days: '' })
+
+
     const deliverySlots = [
         {
             id: 1,
@@ -48,14 +51,35 @@ const DelivaryDetails = () => {
         setSlots(deliverySlots);
     }, []);
     const handleSlotClick = (slot: Slots) => {
-        setSlots((prevSlots) =>
-            prevSlots.map((s) => ({
+        setSlots((prevSlots) => {
+            const updatedSlots = prevSlots.map((s) => ({
                 ...s,
                 chosen: s.id === slot.id ? true : false,
             }))
-        );
+            const chosenTime = updatedSlots.filter(item => item.chosen).map(item => item.time);
+            const dataObj = { days: chosenTime[0] };
+            setSelectedSlot(dataObj);
+
+            return updatedSlots;
+        });
     };
-    console.log(slots);
+    const dispatch = useAppDispatch();
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+        const { name, value } = event.target;
+
+        const dataObj = {
+            [name]: value,
+
+
+        }
+
+
+
+
+    };
+
+
     return (
         <Box p={4} mt={'-10'}>
             <Stack spacing={6} mt={20}>
@@ -81,19 +105,18 @@ const DelivaryDetails = () => {
                     type='text'
                     placeholder='Delivery address'
                     onChange={handleChange}
-                    name='deliveryaddress'
+                    name='deliveryAddress'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }}
-                />{' '}
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />{' '}
                 <InputField
                     id='contactnumber'
                     isRequired={true}
                     type='text'
                     placeholder='Contact number'
                     onChange={handleChange}
-                    name='contactnumber'
+                    name='contactNumber'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }}
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'}
                 />{' '}
                 <InputField
                     id='note'
@@ -103,7 +126,7 @@ const DelivaryDetails = () => {
                     onChange={handleChange}
                     name='note'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }}
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'}
                 />
             </Stack>
             <Text my={5} color={'accent'} fontSize={'lg'} fontWeight={'bold'}>
