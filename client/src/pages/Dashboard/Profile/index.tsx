@@ -1,7 +1,7 @@
 import { Text, Box, Flex, Image, Button, Input } from '@chakra-ui/react';
 import TechnicianWorkingDays from '../../../components/Technician Working Days';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, KeyboardEvent } from 'react';
 import { parts } from '../../../data/partsData';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bike Parts';
 import avatar from '../../../assets/avatarTechnician.svg';
@@ -11,6 +11,8 @@ const TechnicianProfile = () => {
 	const timeSlots = timeSlotGenerator(7, 20);
 	const bicycleParts = parts; //generating time slots between 7am and 8pm
 	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);
+	const [inputBrand, setInputBrand] = useState<string>('');
+	const [brandList, setBrandList] = useState<string[]>([]);
 
 	const handleClick = (item: TimeSlot | string) => {
 		// console.log('selected:', item);
@@ -34,18 +36,22 @@ const TechnicianProfile = () => {
 						</Box>
 
 						<Button
-							colorScheme="teal"
+							color={'#001F3F'}
+							
+							bg={'#C1FAA6'}
+							_hover={{ color: '#C1FAA6', backgroundColor: '#001F3F' }}
 							size="lg">
-							Button
+							Upload
 						</Button>
 					</Box>
 
 					<Box>
 						<InputTechnician
-							id={''}
+							id={'fullName'}
 							isRequired={false}
-							type={''}
-							placeholder={''}
+							type={'text'}
+							label={'Full Name'}
+							placeholder={'Enter Full Name'}
 						/>
 					</Box>
 				</Box>
@@ -101,11 +107,24 @@ const TechnicianProfile = () => {
 									w={'31vw'}
 									direction={'column'}>
 									<Input
+										value={inputBrand}
 										variant="flushed"
 										size={'md'}
 										placeholder="Type names of brands you have worked with"
-										_placeholder={{ color: 'secondary' }}
+										_placeholder={{ color: 'secondary', borderColor: 'secondary' }}
+										_focusVisible={{ borderColor: 'secondary' }}
+										onChange={(event) => setInputBrand(event.currentTarget.value)}
+										onKeyDown={(event) => {
+											if (event.key === 'Enter') {
+												event.preventDefault();
+												setBrandList((brands) => [...brands, inputBrand]);
+												setInputBrand('');
+											}
+										}}
 									/>
+
+
+
 								</Flex>
 							</>
 
