@@ -12,7 +12,6 @@ const token = localStorage.getItem('accessToken');
 // };
 
 export const setUpBikeInfo = async (bikeinfo: any) => {
-  console.log('bike info', bikeinfo);
   try {
     const response = await fetch(`${BASE_URL}/cyclist/set-up-bicycle`, {
       method: 'POST',

@@ -15,18 +15,9 @@ const commuteSlice = createSlice({
   initialState,
   reducers: {
     commuteDays: (state, action) => {
-      console.log('data rcvd from commute commuteDays', {
-        ...state,
-        ...action,
-      });
-
       return { ...state, ...action.payload };
     },
     unpavedRoad: (state, action) => {
-      console.log('data rcvd from commute unpavedRoad', {
-        ...state,
-        ...action,
-      });
       return { ...state, ...action.payload };
     },
   },

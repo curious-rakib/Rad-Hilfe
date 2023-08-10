@@ -13,7 +13,7 @@ export const getWeatherData = async (weatherData: any) => {
       body: JSON.stringify(weatherData),
     });
     const weather = await response.json();
-    console.log(weather);
+
     return weather;
   } catch (error) {
     console.log(error);

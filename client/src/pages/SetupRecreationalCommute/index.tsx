@@ -46,7 +46,8 @@ const Recreation = () => {
     };
 
 
-    console.log(bikeDetails, dailyCommute, recreationalCommute);
+    console.log('from bikeinfo', bikeInfo);
+
     useEffect(() => {
         const fetchData = async () => {
 

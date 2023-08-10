@@ -14,19 +14,12 @@ const recreationalSlice = createSlice({
   initialState,
   reducers: {
     days: (state, action) => {
-      console.log('data rcvd from recreation', { ...state, ...action });
       return { ...state, ...action.payload };
     },
     activityType: (state, action) => {
-      console.log('data rcvd from recreation activityType', {
-        ...state,
-        ...action,
-      });
-      //   console.log('data rcvd', { ...state, ...action });
       return { ...state, ...action.payload };
     },
     lengthOfRide: (state, action) => {
-      console.log('data rcvd', { ...state, ...action });
       return { ...state, ...action.payload };
     },
   },
