@@ -97,6 +97,36 @@ const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycl
   }
 };
 
+const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
+  try {
+    const allDamagedParts = await BicycleModel.aggregate([
+      {
+        $match: {
+          _id: bicycleId,
+        },
+      },
+      {
+        $unwind: '$bicycleParts',
+      },
+      {
+        $match: {
+          'bicycleParts.health': { $lt: 30 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          bicycleParts: '$bicycleParts',
+        },
+      },
+    ]);
+
+    return allDamagedParts;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   createBicycle,
   findBicycleById,
@@ -104,4 +134,5 @@ export {
   updateBicycle,
   getAllBicycle,
   bicycleHealthUpgration,
+  getAllDamagedParts,
 };
