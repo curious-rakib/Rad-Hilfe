@@ -9,7 +9,7 @@ const Dashboard = () => {
 			<Box
 				bg="primary"
 				p={2}
-				h={'100vh'}
+				h={'auto'}
 				w={'87vw'}>
 				<Outlet />
 			</Box>

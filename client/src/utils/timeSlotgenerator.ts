@@ -5,7 +5,8 @@ export interface TimeSlot {
 }
 export function timeSlotGenerator(start: number, end: number) {
 	const timeSlots: TimeSlot[] = [];
-	for (let hour = 7; hour <= 20; hour++) {
+	for (let hour = 7; hour < 20; hour++) {
+		if (hour == 11) continue;
 		const slotStartTime = `${hour.toString().padStart(2, '0')}:00`;
 		const slotEndTime = `${(hour + 1).toString().padStart(2, '0')}:00`;
 		const slotName = String.fromCharCode(65 + hour - 7); // A, B, C, ...
