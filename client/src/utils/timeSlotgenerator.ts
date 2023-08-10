@@ -1,6 +1,7 @@
 export interface TimeSlot {
 	slotName: string;
 	slotTime: string;
+	choosen: boolean;
 }
 export function timeSlotGenerator(start: number, end: number) {
 	const timeSlots: TimeSlot[] = [];
@@ -13,6 +14,7 @@ export function timeSlotGenerator(start: number, end: number) {
 		timeSlots.push({
 			slotName: slotName,
 			slotTime: slotTime,
+			choosen: false,
 		});
 	}
 

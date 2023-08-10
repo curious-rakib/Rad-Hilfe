@@ -1,10 +1,17 @@
-import { Text, Box, Flex, VStack } from '@chakra-ui/react';
+import { Text, Box, Flex, VStack, Center } from '@chakra-ui/react';
 import TechnicianWorkingDays from '../../../components/Technician Working Days';
-import InputTechnician from '../../../components/Input Technician';
-import { timeSlotGenerator } from '../../../utils/timeSlotgenerator';
+import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
+import TimeSlotComponent from '../../../components/Time Slots';
+import { useEffect, useState } from 'react';
 
 const TechnicianProfile = () => {
 	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
+	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);
+
+	useEffect(() => {
+		setChoosenTimeSlots(timeSlots);
+	}, []);
+
 	return (
 		<>
 			<Flex>
@@ -39,19 +46,13 @@ const TechnicianProfile = () => {
 								fontFamily={'Inter'}
 								fontWeight={'500'}
 								fontSize={'1rem'}>
-								{' '}
 								Select the times that work best for you
 							</Text>
-
-							{/* <Flex>
+							<Flex wrap={'wrap'}>
 								{timeSlots.map((slot) => {
-									return (
-										<Flex bg={'accent'}>
-											<Text color={'secondary'}>{slot.slotTime}</Text>
-										</Flex>
-									);
+									return <TimeSlotComponent slot={slot} />;
 								})}
-							</Flex> */}
+							</Flex>
 						</>
 					</>
 				</Box>
