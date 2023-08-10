@@ -6,6 +6,7 @@ import {
   createBicycle,
   findBicycleById,
   findBicycleHealthById,
+  getAllDamagedParts,
   updateBicycle,
 } from '../../models/bicycle/bicycle.query';
 import { getSession } from '../../middlewares/sessionManagement';
@@ -161,4 +162,24 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
   }
 };
 
-export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit };
+const bicycleDamagedPart = async (req: Request, res: Response) => {
+  try {
+    const bicycleId = req.params.id;
+    if (!bicycleId) {
+      res.status(401).send('Failed to find bicycle!');
+      return;
+    }
+
+    const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
+
+    if (damagedParts) {
+      res.status(200).send(damagedParts);
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Server Error!');
+  }
+};
+
+export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit, bicycleDamagedPart };
