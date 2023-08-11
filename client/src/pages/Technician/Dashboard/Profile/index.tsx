@@ -1,15 +1,15 @@
 import { Text, Box, Flex, Image, Button, Input } from '@chakra-ui/react';
-import TechnicianWorkingDays from '../../../components/Technician Working Days';
-import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
+import TechnicianWorkingDays from '../../../../components/Technician Working Days';
+import { TimeSlot, timeSlotGenerator } from '../../../../utils/timeSlotgenerator';
 import { useEffect, useState } from 'react';
-import { parts } from '../../../data/partsData';
-import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bike Parts';
-import avatar from '../../../assets/avatarTechnician.svg';
-import InputTechnician from '../../../components/Input Technician';
+import { parts } from '../../../../data/partsData';
+import LoopSlotOrPartsComponent from '../../../../components/Time Slots & Bicycle Parts';
+import avatar from '../../../../assets/avatarTechnician.svg';
+import InputTechnician from '../../../../components/Input Technician';
 
 const TechnicianProfile = () => {
-	const timeSlots = timeSlotGenerator(7, 20);
-	const bicycleParts = parts; //generating time slots between 7am and 8pm
+	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
+	const bicycleParts = parts;
 	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);
 	const [inputBrand, setInputBrand] = useState<string>('');
 	const [brandList, setBrandList] = useState<string[]>([]);
@@ -67,14 +67,41 @@ const TechnicianProfile = () => {
 							type={'text'}
 							label={'Full Name'}
 							placeholder={'Enter Full Name'}
+							colorScheme={'secondary'}
 						/>
 
 						<InputTechnician
-							id={'fullName'}
+							id={'email'}
 							isRequired={false}
-							type={'text'}
+							type={'email'}
 							label={'Email'}
 							placeholder={'Enter Your Email '}
+							colorScheme={'secondary'}
+						/>
+
+						<InputTechnician
+							id={'password'}
+							isRequired={false}
+							type={'password'}
+							label={'Change Password'}
+							placeholder={'* * * * * * * * * * * * * *'}
+							colorScheme={'secondary'}
+						/>
+						<InputTechnician
+							id={'address'}
+							isRequired={false}
+							type={'text'}
+							label={'Current Address'}
+							placeholder={'Enter Your Current Address '}
+							colorScheme={'secondary'}
+						/>
+						<InputTechnician
+							id={'phone'}
+							isRequired={false}
+							type={'tel'}
+							label={'Contact Number'}
+							placeholder={'Enter Your Contact Number '}
+							colorScheme={'secondary'}
 						/>
 					</Box>
 
@@ -150,6 +177,7 @@ const TechnicianProfile = () => {
 											key={slot.slotName}
 											item={slot.slotTime}
 											onClick={() => handleClick(slot)}
+											outline={false}
 										/>
 									);
 								})}
@@ -186,6 +214,7 @@ const TechnicianProfile = () => {
 													key={index}
 													item={brand}
 													onClick={() => console.log('first')}
+													outline={false}
 												/>
 											);
 										})}
@@ -216,6 +245,7 @@ const TechnicianProfile = () => {
 												key={parts._id}
 												item={parts.name}
 												onClick={() => handleClick(parts.name)}
+												outline={false}
 											/>
 										);
 									})}

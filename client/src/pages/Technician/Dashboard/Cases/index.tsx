@@ -1,11 +1,11 @@
 import { Box, Flex, HStack, Heading, Spacer, Stack, Text, VStack, Image } from '@chakra-ui/react';
-import TableComponent from '../../../components/Table';
-import logo from './../../../assets/logo(Midnight Blue).svg';
+import TableComponent from '../../../../components/Table';
+import logo from './../../../../assets/logo(Midnight Blue).svg';
 import './cases.styles.css';
 import { cases } from '../Dummy Data/dummyCaseData';
-import SearchBox from '../../../components/Search Box';
-import FilterComponent from '../../../components/Filter';
-import PaginationComponent from '../../../components/Pagination';
+import SearchBox from '../../../../components/Search Box';
+import FilterComponent from '../../../../components/Filter';
+import PaginationComponent from '../../../../components/Pagination';
 import { useState } from 'react';
 
 const Cases = () => {

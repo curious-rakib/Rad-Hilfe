@@ -8,16 +8,20 @@ import Navbar from './assets';
 import HealthBar from './pages/HealthBar';
 import CarePlan from './pages/CarePlan';
 import Cart from './pages/Cart';
-import Cases from './pages/Dashboard/Cases';
+import Cases from './pages/Technician/Dashboard/Cases';
 import DelivaryDetails from './pages/DelivaryDetails';
 import MyBike from './pages/MyBike';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
 import CurrentLocation from './components/CurrentLocation';
-import TechnicianProfile from './pages/Dashboard/Profile';
-import Dashboard from './pages/Dashboard';
-import TechnicianSetUp from './pages/Technician Setup/setUpExpertise';
+import TechnicianProfile from './pages/Technician/Dashboard/Profile';
+import Dashboard from './pages/Technician/Dashboard';
+import SetUpExpertise from './pages/Technician/Setup/setUpExpertise';
+import SetUpWorkingSchedule from './pages/Technician/Setup/setUpWorkingSchedule';
+import TechnicianSignUp from './pages/Technician/Sign Up';
+import TechnicianSignIn from './pages/Technician/Sign In';
+import SetUpContact from './pages/Technician/Setup/setUpContact';
 
 function App() {
 	return (
@@ -40,7 +44,6 @@ function App() {
 						path="/location"
 						element={<CurrentLocation />}
 					/>
-
 
 					<Route
 						path="/setup-daily-route"
@@ -106,8 +109,24 @@ function App() {
 
 				<Routes>
 					<Route
-						path="/technician-setup"
-						element={<TechnicianSetUp />}
+						path="/technician-signup"
+						element={<TechnicianSignUp />}
+					/>
+					<Route
+						path="/technician-signin"
+						element={<TechnicianSignIn />}
+					/>
+					<Route
+						path="/technician-setup-1"
+						element={<SetUpContact />}
+					/>
+					<Route
+						path="/technician-setup-2"
+						element={<SetUpExpertise />}
+					/>
+					<Route
+						path="/technician-setup-3"
+						element={<SetUpWorkingSchedule />}
 					/>
 				</Routes>
 			</Router>
