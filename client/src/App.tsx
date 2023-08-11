@@ -16,7 +16,7 @@ import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
 import TechnicianProfile from './pages/Dashboard/Profile';
 import Dashboard from './pages/Dashboard';
-import TechnicianSetUp from './pages/Technician Setup/setUpBikeAndComponent';
+import TechnicianSetUp from './pages/Technician Setup/setUpExpertise';
 
 function App() {
 	return (
