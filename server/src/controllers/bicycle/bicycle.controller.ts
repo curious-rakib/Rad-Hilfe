@@ -165,14 +165,20 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
 const bicycleDamagedPart = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
+    // console.log(req.params.id);
+    // console.log('bicycleId', bicycleId);
     if (!bicycleId) {
       res.status(401).send('Failed to find bicycle!');
       return;
     }
 
-    const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
+    const damagedParts = await getAllDamagedParts(
+      new Types.ObjectId(bicycleId)
+    );
+    //console.log(damagedParts);
 
     if (damagedParts) {
+      //console.log('damagedParts from server', damagedParts);
       res.status(200).send(damagedParts);
       return;
     }
@@ -182,4 +188,10 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
   }
 };
 
-export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit, bicycleDamagedPart };
+export {
+  setUpBicycle,
+  getBicycle,
+  getBicycleHealth,
+  setUpBicycleEdit,
+  bicycleDamagedPart,
+};

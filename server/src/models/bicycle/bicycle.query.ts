@@ -7,11 +7,13 @@ moment().format();
 
 const createBicycle = async (bicycle: Bicycle, lastMaintained: Moment) => {
   try {
-    const BicycleParts: BicycleParts[] = bicycleSubparts.map((bicycleSubpart) => ({
-      subpart: new Types.ObjectId(bicycleSubpart._id),
-      health: 100,
-      lastMaintained: lastMaintained,
-    }));
+    const BicycleParts: BicycleParts[] = bicycleSubparts.map(
+      (bicycleSubpart) => ({
+        subpart: new Types.ObjectId(bicycleSubpart._id),
+        health: 100,
+        lastMaintained: lastMaintained,
+      })
+    );
 
     bicycle.bicycleParts = BicycleParts;
 
@@ -31,7 +33,10 @@ const findBicycleById = async (bicycleId: Types.ObjectId) => {
 
 const findBicycleHealthById = async (bicycleId: Types.ObjectId) => {
   try {
-    const bicycle = await BicycleModel.findById({ _id: bicycleId }, { totalHealth: 1 });
+    const bicycle = await BicycleModel.findById(
+      { _id: bicycleId },
+      { totalHealth: 1 }
+    );
     if (bicycle) return bicycle;
     return null;
   } catch (error) {
@@ -45,11 +50,13 @@ const updateBicycle = async (
   lastMaintained: Moment
 ) => {
   try {
-    const BicycleParts: BicycleParts[] = bicycleSubparts.map((bicycleSubpart) => ({
-      subpart: new Types.ObjectId(bicycleSubpart._id),
-      health: 100,
-      lastMaintained: lastMaintained,
-    }));
+    const BicycleParts: BicycleParts[] = bicycleSubparts.map(
+      (bicycleSubpart) => ({
+        subpart: new Types.ObjectId(bicycleSubpart._id),
+        health: 100,
+        lastMaintained: lastMaintained,
+      })
+    );
 
     bicycle.bicycleParts = BicycleParts;
 
@@ -79,7 +86,10 @@ const getAllBicycle = async () => {
   }
 };
 
-const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycle) => {
+const bicycleHealthUpgration = async (
+  bicycleId: Types.ObjectId,
+  bicycle: Bicycle
+) => {
   try {
     const updatedBicycle = await BicycleModel.findOneAndUpdate(
       { _id: bicycleId },
@@ -98,6 +108,7 @@ const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycl
 };
 
 const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
+  console.log(bicycleId);
   try {
     const allDamagedParts = await BicycleModel.aggregate([
       {
@@ -120,7 +131,7 @@ const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
         },
       },
     ]);
-
+    console.log('allDamagedParts', allDamagedParts);
     return allDamagedParts;
   } catch (error) {
     console.error(error);
