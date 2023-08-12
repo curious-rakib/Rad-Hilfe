@@ -14,7 +14,6 @@ import MyBike from './pages/MyBike';
 import SetUpExpertCall from './pages/SetUpExpertCall';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
-import CurrentLocation from './components/CurrentLocation';
 import TechnicianProfile from './pages/Technician/Dashboard/Profile';
 import Dashboard from './pages/Technician/Dashboard';
 import SetUpExpertise from './pages/Technician/Setup/setUpExpertise';
@@ -22,6 +21,9 @@ import SetUpWorkingSchedule from './pages/Technician/Setup/setUpWorkingSchedule'
 import TechnicianSignUp from './pages/Technician/Sign Up';
 import TechnicianSignIn from './pages/Technician/Sign In';
 import SetUpContact from './pages/Technician/Setup/setUpContact';
+import ThankYou from './pages/ThankYou';
+import CyclistTabCases from './pages/CyclistTabCases';
+import IndividualCyclistCase from './pages/IndividualCyclistCase';
 
 function App() {
 	return (
@@ -41,9 +43,14 @@ function App() {
 						element={<Home />}
 					/>
 					<Route
-						path="/location"
-						element={<CurrentLocation />}
-					/>
+						path="/thankyou"
+						element={<ThankYou></ThankYou>}></Route>
+					<Route
+						path="/cyclist-case"
+						element={<CyclistTabCases />}></Route>
+					<Route
+						path="/individual"
+						element={<IndividualCyclistCase />}></Route>
 
 					<Route
 						path="/setup-daily-route"

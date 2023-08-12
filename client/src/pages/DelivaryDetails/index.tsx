@@ -9,7 +9,12 @@ import {
 } from '@chakra-ui/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { delivery } from '../../features/cyclist/order-slice';
+import { time } from '../../features/cyclist/order-slice';
+import { order } from '../../services/order';
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 interface Slots {
     id: any;
     day: string;
@@ -17,8 +22,9 @@ interface Slots {
     chosen: boolean;
 }
 const DelivaryDetails = () => {
+    const dispatch = useAppDispatch();
     const [slots, setSlots] = useState<Slots[]>([]);
-    const [selectedSlot, setSelectedSlot] = useState({ days: '' })
+
 
 
     const deliverySlots = [
@@ -57,13 +63,14 @@ const DelivaryDetails = () => {
                 chosen: s.id === slot.id ? true : false,
             }))
             const chosenTime = updatedSlots.filter(item => item.chosen).map(item => item.time);
-            const dataObj = { days: chosenTime[0] };
-            setSelectedSlot(dataObj);
+            const slotObj = { slot: chosenTime[0] };
+
+            dispatch(time(slotObj))
 
             return updatedSlots;
         });
     };
-    const dispatch = useAppDispatch();
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 
         const { name, value } = event.target;
@@ -74,12 +81,25 @@ const DelivaryDetails = () => {
 
         }
 
+        dispatch(delivery(dataObj));
 
 
 
     };
 
+    const totalPrice = useAppSelector((state) => state.order.totalPrice)
+    let caseforPassive = useAppSelector((state) => state.order);
+    // console.log(caseforPassive);
 
+    const handleClick = () => {
+
+
+        const fetchData = async () => {
+            const passiveCase = await order(caseforPassive);
+            console.log('passiveCase', passiveCase);
+        }
+        fetchData();
+    }
     return (
         <Box p={4} mt={'-10'}>
             <Stack spacing={6} mt={20}>
@@ -153,20 +173,24 @@ const DelivaryDetails = () => {
                     ))}
                 </Flex>
             </Center>
-            <Center>
-                <Button
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    mt={'20px'}
-                    borderRadius={16}
-                    fontWeight={'bold'}
-                >
-                    Buy now | €50
-                </Button>
-            </Center>
+            <ChakraLink as={ReactRouterLink} to='/expert-call'>
+                <Center>
+                    <Button
+                        onClick={handleClick}
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='accent'
+                        w='200px'
+                        color='secondary'
+                        mt={'20px'}
+                        borderRadius={16}
+                        fontWeight={'bold'}
+                    >
+                        Buy now | €{totalPrice}
+                    </Button>
+                </Center>
+            </ChakraLink>
+
         </Box>
     );
 };

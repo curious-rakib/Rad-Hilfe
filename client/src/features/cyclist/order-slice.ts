@@ -22,14 +22,14 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    order: (state, action) => {
+    delivery: (state, action) => {
       return { ...state, ...action.payload };
     },
-    slot: (state, action) => {
+    time: (state, action) => {
       return { ...state, ...action.payload };
     },
     totalPrice: (state, action) => {
-      return { ...state, ...action.payload };
+      return { ...state, totalPrice: action.payload };
     },
     bicycleParts: (state, action) => {
       return { ...state, ...action.payload };
@@ -37,5 +37,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { order } = orderSlice.actions;
+export const { delivery, time, totalPrice, bicycleParts } = orderSlice.actions;
 export default orderSlice.reducer;

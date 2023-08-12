@@ -11,26 +11,36 @@ import {
 } from '@chakra-ui/react';
 import Progress from '../../components/ProgressBar';
 import InputField from '../../components/InputField';
-import Switch from '../../components/Switch';
+
 import SubmitButton from '../../components/Button';
 import SetSwitch from '../../components/Switch';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
+import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
 function SetupBikeDetails() {
     const [fullRevision, setFullrevision] = useState<boolean>(false);
+    const [selectedBrand, setSelectedBrand] = useState<string>('')
+
     const dispatch = useAppDispatch();
     const handleChange = (event: any) => {
 
         const { name, value, type } = event.target;
 
         const dataObj = {
-            [name]: type === "number" ? Number(value) : value
+            [name]: type === "number" ? Number(value) : value,
+            brand: selectedBrand,
+            isRevised: fullRevision,
+
         };
 
+
+
         dispatch(bikeDetails(dataObj));
+
     };
+
 
 
 
@@ -71,10 +81,16 @@ function SetupBikeDetails() {
                 placeholder='Bike Brand'
                 style={{ backgroundColor: '#001F3F' }}
                 color={'third'}
+                onChange={(event) => setSelectedBrand(event.target.value)}
+                value={selectedBrand}
             >
-                <option value='option1' style={{ backgroundColor: '#001F3F' }}>
-                    Option 1
-                </option>
+
+
+                {bikeBrandsAndModels.map((brandObj, index) => (
+                    <option key={index} value={brandObj.brand} style={{ backgroundColor: '#001F3F' }}>
+                        {brandObj.brand}
+                    </option>
+                ))}
             </Select>
             <InputField
                 id='bikemodel'
@@ -87,6 +103,14 @@ function SetupBikeDetails() {
                 _placeholder={{ color: 'third', opacity: '100%' }}
                 color={'third'}
             />
+
+
+
+
+
+
+
+
             <InputField
                 id='serialnum'
                 isRequired={true}

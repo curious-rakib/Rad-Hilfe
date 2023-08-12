@@ -7,11 +7,13 @@ moment().format();
 
 const createBicycle = async (bicycle: Bicycle, lastMaintained: Moment) => {
   try {
-    const BicycleParts: BicycleParts[] = bicycleSubparts.map((bicycleSubpart) => ({
-      subpart: new Types.ObjectId(bicycleSubpart._id),
-      health: 100,
-      lastMaintained: lastMaintained,
-    }));
+    const BicycleParts: BicycleParts[] = bicycleSubparts.map(
+      (bicycleSubpart) => ({
+        subpart: new Types.ObjectId(bicycleSubpart._id),
+        health: 100,
+        lastMaintained: lastMaintained,
+      })
+    );
 
     bicycle.bicycleParts = BicycleParts;
 
@@ -23,7 +25,52 @@ const createBicycle = async (bicycle: Bicycle, lastMaintained: Moment) => {
 
 const findBicycleById = async (bicycleId: Types.ObjectId) => {
   try {
-    return await BicycleModel.findById({ _id: bicycleId });
+    return await BicycleModel.aggregate([
+      {
+        $match: {
+          _id: bicycleId,
+        },
+      },
+      {
+        $unwind: '$bicycleParts',
+      },
+      {
+        $lookup: {
+          from: 'subparts',
+          localField: 'bicycleParts.subpart',
+          foreignField: '_id',
+          as: 'subpartInfo',
+        },
+      },
+      {
+        $unwind: '$subpartInfo',
+      },
+      {
+        $addFields: {
+          'bicycleParts.name': '$subpartInfo.name',
+          'bicycleParts.price': '$subpartInfo.price',
+          'bicycleParts.category': '$subpartInfo.category',
+          'bicycleParts.plan': '$subpartInfo.plan',
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          brand: { $first: '$brand' },
+          model: { $first: '$model' },
+          serialNumber: { $first: '$serialNumber' },
+          purchaseMonth: { $first: '$purchaseMonth' },
+          purchaseYear: { $first: '$purchaseYear' },
+          isRevised: { $first: '$isRevised' },
+          revisionMonth: { $first: '$revisionMonth' },
+          revisionYear: { $first: '$revisionYear' },
+          dailyCommute: { $first: '$dailyCommute' },
+          recreationalCommute: { $first: '$recreationalCommute' },
+          bicycleParts: { $push: '$bicycleParts' },
+          totalHealth: { $first: '$totalHealth' },
+        },
+      },
+    ]);
   } catch (error) {
     console.error(error);
   }
@@ -31,7 +78,10 @@ const findBicycleById = async (bicycleId: Types.ObjectId) => {
 
 const findBicycleHealthById = async (bicycleId: Types.ObjectId) => {
   try {
-    const bicycle = await BicycleModel.findById({ _id: bicycleId }, { totalHealth: 1 });
+    const bicycle = await BicycleModel.findById(
+      { _id: bicycleId },
+      { totalHealth: 1 }
+    );
     if (bicycle) return bicycle;
     return null;
   } catch (error) {
@@ -45,11 +95,13 @@ const updateBicycle = async (
   lastMaintained: Moment
 ) => {
   try {
-    const BicycleParts: BicycleParts[] = bicycleSubparts.map((bicycleSubpart) => ({
-      subpart: new Types.ObjectId(bicycleSubpart._id),
-      health: 100,
-      lastMaintained: lastMaintained,
-    }));
+    const BicycleParts: BicycleParts[] = bicycleSubparts.map(
+      (bicycleSubpart) => ({
+        subpart: new Types.ObjectId(bicycleSubpart._id),
+        health: 100,
+        lastMaintained: lastMaintained,
+      })
+    );
 
     bicycle.bicycleParts = BicycleParts;
 
@@ -79,7 +131,10 @@ const getAllBicycle = async () => {
   }
 };
 
-const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycle) => {
+const bicycleHealthUpgration = async (
+  bicycleId: Types.ObjectId,
+  bicycle: Bicycle
+) => {
   try {
     const updatedBicycle = await BicycleModel.findOneAndUpdate(
       { _id: bicycleId },
@@ -98,6 +153,7 @@ const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycl
 };
 
 const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
+  // console.log(bicycleId);
   try {
     const allDamagedParts = await BicycleModel.aggregate([
       {
@@ -109,18 +165,37 @@ const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
         $unwind: '$bicycleParts',
       },
       {
+        $lookup: {
+          from: 'subparts',
+          localField: 'bicycleParts.subpart',
+          foreignField: '_id',
+          as: 'subpartInfo',
+        },
+      },
+      {
+        $unwind: '$subpartInfo',
+      },
+      {
+        $addFields: {
+          'bicycleParts.name': '$subpartInfo.name',
+          'bicycleParts.price': '$subpartInfo.price',
+          'bicycleParts.category': '$subpartInfo.category',
+          'bicycleParts.plan': '$subpartInfo.plan',
+        },
+      },
+      {
         $match: {
           'bicycleParts.health': { $lt: 30 },
         },
       },
       {
-        $project: {
-          _id: 0,
-          bicycleParts: '$bicycleParts',
+        $group: {
+          _id: '$_id',
+          bicycleParts: { $push: '$bicycleParts' },
         },
       },
     ]);
-
+    // console.log('allDamagedParts', allDamagedParts);
     return allDamagedParts;
   } catch (error) {
     console.error(error);

@@ -1,0 +1,82 @@
+[
+  {
+    "brand": "Trek",
+    "models": ["Domane", "Émonda", "Madone", "Marlin", "Fuel EX"]
+  },
+  {
+    "brand": "Giant",
+    "models": ["Defy", "Talon", "Trance", "Anthem", "Reign"]
+  },
+  {
+    "brand": "Specialized",
+    "models": ["Roubaix", "Tarmac", "Stumpjumper", "Epic", "Diverge"]
+  },
+  {
+    "brand": "Cannondale",
+    "models": ["Synapse", "SuperSix EVO", "Scalpel", "Trail", "Topstone"]
+  },
+  {
+    "brand": "Scott",
+    "models": ["Addict", "Spark", "Genius", "Aspect", "Ransom"]
+  },
+  {
+    "brand": "Cervélo",
+    "models": ["Caledonia", "S-Series", "Aspero", "R-Series", "P-Series"]
+  },
+  {
+    "brand": "BMC",
+    "models": ["Roadmachine", "Teammachine", "Fourstroke", "Agonist", "Urs"]
+  },
+  {
+    "brand": "Pinarello",
+    "models": ["Dogma F", "Prince FX", "Grevil", "Gan", "Nytro"]
+  },
+  {
+    "brand": "Orbea",
+    "models": ["Avant", "Oiz", "Occam", "Rise", "Terra"]
+  },
+  {
+    "brand": "Colnago",
+    "models": ["C64", "V3RS", "Climber", "G3X", "CX Zero"]
+  },
+  {
+    "brand": "Fuji",
+    "models": ["Sportif", "Jari", "Transonic", "Norcom Straight", "SL"]
+  },
+  {
+    "brand": "Merida",
+    "models": ["Reacto", "Scultura", "Big Nine", "One-Twenty", "eOne-Sixty"]
+  },
+  {
+    "brand": "Raleigh",
+    "models": ["Redux", "Tokul", "Tamland", "Willard", "Merit"]
+  },
+  {
+    "brand": "Jamis",
+    "models": ["Renegade", "Dragonslayer", "Aurora", "Dakar", "Coda"]
+  },
+  {
+    "brand": "Felt",
+    "models": ["FR", "VR", "IA", "Decree", "Breed"]
+  },
+  {
+    "brand": "Diamondback",
+    "models": ["Release", "Sync'r", "Overdrive", "Haanjo", "Century"]
+  },
+  {
+    "brand": "GT",
+    "models": ["Grade", "Avalanche", "Zaskar", "Fury", "Pantera"]
+  },
+  {
+    "brand": "Kona",
+    "models": ["Process", "Sutra", "Honzo", "Unit", "Libre"]
+  },
+  {
+    "brand": "Norco",
+    "models": ["Range", "Sight", "Revolver", "Charger", "Search"]
+  },
+  {
+    "brand": "Santa Cruz",
+    "models": ["Bronson", "Tallboy", "Megatower", "Heckler", "Blur"]
+  }
+]

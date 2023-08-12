@@ -1,20 +1,48 @@
+import {
+    Box,
+    Button,
+    Center,
+    Flex,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Stack,
+    useDisclosure,
+} from '@chakra-ui/react';
 
-import { Box, Center, Flex, Stack } from "@chakra-ui/react"
+import InputField from '../InputField';
+import SubmitButton from '../Button';
+import { useState } from 'react';
+function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setShow }: { setShow: Function }) {
 
-
-import InputField from "../InputField"
-import SubmitButton from "../Button"
-function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
     const handleChange = () => {
+        // console.log('clcik from home');
+    };
 
-    }
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
-        < Stack spacing={6}
+        <Stack spacing={6}>
+            <Modal onClose={onClose} isOpen={isOpen} isCentered>
+                <ModalOverlay />
+                <ModalContent h={100}>
+                    {/* <ModalHeader>Modal Title</ModalHeader> */}
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <p>
+                            Please,set a marker of your address
+                        </p>
+                    </ModalBody>
+
+                </ModalContent>
+            </Modal>
+            {/* <InputField
 
 
-
-        >
-            <InputField
                 id='home'
                 isRequired={true}
                 type='text'
@@ -25,7 +53,18 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                 color="accent"
                 onToggle={onToggle}
 
-            />
+            /> */}
+            <Button
+                onClick={onOpen}
+                variant={'unstyled'}
+                color={'gray.50'}
+                opacity={'60%'}
+                border={'2px solid'}
+                borderColor={'accent'}
+                rounded={'xl'}
+            >
+                Home Address
+            </Button>
             <InputField
                 id='work'
                 isRequired={true}
@@ -34,9 +73,8 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                 onChange={handleChange}
                 name='work'
                 borderColor='accent'
-                color="accent"
+                color='accent'
                 onToggle={onToggle}
-
             />
 
             <Center>
@@ -47,17 +85,10 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                     w='200px'
                     color='secondary'
                     text='Next'
-
                 />
             </Center>
-
-        </Stack  >
-
-
-
-
-
-    )
+        </Stack>
+    );
 }
 
-export default HomeOfficeAddressLayover
+export default HomeOfficeAddressLayover;

@@ -17,8 +17,34 @@ import MyBikeProgressBar from '../../components/MyBikeProgressBar';
 import { SlArrowDown } from 'react-icons/sl';
 import bike from '../../assets/images/bike2.png';
 import ReplaceButton from '../../components/ReplaceButton';
+import { useAppSelector } from '../../app/hooks';
+import { useEffect, useState } from 'react';
 
 const MyBike = () => {
+    const initialState = {
+        brand: '',
+        model: '',
+        serialNumber: '',
+        purchaseMonth: '',
+        purchaseYear: ''
+    };
+
+    const [bikeDetails, setBikeDetails] = useState(initialState);
+
+
+    useEffect(() => {
+        const storeBikeData = localStorage.getItem('bikeData');
+        if (storeBikeData) {
+            let parseBikeData = JSON.parse(storeBikeData);
+
+            setBikeDetails(parseBikeData)
+
+        }
+    }, [])
+    const { brand, model, serialNumber, purchaseMonth, purchaseYear } = bikeDetails;
+
+    const date = Math.floor(Math.random() * (28 - 1 + 1)) + 1;
+
     return (
         <Box bg='third'>
             <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='57vh' pl={3} >
@@ -30,15 +56,15 @@ const MyBike = () => {
                     </Box>
                     <Box>
                         <Text fontWeight=''>Bike Model</Text>
-                        <Text textStyle='h3'>Quest</Text>
+                        <Text textStyle='h3'>{model}</Text>
                     </Box>
                     <Box>
                         <Text fontWeight=''>Serial Number</Text>
-                        <Text textStyle='h3'>CND765678</Text>
+                        <Text textStyle='h3'>{serialNumber}</Text>
                     </Box>
                     <Box>
                         <Text fontWeight=''>Start Date</Text>
-                        <Text textStyle='h3'>07 Aug 2020</Text>
+                        <Text textStyle='h3'>{date} Aug {purchaseYear}</Text>
                     </Box>
                 </Stack></GridItem>
                 <GridItem w='250px' mr={'30px'} right='30px' ml={3} >

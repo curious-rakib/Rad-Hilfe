@@ -7,6 +7,7 @@ import bikeInputSliceReducer from '../features/cyclist/bikeDetails-slice';
 import rootSetBikeReducer from '../features/cyclist/setUpBike-slice';
 import technicianSlice from '../features/technician/slices/technicianSlice';
 import { technicianApi } from '../features/technician/api/technicianApi';
+import orderSliceReducer from '../features/cyclist/order-slice';
 
 export const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
 		recreation: recreationalSliceReducer,
 		bikeDetails: bikeInputSliceReducer,
 		rootSetBikeReducer: rootSetBikeReducer,
+		order: orderSliceReducer,
 		technician: technicianSlice,
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(technicianApi.middleware),

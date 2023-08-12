@@ -13,7 +13,7 @@ import ProgressBar from '../../components/ProgressBar';
 import RecreationButton from '../../components/RecreationButton';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { lengthOfRide } from '../../features/cyclist/recreationalCommute-slice';
+import { lengthOfRideDetails } from '../../features/cyclist/recreationalCommute-slice';
 import { days } from '../../features/cyclist/recreationalCommute-slice';
 import { setUpBikeInfo } from '../../services/bikeDetails';
 
@@ -32,7 +32,7 @@ const Recreation = () => {
         const average = (lowerNum + upperNum) / 2;
         const dataObj = { lengthOfRide: average }
 
-        dispatch(lengthOfRide(dataObj));
+        dispatch(lengthOfRideDetails(dataObj));
 
 
     }
@@ -45,15 +45,18 @@ const Recreation = () => {
         recreationalCommute,
     };
 
-
-    console.log('from bikeinfo', bikeInfo);
+    // console.log(bikeInfo);
 
     useEffect(() => {
         const fetchData = async () => {
 
-            console.log("bike info from recreationl page:", bikeInfo);
+
             const result = await setUpBikeInfo(bikeInfo);
-            console.log('result', result);
+            const bikeId = result._id;
+            localStorage.setItem('bikeID', bikeId);
+            localStorage.setItem('bikeInfo', result);
+            // console.log('bikeID', bikeId);
+            // console.log('result', result);
         };
         fetchData();
     }, [])

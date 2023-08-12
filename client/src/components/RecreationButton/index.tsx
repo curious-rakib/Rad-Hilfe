@@ -42,7 +42,7 @@ const RecreationButton = () => {
 
     }
     useEffect(() => {
-        console.log(buttonsData);
+        // console.log(buttonsData);
         const chosenTexts = buttonsData.filter(item => item.chosen).map(item => item.text);
         const dataObj = { activityType: chosenTexts };
 
@@ -64,7 +64,7 @@ const RecreationButton = () => {
                         onClick={() => handleClick(button)}
                         w={28}
                         h={12}
-                        borderRadius='20%'
+                        borderRadius="30px"
                         bg={button.chosen ? 'fourth' : 'transparent'}
                         color={button.chosen ? 'secondary' : 'fourth'}
                         border={button.chosen ? 'none' : `2px solid`}

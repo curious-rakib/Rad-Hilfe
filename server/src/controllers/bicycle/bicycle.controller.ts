@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Types } from '../../models/database';
 import moment from 'moment';
 moment().format();
 
@@ -12,10 +13,11 @@ import {
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { addBicycle } from '../../models/cyclist/cyclist.query';
-import { Types } from '../../models/database';
+
+import { bicycleHealthAlgorithm } from '../../utilities/bicycleHealth.algorithm';
+import Subparts from '../../models/bicycle/subparts.json';
 
 const setUpBicycle = async (req: Request, res: Response) => {
-  console.log(req.body);
   try {
     const {
       brand,
@@ -60,7 +62,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
     if (session) {
       const bicycleId = new Types.ObjectId(createdBicycle!._id);
       await addBicycle(session.userEmail, bicycleId);
-
+      await bicycleHealthAlgorithm();
       res.status(201).send(createdBicycle);
       return;
     }
@@ -165,14 +167,29 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
 const bicycleDamagedPart = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
+    // console.log(req.params.id);
+    // console.log('bicycleId', bicycleId);
     if (!bicycleId) {
       res.status(401).send('Failed to find bicycle!');
       return;
     }
 
-    const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
+    const damagedParts = await getAllDamagedParts(
+      new Types.ObjectId(bicycleId)
+    );
+    //console.log(damagedParts);
 
     if (damagedParts) {
+      //console.log('damagedParts from server', damagedParts);
+      // const updatedDamagePartsInfo = damagedParts.map((part) => {
+      //   const newInfo = {
+      //     _id: part.bicycleParts.subpart,
+      //     name: Subparts.filter((subpart) => {}),
+      //   };
+
+      //   part.bicycleParts.subpart;
+      // });
+
       res.status(200).send(damagedParts);
       return;
     }
@@ -182,4 +199,10 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
   }
 };
 
-export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit, bicycleDamagedPart };
+export {
+  setUpBicycle,
+  getBicycle,
+  getBicycleHealth,
+  setUpBicycleEdit,
+  bicycleDamagedPart,
+};

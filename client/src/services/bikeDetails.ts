@@ -1,15 +1,6 @@
-import { useAppSelector } from '../app/hooks';
-
+import axios from 'axios';
 const BASE_URL = 'http://localhost:4000';
 const token = localStorage.getItem('accessToken');
-// const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
-//   (state) => state.rootSetBikeReducer
-// );
-// const bikeInfo = {
-//   ...bikeDetails,
-//   dailyCommute,
-//   recreationalCommute,
-// };
 
 export const setUpBikeInfo = async (bikeinfo: any) => {
   try {
@@ -29,4 +20,41 @@ export const setUpBikeInfo = async (bikeinfo: any) => {
     console.log(error);
   }
 };
-// setUpBikeInfo(bikeInfo);
+
+export const bicycleDamagedPart = async (id: any) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/cyclist/bicycle-damaged-part/${id}`,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const damagedParts = response.data;
+    // console.log('damagedParts from service', damagedParts);
+    return damagedParts;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const bicycle = async (id: any) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/cyclist/bicycle/${id}`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const bicycle = response.data;
+    console.log('bicycle from service', bicycle);
+    return bicycle;
+  } catch (error) {
+    console.log(error);
+  }
+};
