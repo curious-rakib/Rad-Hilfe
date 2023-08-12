@@ -12,8 +12,8 @@ const LoopSlotOrPartsComponent = ({ item, onClick, outline }: { item: string; on
 		<Box
 			w={'8.75rem'}
 			m={1}
-			bg={isSelected ? 'secondary' : 'accent'}
-			color={isSelected ? 'accent' : 'secondary'}
+			bg={isSelected ? 'accent' : 'secondary'}
+			color={isSelected ? 'secondary' : 'accent'}
 			outline={outline ? '.01rem solid' : 'none'}
 			outlineColor={outline && isSelected ? 'accent' : 'none'}
 			borderRadius={'.63rem'}

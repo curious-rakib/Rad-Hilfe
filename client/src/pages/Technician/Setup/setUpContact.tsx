@@ -1,11 +1,39 @@
-import { Box, Flex, Heading, Text, Image, Input, Center, Button } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
-import NextButton from '../../../components/Button';
 import avatar from '../../../assets/avatar.svg';
+import { ChangeEvent } from 'react';
+import Button from '../../../components/Button';
+import { useAppDispatch } from '../../../app/hooks';
+import { technician } from '../../../features/technician/slices/technicianSlice';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const SetUpContact = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		const { name, value } = event.target;
+		const contactData = { [name]: value };
+
+		dispatch(technician(contactData));
+	};
+	const { address, phone } = useSelector((state: any) => state.technician);
+	const handleClick = () => {
+		const technician = localStorage.getItem('technician');
+		if (technician) {
+			const parsedTechnician = JSON.parse(technician);
+			parsedTechnician.address = address;
+			parsedTechnician.phone = phone;
+			console.log(parsedTechnician);
+		}
+
+		navigate('/technician-setup-2');
+	};
+
 	return (
 		<>
 			<Flex
@@ -31,58 +59,58 @@ const SetUpContact = () => {
 							alt="Slipstream logo"></Image>
 					</Flex>
 
-					<Box
-						mt={'1rem'}
-						mb={'2rem'}
-						display={'flex'}
-						alignItems={'center'}
-						justifyContent={'flex-start'}
-						gap={'3rem'}>
-						<Box ml={'1rem'}>
+					<Flex
+						mt={'4rem'}
+						direction={'column'}
+						p={' 0 6rem'}>
+						<Text
+							color={'third'}
+							fontSize={'1.5rem'}>
+							Select a Profile Picture
+						</Text>
+						<Flex
+							mt={'.5rem'}
+							gap={'2rem'}
+							p={'0 1rem 1rem 0'}
+							alignItems={'center'}>
 							<Image
 								src={avatar}
 								alt="Technician"></Image>
-						</Box>
 
-						<Button
-							color={'#001F3F'}
-							p={'0 2.5rem'}
-							bg={'#C1FAA6'}
-							borderRadius={'.75rem'}
-							_hover={{ color: '#C1FAA6', backgroundColor: '#001F3F' }}
-							size="md">
-							<Text
-								as="b"
-								fontFamily={'Inter'}>
-								Upload
-							</Text>
-						</Button>
-					</Box>
-
-					<Flex
-						mt={'5rem'}
-						direction={'column'}
-						p={' 0 6rem'}>
+							<Button
+								loadingText={'Uploading'}
+								w={''}
+								bg={'third'}
+								size={'md'}
+								color={'secondary'}
+								text={'Upload'}
+							/>
+						</Flex>
 						<InputTechnician
 							id={'address'}
 							isRequired={false}
 							type={'text'}
+							name={'address'}
 							label={'Current Address'}
 							placeholder={'Enter Your Current Address '}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 						<InputTechnician
 							id={'phone'}
 							isRequired={false}
 							type={'tel'}
+							name={'phone'}
 							label={'Contact Number'}
 							placeholder={'Enter Your Contact Number '}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 
 						<>
-							<NextButton
-								loadingText={'Signing In'}
+							<Button
+								onClick={handleClick}
+								loadingText={'Next'}
 								w={'7rem'}
 								bg={'third'}
 								size={'md'}

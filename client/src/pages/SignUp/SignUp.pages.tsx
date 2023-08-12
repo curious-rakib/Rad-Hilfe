@@ -21,7 +21,7 @@ const SignUp = () => {
 	// const [signup, setSignup] = useState(initialUserInfo)
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
-
+		// { 'first' :"zaber"}
 		const dataObj = { [name]: value };
 		// setSignup((prevState) => ({
 		//     ...prevState,

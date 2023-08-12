@@ -1,10 +1,38 @@
-import { Box, Flex, Heading, Text, VStack, Image, Input, Stack, Center } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
 import Button from '../../../components/Button';
+import { ChangeEvent, MouseEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { technician } from '../../../features/technician/slices/technicianSlice';
+import { TechnicianSignInService } from '../../../services/technician/account';
+import { useNavigate } from 'react-router-dom';
 
 const TechnicianSignIn = () => {
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		const { name, value } = event.target;
+		const signInData = { [name]: value };
+		dispatch(technician(signInData));
+	};
+	const { email, password } = useAppSelector((state: any) => state.technician);
+
+	const handleClick = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+
+		try {
+			const technicianSignInData = { email, password };
+			const result = await TechnicianSignInService(technicianSignInData);
+			if (result) {
+				console.log('Go to agenda page');
+			}
+		} catch (error) {
+			console.error('Error before posting in backend!');
+		}
+	};
 	return (
 		<>
 			<Flex
@@ -38,21 +66,26 @@ const TechnicianSignIn = () => {
 							id={'email'}
 							isRequired={false}
 							type={'email'}
+							name={'email'}
 							label={'Email'}
 							placeholder={'Enter Your Email '}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 						<InputTechnician
 							id={'password'}
 							isRequired={false}
 							type={'password'}
+							name={'password'}
 							label={'Password'}
 							placeholder={'* * * * * * * * * * * * * *'}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 
 						<>
 							<Button
+								onClick={handleClick}
 								loadingText={'Signing In'}
 								w={'7rem'}
 								bg={'third'}

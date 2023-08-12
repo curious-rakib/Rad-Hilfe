@@ -1,10 +1,60 @@
-import { Box, Flex, Heading, Text, VStack, Image, Input, Stack, Center } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
 import Button from '../../../components/Button';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { ChangeEvent, useState, MouseEvent } from 'react';
+import { TechnicianSignInService, TechnicianSignUpService } from '../../../services/technician/account';
+import { useNavigate } from 'react-router-dom';
+import { technician } from '../../../features/technician/slices/technicianSlice';
 
 const TechnicianSignUp = () => {
+	const [newPassword, setNewPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [passwordMatchError, setPasswordMatchError] = useState(false);
+
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		const { name, value } = event.target;
+
+		if (name === 'password') {
+			setNewPassword(value);
+		} else if (name === 'confirm-password') {
+			setConfirmPassword(value);
+		}
+		if (newPassword.length && confirmPassword.length && newPassword !== confirmPassword) {
+			setPasswordMatchError(true);
+			console.log('Not matching');
+		} else {
+			setPasswordMatchError(false);
+			console.log('matching');
+		}
+		const signUpData = { [name]: value };
+
+		dispatch(technician(signUpData));
+	};
+
+	const { name, email, password } = useAppSelector((state: any) => state.technician);
+
+	const handleClick = async (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		try {
+			const registerData = await TechnicianSignUpService({ name, email, password });
+			const loginData = await TechnicianSignInService({ email, password });
+
+			if (registerData && loginData) {
+				localStorage.setItem('technician', JSON.stringify(registerData));
+
+				navigate('/technician-setup-1');
+			}
+		} catch (error) {
+			console.error('Error before posting in backend!');
+		}
+	};
+
 	return (
 		<>
 			<Flex
@@ -36,40 +86,50 @@ const TechnicianSignUp = () => {
 						p={' 0 6rem'}>
 						<InputTechnician
 							id={'fullName'}
+							name="name"
 							isRequired={false}
 							type={'text'}
 							label={'Full Name'}
 							placeholder={'Enter Full Name'}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 
 						<InputTechnician
 							id={'email'}
 							isRequired={false}
 							type={'email'}
+							name={'email'}
 							label={'Email'}
 							placeholder={'Enter Your Email '}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 						<InputTechnician
 							id={'password'}
 							isRequired={false}
+							name={'password'}
 							type={'password'}
 							label={'Create a Password'}
 							placeholder={'* * * * * * * * * * * * * *'}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
 
 						<InputTechnician
-							id={'password'}
+							id={'confirm-password'}
 							isRequired={false}
+							name={'confirm-password'}
 							type={'password'}
 							label={'Confirm Password'}
 							placeholder={'* * * * * * * * * * * * * *'}
 							colorScheme={'third'}
+							onChange={handleChange}
 						/>
+						{/* {passwordMatchError ? <Text color={'third'}>Password Doesn't Match</Text> : ''} */}
 						<>
 							<Button
+								onClick={handleClick}
 								loadingText={'Signing Up'}
 								w={'7rem'}
 								bg={'third'}

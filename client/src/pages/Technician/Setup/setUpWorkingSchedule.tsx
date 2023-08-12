@@ -4,11 +4,16 @@ import TechnicianWorkingDays from '../../../components/Technician Working Days';
 import logo from './../../../assets/logo(Lilac).svg';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
+import { MouseEvent } from 'react';
+import Button from '../../../components/Button';
 
 const SetUpWorkingSchedule = () => {
 	const timeSlots = timeSlotGenerator(7, 20);
 	const handleClick = (item: TimeSlot | string) => {
 		// console.log('selected:', item);
+	};
+	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
+		console.log('Go to agenda page');
 	};
 	return (
 		<>
@@ -45,7 +50,10 @@ const SetUpWorkingSchedule = () => {
 							fontSize={'1.25rem'}>
 							Which days can you work on ?
 						</Text>
-						<TechnicianWorkingDays colorScheme="accent" />
+						<TechnicianWorkingDays
+							colorScheme="accent"
+							outline={true}
+						/>
 
 						<Text
 							mt={'2rem'}
@@ -78,6 +86,17 @@ const SetUpWorkingSchedule = () => {
 								);
 							})}
 						</Flex>
+						<>
+							<Button
+								onClick={handleNextClick}
+								loadingText={'Next'}
+								w={'7rem'}
+								bg={'third'}
+								size={'md'}
+								color={'secondary'}
+								text={'Next'}
+							/>
+						</>
 					</Flex>
 				</Box>
 			</Flex>

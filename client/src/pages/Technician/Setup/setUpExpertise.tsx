@@ -1,18 +1,28 @@
-import { Box, Flex, Heading, Text, VStack, Image, Input, Stack, Center } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image, Input } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import { useState } from 'react';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts';
 import { parts } from '../../../data/partsData';
-import { TimeSlot } from '../../../utils/timeSlotgenerator';
 import TechnicianProgress from '../../../components/Technician Progress';
+import Button from '../../../components/Button';
+import { useNavigate } from 'react-router-dom';
+import { TimeSlot } from '../../../utils/timeSlotgenerator';
+import { MouseEvent } from 'react';
 
 const SetUpExpertise = () => {
+	const navigate = useNavigate();
 	const [inputBrand, setInputBrand] = useState<string>('');
 	const [brandList, setBrandList] = useState<string[]>([]);
+	const [componentList, setcomponentList] = useState<string[]>([]);
 	const bicycleParts = parts;
+
+	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
+		navigate('/technician-setup-3');
+	};
+
 	const handleClick = (item: TimeSlot | string) => {
-		// console.log('selected:', item);
+		console.log('selected:', item);
 	};
 	return (
 		<>
@@ -74,7 +84,7 @@ const SetUpExpertise = () => {
 									<LoopSlotOrPartsComponent
 										key={index}
 										item={brand}
-										onClick={() => console.log('first')}
+										onClick={() => handleClick(brand)}
 										outline={false}
 									/>
 								);
@@ -98,7 +108,8 @@ const SetUpExpertise = () => {
 						</Text>
 						<Flex
 							w={'32vw'}
-							wrap={'wrap'}>
+							wrap={'wrap'}
+							mb={'4rem'}>
 							{bicycleParts.map((parts) => {
 								return (
 									<LoopSlotOrPartsComponent
@@ -110,6 +121,16 @@ const SetUpExpertise = () => {
 								);
 							})}
 						</Flex>
+
+						<Button
+							onClick={handleNextClick}
+							loadingText={'Next'}
+							w={'7rem'}
+							bg={'third'}
+							size={'md'}
+							color={'secondary'}
+							text={'Next'}
+						/>
 					</Flex>
 				</Box>
 			</Flex>

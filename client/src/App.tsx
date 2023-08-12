@@ -1,6 +1,6 @@
 import SignUp from './pages/SignUp/SignUp.pages';
 import Login from './pages/Login/Login.pages';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import SetupBikeDetails from './pages/SetupBikeDetails';
 import SetupDailyCommute from './pages/SetupDailyCommute';
