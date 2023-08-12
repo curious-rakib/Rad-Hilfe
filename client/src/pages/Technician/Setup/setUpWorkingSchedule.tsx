@@ -1,20 +1,39 @@
 import { Flex, Box, Text, Heading, Image, Center } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
-import TechnicianWorkingDays from '../../../components/Technician Working Days/indexForSetup';
+import TechnicianWorkingDays, { Day } from '../../../components/Technician Working Days/indexForSetup';
 import logo from './../../../assets/logo(Lilac).svg';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts/indexForSetup';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
-import { MouseEvent } from 'react';
+import { MouseEvent, useState } from 'react';
 import Button from '../../../components/Button';
 import TechnicianProgressBar from '../../../components/Technician Progress Bar';
+import { useNavigate } from 'react-router-dom';
 
 const SetUpWorkingSchedule = () => {
+	const navigate = useNavigate();
 	const timeSlots = timeSlotGenerator(7, 20);
-	const handleClick = (item: TimeSlot | string) => {
-		// console.log('selected:', item);
+	const [selectedDays, setSelectedDays] = useState<Day[]>([]);
+	const [selectedSlots, setSelectedSlots] = useState<TimeSlot[]>([]);
+	const [showError, setShowError] = useState(false);
+
+	const handleSelectedDays = (days: Day[]) => {
+		setSelectedDays(days);
+		console.log(days);
+	};
+
+	const handleClick = (slot: TimeSlot) => {
+		setSelectedSlots((previousSlots) => [...previousSlots, slot]);
 	};
 	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
-		console.log('Go to agenda page');
+		event.preventDefault();
+		const technician = localStorage.getItem('technician');
+		if (technician) {
+			const parsedTechnician = JSON.parse(technician);
+			parsedTechnician.workingDays = selectedDays;
+			parsedTechnician.workingSlots = selectedSlots;
+			localStorage.setItem('technician', JSON.stringify(parsedTechnician));
+			navigate('/technician-setup-3');
+		} else setShowError(true);
 	};
 	return (
 		<>
@@ -60,6 +79,7 @@ const SetUpWorkingSchedule = () => {
 						<TechnicianWorkingDays
 							colorScheme="accent"
 							outline={true}
+							onDaysSelect={handleSelectedDays}
 						/>
 
 						<Text

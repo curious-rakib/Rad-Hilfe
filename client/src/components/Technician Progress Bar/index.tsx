@@ -1,4 +1,4 @@
-import { HStack, Box, Circle, Center, Flex } from '@chakra-ui/react';
+import { HStack, Box, Flex } from '@chakra-ui/react';
 
 function TechnicianProgressBar({ pagenumber }: { pagenumber: number }) {
 	return (

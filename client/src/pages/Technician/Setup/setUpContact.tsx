@@ -3,7 +3,7 @@ import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
 import avatar from '../../../assets/avatar.svg';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Button from '../../../components/Button';
 import { useAppDispatch } from '../../../app/hooks';
 import { technician } from '../../../features/technician/slices/technicianSlice';
@@ -14,6 +14,7 @@ import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 const SetUpContact = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const [showError, setShowError] = useState(false);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
@@ -31,9 +32,8 @@ const SetUpContact = () => {
 			parsedTechnician.phone = phone;
 			console.log(parsedTechnician);
 			localStorage.setItem('technician', JSON.stringify(parsedTechnician));
-		}
-
-		navigate('/technician-setup-2');
+			navigate('/technician-setup-2');
+		} else setShowError(true);
 	};
 
 	return (

@@ -1,12 +1,12 @@
 import { Circle, HStack, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 
-interface Day {
+export interface Day {
 	id: string;
 	label: string;
 	chosen: boolean;
 }
-const TechnicianWorkingDays = ({ colorScheme, outline }: { colorScheme: string; outline: boolean }) => {
+const TechnicianWorkingDays = ({ colorScheme, outline, onDaysSelect }: { colorScheme: string; outline: boolean; onDaysSelect: (days: Day[]) => void }) => {
 	const [sevenDays, setSevenDays] = useState<Day[]>([]);
 	const allDays = [
 		{
@@ -53,6 +53,7 @@ const TechnicianWorkingDays = ({ colorScheme, outline }: { colorScheme: string; 
 		const updatedSevenDays = sevenDays.map((d) => (d.id === day.id ? { ...d, chosen: !day.chosen } : d));
 
 		setSevenDays(updatedSevenDays);
+		onDaysSelect(updatedSevenDays.filter((d) => d.chosen));
 	};
 
 	return (

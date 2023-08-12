@@ -7,7 +7,6 @@ import { parts } from '../../../data/partsData';
 import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 import Button from '../../../components/Button';
 import { useNavigate } from 'react-router-dom';
-import { TimeSlot } from '../../../utils/timeSlotgenerator';
 import { MouseEvent } from 'react';
 import BicycleBrandList from '../../../components/Bicyle Brand List';
 
@@ -16,13 +15,25 @@ const SetUpExpertise = () => {
 	const [inputBrand, setInputBrand] = useState<string>('');
 	const [brandList, setBrandList] = useState<string[]>([]);
 	const [componentList, setcomponentList] = useState<string[]>([]);
+	const [showError, setShowError] = useState(false);
 	const bicycleParts = parts;
 
-	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
-		navigate('/technician-setup-3');
+	const handleClick = (item: string) => {
+		setcomponentList((previousComponents) => [...previousComponents, item]);
 	};
 
-	const handleClick = (item: string) => {};
+	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
+		event.preventDefault();
+		const technician = localStorage.getItem('technician');
+		if (technician) {
+			const parsedTechnician = JSON.parse(technician);
+			parsedTechnician.brandsExpertise = brandList;
+			parsedTechnician.subpartExpertise = componentList;
+			localStorage.setItem('technician', JSON.stringify(parsedTechnician));
+			navigate('/technician-setup-3');
+		} else setShowError(true);
+	};
+
 	return (
 		<>
 			<Flex
@@ -116,7 +127,7 @@ const SetUpExpertise = () => {
 									<LoopSlotOrPartsComponent
 										key={parts._id}
 										item={parts.name}
-										onClick={() => handleClick(parts.name)}
+										onClick={() => handleClick(parts._id)}
 										outline={true}
 									/>
 								);
