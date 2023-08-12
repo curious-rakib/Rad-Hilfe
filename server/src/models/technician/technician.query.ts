@@ -59,10 +59,35 @@ const addTechnicianDetails = async (email: string, setTechnician: any) => {
   }
 };
 
+const findSubpartTechnician = async (subparts: Types.ObjectId[]) => {
+  try {
+    const technicians = await TechnicianModel.find({ subpartExpertise: { $in: subparts } });
+
+    if (technicians) {
+      const techniciansWithMatches = technicians.map(
+        (technician) =>
+          technician.subpartExpertise && {
+            technician,
+            matchCount: technician.subpartExpertise.filter((subpart) => subparts.includes(subpart))
+              .length,
+          }
+      );
+
+      techniciansWithMatches.sort((a, b) => b!.matchCount - a!.matchCount);
+
+      const sortedTechnicians = techniciansWithMatches.map((entry) => entry!.technician);
+      return sortedTechnicians[0]._id;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   createTechnician,
   findTechnicianByEmail,
   findTechnicianById,
   updateTechnicianPassword,
   addTechnicianDetails,
+  findSubpartTechnician,
 };

@@ -2,7 +2,7 @@
   {
     "_id": "64d0cfccd7d5ed90771f8cd8",
     "name": "TyresAndRim",
-    "roadConditionFactor": 0.65,
+    "roadConditionFactor": 0.2,
     "dependentPartId": "",
     "dependentPartName": ""
   },
@@ -44,7 +44,7 @@
   {
     "_id": "64d0cfccd7d5ed90771f8cd7",
     "name": "BodyFrame",
-    "roadConditionFactor": 0.4,
+    "roadConditionFactor": 0.1,
     "dependentPartId": "64d0cfccd7d5ed90771f8ce1",
     "dependentPartName": "ChainStay"
   },

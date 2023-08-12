@@ -3,11 +3,13 @@ import { createNewCase, findAllCases, findCaseById } from '../../models/case/cas
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
+import { findSubpartTechnician } from '../../models/technician/technician.query';
+import { findOrderById } from '../../models/order/order.query';
 import { Types } from '../../models/database';
 
 const createCase = async (req: Request, res: Response) => {
   try {
-    const { type, tags, note, interventionDetails, videoURL } = req.body;
+    const { type, tags, note, supportTime, interventionDetails, videoURL } = req.body;
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
@@ -19,35 +21,41 @@ const createCase = async (req: Request, res: Response) => {
         return res.status(404).send('Cyclist not found.');
       }
 
-      const technicianId = new Types.ObjectId('64ce42ea789542ad94fa1988'); //need to add dynamic to it when chatbot decides which technician it will go to.
       const orderLength = cyclist.orders?.length;
       let orderId;
       if (orderLength! > 0) {
         orderId = cyclist.orders![orderLength! - 1];
       }
 
-      const newCase = {
-        cyclist: cyclist._id,
-        bicycle: cyclist.bicycle,
-        technician: technicianId,
+      const order = await findOrderById(new Types.ObjectId(orderId));
+      if (order) {
+        console.log(order);
+        const subparts = order.bicycleParts;
+        const technicianId = await findSubpartTechnician(subparts);
 
-        order: orderId,
-        status: 'Ongoing',
-        type,
-        tags,
-        note,
-        timeStamp: new Date(),
-        interventionDetails,
-        videoURL,
-      };
+        const newCase = {
+          cyclist: cyclist._id,
+          bicycle: cyclist.bicycle,
+          technician: technicianId,
 
-      const createdCase = await createNewCase(newCase);
-      cyclist.cases?.push(createdCase._id);
-      await cyclist.save();
-      res.status(200).send(createdCase);
-    } else {
-      return res.status(401).send('Unauthorized');
+          order: orderId,
+          status: 'ongoing',
+          type,
+          tags,
+          note,
+          interventionDetails,
+          videoURL,
+          supportTime,
+        };
+
+        const createdCase = await createNewCase(newCase);
+        cyclist.cases?.push(createdCase._id);
+        await cyclist.save();
+        res.status(200).send(createdCase);
+        return;
+      }
     }
+    return res.status(401).send('Unauthorized');
   } catch (error) {
     console.error('Creating case failed!', error);
     res.status(501).send('Creating case failed!');

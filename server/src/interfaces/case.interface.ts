@@ -10,7 +10,7 @@ interface Case {
   tags: string[];
   order?: Types.ObjectId;
   note?: Note[];
-  timeStamp: Date;
+  supportTime: SupportTime;
   interventionDetails: InterventionDetails;
   videoURL: string;
 }
@@ -23,6 +23,12 @@ interface InterventionDetails {
   firstCall: string | Date;
   followUpCall: string | Date;
   supportQuality: Number;
+}
+
+interface SupportTime {
+  slotName: string;
+  slotTime: string;
+  timeStamp: Date;
 }
 
 export { Case };
