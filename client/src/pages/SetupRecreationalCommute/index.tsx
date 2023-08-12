@@ -45,15 +45,18 @@ const Recreation = () => {
         recreationalCommute,
     };
 
-
-    // console.log('from bikeinfo', bikeInfo);
+    // console.log(bikeInfo);
 
     useEffect(() => {
         const fetchData = async () => {
 
-            // console.log("bike info from recreationl page:", bikeInfo);
+
             const result = await setUpBikeInfo(bikeInfo);
-            console.log('result', result);
+            const bikeId = result._id;
+            localStorage.setItem('bikeID', bikeId);
+            localStorage.setItem('bikeInfo', result);
+            // console.log('bikeID', bikeId);
+            // console.log('result', result);
         };
         fetchData();
     }, [])

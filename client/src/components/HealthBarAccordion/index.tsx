@@ -13,7 +13,20 @@ import {
 import HealthBar from '../HealthBar';
 import { parts } from '../../data/partsData';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { useEffect } from 'react';
+import { bicycle } from '../../services/bikeDetails';
 function HealthBarAccordion() {
+    useEffect(() => {
+        const fetchBiCycleData = async () => {
+            const bikeId = localStorage.getItem('bikeID')
+            console.log(bikeId);
+            const biCycleInfo = await bicycle(bikeId);
+            console.log('from health accordian page', biCycleInfo);
+
+        }
+        fetchBiCycleData();
+
+    }, [])
     return (
         <Flex alignItems="center" direction={'column'}>
             <Text fontSize={'15'} pt={'7'} pb={'3'} color={'accent'}>

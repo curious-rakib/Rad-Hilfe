@@ -2,7 +2,7 @@ import { HStack, Box, Circle } from '@chakra-ui/react'
 import React from 'react'
 
 function Progress({ color, pagenumber }: { color: string, pagenumber: number }) {
-    console.log(pagenumber)
+
     return (
         <Box>
             <HStack gap='0vw'>

@@ -16,12 +16,15 @@ import {
 
 import InputField from '../InputField';
 import SubmitButton from '../Button';
-function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
+import { useState } from 'react';
+function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setShow }: { setShow: Function }) {
+
     const handleChange = () => {
         // console.log('clcik from home');
     };
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
         <Stack spacing={6}>
             <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -34,13 +37,11 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                             Please,set a marker of your address
                         </p>
                     </ModalBody>
-                    {/* <ModalFooter>
-                        <Button onClick={onClose}>Close</Button>
-                    </ModalFooter> */}
+
                 </ModalContent>
             </Modal>
-            <InputField
-                // onF={onOpen}
+            {/* <InputField
+
 
                 id='home'
                 isRequired={true}
@@ -52,8 +53,8 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                 color="accent"
                 onToggle={onToggle}
 
-            />
-            {/* <Button
+            /> */}
+            <Button
                 onClick={onOpen}
                 variant={'unstyled'}
                 color={'gray.50'}
@@ -63,7 +64,7 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }) {
                 rounded={'xl'}
             >
                 Home Address
-            </Button> */}
+            </Button>
             <InputField
                 id='work'
                 isRequired={true}

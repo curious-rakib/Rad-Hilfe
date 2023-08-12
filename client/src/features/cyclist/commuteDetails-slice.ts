@@ -7,7 +7,7 @@ interface CommuteState {
 const initialState: CommuteState = {
   days: [],
   unpavedRoad: 0,
-  totalDistance: 0,
+  totalDistance: 5,
 };
 
 const commuteSlice = createSlice({

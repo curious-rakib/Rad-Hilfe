@@ -13,7 +13,7 @@ const InputField = ({
   _placeholder,
   color,
   onToggle,
-  onFocus
+  // onFocus
 }: {
   id: string;
   isRequired: boolean;
@@ -28,7 +28,7 @@ const InputField = ({
   };
   color: string
   onToggle?: Function
-  onFocus?: Function
+  // onFocus?: Function
 
 }) => {
 
@@ -43,7 +43,7 @@ const InputField = ({
           onChange={onChange}
           color={color}
           name={name}
-          onFocus={onFocus}
+          // onFocus={onFocus}
           borderColor={borderColor}
           _placeholder={_placeholder}
           onFocus={() => onToggle()}

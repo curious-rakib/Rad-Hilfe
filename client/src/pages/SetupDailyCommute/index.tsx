@@ -5,6 +5,7 @@ import {
     HStack,
     Progress,
     Stack,
+    Switch,
     VStack,
 } from '@chakra-ui/react';
 import Days from '../../components/Days';
@@ -17,9 +18,11 @@ import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import { commuteDays } from '../../features/cyclist/commuteDetails-slice';
 import { useAppSelector } from '../../app/hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const SetupDailyCommute = () => {
+    const [switchChecked, setSwitchChecked] = useState<boolean>(false)
+
     const { days, unpavedRoad, totalDistance } = useAppSelector((state) => state.commute)
     const handleClick = async () => {
         const dailyCommute = { days, unpavedRoad, totalDistance };
@@ -66,11 +69,12 @@ const SetupDailyCommute = () => {
 
             <HStack my={5}>
                 <Text color={'accent'}>No</Text>
-                {/* <SetSwitch></SetSwitch> */}
+                <SetSwitch setFullrevision={setSwitchChecked}></SetSwitch>
+
                 <Text color={'accent'}>Yes</Text>
             </HStack>
 
-            <ChakraLink as={ReactRouterLink} to='/setup-recreation-details'>
+            <ChakraLink as={ReactRouterLink} to={switchChecked ? '/setup-recreation-details' : '/home'}>
                 <Center my={16}>
                     <SubmitButton
                         onClick={handleClick}

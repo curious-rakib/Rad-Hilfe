@@ -17,7 +17,9 @@ export const generateNewMarker = ({ lat, lng, map }: { lng: number, lat: number,
     const popUp = new Popup({ closeButton: false, anchor: 'left', })
         .setHTML(`<div class="popup">You click here: <br/>[${lng},  ${lat}]</div>`)
 
-    new Marker({ color: '#63df29', scale: 1.5 }).setLngLat([lng, lat]).setPopup(popUp).addTo(map)
+    const marker = new Marker({ color: '#63df29', scale: 1.5 }).setLngLat([lng, lat]).setPopup(popUp).addTo(map)
+
+
 }
 
 
@@ -31,7 +33,7 @@ function SetupDailyRoute() {
 
     mapboxgl.accessToken = config.mapboxAccess;
     useEffect(() => {
-        console.log(isOpen);
+        // console.log(isOpen);
     }, [])
     useEffect(() => {
         if (mapContainerRef.current) {
@@ -64,6 +66,7 @@ function SetupDailyRoute() {
 
             });
 
+
             mapRef.current && mapRef.current.on(
                 'mouseup',
                 ({ lngLat }: { lngLat: any }) => generateNewMarker({
@@ -74,7 +77,7 @@ function SetupDailyRoute() {
         return () => mapRef.current?.remove();
     }, []);
 
-
+    const [show, setShow] = useState<boolean>(true)
 
     return (
         <VStack
@@ -90,26 +93,29 @@ function SetupDailyRoute() {
 
 
             />
-            <Slide direction='bottom' in={isOpen} style={{ zIndex: 10 }}>
-                <Stack p={4} spacing={7}
-                    style={{
-                        borderRadius: '20px',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        position: 'absolute',
-                        width: '100%',
-                        height: '35vh',
-                        backgroundColor: '#001F3F',
-                        zIndex: 200,
+            {
+                show &&
+                <Slide direction='bottom' in={isOpen} style={{ zIndex: 10 }}>
+                    <Stack p={4} spacing={7}
+                        style={{
+                            borderRadius: '20px',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            position: 'absolute',
+                            width: '100%',
+                            height: '35vh',
+                            backgroundColor: '#001F3F',
+                            zIndex: 200,
 
-                    }}
+                        }}
 
-                >
-                    <Text color={'accent'} >Your daily commute details</Text>
-                    <HomeOfficeAddressLayOver onToggle={onToggle} />
-                </Stack>
-            </Slide>
+                    >
+                        <Text color={'accent'} >Your daily commute details</Text>
+                        <HomeOfficeAddressLayOver onToggle={onToggle} />
+                    </Stack>
+                </Slide>
+            }
         </VStack >
     );
 }
