@@ -4,17 +4,17 @@ const token = localStorage.getItem('accessToken');
 
 export const order = async (order: any) => {
   try {
-    const response = await axios.post(`${BASE_URL}/cyclist/create-order`, {
-      withCredentials: true,
+    const response = await fetch(`${BASE_URL}/cyclist/create-order`, {
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        authorization: `Bearer ${token}`,
       },
-      data: order,
+      body: JSON.stringify(order),
     });
-
-    const orderDetails = response.data;
-    console.log('bicycle from service', orderDetails);
+    const orderDetails = await response.json();
+    console.log(orderDetails);
     return orderDetails;
   } catch (error) {
     console.log(error);

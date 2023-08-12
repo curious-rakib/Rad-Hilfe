@@ -2,6 +2,8 @@ import { Box, Button, Center, Flex, Heading, Stack, Text, Textarea } from '@chak
 import { useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
 import React from 'react';
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 interface Slots {
     id: any;
     day: string;
@@ -132,20 +134,23 @@ const SetUpExpertCall = () => {
                     ))}
                 </Flex>
             </Center>
-            <Center>
-                <Button
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    mt={'40px'}
-                    borderRadius={16}
-                    fontWeight={'bold'}
-                >
-                    Book Call
-                </Button>
-            </Center>
+            <ChakraLink as={ReactRouterLink} to='/thankyou'>
+                <Center>
+                    <Button
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='accent'
+                        w='200px'
+                        color='secondary'
+                        mt={'40px'}
+                        borderRadius={16}
+                        fontWeight={'bold'}
+                    >
+                        Book Call
+                    </Button>
+                </Center>
+            </ChakraLink>
+
         </Box>
     );
 };

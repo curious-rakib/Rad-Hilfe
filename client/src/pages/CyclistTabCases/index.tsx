@@ -1,8 +1,16 @@
 import { Box, Text, Stack, Divider, Flex, HStack, VStack, Grid, GridItem } from '@chakra-ui/layout';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, } from '@chakra-ui/tabs';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { getAallCases } from '../../services/cases';
 
 const CyclistTabCases = () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const allCase = await getAallCases();
+            console.log(allCase);
+        }
+        fetchData();
+    }, [])
     return (
         <Box p={4} color={'accent'}>
             <Text color={'accent'} fontWeight={'bold'} my={8} fontSize='2xl' mx={4}>Cases</Text>

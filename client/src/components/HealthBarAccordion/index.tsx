@@ -34,11 +34,6 @@ function HealthBarAccordion() {
             </Text>
             <Accordion w="90vw" allowMultiple allowToggle color={'white'}>
 
-
-
-
-
-
                 <AccordionItem style={{ borderTopWidth: '0px' }}>
                     {({ isExpanded }) => (
                         <>

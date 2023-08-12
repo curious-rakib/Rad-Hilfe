@@ -18,6 +18,10 @@ import CurrentLocation from './components/CurrentLocation';
 import TechnicianProfile from './pages/Dashboard/Profile';
 import Dashboard from './pages/Dashboard';
 import TechnicianSetUp from './pages/Technician Setup/setUpExpertise';
+import LeafLottiePlayer from './components/Lottie';
+import ThankYou from './pages/ThankYou';
+import CyclistTabCases from './pages/CyclistTabCases';
+import IndividualCyclistCase from './pages/IndividualCyclistCase';
 
 function App() {
 	return (
@@ -36,8 +40,20 @@ function App() {
 						path="/home"
 						element={<Home />}
 					/>
+					<Route
+						path='/thankyou'
+						element={<ThankYou></ThankYou>}
+					></Route>
+					<Route
+						path='/cyclist-case'
+						element={<CyclistTabCases />}
 
+					></Route>
+					<Route
+						path='/individual'
+						element={<IndividualCyclistCase />}
 
+					></Route>
 
 					<Route
 						path="/setup-daily-route"
