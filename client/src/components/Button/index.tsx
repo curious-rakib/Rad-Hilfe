@@ -2,26 +2,37 @@ import { Button } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 
 const SubmitButton = ({
-    onClick,
-    loadingText,
-    bg,
-    size,
-    w,
-    color,
-    text,
+  borderRadius,
+  onClick,
+  loadingText,
+  bg,
+  size,
+  w,
+  color,
+  text,
 }: {
-    onClick?: MouseEventHandler<HTMLButtonElement>
-    loadingText: string;
-    w: string;
-    bg: string;
-    size: string;
-    color: string;
-    text: string;
+  borderRadius?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  loadingText: string;
+  w: string;
+  bg: string;
+  size: string;
+  color: string;
+  text: string;
 }) => {
-    return (
-        <Button onClick={onClick} w={w} loadingText={loadingText} size={size} bg={bg} color={color}>
-            {text}
-        </Button>
-    );
+  return (
+    <Button
+      borderRadius={borderRadius}
+      onClick={onClick}
+      w={w}
+      loadingText={loadingText}
+      size={size}
+      bg={bg}
+      color={color}
+      fontWeight={'700'}
+    >
+      {text}
+    </Button>
+  );
 };
 export default SubmitButton;

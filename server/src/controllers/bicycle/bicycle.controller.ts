@@ -174,9 +174,7 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
       return;
     }
 
-    const damagedParts = await getAllDamagedParts(
-      new Types.ObjectId(bicycleId)
-    );
+    const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
     //console.log(damagedParts);
 
     if (damagedParts) {
@@ -199,10 +197,4 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
   }
 };
 
-export {
-  setUpBicycle,
-  getBicycle,
-  getBicycleHealth,
-  setUpBicycleEdit,
-  bicycleDamagedPart,
-};
+export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit, bicycleDamagedPart };
