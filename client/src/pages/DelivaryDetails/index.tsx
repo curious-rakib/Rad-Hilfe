@@ -84,6 +84,7 @@ const DelivaryDetails = () => {
 
     };
 
+    const totalPrice = useAppSelector((state) => state.order.totalPrice)
 
 
     return (
@@ -170,7 +171,7 @@ const DelivaryDetails = () => {
                     borderRadius={16}
                     fontWeight={'bold'}
                 >
-                    Buy now | €50
+                    Buy now | €{totalPrice}
                 </Button>
             </Center>
         </Box>

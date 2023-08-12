@@ -29,7 +29,7 @@ const orderSlice = createSlice({
       return { ...state, ...action.payload };
     },
     totalPrice: (state, action) => {
-      return { ...state, ...action.payload };
+      return { ...state, totalPrice: action.payload };
     },
     bicycleParts: (state, action) => {
       return { ...state, ...action.payload };

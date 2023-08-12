@@ -10,43 +10,61 @@ import {
     GridItem,
     Center,
 } from '@chakra-ui/react';
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import { color } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import { HiPlusSm, HiOutlineMinusSm } from 'react-icons/hi';
 import { FiMinus } from 'react-icons/fi';
 import { useAppSelector } from '../../app/hooks';
 import { bicycleDamagedPart } from '../../services/bikeDetails';
+import { useDispatch } from 'react-redux';
+import orderSlice, { totalPrice } from '../../features/cyclist/order-slice';
+interface Parts {
+    partsName: string,
+    price: number,
+    qty: number
+}
 
 const Cart = () => {
 
-    const parts = [
-        {
-            partsName: 'Body Frame',
-            price: 300,
-            color: 'third',
-        },
-        {
-            partsName: 'Brakes',
-            price: 50,
-            color: 'fourth',
-        },
-        {
-            partsName: 'Wheel',
-            price: 100,
-            color: '#3B82F6',
-        },
-        {
-            partsName: 'Chain ring',
-            price: 20,
-            color: 'green',
-        },
-    ];
+    const [parts, setParts] = useState<Parts[]>([])
+
+    // const parts = [
+    //     {
+    //         partsName: 'Body Frame',
+    //         price: 300,
+    //         color: 'third',
+    //     },
+    //     {
+    //         partsName: 'Brakes',
+    //         price: 50,
+    //         color: 'fourth',
+    //     },
+    //     {
+    //         partsName: 'Wheel',
+    //         price: 100,
+    //         color: '#3B82F6',
+    //     },
+    //     {
+    //         partsName: 'Chain ring',
+    //         price: 20,
+    //         color: 'green',
+    //     },
+    // ];
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const bikeId = localStorage.getItem('bikeID');
                 const damagedPartsBiCycle = await bicycleDamagedPart(bikeId);
                 console.log('damagedPartsBiCycle from cart page', damagedPartsBiCycle);
+                const dataObj = damagedPartsBiCycle[0].bicycleParts.map((eachBicycle: any) => ({
+                    partsName: eachBicycle.name,
+                    price: eachBicycle.price,
+                }))
+                setParts(dataObj)
+                // console.log(name);
+
             } catch (error) {
                 console.log('Error fetching data:', error);
             }
@@ -54,7 +72,8 @@ const Cart = () => {
 
         fetchData();
     }, []);
-    const [partsCount, setPartsCount] = useState(parts.map(() => 1));
+
+    const [partsCount, setPartsCount] = useState(parts.map((part) => part.qty = 1));
     const handleIncrement = (index: number) => {
         if (partsCount[index] < 1) {
             const newCounts = [...partsCount];
@@ -73,9 +92,16 @@ const Cart = () => {
         let totalPrice = 0;
         for (let i = 0; i < parts.length; i++) {
             totalPrice += (partsCount[i] * parts[i].price);
+            console.log(partsCount[i]);
         }
         return totalPrice + 100;
     };
+    console.log(calculateTotalPrice());
+    const dispatch = useDispatch();
+    const handleClick = () => {
+        // dispatch(orderSlice(calculateTotalPrice()))
+        dispatch(totalPrice(calculateTotalPrice())) //270
+    }
 
     return (
         <Box p={8}>
@@ -86,8 +112,11 @@ const Cart = () => {
                 Active plan: Qover Care
             </Text>
             {parts.map((p, index) => (
-                <>
-                    <Grid templateColumns='repeat(3, 1fr)' gap={4} my={5}>
+                <div key={index}>
+                    <Grid templateColumns='repeat(3, 1fr)' gap={4} my={5}
+
+
+                    >
                         <GridItem w='200%' h='10'>
                             <Flex color='third'>
                                 <Circle
@@ -137,7 +166,7 @@ const Cart = () => {
                         </GridItem>
                     </Grid>
                     <hr />
-                </>
+                </div>
             ))}
 
             <Grid templateColumns='repeat(5, 1fr)' mt={7} mb={2} gap={4}>
@@ -163,21 +192,25 @@ const Cart = () => {
                 </GridItem>
             </Grid>
             <hr />
+            <ChakraLink as={ReactRouterLink} to='/delivery-details'>
+                <Center>
+                    <Button
+                        onClick={handleClick}
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='accent'
+                        w='200px'
+                        color='secondary'
+                        mt={'120px'}
+                        borderRadius={12}
+                        fontWeight={'bold'}
+                    >
+                        Buy now | €{calculateTotalPrice()}
+                    </Button>
+                </Center>
+            </ChakraLink>
 
-            <Center>
-                <Button
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    mt={'120px'}
-                    borderRadius={12}
-                    fontWeight={'bold'}
-                >
-                    Buy now | €{calculateTotalPrice()}
-                </Button>
-            </Center>
+
         </Box>
     );
 };
