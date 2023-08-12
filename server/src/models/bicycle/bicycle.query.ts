@@ -153,7 +153,7 @@ const bicycleHealthUpgration = async (
 };
 
 const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
-  console.log(bicycleId);
+  // console.log(bicycleId);
   try {
     const allDamagedParts = await BicycleModel.aggregate([
       {
@@ -195,7 +195,7 @@ const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
         },
       },
     ]);
-    console.log('allDamagedParts', allDamagedParts);
+    // console.log('allDamagedParts', allDamagedParts);
     return allDamagedParts;
   } catch (error) {
     console.error(error);
