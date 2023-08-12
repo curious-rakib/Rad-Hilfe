@@ -53,7 +53,7 @@ const SetUpExpertise = () => {
 						direction={'column'}
 						p={' 0 6rem'}>
 						<Center>
-							<TechnicianProgressBar pagenumber={1} />
+							<TechnicianProgressBar pagenumber={2} />
 						</Center>
 						<Text
 							mt={'2rem'}

@@ -46,7 +46,7 @@ const SetUpWorkingSchedule = () => {
 						direction={'column'}
 						p={'0 6rem'}>
 						<Center>
-							<TechnicianProgressBar pagenumber={1} />
+							<TechnicianProgressBar pagenumber={3} />
 						</Center>
 						<Text
 							mt={'2rem'}
