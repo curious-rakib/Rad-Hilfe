@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { Types } from '../../models/database';
 import moment from 'moment';
 moment().format();
 
@@ -12,7 +13,7 @@ import {
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { addBicycle } from '../../models/cyclist/cyclist.query';
-import { Types } from '../../models/database';
+import Subparts from '../../models/bicycle/subparts.json';
 
 const setUpBicycle = async (req: Request, res: Response) => {
   try {
@@ -172,6 +173,15 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
     const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
 
     if (damagedParts) {
+      // const updatedDamagePartsInfo = damagedParts.map((part) => {
+      //   const newInfo = {
+      //     _id: part.bicycleParts.subpart,
+      //     name: Subparts.filter((subpart) => {}),
+      //   };
+
+      //   part.bicycleParts.subpart;
+      // });
+
       res.status(200).send(damagedParts);
       return;
     }
