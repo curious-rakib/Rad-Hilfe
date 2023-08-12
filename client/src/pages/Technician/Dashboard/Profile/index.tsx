@@ -1,12 +1,13 @@
 import { Text, Box, Flex, Image, Input } from '@chakra-ui/react';
-import TechnicianWorkingDays from '../../../../components/Technician Working Days';
+import TechnicianWorkingDays from '../../../../components/Technician Working Days/indexForProfile';
 import { TimeSlot, timeSlotGenerator } from '../../../../utils/timeSlotgenerator';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { parts } from '../../../../data/partsData';
-import LoopSlotOrPartsComponent from '../../../../components/Time Slots & Bicycle Parts';
+import LoopSlotOrPartsComponent from '../../../../components/Time Slots & Bicycle Parts/indexForProfile';
 import avatar from '../../../../assets/avatarTechnician.svg';
 import InputTechnician from '../../../../components/Input Technician';
 import Button from '../../../../components/Button';
+import BicycleBrandList from '../../../../components/Bicyle Brand List';
 
 const TechnicianProfile = () => {
 	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
@@ -211,11 +212,9 @@ const TechnicianProfile = () => {
 									<Flex wrap={'wrap'}>
 										{brandList.map((brand, index) => {
 											return (
-												<LoopSlotOrPartsComponent
+												<BicycleBrandList
 													key={index}
 													item={brand}
-													onClick={() => console.log('first')}
-													outline={false}
 												/>
 											);
 										})}

@@ -1,11 +1,12 @@
-import { Flex, Box, Text, Heading, Image } from '@chakra-ui/react';
+import { Flex, Box, Text, Heading, Image, Center } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
-import TechnicianWorkingDays from '../../../components/Technician Working Days';
+import TechnicianWorkingDays from '../../../components/Technician Working Days/indexForSetup';
 import logo from './../../../assets/logo(Lilac).svg';
-import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts';
+import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts/indexForSetup';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
 import { MouseEvent } from 'react';
 import Button from '../../../components/Button';
+import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 
 const SetUpWorkingSchedule = () => {
 	const timeSlots = timeSlotGenerator(7, 20);
@@ -21,11 +22,13 @@ const SetUpWorkingSchedule = () => {
 				w={'100vw'}
 				h={'100vh'}
 				bgImage={image}>
-				<Box flex={0.5}></Box>
+				<Box flex={0.6}></Box>
 				<Box
 					bg={'secondary'}
-					flex={0.5}>
+					flex={0.4}>
 					<Flex
+						mt={'2rem'}
+						mb={'1.5rem'}
 						alignItems={'center'}
 						justifyContent={'center'}
 						gap={'1rem '}>
@@ -41,8 +44,12 @@ const SetUpWorkingSchedule = () => {
 
 					<Flex
 						direction={'column'}
-						p={'0 8rem'}>
+						p={'0 6rem'}>
+						<Center>
+							<TechnicianProgressBar pagenumber={1} />
+						</Center>
 						<Text
+							mt={'2rem'}
 							mb={2}
 							color={'third'}
 							fontFamily={'Inter'}
@@ -74,7 +81,8 @@ const SetUpWorkingSchedule = () => {
 						</Text>
 						<Flex
 							w={'32vw'}
-							wrap={'wrap'}>
+							wrap={'wrap'}
+							mb={'2rem'}>
 							{timeSlots.map((slot) => {
 								return (
 									<LoopSlotOrPartsComponent

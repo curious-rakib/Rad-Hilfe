@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image, Center } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
@@ -9,6 +9,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { technician } from '../../../features/technician/slices/technicianSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 
 const SetUpContact = () => {
 	const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ const SetUpContact = () => {
 			parsedTechnician.address = address;
 			parsedTechnician.phone = phone;
 			console.log(parsedTechnician);
+			localStorage.setItem('technician', JSON.stringify(parsedTechnician));
 		}
 
 		navigate('/technician-setup-2');
@@ -60,10 +62,14 @@ const SetUpContact = () => {
 					</Flex>
 
 					<Flex
-						mt={'4rem'}
+						mt={'2rem'}
 						direction={'column'}
-						p={' 0 6rem'}>
+						p={'0 6rem'}>
+						<Center>
+							<TechnicianProgressBar pagenumber={1} />
+						</Center>
 						<Text
+							mt={'2rem'}
 							color={'third'}
 							fontSize={'1.5rem'}>
 							Select a Profile Picture

@@ -1,14 +1,15 @@
-import { Box, Flex, Heading, Text, Image, Input } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image, Input, Center } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
 import logo from './../../../assets/logo(Lilac).svg';
 import { useState } from 'react';
-import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts';
+import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts/indexForSetup';
 import { parts } from '../../../data/partsData';
-import TechnicianProgress from '../../../components/Technician Progress';
+import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 import Button from '../../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { TimeSlot } from '../../../utils/timeSlotgenerator';
 import { MouseEvent } from 'react';
+import BicycleBrandList from '../../../components/Bicyle Brand List';
 
 const SetUpExpertise = () => {
 	const navigate = useNavigate();
@@ -21,20 +22,20 @@ const SetUpExpertise = () => {
 		navigate('/technician-setup-3');
 	};
 
-	const handleClick = (item: TimeSlot | string) => {
-		console.log('selected:', item);
-	};
+	const handleClick = (item: string) => {};
 	return (
 		<>
 			<Flex
 				w={'100vw'}
 				h={'100vh'}
 				bgImage={image}>
-				<Box flex={0.5}></Box>
+				<Box flex={0.6}></Box>
 				<Box
 					bg={'secondary'}
-					flex={0.5}>
+					flex={0.4}>
 					<Flex
+						mt={'2rem'}
+						mb={'1.5rem'}
 						alignItems={'center'}
 						justifyContent={'center'}
 						gap={'1rem '}>
@@ -50,10 +51,12 @@ const SetUpExpertise = () => {
 
 					<Flex
 						direction={'column'}
-						p={' 0 8rem'}>
-						<TechnicianProgress pagenumber={1} />
+						p={' 0 6rem'}>
+						<Center>
+							<TechnicianProgressBar pagenumber={1} />
+						</Center>
 						<Text
-							mt={'1.15rem'}
+							mt={'2rem'}
 							fontSize={'1.5rem'}
 							color={'third'}>
 							Bicycle Brands
@@ -81,11 +84,9 @@ const SetUpExpertise = () => {
 							mt={2}>
 							{brandList.map((brand, index) => {
 								return (
-									<LoopSlotOrPartsComponent
+									<BicycleBrandList
 										key={index}
 										item={brand}
-										onClick={() => handleClick(brand)}
-										outline={false}
 									/>
 								);
 							})}
@@ -109,7 +110,7 @@ const SetUpExpertise = () => {
 						<Flex
 							w={'32vw'}
 							wrap={'wrap'}
-							mb={'4rem'}>
+							mb={'2rem'}>
 							{bicycleParts.map((parts) => {
 								return (
 									<LoopSlotOrPartsComponent
