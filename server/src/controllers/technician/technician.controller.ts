@@ -7,6 +7,7 @@ import { sendOTP } from './mailer.controller';
 import {
   addTechnicianDetails,
   createTechnician,
+  findSubpartTechnician,
   findTechnicianByEmail,
   updateTechnicianPassword,
 } from '../../models/technician/technician.query';
@@ -230,6 +231,22 @@ const editProfile = async (req: Request, res: Response) => {
   }
 };
 
+const findSubpartExpart = async (req: Request, res: Response) => {
+  try {
+    const { subparts } = req.body;
+
+    const technicians = await findSubpartTechnician(subparts);
+
+    if (technicians) {
+      res.status(200).send(technicians);
+      return;
+    }
+  } catch (error) {
+    console.error('Failed to get subpart technician!');
+    res.status(500).send('Server Error !');
+  }
+};
+
 export {
   signUp,
   signIn,
@@ -239,4 +256,5 @@ export {
   signOut,
   setUpTechnician,
   editProfile,
+  findSubpartExpart,
 };

@@ -7,6 +7,7 @@ import * as bicycleController from '../../controllers/bicycle/bicycle.controller
 import * as subpartController from '../../controllers/subpart/subpart.controller';
 import * as caseController from '../../controllers/case/case.controller';
 import * as orderController from '../../controllers/order/order.controller';
+import * as technicianController from '../../controllers/technician/technician.controller';
 
 const cyclistRouter = Router();
 
@@ -47,5 +48,8 @@ cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
 // subpart
 cyclistRouter.post('/add-subparts', subpartController.addSubparts);
 cyclistRouter.get('/all-subpart', subpartController.allSubpart);
+
+// technician
+cyclistRouter.post('/subpart-expert', technicianController.findSubpartExpart);
 
 export { cyclistRouter };
