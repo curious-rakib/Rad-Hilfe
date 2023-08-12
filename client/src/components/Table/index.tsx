@@ -1,8 +1,22 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import './table.styles.css';
-import { cases } from '../../pages/Dashboard/Dummy Data/dummyCaseData';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
+import FullHealthBar from '../Bicycle Full Health Bar';
+import { cases } from './../../pages/Dashboard/Dummy Data/dummyCaseData';
+
+export interface CaseData {
+	'Case No': string;
+	'Case Type': string;
+	Status: string;
+	'Client Name': string;
+	'Date Created': string;
+	'Bicycle Health': number;
+	Action: null | any;
+}
+interface TableDataProps {
+	cases: CaseData[];
+}
 
 const TableComponent = () => {
 	return (
@@ -46,16 +60,17 @@ const TableComponent = () => {
 						{cases.map((Case, index) => (
 							<Tr key={index}>
 								{Object.values(Case).map((value, index) => {
-									if (value) {
+									if (typeof value === 'string') {
 										return (
 											<Td
+												key={index}
 												p={'1rem 1rem 1rem 1rem'}
 												w={'11.65vw'}
 												borderBottom={'0'}>
 												<Box
 													bg={(statusColor as { [key: string]: string })[value] || 'transparent'}
 													fontFamily="Inter"
-													fontSize="1rem"
+													fontSize="1.20rem"
 													fontStyle={'normal'}
 													fontWeight={'400'}
 													lineHeight={'2rem'}
@@ -64,10 +79,16 @@ const TableComponent = () => {
 												</Box>
 											</Td>
 										);
+									} else if (typeof value === 'number') {
+										return (
+											<Td>
+												<FullHealthBar health={value} />
+											</Td>
+										);
 									} else {
 										return (
 											<Td
-												w={'11.65vw'}
+												w={'10vw'}
 												p={'2.5vh 1vw 2.5vh 1vw'}
 												key={index}
 												borderBottom={'0'}>

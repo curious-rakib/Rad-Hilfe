@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 #server
-server/src/index.ts
-server/src/models/database.ts
+/src/index.ts
+/src/models/database.ts
