@@ -1,7 +1,6 @@
 import SignUp from './pages/SignUp/SignUp.pages';
 import Login from './pages/Login/Login.pages';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import NavbarDashboard from './components/NavbarDashboard';
 import Home from './pages/Home';
 import SetupBikeDetails from './pages/SetupBikeDetails';
 import SetupDailyCommute from './pages/SetupDailyCommute';
@@ -16,6 +15,9 @@ import SetUpExpertCall from './pages/SetUpExpertCall';
 import SetupRecreationalCommute from './pages/SetupRecreationalCommute';
 import SetupDailyRoute from './pages/SetupDailyRoute';
 import CurrentLocation from './components/CurrentLocation';
+import TechnicianProfile from './pages/Dashboard/Profile';
+import Dashboard from './pages/Dashboard';
+import TechnicianSetUp from './pages/Technician Setup/setUpExpertise';
 
 function App() {
 	return (
@@ -87,12 +89,23 @@ function App() {
 				</Routes>
 
 				<Routes>
-					<Route element={<NavbarDashboard />}>
+					<Route element={<Dashboard />}>
 						<Route
 							path="/cases"
 							element={<Cases />}
 						/>
+						<Route
+							path="/profile"
+							element={<TechnicianProfile />}
+						/>
 					</Route>
+				</Routes>
+
+				<Routes>
+					<Route
+						path="/technician-setup"
+						element={<TechnicianSetUp />}
+					/>
 				</Routes>
 			</Router>
 		</>
