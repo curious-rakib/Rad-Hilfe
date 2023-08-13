@@ -1,11 +1,14 @@
 import { Router } from 'express';
 import { authenticator } from '../../middlewares/authenticator';
 import { technicianAuthorizer } from '../../middlewares/authorizer';
+import { generator } from '../../middlewares/generator';
+
 import * as technicianController from '../../controllers/technician/technician.controller';
 import * as caseController from '../../controllers/case/case.controller';
 
 const technicianRouter = Router();
 
+technicianRouter.use(generator);
 // public
 technicianRouter.post('/sign-up', technicianController.signUp);
 technicianRouter.post('/sign-in', technicianController.signIn);

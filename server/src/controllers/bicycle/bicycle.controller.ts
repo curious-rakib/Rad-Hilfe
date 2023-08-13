@@ -78,8 +78,6 @@ const setUpBicycle = async (req: Request, res: Response) => {
 const getBicycle = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
-
-    console.log(bicycleId);
     const bicycle = await getBicycleById(new Types.ObjectId(bicycleId));
     if (!bicycle) {
       return res.status(401).send('Failed to find bicycle!');
