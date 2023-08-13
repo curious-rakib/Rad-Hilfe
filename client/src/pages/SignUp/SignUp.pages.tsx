@@ -87,6 +87,7 @@ const SignUp = () => {
 						fontSize={'2xl'}
 						fontWeight={'bold'}
 						py={6}
+						px={1}
 						textAlign={'left'}
 						color={'accent'}>
 						Sign up
@@ -167,6 +168,8 @@ const SignUp = () => {
 							spacing={10}
 							pt={2}>
 							<SubmitButton
+								fontWeight='bold'
+								borderRadius='2xl'
 								onClick={handleClick}
 								loadingText="Submitting"
 								size="lg"
@@ -179,7 +182,8 @@ const SignUp = () => {
 						<Flex
 							align={'center'}
 							justify={'space-between'}
-							color={'accent'}>
+							color={'accent'}
+							px={2}>
 							<Text>Have an account?</Text>
 							<Text>SignIn</Text>
 						</Flex>
@@ -188,22 +192,26 @@ const SignUp = () => {
 							spacing={5}
 							pt={2}>
 							<SubmitButton
+								borderRadius='2xl'
 								onClick={handleGoogleAuth}
 								loadingText="Submitting"
 								size="lg"
 								bg="third"
 								w=""
+								fontWeight='bold'
 								color="secondary"
-								text="Continue With Google"
+								text="Login With Google"
 							/>
 							<SubmitButton
+								borderRadius='2xl'
 								onClick={handleFacebookAuth}
 								loadingText="Submitting"
 								size="lg"
 								bg="fourth"
 								w=""
+								fontWeight='bold'
 								color="secondary"
-								text="Continue With Facebook"
+								text="Login With Facebook"
 							/>
 						</Stack>
 					</Stack>

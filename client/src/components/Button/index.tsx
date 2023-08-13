@@ -4,6 +4,8 @@ import { MouseEventHandler } from 'react';
 const SubmitButton = ({
     onClick,
     loadingText,
+    fontWeight,
+    borderRadius,
     bg,
     size,
     w,
@@ -17,9 +19,13 @@ const SubmitButton = ({
     size: string;
     color: string;
     text: string;
+    borderRadius: string;
+    fontWeight: string
 }) => {
     return (
-        <Button onClick={onClick} w={w} loadingText={loadingText} size={size} bg={bg} color={color}>
+        <Button onClick={onClick} w={w} loadingText={loadingText} size={size} bg={bg} color={color}
+            borderRadius={borderRadius} fontWeight={fontWeight}
+        >
             {text}
         </Button>
     );

@@ -26,7 +26,7 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <Stack spacing={6}>
+        <Stack spacing={9}>
             <Modal onClose={onClose} isOpen={isOpen} isCentered>
                 <ModalOverlay />
                 <ModalContent h={100}>
@@ -40,7 +40,7 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
 
                 </ModalContent>
             </Modal>
-            {/* <InputField
+            <InputField
 
 
                 id='home'
@@ -51,10 +51,9 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
                 name='home'
                 borderColor='accent'
                 color="accent"
-                onToggle={onToggle}
-
-            /> */}
-            <Button
+                onToggle={onToggle} borderRadius={''}
+            />
+            {/* <Button
                 onClick={onOpen}
                 variant={'unstyled'}
                 color={'gray.50'}
@@ -64,8 +63,9 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
                 rounded={'xl'}
             >
                 Home Address
-            </Button>
+            </Button> */}
             <InputField
+                borderRadius='10px'
                 id='work'
                 isRequired={true}
                 type='text'
@@ -77,15 +77,14 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
                 onToggle={onToggle}
             />
 
-            <Center>
+            <Center mt={-3}>
                 <SubmitButton
                     loadingText='Submitting'
                     size='lg'
                     bg='accent'
                     w='200px'
                     color='secondary'
-                    text='Next'
-                />
+                    text='Next' borderRadius={'10px'} fontWeight={'bold'} />
             </Center>
         </Stack>
     );

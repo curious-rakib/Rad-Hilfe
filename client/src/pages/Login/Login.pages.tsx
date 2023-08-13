@@ -16,14 +16,14 @@ const Login = () => {
 
         const dataObj = { [name]: value }
 
-        // console.log(dataObj);
+
         dispatch(signin(dataObj))
 
     }
     const { email, password } = useAppSelector(
         (state) => state.signInInput
     );
-    // console.log(email, password);
+
 
     const handleClick = async (event: any) => {
 
@@ -37,7 +37,7 @@ const Login = () => {
     return (
         <Box
 
-            p={4}
+            p={3}
 
         >
             <Stack spacing={8} mx={'auto'} maxW={'lg'}>
@@ -53,8 +53,9 @@ const Login = () => {
 
                 </Center>
 
-                <Box rounded={'xl'} px={4} mt={16}>
-                    <Text color={'accent'} fontWeight={'semibold'} fontSize={'2xl'} mb={5} >Sign In</Text>
+                <Box rounded={'xl'} px={4} mt={20}>
+                    <Text color={'accent'} fontWeight={'semibold'} fontSize={'2xl'} mb={5} px={1}
+                    >Sign In</Text>
                     <Stack spacing={5}>
 
                         <InputField
@@ -81,6 +82,8 @@ const Login = () => {
 
                         <Stack spacing={10} pt={2}>
                             <SubmitButton
+                                fontWeight='bold'
+                                borderRadius='2xl'
                                 onClick={handleClick}
                                 loadingText='Submitting'
                                 size='lg'
@@ -97,7 +100,9 @@ const Login = () => {
 
                         >
                             <Text >
-                                Don't have an account? <Link>Sign up</Link>
+                                Don't have an account, <Link>
+                                    <Text as='u'>Sign up</Text>
+                                </Link>
                             </Text>
 
                         </Stack>
@@ -105,21 +110,25 @@ const Login = () => {
                         <Stack spacing={5} pt={2}>
 
                             <SubmitButton
+                                fontWeight='bold'
+                                borderRadius='2xl'
                                 loadingText='Submitting'
                                 size='lg'
                                 w=''
                                 bg='third'
                                 color='secondary'
-                                text='Continue With Google'
+                                text='Login With Google'
 
                             />
                             <SubmitButton
+                                fontWeight='bold'
+                                borderRadius='2xl'
                                 loadingText='Submitting'
                                 size='lg'
                                 w=''
                                 bg='fourth'
                                 color='secondary'
-                                text='Continue With Facebook'
+                                text='Login With Facebook'
 
                             />
 

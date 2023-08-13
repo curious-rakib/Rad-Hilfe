@@ -25,15 +25,22 @@ cyclistRouter.get('/profile', cyclistController.profile);
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
 cyclistRouter.put('/set-up-address-edit', cyclistController.setUpAddressEdit);
 cyclistRouter.post('/weather-data', cyclistController.weatherData);
+// cyclistRouter.post('/api/create-payment', paymentController.payment);
 cyclistRouter.get('/cyclist-name', cyclistController.cyclistName);
 cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
-cyclistRouter.put('/set-up-bicycle-edit/:id', bicycleController.setUpBicycleEdit);
+cyclistRouter.put(
+  '/set-up-bicycle-edit/:id',
+  bicycleController.setUpBicycleEdit
+);
 cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth);
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
-cyclistRouter.get('/bicycle-damaged-part/:id', bicycleController.bicycleDamagedPart);
+cyclistRouter.get(
+  '/bicycle-damaged-part/:id',
+  bicycleController.bicycleDamagedPart
+);
 
 // order
 cyclistRouter.get('/get-plan', orderController.getPlan);
