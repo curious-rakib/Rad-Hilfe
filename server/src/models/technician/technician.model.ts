@@ -1,5 +1,6 @@
 import { Technician } from '../../interfaces/technician.interface';
 import { Schema, Types, model } from '../database';
+import { slotSchema } from './slotSchema';
 
 const technicianSchema = new Schema({
 	name: { type: String, required: true },
@@ -11,7 +12,7 @@ const technicianSchema = new Schema({
 	brandsExpertise: [{ type: String }],
 	subpartExpertise: [{ type: Types.ObjectId, ref: 'SubPartModel' }],
 	workingDays: [{ type: String }],
-	workingSlots: [{ type: String }],
+	workingSlots: [slotSchema],
 	cases: [{ type: Types.ObjectId, ref: 'CaseModel' }],
 	wishlist: [{ type: String }],
 	imageUrl: { type: String },
