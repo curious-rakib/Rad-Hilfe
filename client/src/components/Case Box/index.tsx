@@ -1,13 +1,18 @@
 import { Box, Text, Flex } from '@chakra-ui/react';
 
-const Casebox = () => {
+const caseBoxColor: Record<string, string> = {
+	Active: 'accent',
+	Passive: 'third',
+};
+
+const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date: string; clientName: string; time: string }) => {
 	return (
 		<>
 			<Box
-				m={'1.5rem'}
+				m={'.5rem'}
 				p={'1rem'}
 				w={'25rem'}
-				bg={'third'}
+				bg={caseBoxColor[caseType]}
 				borderRadius={'1rem'}>
 				<Flex
 					justify={'space-between'}
@@ -15,9 +20,9 @@ const Casebox = () => {
 					<Text
 						fontSize={'1.5rem'}
 						fontWeight={'600'}>
-						Case Type: {' Active'}
+						Case Type: {caseType}
 					</Text>
-					<Text>Aug 13,2023</Text>
+					<Text>{date}</Text>
 				</Flex>
 				<Flex
 					justify={'space-between'}
@@ -25,9 +30,9 @@ const Casebox = () => {
 					<Text
 						mt={'1rem'}
 						fontSize={'1rem'}>
-						Call with Mr. Heimdall
+						Call with {clientName}
 					</Text>
-					<Text mt={'1rem'}> 2:00-3:00</Text>
+					<Text mt={'1rem'}> {time}</Text>
 				</Flex>
 			</Box>
 		</>

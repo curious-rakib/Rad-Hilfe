@@ -10,27 +10,27 @@ const today = new Date();
 const myEventsList = [
 	{
 		start: today,
-		end: new Date(today.getTime() + 15 * 60 * 1000), // Adding 15 minutes to start time
+		end: new Date(today.getTime() + 15 * 60 * 1000),
 		title: 'Sk. Zaber Ahmed',
 	},
 	{
-		start: new Date(today.getTime() + 2 * 60 * 60 * 1000), // Adding 2 hours to current time
-		end: new Date(today.getTime() + 2.5 * 60 * 60 * 1000), // Adding 2.5 hours to current time
+		start: new Date(today.getTime() + 2 * 60 * 60 * 1000),
+		end: new Date(today.getTime() + 2.5 * 60 * 60 * 1000),
 		title: 'Zinedine Zidan',
 	},
 	{
 		start: moment(today).add(1, 'days').toDate(),
-		end: moment(today).add(1, 'days').add(15, 'minutes').toDate(), // Adding 15 minutes to start time
+		end: moment(today).add(1, 'days').add(15, 'minutes').toDate(),
 		title: 'Ulrich Jenstchura',
 	},
 	{
-		start: moment(today).add(1, 'days').add(2, 'hours').toDate(), // Adding 2 hours to start time
-		end: moment(today).add(1, 'days').add(2.5, 'hours').toDate(), // Adding 2.5 hours to start time
+		start: moment(today).add(1, 'days').add(2, 'hours').toDate(),
+		end: moment(today).add(1, 'days').add(2.5, 'hours').toDate(),
 		title: 'Paul Labille Pogba',
 	},
 	{
-		start: moment(today).add(1, 'days').add(3, 'hours').toDate(), // Adding 3 hours to start time
-		end: moment(today).add(1, 'days').add(3.25, 'hours').toDate(), // Adding 3.25 hours to start time
+		start: moment(today).add(1, 'days').add(3, 'hours').toDate(),
+		end: moment(today).add(1, 'days').add(3.25, 'hours').toDate(),
 		title: 'Richard Feynnman',
 	},
 ];
@@ -44,15 +44,15 @@ const AgendaCalendar = () => {
 				events={myEventsList}
 				startAccessor="start"
 				endAccessor="end"
-				style={{ height: '30rem', width: '40rem' }}
+				style={{ height: '35rem', width: '40rem' }}
 				defaultDate={new Date()}
 				defaultView="day"
 				views={['day']}
 				step={60}
 				timeslots={1}
-				toolbar={false}
+				// toolbar={false}
 				formats={{
-					timeGutterFormat: 'HH:mm',
+					timeGutterFormat: 'HH:mm A',
 				}}
 			/>
 		</>

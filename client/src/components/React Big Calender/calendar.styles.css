@@ -62,7 +62,6 @@ button.rbc-input::-moz-focus-inner {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	color: #001f3f !important;
 }
 
 .rbc-rtl {
@@ -827,4 +826,4 @@ button.rbc-input::-moz-focus-inner {
 	pointer-events: none;
 }
 
-/* # sourceMappingURL=react-big-calendar.css.map */
+/*# sourceMappingURL=react-big-calendar.css.map */
