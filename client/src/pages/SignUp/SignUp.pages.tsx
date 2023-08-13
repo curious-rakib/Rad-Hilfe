@@ -9,27 +9,16 @@ import { createAccount } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
 
-// const initialUserInfo = {
-//     first: '',
-//     last: '',
-//     contact: '',
-//     email: '',
-//     password: '',
-//     confirmpassword: ''
-// };
+
 
 const SignUp = () => {
 	const dispatch = useAppDispatch();
-	// const [signup, setSignup] = useState(initialUserInfo)
+
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 
 		const dataObj = { [name]: value };
-		// setSignup((prevState) => ({
-		//     ...prevState,
-		//     [name]: value
-		// }))
-		// console.log(dataObj);
+
 		dispatch(signup(dataObj));
 	};
 
@@ -57,8 +46,7 @@ const SignUp = () => {
 			name="last"
 			borderColor="accent"
 			_placeholder={{ color: 'accent', opacity: '60%' }}
-			color={''}
-		/>;
+			color={''} borderRadius={''} />;
 	};
 	// console.log(signup);
 	return (
@@ -106,8 +94,7 @@ const SignUp = () => {
 								name="first"
 								borderColor="accent"
 								_placeholder={{ color: 'accent', opacity: '60%' }}
-								color={'accent'}
-							/>
+								color={'accent'} borderRadius={''} />
 
 							<InputField
 								id="lastName"
@@ -118,8 +105,7 @@ const SignUp = () => {
 								name="last"
 								borderColor="accent"
 								_placeholder={{ color: 'accent', opacity: '60%' }}
-								color={'accent'}
-							/>
+								color={'accent'} borderRadius={''} />
 						</HStack>
 
 						<InputField
@@ -131,8 +117,7 @@ const SignUp = () => {
 							name="phone"
 							borderColor="accent"
 							_placeholder={{ color: 'accent', opacity: '60%' }}
-							color={'accent'}
-						/>
+							color={'accent'} borderRadius={''} />
 						<InputField
 							id="email"
 							isRequired={true}
@@ -142,8 +127,7 @@ const SignUp = () => {
 							name="email"
 							borderColor="accent"
 							_placeholder={{ color: 'accent', opacity: '60%' }}
-							color={'accent'}
-						/>
+							color={'accent'} borderRadius={''} />
 						<InputField
 							id="password"
 							isRequired={true}
@@ -153,8 +137,7 @@ const SignUp = () => {
 							name="password"
 							borderColor="accent"
 							_placeholder={{ color: 'accent', opacity: '60%' }}
-							color={'accent'}
-						/>
+							color={'accent'} borderRadius={''} />
 						<InputField
 							id="confirmpassword"
 							isRequired={true}
@@ -164,8 +147,7 @@ const SignUp = () => {
 							name="confirmpassword"
 							borderColor="accent"
 							_placeholder={{ color: 'accent', opacity: '60%' }}
-							color={'accent'}
-						/>
+							color={'accent'} borderRadius={''} />
 
 						<Stack
 							spacing={10}
@@ -178,8 +160,7 @@ const SignUp = () => {
 								bg="accent"
 								w=""
 								color="secondary"
-								text="Sign Up"
-							/>
+								text="Sign Up" fontWeight={''} />
 						</Stack>
 						<Flex
 							mb={'.75rem'}
