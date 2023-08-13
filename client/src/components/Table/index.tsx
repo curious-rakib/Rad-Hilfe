@@ -81,7 +81,10 @@ const TableComponent = () => {
 										);
 									} else if (typeof value === 'number') {
 										return (
-											<Td>
+											<Td
+												p={'1rem 1rem 1rem 1rem'}
+												w={'11.65vw'}
+												borderBottom={0}>
 												<FullHealthBar health={value} />
 											</Td>
 										);

@@ -1,5 +1,4 @@
 import { Box, Text, Flex } from '@chakra-ui/react';
-import React from 'react';
 
 const Casebox = () => {
 	return (
