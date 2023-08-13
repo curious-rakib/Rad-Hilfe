@@ -4,6 +4,7 @@ import InputField from '../../components/InputField';
 import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import PaypalButton from '../../components/PaypalButton';
 interface Slots {
     id: any;
     day: string;
@@ -134,22 +135,26 @@ const SetUpExpertCall = () => {
                     ))}
                 </Flex>
             </Center>
-            <ChakraLink as={ReactRouterLink} to='/thankyou'>
-                <Center>
-                    <Button
-                        loadingText='Submitting'
-                        size='lg'
-                        bg='accent'
-                        w='200px'
-                        color='secondary'
-                        mt={'40px'}
-                        borderRadius={16}
-                        fontWeight={'bold'}
-                    >
-                        Book Call
-                    </Button>
-                </Center>
-            </ChakraLink>
+
+            <Center>
+                {/* <Button
+                    loadingText='Submitting'
+                    size='lg'
+                    bg='accent'
+                    w='200px'
+                    color='secondary'
+                    mt={'40px'}
+                    borderRadius={16}
+                    fontWeight={'bold'}
+                >
+                    Book Call
+                </Button> */}
+                <PaypalButton
+
+
+                ></PaypalButton>
+            </Center>
+
 
         </Box>
     );

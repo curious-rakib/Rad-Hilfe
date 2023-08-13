@@ -5,6 +5,7 @@ const SubmitButton = ({
   svgUrl,
   borderRadius,
   onClick,
+
   loadingText,
   bg,
   size,

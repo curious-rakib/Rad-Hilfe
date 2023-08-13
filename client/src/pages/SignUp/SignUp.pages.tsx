@@ -90,6 +90,7 @@ const SignUp = () => {
 						fontSize={'3xl'}
 						fontWeight={'bold'}
 						py={6}
+						px={1}
 						textAlign={'left'}
 						color={'accent'}>
 						Sign Up
@@ -184,7 +185,8 @@ const SignUp = () => {
 							mb={'.75rem'}
 							align={'center'}
 							justify={'space-between'}
-							color={'accent'}>
+							color={'accent'}
+							px={2}>
 							<Text>Have an account?</Text>
 							<Text>Sign In</Text>
 						</Flex>
@@ -200,6 +202,7 @@ const SignUp = () => {
 								size="lg"
 								bg="third"
 								w=""
+								fontWeight='bold'
 								color="secondary"
 								text="Sign in with Google"
 							/>
@@ -211,6 +214,7 @@ const SignUp = () => {
 								size="lg"
 								bg="fourth"
 								w=""
+								fontWeight='bold'
 								color="secondary"
 								text="Sign in with Facebook"
 							/>

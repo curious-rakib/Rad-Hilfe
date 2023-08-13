@@ -104,14 +104,14 @@ function SetupDailyRoute() {
                             right: 0,
                             position: 'absolute',
                             width: '100%',
-                            height: '35vh',
+                            height: '40vh',
                             backgroundColor: '#001F3F',
                             zIndex: 200,
 
                         }}
 
                     >
-                        <Text color={'accent'} >Your daily commute details</Text>
+                        <Text color={'accent'} fontWeight={'semibold'} fontSize={'xl'} px={1} >Your daily commute details</Text>
                         <HomeOfficeAddressLayOver onToggle={onToggle} />
                     </Stack>
                 </Slide>

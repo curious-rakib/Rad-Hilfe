@@ -5,6 +5,7 @@ const InputField = ({
 	isRequired,
 	type,
 	placeholder,
+	borderRadius,
 	onChange,
 	name,
 	borderColor,
@@ -24,6 +25,7 @@ const InputField = ({
 		opacity: string;
 	};
 	color: string;
+	borderRadius: string;
 	onToggle?: Function;
 }) => {
 	return (
@@ -33,8 +35,9 @@ const InputField = ({
 				isRequired={isRequired}>
 				<Input
 					type={type}
+					borderRadius={borderRadius}
 					placeholder={placeholder}
-					rounded={'xl'}
+					rounded={'2xl'}
 					onChange={onChange}
 					color={color}
 					name={name}

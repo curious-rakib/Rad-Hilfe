@@ -20,6 +20,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.0",
     "@types/nodemailer": "^6.4.8",
+    "@types/paypal-rest-sdk": "^1.7.6",
     "nodemon": "^2.0.22",
     "ts-dotenv": "^0.9.1",
     "ts-node": "^10.9.1",
@@ -37,6 +38,7 @@
     "mailgen": "^2.0.27",
     "moment": "^2.29.4",
     "mongoose": "^7.3.2",
-    "nodemailer": "^6.9.3"
+    "nodemailer": "^6.9.3",
+    "paypal-rest-sdk": "^1.8.1"
   }
 }
