@@ -3,7 +3,10 @@ import { createNewCase, findAllCases, findCaseById } from '../../models/case/cas
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
-import { findSubpartTechnician } from '../../models/technician/technician.query';
+import {
+  findSubpartTechnician,
+  findTechnicianById,
+} from '../../models/technician/technician.query';
 import { findOrderById } from '../../models/order/order.query';
 import { Types } from '../../models/database';
 

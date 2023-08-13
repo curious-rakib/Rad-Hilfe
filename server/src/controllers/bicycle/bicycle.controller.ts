@@ -8,6 +8,7 @@ import {
   findBicycleById,
   findBicycleHealthById,
   getAllDamagedParts,
+  getBicycleById,
   updateBicycle,
 } from '../../models/bicycle/bicycle.query';
 import { getSession } from '../../middlewares/sessionManagement';
@@ -77,7 +78,9 @@ const setUpBicycle = async (req: Request, res: Response) => {
 const getBicycle = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
-    const bicycle = await findBicycleById(new Types.ObjectId(bicycleId));
+
+    console.log(bicycleId);
+    const bicycle = await getBicycleById(new Types.ObjectId(bicycleId));
     if (!bicycle) {
       return res.status(401).send('Failed to find bicycle!');
     }

@@ -51,5 +51,6 @@ cyclistRouter.get('/all-subpart', subpartController.allSubpart);
 
 // technician
 cyclistRouter.post('/subpart-expert', technicianController.findSubpartExpart);
+cyclistRouter.post('/available-support-time', technicianController.availableSupportTime);
 
 export { cyclistRouter };

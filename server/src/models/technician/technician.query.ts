@@ -1,4 +1,5 @@
 import { Technician } from '../../interfaces/technician.interface';
+import { CaseModel } from '../case/case.model';
 import { Types } from '../database';
 import { TechnicianModel } from './technician.model';
 
@@ -63,6 +64,8 @@ const findSubpartTechnician = async (subparts: Types.ObjectId[]) => {
   try {
     const technicians = await TechnicianModel.find({ subpartExpertise: { $in: subparts } });
 
+    console.log(technicians);
+
     if (technicians) {
       const techniciansWithMatches = technicians.map(
         (technician) =>
@@ -83,6 +86,48 @@ const findSubpartTechnician = async (subparts: Types.ObjectId[]) => {
   }
 };
 
+const findAvailableSupportTimeForCyclist = async (technicianId: string) => {
+  const cases = await CaseModel.find({ technician: technicianId });
+
+  let allSupportTime;
+  if (cases) {
+    allSupportTime = cases.map((oneCase) => {
+      return oneCase.supportTime;
+    });
+  }
+
+  const technician = await findTechnicianById(new Types.ObjectId(technicianId));
+
+  if (allSupportTime && technician) {
+    let availableSupportTime;
+
+    for (let day = 0; day < 7; day++) {
+      const checkingDay = new Date();
+      checkingDay.setDate(day);
+
+      availableSupportTime = allSupportTime.map((supportTime) => {
+        const supportDate = supportTime.timeStamp;
+
+        let dateSlotTime;
+        if (
+          supportDate.getDate === checkingDay.getDate &&
+          supportDate.getMonth === checkingDay.getMonth &&
+          supportDate.getFullYear === supportDate.getFullYear
+        ) {
+          dateSlotTime = {
+            date: supportDate,
+            slots: technician.workingSlots?.filter((slot) => supportTime.slotTime !== slot),
+          };
+
+          return dateSlotTime;
+        }
+      });
+
+      return availableSupportTime;
+    }
+  }
+};
+
 export {
   createTechnician,
   findTechnicianByEmail,
@@ -90,4 +135,5 @@ export {
   updateTechnicianPassword,
   addTechnicianDetails,
   findSubpartTechnician,
+  findAvailableSupportTimeForCyclist,
 };
