@@ -5,31 +5,33 @@ import './calendar.styles.css';
 
 const localizer = momentLocalizer(moment);
 
+const today = new Date();
+
 const myEventsList = [
 	{
-		start: new Date(),
-		end: new Date(),
-		title: 'Sample Event Zaber',
+		start: today,
+		end: new Date(today.getTime() + 15 * 60 * 1000), // Adding 15 minutes to start time
+		title: 'Sk. Zaber Ahmed',
 	},
 	{
-		start: moment(new Date()).add(1, 'days').toDate(),
-		end: moment(new Date()).add(1, 'days').toDate(),
-		title: 'Sample Event 2',
+		start: new Date(today.getTime() + 2 * 60 * 60 * 1000), // Adding 2 hours to current time
+		end: new Date(today.getTime() + 2.5 * 60 * 60 * 1000), // Adding 2.5 hours to current time
+		title: 'Zinedine Zidan',
 	},
 	{
-		start: moment(new Date()).add(2, 'days').toDate(),
-		end: moment(new Date()).add(2, 'days').toDate(),
-		title: 'Sample Event 3',
+		start: moment(today).add(1, 'days').toDate(),
+		end: moment(today).add(1, 'days').add(15, 'minutes').toDate(), // Adding 15 minutes to start time
+		title: 'Ulrich Jenstchura',
 	},
 	{
-		start: moment(new Date()).add(3, 'days').toDate(),
-		end: moment(new Date()).add(3, 'days').toDate(),
-		title: 'Sample Event 4',
+		start: moment(today).add(1, 'days').add(2, 'hours').toDate(), // Adding 2 hours to start time
+		end: moment(today).add(1, 'days').add(2.5, 'hours').toDate(), // Adding 2.5 hours to start time
+		title: 'Paul Labille Pogba',
 	},
 	{
-		start: moment(new Date()).add(4, 'days').toDate(),
-		end: moment(new Date()).add(4, 'days').toDate(),
-		title: 'Sample Event 5',
+		start: moment(today).add(1, 'days').add(3, 'hours').toDate(), // Adding 3 hours to start time
+		end: moment(today).add(1, 'days').add(3.25, 'hours').toDate(), // Adding 3.25 hours to start time
+		title: 'Richard Feynnman',
 	},
 ];
 
@@ -42,11 +44,16 @@ const AgendaCalendar = () => {
 				events={myEventsList}
 				startAccessor="start"
 				endAccessor="end"
-				style={{ height: 500, width: 700 }}
+				style={{ height: '30rem', width: '40rem' }}
 				defaultDate={new Date()}
 				defaultView="day"
 				views={['day']}
 				step={60}
+				timeslots={1}
+				toolbar={false}
+				formats={{
+					timeGutterFormat: 'HH:mm',
+				}}
 			/>
 		</>
 	);
