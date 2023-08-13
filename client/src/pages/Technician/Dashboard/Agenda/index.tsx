@@ -1,8 +1,12 @@
 import { Flex, Text, Image, Box } from '@chakra-ui/react';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
 import AgendaCalendar from '../../../../components/React Big Calender';
+import moment from 'moment';
 
 const Agenda = () => {
+	const currentDate = moment().format('Do MMMM, YYYY');
+	const currentDay = moment().format(' dddd');
+
 	return (
 		<Box>
 			<Flex
@@ -19,7 +23,16 @@ const Agenda = () => {
 						color={'secondary'}
 						as="b"
 						fontSize="1.5rem"
-						fontFamily={'Inter'}></Text>
+						fontFamily={'Inter'}>
+						{currentDate}
+					</Text>
+					<Text
+						color={'secondary'}
+						as="b"
+						fontSize="1.25rem"
+						fontFamily={'Inter'}>
+						{currentDay}
+					</Text>
 					<Text
 						as="b"
 						fontSize="1.25rem"
@@ -41,7 +54,10 @@ const Agenda = () => {
 						alt="Slipstream logo"></Image>
 				</Flex>
 			</Flex>
-			<AgendaCalendar />
+			<Flex>
+				<AgendaCalendar />
+				<Box color={'secondary'}>Zaber</Box>
+			</Flex>
 		</Box>
 	);
 };
