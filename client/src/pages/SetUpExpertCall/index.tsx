@@ -62,7 +62,7 @@ const SetUpExpertCall = () => {
     return (
         <Box px={4}>
             <Stack spacing={6} mt={20}>
-                <Heading color={'accent'} fontSize={'lg'}>
+                <Heading color={'accent'} fontSize={'1.25rem'}>
                     Set up Expert call
                 </Heading>
                 <Text
@@ -111,7 +111,7 @@ const SetUpExpertCall = () => {
                 />
 
             </Stack>
-            <Text my={5} color={'accent'} fontSize={'lg'} fontWeight={'bold'}>
+            <Text my={5} color={'accent'} fontSize={'xl'} fontWeight={'500'}>
                 Choose a time for expert call
             </Text>
             <Center ml={0}>
@@ -121,14 +121,17 @@ const SetUpExpertCall = () => {
                             onClick={() => handleSlotClick(slot)}
                             bg={slot.chosen ? 'accent' : 'secondary'}
                             key={index}
-                            p={6}
+                            px={5}
+                            py={6}
+                            width='calc(50% - 8px)'
                             color={slot.chosen ? 'secondary' : 'accent'}
                             border={'1px solid '}
+
                             borderColor={'accent'}
                             borderRadius={'10px'}
                         >
-                            <Text>{slot.day}</Text>
-                            <Text fontWeight={'bold'} fontSize={'xl'}>
+                            <Center> <Text>{slot.day}</Text></Center>
+                            <Text fontWeight={'500'} fontSize={'xl'}>
                                 {slot.time}
                             </Text>
                         </Box>

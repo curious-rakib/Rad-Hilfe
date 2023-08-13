@@ -85,8 +85,7 @@ function SetupBikeDetails() {
         name='model'
         borderColor='third'
         _placeholder={{ color: 'third', opacity: '100%' }}
-        color={'third'}
-      />
+        color={'third'} borderRadius={''} />
 
       <InputField
         id='serialnum'
@@ -97,8 +96,7 @@ function SetupBikeDetails() {
         name='serialNumber'
         borderColor='third'
         _placeholder={{ color: 'third', opacity: '100%' }}
-        color={'third'}
-      />
+        color={'third'} borderRadius={''} />
 
       <HStack mb={'1rem'}>
         <InputField
@@ -110,8 +108,7 @@ function SetupBikeDetails() {
           name='purchaseMonth'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'}
-        />
+          color={'third'} borderRadius={''} />
         <InputField
           id='purchaseyear'
           isRequired={true}
@@ -121,8 +118,7 @@ function SetupBikeDetails() {
           name='purchaseYear'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'}
-        />
+          color={'third'} borderRadius={''} />
       </HStack>
 
       <Text color={'third'} fontSize={'1.25rem'} fontWeight={'600'}>
@@ -143,8 +139,7 @@ function SetupBikeDetails() {
           name='revisionMonth'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'}
-        />
+          color={'third'} borderRadius={''} />
         <InputField
           id='revisionyear'
           isRequired={true}
@@ -154,8 +149,7 @@ function SetupBikeDetails() {
           name='revisionYear'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'}
-        />
+          color={'third'} borderRadius={''} />
       </HStack>
       <Text color={'third'} opacity={'60%'} mt={'-1rem'}>
         Your best guesss works
@@ -170,8 +164,7 @@ function SetupBikeDetails() {
           bg='third'
           w='12.5rem'
           color='secondary'
-          text='Next'
-        />
+          text='Next' fontWeight={''} />
       </ChakraLink>
     </VStack>
   );

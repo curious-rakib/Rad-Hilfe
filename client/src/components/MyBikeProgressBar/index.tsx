@@ -7,7 +7,7 @@ const MyBikeProgressBar = () => {
         <Flex alignItems='center'>
             <Progress
                 value={30}
-                colorScheme='yellow'
+                colorScheme={'yellow'}
                 size='lg'
                 rounded='full'
                 w='330px'

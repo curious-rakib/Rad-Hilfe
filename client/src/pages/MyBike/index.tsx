@@ -47,58 +47,67 @@ const MyBike = () => {
 
     return (
         <Box bg='third'>
-            <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='57vh' pl={3} >
-                <GridItem w='100%' h={'100px'} ><Stack spacing={4} color={'secondary'}>
+            <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='35rem' px={3} >
+                <GridItem w='100%' h={''} ><Stack spacing={4} color={'secondary'}>
                     {' '}
                     <Box mt={"100px"}>
-                        <Text fontWeight='' fontSize={''} >Bike Brand</Text>
-                        <Text textStyle='h3'>Cannonadale</Text>
+                        <Text fontWeight='semibold' fontSize={'sm'} >Bike Brand</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>Cannonadale</Text>
                     </Box>
                     <Box>
-                        <Text fontWeight=''>Bike Model</Text>
-                        <Text textStyle='h3'>{model}</Text>
+                        <Text fontWeight='semibold' fontSize={'sm'}>Bike Model</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>Quest</Text>
                     </Box>
                     <Box>
-                        <Text fontWeight=''>Serial Number</Text>
-                        <Text textStyle='h3'>{serialNumber}</Text>
+                        <Text fontWeight='semibold' fontSize={'sm'} style={{ "whiteSpace": 'nowrap' }}>Serial Number</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>CND765678</Text>
                     </Box>
                     <Box>
-                        <Text fontWeight=''>Start Date</Text>
-                        <Text textStyle='h3'>{date} Aug {purchaseYear}</Text>
+                        <Text fontWeight='semibold' fontSize={'sm'}>Start Date</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{date} Aug 2020</Text>
                     </Box>
                 </Stack></GridItem>
-                <GridItem w='250px' mr={'30px'} right='30px' ml={3} >
+                <GridItem w='12.9rem' mt={'2rem'}  >
                     <img src={bike} alt="" />
-                    {/* <Image src={bike} boxSize='400px' /> */}
+
                 </GridItem>
 
             </Grid>
 
-            <Stack bg={'secondary'} h='43vh' rounded={'30'} p={6}>
-                <Flex mt={'30px'}>
-                    <Text color={'accent'} mr={2} textStyle={'h3'}>
+            <Stack
+
+                rounded={'3rem'} p={6}
+                bg={'secondary'}
+                bottom={6} position="fixed" width="100%"
+
+            >
+                <Flex mt={'2rem'} >
+                    <Text color={'accent'} mr={2} textStyle={''}
+                        fontWeight={'400'} fontSize={'xl'}
+
+                    >
                         My bike's health{' '}
                     </Text>
                     <FcLike size={27} />
                 </Flex>
 
                 <MyBikeProgressBar />
-                <Text color={'accent'} my={4}>
+                <Text color={'accent'} my={4} fontSize={'sm'}>
                     {' '}
-                    You need to replace  5 components in your bicycle
-                    {/* <ChakraLink as={ReactRouterLink} to='/home'>
-                        5 components
-                    </ChakraLink> */}
+                    You need to replace  <span style={{ borderBottom: '1px solid currentColor' }}>5 components</span> in your bicycle
+
 
                 </Text>
-                <Center mt={"-10px"}>
+                <Center pt={'.25rem'}>
                     <ReplaceButton
+                        borderRadius='.75rem'
+                        fontWeight='800'
                         loadingText='Submitting'
                         size='lg'
                         bg='accent'
                         w='200px'
                         color='secondary'
-                        text='Replace Now'
+                        text='Replace now'
                     />
                 </Center>
             </Stack>

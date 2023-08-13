@@ -116,7 +116,7 @@ const CarePlan = () => {
         //     </Center> */}
         // </Box>
 
-        <Box bg='third' h="80vh">
+        <Box bg='third' h="">
             <Box>
                 <Image src={rotateBike} boxSize='420px' mt={'-50px'} />
                 <Box color={'third'} bg={'secondary'} p={4} m={4} rounded={'xl'} mt={'-29px'} >

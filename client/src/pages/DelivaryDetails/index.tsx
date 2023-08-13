@@ -89,7 +89,7 @@ const DelivaryDetails = () => {
 
     const totalPrice = useAppSelector((state) => state.order.totalPrice)
     let caseforPassive = useAppSelector((state) => state.order);
-    // console.log(caseforPassive);
+
 
     const handleClick = () => {
 
@@ -103,8 +103,8 @@ const DelivaryDetails = () => {
     return (
         <Box p={4} mt={'-10'}>
             <Stack spacing={6} mt={20}>
-                <Heading color={'accent'} fontSize={'lg'}>
-                    Delivery Details
+                <Heading color={'accent'} fontSize={'1.25rem'}>
+                    Delivery details
                 </Heading>
                 <Text
                     p={2}
@@ -127,7 +127,7 @@ const DelivaryDetails = () => {
                     onChange={handleChange}
                     name='deliveryAddress'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} />{' '}
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} borderRadius={''} />{' '}
                 <InputField
                     id='contactnumber'
                     isRequired={true}
@@ -136,8 +136,7 @@ const DelivaryDetails = () => {
                     onChange={handleChange}
                     name='contactNumber'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'}
-                />{' '}
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} borderRadius={''} />{' '}
                 <InputField
                     id='note'
                     isRequired={true}
@@ -146,45 +145,47 @@ const DelivaryDetails = () => {
                     onChange={handleChange}
                     name='note'
                     borderColor='accent'
-                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'}
-                />
+                    _placeholder={{ color: 'accent', opacity: '60%' }} color={'accent'} borderRadius={''} />
             </Stack>
-            <Text my={5} color={'accent'} fontSize={'lg'} fontWeight={'bold'}>
+            <Text my={5} color={'accent'} fontSize={'xl'} fontWeight={'600'}>
                 Choose your delivery slot
             </Text>
-            <Center>
-                <Flex flexWrap='wrap' gap={4}>
-                    {slots.map((slot, index) => (
-                        <Box
-                            onClick={() => handleSlotClick(slot)}
-                            bg={slot.chosen ? 'accent' : 'secondary'}
-                            key={index}
-                            p={6}
-                            color={slot.chosen ? 'secondary' : 'accent'}
-                            border={'1px solid '}
-                            borderColor={'accent'}
-                            borderRadius={'10px'}
-                        >
-                            <Text>{slot.day}</Text>
-                            <Text fontWeight={'bold'} fontSize={'xl'}>
-                                {slot.time}
-                            </Text>
-                        </Box>
-                    ))}
-                </Flex>
-            </Center>
+            <Flex flexWrap='wrap' gap={4}>
+                {slots.map((slot, index) => (
+                    <Box
+                        onClick={() => handleSlotClick(slot)}
+                        bg={slot.chosen ? 'accent' : 'secondary'}
+                        key={index}
+                        px={5}
+                        py={6}
+                        color={slot.chosen ? 'secondary' : 'accent'}
+                        border={'1px solid '}
+                        width='calc(50% - 8px)'
+
+                        borderColor={'accent'}
+                        borderRadius={'1rem'}
+                    >
+                        <Center> <Text>{slot.day}</Text></Center>
+                        <Text fontWeight={'500'} fontSize={'xl'}>
+                            {slot.time}
+                        </Text>
+                    </Box>
+                ))}
+            </Flex>
             <ChakraLink as={ReactRouterLink} to='/expert-call'>
-                <Center>
+                <Center marginTop={'3rem'}>
                     <Button
+
                         onClick={handleClick}
                         loadingText='Submitting'
                         size='lg'
                         bg='accent'
-                        w='200px'
+                        w='14rem'
                         color='secondary'
-                        mt={'20px'}
+                        // mt={'20px'}
                         borderRadius={16}
-                        fontWeight={'bold'}
+                        fontWeight={'700'}
+
                     >
                         Buy now | €{totalPrice}
                     </Button>

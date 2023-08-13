@@ -1,4 +1,4 @@
-import { Container, Flex, Grid, GridItem, Text, Box } from '@chakra-ui/react';
+import { Container, Flex, Grid, GridItem, Text, Box, Image } from '@chakra-ui/react';
 import Cards from '../../components/Cards';
 import { FaCloud } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,7 @@ import { setUpBikeInfo } from '../../services/bikeDetails';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { getWeatherData } from '../../services/weather';
+import logo from '../../assets/logo.svg';
 
 const Home = () => {
   // const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
@@ -82,16 +83,19 @@ const Home = () => {
   }, []);
 
   return (
-    <Container p={4}>
-      <Box mt={32}>
-        <Text textStyle='h2' color='accent'>
-          Good Morning, <br /> {name}
+    <Box p={4}>
+      <Flex>
+        <Image src={logo} boxSize={'40px'} />
+      </Flex>
+      <Box mt={24}>
+        <Text fontSize={'2xl'} mb={4} fontWeight={'semibold'} color='accent'>
+          Good morning, <br /> {name}
         </Text>
         <Flex justifyContent={'space-between'} alignItems={'center'} color='accent'>
           <Text fontSize='xs'>Riding Condition: {currentWeather.description}</Text>
-          <Flex>
+          <Flex mr={'1rem'}>
             <FaCloud color='accent'></FaCloud>
-            <Text fontSize='xs' ml={1}>
+            <Text fontSize='xs' ml={2}>
               {' '}
               {currentWeather.temperature}°C{' '}
             </Text>
@@ -110,58 +114,66 @@ const Home = () => {
           <GridItem rowSpan={6} colSpan={3}>
             <ChakraLink as={ReactRouterLink} to='/my-bike'>
               <Cards
-                name={'My Bike'}
-                textStyle={'h1'}
-                w={''}
-                h={'258px'}
+
+                fontWeight={'extrabold'}
+                fontSize={'4xl'}
+
+                name={'My bike'}
+                textStyle={''}
+                w={'100%'}
+                h={'17rem'}
                 bg={'fourth'}
                 color={'black'}
-                px='4'
-                py='8'
+                px='1.25rem'
+                py='5.15rem'
               ></Cards>
             </ChakraLink>
           </GridItem>
           <GridItem colSpan={3} rowSpan={3} bg=''>
             <ChakraLink as={ReactRouterLink} to='/care-plan'>
               <Cards
-                name={'My Care Plans'}
-                textStyle={'h3'}
+                name={'My care plans'}
+                fontWeight={'extrabold'}
+                fontSize={'xl'}
                 w={''}
-                h={'120px'}
+                h={'8rem'}
                 bg={'accent'}
                 color={'black'}
                 px='4'
-                py='12'
-              ></Cards>
+                py='12' textStyle={''}              ></Cards>
             </ChakraLink>
           </GridItem>
           <GridItem colSpan={3} rowSpan={3} bg=''>
             <Cards
-              name={'Request Support'}
-              textStyle={'h3'}
+              name={'Request support'}
+              textStyle={''}
+              fontWeight={'extrabold'}
+              fontSize={'xl'}
               w={''}
-              h={'120px'}
+              h={'8rem'}
               bg={'third'}
               color={'black'}
-              px='12'
+              px='2.75rem'
               py='8'
             ></Cards>
           </GridItem>
           <GridItem colSpan={6} bg=''>
             <Cards
-              name={'My Bike Health'}
-              textStyle={'h2'}
+              fontWeight={'extrabold'}
+              fontSize={'2xl'}
+              name={'My bike health'}
+              textStyle={''}
               w={''}
-              h={'140px'}
+              h={'8rem'}
               bg={'accent'}
               color={'black'}
-              px='4'
-              py='4'
+              px='1rem'
+              py='2.65rem'
             ></Cards>
           </GridItem>
         </Grid>
       </Flex>
-    </Container>
+    </Box>
   );
 };
 

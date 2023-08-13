@@ -5,24 +5,24 @@ const SubmitButton = ({
   svgUrl,
   borderRadius,
   onClick,
-  fontWeight,
   loadingText,
   bg,
   size,
   w,
   color,
   text,
+  fontWeight
 }: {
   svgUrl?: string;
   borderRadius?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  fontWeight: string;
   loadingText: string;
   w: string;
   bg: string;
   size: string;
   color: string;
   text: string;
+  fontWeight: string
 }) => {
   return (
     <Button

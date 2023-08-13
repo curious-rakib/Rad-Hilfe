@@ -72,6 +72,7 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route element={<Navbar theme="secondary" />}>
+
 						<Route
 							path="/bike-health"
 							element={<HealthBar />}
