@@ -1,83 +1,113 @@
-import { HStack, Box, Circle } from '@chakra-ui/react';
+import { HStack, Box, Flex } from '@chakra-ui/react';
 
 function Progress({ color, pagenumber }: { color: string; pagenumber: number }) {
 	return (
-		<Box>
-			<HStack gap="0vw">
-				<Box
-					bg={color}
-					p={'1px 1px 1px 1px'}
-					borderColor="color"
-					clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
+		<Box w={'95%'} m={'0 auto'} mt={'1rem'}>
+			<HStack gap='.5rem'>
+				<Flex
+					justify={'center'}
+					alignItems={'center'}
+					bgColor={pagenumber >= 2 ? color : 'secondary'}
+					h={'2.5rem'}
+					w={'6rem'}
+					border={'.0625rem solid'}
+					borderColor={color}
+					transform={'skew(30deg)'}
+				>
 					<Box
-						bg={pagenumber > 1 ? color : 'secondary'}
-						p={'1vh 7vw 1vh 7vw'}
-						borderColor="color"
-						clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
-						<Circle
-							size={'25px'}
-							color="secondary"
-							border="1px  solid"
-							borderColor="secondary">
-							1
-						</Circle>
+						h={'1.9rem'}
+						w={'1.9rem'}
+						transform={'skew(-30deg)'}
+						bgColor={color}
+						border={'.2rem solid'}
+						borderColor={pagenumber >= 2 ? 'secondary' : color}
+						borderRadius={'50%'}
+						textAlign={'center'}
+						fontSize={'1rem'}
+						fontWeight={'700'}
+						color={'secondary'}
+					>
+						1
 					</Box>
-				</Box>
-				<Box
-					bg={color}
-					p={'1px 1px 1px 1px'}
-					borderColor="color"
-					clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
+				</Flex>
+				<Flex
+					justify={'center'}
+					alignItems={'center'}
+					bgColor={pagenumber >= 3 ? color : 'secondary'}
+					h={'2.5rem'}
+					w={'6rem'}
+					border={'.0625rem solid'}
+					borderColor={color}
+					transform={'skew(30deg)'}
+				>
 					<Box
-						bg={pagenumber >= 2 ? color : 'secondary'}
-						p={'1vh 7vw 1vh 7vw'}
-						clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
-						<Circle
-							size={'25px'}
-							color="secondary"
-							border="1px  solid"
-							borderColor="secondary">
-							2
-						</Circle>
+						h={'1.9rem'}
+						w={'1.9rem'}
+						transform={'skew(-30deg)'}
+						bgColor={color}
+						border={'.2rem solid'}
+						borderColor={pagenumber >= 3 ? 'secondary' : color}
+						borderRadius={'50%'}
+						textAlign={'center'}
+						fontSize={'1rem'}
+						fontWeight={'700'}
+						color={'secondary'}
+					>
+						2
 					</Box>
-				</Box>
-				<Box
-					bg={color}
-					p={'1px 1px 1px 1px'}
-					borderColor="color"
-					clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
+				</Flex>
+				<Flex
+					justify={'center'}
+					alignItems={'center'}
+					bgColor={pagenumber >= 4 ? color : 'secondary'}
+					h={'2.5rem'}
+					w={'6rem'}
+					border={'.0625rem solid'}
+					borderColor={color}
+					transform={'skew(30deg)'}
+				>
 					<Box
-						bg={pagenumber >= 3 ? color : 'secondary'}
-						p={'1vh 7vw 1vh 7vw'}
-						borderColor={color}
-						clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
-						<Circle
-							size={'25px'}
-							color={pagenumber >= 3 ? 'secondary' : 'accent'}
-							border="1px  solid"
-							borderColor="secondary">
-							3
-						</Circle>
+						h={'1.9rem'}
+						w={'1.9rem'}
+						transform={'skew(-30deg)'}
+						bgColor={color}
+						border={'.2rem solid'}
+						borderColor={pagenumber >= 4 ? 'secondary' : color}
+						borderRadius={'50%'}
+						textAlign={'center'}
+						fontSize={'1rem'}
+						fontWeight={'700'}
+						color={'secondary'}
+					>
+						3
 					</Box>
-				</Box>
-				<Box
-					bg={color}
-					p={'1px 1px 1px 1px'}
-					borderColor="color"
-					clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
+				</Flex>
+				<Flex
+					justify={'center'}
+					alignItems={'center'}
+					bgColor={pagenumber >= 5 ? color : 'secondary'}
+					h={'2.5rem'}
+					w={'6rem'}
+					border={'.0625rem solid'}
+					borderColor={color}
+					transform={'skew(30deg)'}
+				>
 					<Box
-						bg={pagenumber >= 4 ? color : 'secondary'}
-						p={'1vh 7vw 1vh 7vw'}
-						clipPath={'polygon(0 0, 80% 0%, 100% 100%, 20% 100%)'}>
-						<Circle
-							size={'25px'}
-							color={pagenumber >= 4 ? 'secondary' : 'accent'}
-							border="1px  solid"
-							borderColor={pagenumber >= 4 ? 'secondary' : 'accent'}>
-							4
-						</Circle>
+						h={'1.9rem'}
+						w={'1.9rem'}
+						transform={'skew(-30deg)'}
+						bgColor={color}
+						border={'.2rem solid'}
+						borderColor={pagenumber >= 5 ? 'secondary' : color}
+						borderRadius={'50%'}
+						textAlign={'center'}
+						fontSize={'1rem'}
+						fontWeight={'700'}
+						color={'secondary'}
+					>
+						4
 					</Box>
-				</Box>
+				</Flex>
 			</HStack>
 		</Box>
 	);
