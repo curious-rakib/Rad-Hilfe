@@ -2,6 +2,7 @@ import { Button } from '@chakra-ui/react';
 import { MouseEventHandler } from 'react';
 
 const SubmitButton = ({
+  svgUrl,
   borderRadius,
   onClick,
   loadingText,
@@ -11,6 +12,7 @@ const SubmitButton = ({
   color,
   text,
 }: {
+  svgUrl?: string;
   borderRadius?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   loadingText: string;
@@ -31,6 +33,8 @@ const SubmitButton = ({
       color={color}
       fontWeight={'700'}
     >
+      {' '}
+      {svgUrl && <img src={svgUrl} style={{ paddingRight: '.5rem' }}></img>}
       {text}
     </Button>
   );

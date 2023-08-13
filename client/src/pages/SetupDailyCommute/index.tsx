@@ -34,7 +34,7 @@ const SetupDailyCommute = () => {
         </Text>
       </Box>
 
-      <Center my={10}>
+      <Center mt={'-0.5rem'} mb={'3rem'}>
         <Days colorScheme='accent' reducer={commuteDays}></Days>
       </Center>
       <Text color={'accent'} textAlign={'left'} fontSize={'xl'} fontWeight={'semibold'}>
@@ -55,19 +55,24 @@ const SetupDailyCommute = () => {
         <Text color={'accent'}>Yes</Text>
       </HStack>
 
-      <ChakraLink as={ReactRouterLink} to={switchChecked ? '/setup-recreation-details' : '/home'}>
-        <Center my={16}>
+      <Center mt={16}>
+        <ChakraLink
+          as={ReactRouterLink}
+          to={switchChecked ? '/setup-recreation-details' : '/home'}
+          w='content-box'
+          m={'0 auto'}
+        >
           <SubmitButton
             onClick={handleClick}
             loadingText='Submitting'
             size='lg'
             bg='accent'
-            w='200px'
+            w='12.5rem'
             color='secondary'
             text='Next'
           />
-        </Center>
-      </ChakraLink>
+        </ChakraLink>
+      </Center>
     </Container>
   );
 };

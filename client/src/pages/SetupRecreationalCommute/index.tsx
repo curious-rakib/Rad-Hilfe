@@ -95,30 +95,30 @@ const Recreation = () => {
           color={'fourth'}
         >
           <option value='0-5km' style={{ backgroundColor: '#001F3F' }}>
-            (0-5km)
+            Short (0 - 5 km)
           </option>
-          <option value='5-10km' style={{ backgroundColor: '#001F3F' }}>
-            (5-10km)
+          <option value='5-25km' style={{ backgroundColor: '#001F3F' }}>
+            Regular (5 - 25 km)
           </option>
-          <option value='10-15km' style={{ backgroundColor: '#001F3F' }}>
-            (10-15km)
+          <option value='25-40km' style={{ backgroundColor: '#001F3F' }}>
+            Long (25 - 50 km)
           </option>
         </Select>
       </Stack>
 
-      <ChakraLink as={ReactRouterLink} to='/home'>
-        <Center my={16}>
+      <Center mt={16}>
+        <ChakraLink as={ReactRouterLink} to='/home' w='content-box'>
           <SubmitButton
             onClick={handleClick}
             loadingText='Submitting'
             size='lg'
             bg='fourth'
-            w='200px'
+            w='12.5rem'
             color='secondary'
             text='Submit'
           />
-        </Center>
-      </ChakraLink>
+        </ChakraLink>
+      </Center>
     </Container>
   );
 };

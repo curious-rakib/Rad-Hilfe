@@ -7,6 +7,9 @@ import { signup } from '../../features/cyclist/cyclistSignup-slice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { createAccount } from '../../services/authentication';
 
+import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
+import googleLogo from '../../assets/google-svgrepo-com.svg';
+
 // const initialUserInfo = {
 //     first: '',
 //     last: '',
@@ -64,7 +67,7 @@ const SignUp = () => {
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>
         <Center mt={10}>
           <HStack>
-            <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
+            <Heading fontFamily={'Inter'} fontSize={'4xl'} textAlign={'center'} color={'accent'}>
               Slipstream
             </Heading>
             <Image src={logo} boxSize='50px' />
@@ -73,7 +76,7 @@ const SignUp = () => {
 
         <Box rounded={'xl'} pb={4}>
           <Text fontSize={'3xl'} fontWeight={'bold'} py={6} textAlign={'left'} color={'accent'}>
-            Sign up
+            Sign Up
           </Text>
           <Stack spacing={5}>
             <HStack>
@@ -166,6 +169,7 @@ const SignUp = () => {
 
             <Stack spacing={5} pt={2}>
               <SubmitButton
+                svgUrl={googleLogo}
                 borderRadius={'1.25rem'}
                 onClick={handleGoogleAuth}
                 loadingText='Submitting'
@@ -176,6 +180,7 @@ const SignUp = () => {
                 text='Sign in with Google'
               />
               <SubmitButton
+                svgUrl={facebookLogo}
                 borderRadius={'1.25rem'}
                 onClick={handleFacebookAuth}
                 loadingText='Submitting'

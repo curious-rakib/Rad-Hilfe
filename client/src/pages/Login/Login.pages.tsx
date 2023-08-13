@@ -19,6 +19,9 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signin } from '../../features/cyclist/cyclistSignIn-slice';
 import { userLogin } from '../../services/authentication';
 
+import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
+import googleLogo from '../../assets/google-svgrepo-com.svg';
+
 const Login = () => {
   const dispatch = useAppDispatch();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +47,7 @@ const Login = () => {
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>
         <Center mt={10}>
           <HStack>
-            <Heading fontSize={'4xl'} textAlign={'center'} color={'accent'}>
+            <Heading fontFamily={'Inter'} fontSize={'4xl'} textAlign={'center'} color={'accent'}>
               Slipstream
             </Heading>
             <Image src={logo} boxSize='50px' />
@@ -53,7 +56,7 @@ const Login = () => {
 
         <Box rounded={'xl'} px={4} mt={16}>
           <Text color={'accent'} fontWeight={'bold'} fontSize={'2xl'} mb={5}>
-            Sign in
+            Sign In
           </Text>
           <Stack spacing={5}>
             <InputField
@@ -99,6 +102,7 @@ const Login = () => {
 
             <Stack spacing={5} pt={2}>
               <SubmitButton
+                svgUrl={googleLogo}
                 borderRadius={'1.25rem'}
                 loadingText='Submitting'
                 size='lg'
@@ -108,6 +112,7 @@ const Login = () => {
                 text='Sign in with Google'
               />
               <SubmitButton
+                svgUrl={facebookLogo}
                 borderRadius={'1.25rem'}
                 loadingText='Submitting'
                 size='lg'

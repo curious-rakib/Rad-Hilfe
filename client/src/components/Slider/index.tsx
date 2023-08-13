@@ -31,8 +31,11 @@ const SetSlider = () => {
     fontSize: 'sm',
   };
   return (
-    <Box mt={'3rem'} pt={6} pb={2} color={'accent'}>
+    <Box w={'95%'} m={'0 auto'} mt={'1.25rem'} ml={'3px'} pt={6} pb={2} color={'accent'}>
       <Slider colorScheme='#C1FAA6' onChange={(val) => setSliderValue(val)}>
+        <SliderMark value={0} {...labelStyles}>
+          0%
+        </SliderMark>
         <SliderMark value={25} {...labelStyles}>
           25%
         </SliderMark>
@@ -41,6 +44,9 @@ const SetSlider = () => {
         </SliderMark>
         <SliderMark value={75} {...labelStyles}>
           75%
+        </SliderMark>
+        <SliderMark value={100} {...labelStyles}>
+          100%
         </SliderMark>
         <SliderMark
           value={sliderValue}
