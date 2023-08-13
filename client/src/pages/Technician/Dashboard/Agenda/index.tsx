@@ -56,7 +56,7 @@ const Agenda = () => {
 			</Flex>
 			<Flex>
 				<AgendaCalendar />
-				<Box color={'secondary'}>Zaber</Box>
+				<Box color={'secondary'}></Box>
 			</Flex>
 		</Box>
 	);

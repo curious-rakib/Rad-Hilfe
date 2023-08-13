@@ -42,11 +42,12 @@ const AgendaCalendar = () => {
 				events={myEventsList}
 				startAccessor="start"
 				endAccessor="end"
-				style={{ height: 500, width: 700 }}
+				style={{ height: 500, width: 800 }}
 				defaultDate={new Date()}
 				defaultView="day"
 				views={['day']}
 				step={60}
+				toolbar={false}
 			/>
 		</>
 	);
