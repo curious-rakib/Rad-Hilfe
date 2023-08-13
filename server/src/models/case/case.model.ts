@@ -2,6 +2,7 @@ import { Case } from '../../interfaces/case.interface';
 import { Schema, model } from '../database';
 import { interventionDetailsSchema } from './interventionDetails.schema';
 import { noteSchema } from './note.schema';
+import { supportTimeSchema } from './supportTime.schema';
 
 const caseSchema = new Schema({
   caseNumber: { type: Number },
@@ -13,20 +14,7 @@ const caseSchema = new Schema({
   tags: [{ type: String }],
   order: { type: Schema.Types.ObjectId, ref: 'OrderModel' },
   note: [noteSchema],
-  supportTime: {
-    slotName: {
-      type: String,
-      required: true,
-    },
-    slotTime: {
-      type: String,
-      required: true,
-    },
-    timeStamp: {
-      type: Date,
-      required: true,
-    },
-  },
+  supportTime: supportTimeSchema,
   interventionDetails: interventionDetailsSchema,
   videoURL: { type: String },
 });

@@ -15,18 +15,6 @@ const findAllCases = async (email: string) => {
   else return await CaseModel.find({ technician: technician?._id });
 };
 
-const findAvailableSupportTimeForTechnician = async (technicianId: string) => {
-  const cases = await CaseModel.find({ technician: technicianId });
-
-  if (cases) {
-    const subpartTime = cases.map((oneCase) => {
-      return oneCase.supportTime;
-    });
-  }
-
-  const technician = await findTechnicianById(new Types.ObjectId(technicianId));
-};
-
 const findCaseById = async (caseId: string) => {
   return await CaseModel.find({ _id: caseId });
 };

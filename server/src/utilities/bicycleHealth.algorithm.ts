@@ -140,9 +140,9 @@ const bicycleHealthAlgorithm = async () => {
       bicycle.bicycleParts!.forEach((part) => {
         totalSubpartHealth += part.health;
 
-        const subpart = bicycleDependency.filter((dependencyPart) => {
-          return String(part.subpart._id) === dependencyPart._id;
-        });
+        // const subpart = bicycleDependency.filter((dependencyPart) => {
+        //   return String(part.subpart._id) === dependencyPart._id;
+        // });
 
         // console.log(subpart[0].name, part.health);
       });
