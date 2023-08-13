@@ -1,7 +1,8 @@
 import { CaseModel } from './case.model';
 import { Case } from '../../interfaces/case.interface';
 import { findCyclistByEmail } from '../cyclist/cyclist.query';
-import { findTechnicianByEmail } from '../technician/technician.query';
+import { findTechnicianByEmail, findTechnicianById } from '../technician/technician.query';
+import { Types } from '../database';
 
 const createNewCase = async (item: Case) => {
   return await CaseModel.create(item);

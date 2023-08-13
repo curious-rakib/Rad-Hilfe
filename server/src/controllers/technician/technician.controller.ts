@@ -7,10 +7,14 @@ import { sendOTP } from './mailer.controller';
 import {
   addTechnicianDetails,
   createTechnician,
+  findAvailableSupportTimeForCyclist,
   findSubpartTechnician,
   findTechnicianByEmail,
+  findTechnicianById,
   updateTechnicianPassword,
 } from '../../models/technician/technician.query';
+import { Types } from '../../models/database';
+import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
 
 let storedOTP: OTP | null = null;
 
@@ -247,6 +251,39 @@ const findSubpartExpart = async (req: Request, res: Response) => {
   }
 };
 
+const availableSupportTime = async (req: Request, res: Response) => {
+  try {
+    const { subparts } = req.body;
+
+    const token = req.cookies.accessToken;
+    const session: SessionData | undefined = getSession(token);
+
+    if (session) {
+      const cyclist = await findCyclistByEmail(session.userEmail);
+
+      if (!cyclist) {
+        return res.status(404).send('Cyclist not found.');
+      }
+
+      const technicianId = await findSubpartTechnician(subparts);
+      const technician = await findTechnicianById(new Types.ObjectId(technicianId));
+
+      if (technicianId && technician) {
+        console.log(technician);
+        const slots = await findAvailableSupportTimeForCyclist(String(technicianId));
+
+        res.status(200).send({ technician: technician, slots });
+        return;
+      }
+    }
+
+    return res.status(401).send('Unauthorized');
+  } catch (error) {
+    console.error('Server Error!', error);
+    res.status(501).send('Server Error!');
+  }
+};
+
 export {
   signUp,
   signIn,
@@ -257,4 +294,5 @@ export {
   setUpTechnician,
   editProfile,
   findSubpartExpart,
+  availableSupportTime,
 };
