@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { authenticator } from '../../middlewares/authenticator';
 import { cyclistAuthorizer } from '../../middlewares/authorizer';
+import { generator } from '../../middlewares/generator';
 
 import * as cyclistController from '../../controllers/cyclist/cyclist.controller';
 import * as bicycleController from '../../controllers/bicycle/bicycle.controller';
@@ -11,6 +12,7 @@ import * as technicianController from '../../controllers/technician/technician.c
 
 const cyclistRouter = Router();
 
+cyclistRouter.use(generator);
 // public
 cyclistRouter.post('/sign-up', cyclistController.signUp);
 cyclistRouter.post('/sign-in', cyclistController.signIn);
@@ -19,7 +21,7 @@ cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 
 // private router
-cyclistRouter.use(authenticator, cyclistAuthorizer);
+cyclistRouter.use(authenticator, cyclistAuthorizer, generator);
 
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
@@ -41,7 +43,8 @@ cyclistRouter.get('/get-plan', orderController.getPlan);
 cyclistRouter.post('/create-order', orderController.setUpOrder);
 
 // case
-cyclistRouter.post('/create-case', caseController.createCase);
+cyclistRouter.post('/create-case', caseController.createPassiveCase);
+cyclistRouter.post('/create-chat-case', caseController.createActiveCase);
 cyclistRouter.get('/get-all-cases', caseController.getAllCases);
 cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
 
