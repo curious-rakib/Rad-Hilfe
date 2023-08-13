@@ -8,31 +8,35 @@ import { MouseEvent, useState } from 'react';
 import Button from '../../../components/Button';
 import TechnicianProgressBar from '../../../components/Technician Progress Bar';
 import { useNavigate } from 'react-router-dom';
+import { TechnicianSetUpService } from '../../../services/technician/account';
 
 const SetUpWorkingSchedule = () => {
 	const navigate = useNavigate();
 	const timeSlots = timeSlotGenerator(7, 20);
-	const [selectedDays, setSelectedDays] = useState<Day[]>([]);
+	const [selectedDays, setSelectedDays] = useState<string[]>([]);
 	const [selectedSlots, setSelectedSlots] = useState<TimeSlot[]>([]);
 	const [showError, setShowError] = useState(false);
 
-	const handleSelectedDays = (days: Day[]) => {
+	const handleSelectedDays = (days: string[]) => {
 		setSelectedDays(days);
-		console.log(days);
 	};
 
 	const handleClick = (slot: TimeSlot) => {
 		setSelectedSlots((previousSlots) => [...previousSlots, slot]);
 	};
-	const handleNextClick = (event: MouseEvent<HTMLButtonElement>) => {
+	const handleNextClick = async (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		const technician = localStorage.getItem('technician');
 		if (technician) {
 			const parsedTechnician = JSON.parse(technician);
 			parsedTechnician.workingDays = selectedDays;
 			parsedTechnician.workingSlots = selectedSlots;
-			localStorage.setItem('technician', JSON.stringify(parsedTechnician));
-			navigate('/technician-setup-3');
+			const result = await TechnicianSetUpService(parsedTechnician);
+			console.log(result);
+
+			localStorage.setItem('technician', JSON.stringify(result));
+
+			navigate('/agenda');
 		} else setShowError(true);
 	};
 	return (

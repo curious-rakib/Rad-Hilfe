@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Heading, Spacer, Stack, Text, VStack, Image } from '@chakra-ui/react';
+import { Box, Flex, Text, VStack, Image } from '@chakra-ui/react';
 import TableComponent from '../../../../components/Table';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
 import './cases.styles.css';

@@ -1,47 +1,47 @@
 import { Circle, HStack, Text } from '@chakra-ui/react';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface Day {
 	id: string;
 	label: string;
 	chosen: boolean;
 }
-const TechnicianWorkingDays = ({ colorScheme, outline, onDaysSelect }: { colorScheme: string; outline: boolean; onDaysSelect: (days: Day[]) => void }) => {
+const TechnicianWorkingDays = ({ colorScheme, outline, onDaysSelect }: { colorScheme: string; outline: boolean; onDaysSelect: (days: string[]) => void }) => {
 	const [sevenDays, setSevenDays] = useState<Day[]>([]);
 	const allDays = [
 		{
 			label: 'M',
-			id: 'Mon',
+			id: 'Monday',
 			chosen: false,
 		},
 		{
 			label: 'T',
-			id: 'Tues',
+			id: 'Tuesday',
 			chosen: false,
 		},
 		{
 			label: 'W',
-			id: 'Wed',
+			id: 'Wednesday',
 			chosen: false,
 		},
 		{
 			label: 'T',
-			id: 'Thurs',
+			id: 'Thursday',
 			chosen: false,
 		},
 		{
 			label: 'F',
-			id: 'Fri',
+			id: 'Friday',
 			chosen: false,
 		},
 		{
 			label: 'S',
-			id: 'Sat',
+			id: 'Saturday',
 			chosen: false,
 		},
 		{
 			label: 'S',
-			id: 'Sun',
+			id: 'Sunday',
 			chosen: false,
 		},
 	];
@@ -53,7 +53,7 @@ const TechnicianWorkingDays = ({ colorScheme, outline, onDaysSelect }: { colorSc
 		const updatedSevenDays = sevenDays.map((d) => (d.id === day.id ? { ...d, chosen: !day.chosen } : d));
 
 		setSevenDays(updatedSevenDays);
-		onDaysSelect(updatedSevenDays.filter((d) => d.chosen));
+		onDaysSelect(updatedSevenDays.filter((d) => d.chosen).map((d) => d.id));
 	};
 
 	return (

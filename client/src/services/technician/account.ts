@@ -37,7 +37,7 @@ export const TechnicianSignInService = async (signInData: Object) => {
 export const TechnicianSetUpService = async (setUpData: Object) => {
 	try {
 		return await axios({
-			url: `${baseUrl}/technician/sign-in`,
+			url: `${baseUrl}/technician/set-up-technician`,
 			method: 'POST',
 			withCredentials: true,
 			headers: { 'Content-Type': 'application/json' },

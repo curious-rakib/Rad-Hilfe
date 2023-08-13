@@ -24,6 +24,7 @@ import SetUpContact from './pages/Technician/Setup/setUpContact';
 import ThankYou from './pages/ThankYou';
 import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
+import Agenda from './pages/Technician/Dashboard/Agenda';
 
 function App() {
 	return (
@@ -103,6 +104,10 @@ function App() {
 
 				<Routes>
 					<Route element={<Dashboard />}>
+						<Route
+							path="/agenda"
+							element={<Agenda />}
+						/>
 						<Route
 							path="/cases"
 							element={<Cases />}
