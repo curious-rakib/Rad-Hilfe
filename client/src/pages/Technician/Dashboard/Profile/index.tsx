@@ -1,15 +1,17 @@
-import { Text, Box, Flex, Image, Button, Input } from '@chakra-ui/react';
-import TechnicianWorkingDays from '../../../components/Technician Working Days';
-import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
-import { useEffect, useState } from 'react';
-import { parts } from '../../../data/partsData';
-import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bike Parts';
-import avatar from '../../../assets/avatarTechnician.svg';
-import InputTechnician from '../../../components/Input Technician';
+import { Text, Box, Flex, Image, Input } from '@chakra-ui/react';
+import TechnicianWorkingDays from '../../../../components/Technician Working Days/indexForProfile';
+import { TimeSlot, timeSlotGenerator } from '../../../../utils/timeSlotgenerator';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { parts } from '../../../../data/partsData';
+import LoopSlotOrPartsComponent from '../../../../components/Time Slots & Bicycle Parts/indexForProfile';
+import avatar from '../../../../assets/avatarTechnician.svg';
+import InputTechnician from '../../../../components/Input Technician';
+import Button from '../../../../components/Button';
+import BicycleBrandList from '../../../../components/Bicyle Brand List';
 
 const TechnicianProfile = () => {
-	const timeSlots = timeSlotGenerator(7, 20);
-	const bicycleParts = parts; //generating time slots between 7am and 8pm
+	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
+	const bicycleParts = parts;
 	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);
 	const [inputBrand, setInputBrand] = useState<string>('');
 	const [brandList, setBrandList] = useState<string[]>([]);
@@ -17,6 +19,8 @@ const TechnicianProfile = () => {
 	const handleClick = (item: TimeSlot | string) => {
 		// console.log('selected:', item);
 	};
+
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {};
 
 	useEffect(() => {
 		setChoosenTimeSlots(timeSlots);
@@ -43,18 +47,13 @@ const TechnicianProfile = () => {
 						</Box>
 
 						<Button
-							color={'#001F3F'}
-							p={'0 2.5rem'}
-							bg={'#C1FAA6'}
-							borderRadius={'.75rem'}
-							_hover={{ color: '#C1FAA6', backgroundColor: '#001F3F' }}
-							size="md">
-							<Text
-								as="b"
-								fontFamily={'Inter'}>
-								Upload
-							</Text>
-						</Button>
+							loadingText={'Uploading'}
+							w={''}
+							bg={'third'}
+							size={'md'}
+							color={'secondary'}
+							text={'Upload'}
+						/>
 					</Box>
 
 					<Box
@@ -64,17 +63,54 @@ const TechnicianProfile = () => {
 						<InputTechnician
 							id={'fullName'}
 							isRequired={false}
+							name={'name'}
 							type={'text'}
 							label={'Full Name'}
 							placeholder={'Enter Full Name'}
+							colorScheme={'secondary'}
+							onChange={handleChange}
 						/>
 
 						<InputTechnician
-							id={'fullName'}
+							id={'email'}
 							isRequired={false}
-							type={'text'}
+							type={'email'}
+							name={'email'}
 							label={'Email'}
 							placeholder={'Enter Your Email '}
+							colorScheme={'secondary'}
+							onChange={handleChange}
+						/>
+
+						<InputTechnician
+							id={'password'}
+							isRequired={false}
+							type={'password'}
+							name={'password'}
+							label={'Change Password'}
+							placeholder={'* * * * * * * * * * * * * *'}
+							colorScheme={'secondary'}
+							onChange={handleChange}
+						/>
+						<InputTechnician
+							id={'address'}
+							isRequired={false}
+							type={'text'}
+							name={'address'}
+							label={'Current Address'}
+							placeholder={'Enter Your Current Address '}
+							colorScheme={'secondary'}
+							onChange={handleChange}
+						/>
+						<InputTechnician
+							id={'phone'}
+							isRequired={false}
+							type={'tel'}
+							name={'phone'}
+							label={'Contact Number'}
+							placeholder={'Enter Your Contact Number '}
+							colorScheme={'secondary'}
+							onChange={handleChange}
 						/>
 					</Box>
 
@@ -83,32 +119,22 @@ const TechnicianProfile = () => {
 						alignItems={'center'}
 						gap={'1.5rem'}>
 						<Button
-							color={'#001F3F'}
-							p={'0 3rem'}
-							bg={'#EDCBEF'}
-							borderRadius={'1.25rem'}
-							_hover={{ color: '#EDCBEF', backgroundColor: '#001F3F' }}
-							size="lg">
-							<Text
-								as="b"
-								fontFamily={'Inter'}>
-								Confirm
-							</Text>
-						</Button>
+							loadingText={'Confirm'}
+							w={''}
+							bg={'third'}
+							size={'lg'}
+							color={'secondary'}
+							text={'Confirm'}
+						/>
 
 						<Button
-							color={'#001F3F'}
-							p={'0 3rem'}
-							bg={'#EDCBEF'}
-							borderRadius={'1.25rem'}
-							_hover={{ color: '#EDCBEF', backgroundColor: '#001F3F' }}
-							size="lg">
-							<Text
-								as="b"
-								fontFamily={'Inter'}>
-								Cancel
-							</Text>
-						</Button>
+							loadingText={'Cancel'}
+							w={''}
+							bg={'third'}
+							size={'lg'}
+							color={'secondary'}
+							text={'Cancel'}
+						/>
 					</Flex>
 				</Box>
 
@@ -124,7 +150,10 @@ const TechnicianProfile = () => {
 							fontSize={'1.5rem'}>
 							Which days can you work on ?
 						</Text>
-						<TechnicianWorkingDays colorScheme="accent" />
+						<TechnicianWorkingDays
+							colorScheme="accent"
+							outline={false}
+						/>
 						<>
 							<Text
 								mt={'2rem'}
@@ -150,6 +179,7 @@ const TechnicianProfile = () => {
 											key={slot.slotName}
 											item={slot.slotTime}
 											onClick={() => handleClick(slot)}
+											outline={false}
 										/>
 									);
 								})}
@@ -182,10 +212,9 @@ const TechnicianProfile = () => {
 									<Flex wrap={'wrap'}>
 										{brandList.map((brand, index) => {
 											return (
-												<LoopSlotOrPartsComponent
+												<BicycleBrandList
 													key={index}
 													item={brand}
-													onClick={() => console.log('first')}
 												/>
 											);
 										})}
@@ -216,6 +245,7 @@ const TechnicianProfile = () => {
 												key={parts._id}
 												item={parts.name}
 												onClick={() => handleClick(parts.name)}
+												outline={false}
 											/>
 										);
 									})}

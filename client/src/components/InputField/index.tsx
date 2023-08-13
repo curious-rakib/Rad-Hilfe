@@ -1,6 +1,4 @@
 import { Box, FormControl, Input } from '@chakra-ui/react';
-import { color } from 'framer-motion';
-import { useAppDispatch } from '../../app/hooks';
 
 const InputField = ({
 	id,

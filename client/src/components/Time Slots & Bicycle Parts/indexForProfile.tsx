@@ -1,7 +1,7 @@
 import { Box, Center } from '@chakra-ui/react';
 import { useState } from 'react';
 
-const LoopSlotOrPartsComponent = ({ item, onClick }: { item: string; onClick: Function }) => {
+const LoopSlotOrPartsComponent = ({ item, onClick, outline }: { item: string; onClick: Function; outline: boolean }) => {
 	const [isSelected, setIsSelected] = useState(false);
 
 	const handleClick = () => {
@@ -14,6 +14,8 @@ const LoopSlotOrPartsComponent = ({ item, onClick }: { item: string; onClick: Fu
 			m={1}
 			bg={isSelected ? 'secondary' : 'accent'}
 			color={isSelected ? 'accent' : 'secondary'}
+			outline={outline ? '.01rem solid' : 'none'}
+			outlineColor={outline && isSelected ? 'accent' : 'none'}
 			borderRadius={'.63rem'}
 			p={'.45rem'}
 			fontSize={'.95rem'}

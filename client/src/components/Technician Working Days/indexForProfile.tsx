@@ -1,13 +1,12 @@
 import { Circle, HStack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import './technicianProfile.styles.css';
 
 interface Day {
 	id: string;
 	label: string;
 	chosen: boolean;
 }
-const TechnicianWorkingDays = ({ colorScheme }: { colorScheme: string }) => {
+const TechnicianWorkingDays = ({ colorScheme, outline }: { colorScheme: string; outline: boolean }) => {
 	const [sevenDays, setSevenDays] = useState<Day[]>([]);
 	const allDays = [
 		{
@@ -63,8 +62,10 @@ const TechnicianWorkingDays = ({ colorScheme }: { colorScheme: string }) => {
 					key={index}
 					bg={day.chosen ? 'secondary' : colorScheme}
 					color={day.chosen ? colorScheme : 'secondary'}
-					border={day.chosen ? 'none' : `2px solid`}
+					border={day.chosen ? 'none' : '.01rem solid'}
 					borderColor={day.chosen ? 'none' : colorScheme}
+					outline={outline ? '.01rem solid' : 'none'}
+					outlineColor={outline && day.chosen ? 'accent' : 'none'}
 					onClick={() => handleChange(day)}
 					size={'3rem'}>
 					<Text

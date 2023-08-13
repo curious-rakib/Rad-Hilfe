@@ -3,7 +3,7 @@ import './table.styles.css';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
-import { cases } from './../../pages/Dashboard/Dummy Data/dummyCaseData';
+import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData';
 
 export interface CaseData {
 	'Case No': string;

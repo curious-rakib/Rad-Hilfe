@@ -1,11 +1,10 @@
 export interface TimeSlot {
 	slotName: string;
 	slotTime: string;
-	choosen: boolean;
 }
 export function timeSlotGenerator(start: number, end: number) {
 	const timeSlots: TimeSlot[] = [];
-	for (let hour = 7; hour < 20; hour++) {
+	for (let hour = start; hour < end; hour++) {
 		if (hour == 11) continue;
 		const slotStartTime = `${hour.toString().padStart(2, '0')}:00`;
 		const slotEndTime = `${(hour + 1).toString().padStart(2, '0')}:00`;
@@ -15,7 +14,6 @@ export function timeSlotGenerator(start: number, end: number) {
 		timeSlots.push({
 			slotName: slotName,
 			slotTime: slotTime,
-			choosen: false,
 		});
 	}
 
