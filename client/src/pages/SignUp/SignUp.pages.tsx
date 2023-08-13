@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { createAccount } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
+import signupValidatorSchema from './validator';
 
 
 
@@ -15,6 +16,7 @@ const SignUp = () => {
 	const dispatch = useAppDispatch();
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+
 		const { name, value } = event.target;
 
 		const dataObj = { [name]: value };
@@ -28,6 +30,7 @@ const SignUp = () => {
 	const handleClick = async () => {
 		const name = first + last;
 		const userData = { name, email, password, phone };
+
 		localStorage.setItem('userData', JSON.stringify(userData));
 		const registeredUser = await createAccount(userData);
 		console.log('registeredUser     ', registeredUser);
@@ -208,3 +211,7 @@ const SignUp = () => {
 };
 
 export default SignUp;
+function setErrorMessages(arg0: { [x: string]: string; }) {
+	throw new Error('Function not implemented.');
+}
+

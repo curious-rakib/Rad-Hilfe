@@ -9,7 +9,7 @@ import {
     Grid,
     GridItem
 } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link, Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { FcLike } from 'react-icons/fc';
 // import bike from '../../assets/bike.svg';
@@ -52,19 +52,19 @@ const MyBike = () => {
                     {' '}
                     <Box mt={"100px"}>
                         <Text fontWeight='semibold' fontSize={'sm'} >Bike Brand</Text>
-                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>Cannonadale</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{brand}</Text>
                     </Box>
                     <Box>
                         <Text fontWeight='semibold' fontSize={'sm'}>Bike Model</Text>
-                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>Quest</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{model}</Text>
                     </Box>
                     <Box>
                         <Text fontWeight='semibold' fontSize={'sm'} style={{ "whiteSpace": 'nowrap' }}>Serial Number</Text>
-                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>CND765678</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{serialNumber}</Text>
                     </Box>
                     <Box>
                         <Text fontWeight='semibold' fontSize={'sm'}>Start Date</Text>
-                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{date} Aug 2020</Text>
+                        <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>{date} Aug {purchaseYear}</Text>
                     </Box>
                 </Stack></GridItem>
                 <GridItem w='12.9rem' mt={'2rem'}  >
@@ -88,7 +88,9 @@ const MyBike = () => {
                     >
                         My bike's health{' '}
                     </Text>
+
                     <FcLike size={27} />
+
                 </Flex>
 
                 <MyBikeProgressBar />

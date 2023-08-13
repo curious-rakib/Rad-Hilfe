@@ -4,7 +4,7 @@ import { FaCloud } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { profile } from '../../services/authentication';
 import { useAppSelector } from '../../app/hooks';
-import { setUpBikeInfo } from '../../services/bikeDetails';
+import { bicycleHealth, setUpBikeInfo } from '../../services/bikeDetails';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { getWeatherData } from '../../services/weather';
@@ -40,6 +40,15 @@ const Home = () => {
 
       setName(userName);
     };
+
+
+    const health = async () => {
+      const healthData = await bicycleHealth(localStorage.getItem('bikeID'));
+
+      console.log(healthData);
+    }
+
+    health();
     fetchData();
   }, []);
 

@@ -37,16 +37,17 @@ const Recreation = () => {
     recreationalCommute,
   };
 
-  // console.log(bikeInfo);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await setUpBikeInfo(bikeInfo);
+      // console.log('result', result);
       const bikeId = result._id;
       localStorage.setItem('bikeID', bikeId);
-      localStorage.setItem('bikeInfo', result);
-      // console.log('bikeID', bikeId);
-      // console.log('result', result);
+      localStorage.setItem('bikeInfo', JSON.stringify(result));
+
     };
     fetchData();
   }, []);
@@ -115,8 +116,7 @@ const Recreation = () => {
             bg='fourth'
             w='12.5rem'
             color='secondary'
-            text='Submit'
-          />
+            text='Submit' fontWeight={''} />
         </ChakraLink>
       </Center>
     </Container>

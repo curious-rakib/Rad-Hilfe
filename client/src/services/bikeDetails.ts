@@ -14,7 +14,7 @@ export const setUpBikeInfo = async (bikeinfo: any) => {
       body: JSON.stringify(bikeinfo),
     });
     const bike = await response.json();
-    console.log(bike);
+    console.log('bike from service', bike);
     return bike;
   } catch (error) {
     console.log(error);
@@ -41,6 +41,7 @@ export const bicycleDamagedPart = async (id: any) => {
     console.log(error);
   }
 };
+
 export const bicycle = async (id: any) => {
   try {
     const response = await axios.get(`${BASE_URL}/cyclist/bicycle/${id}`, {
@@ -50,6 +51,27 @@ export const bicycle = async (id: any) => {
         authorization: `Bearer ${token}`,
       },
     });
+
+    const bicycle = response.data;
+    // console.log('bicycle from service', bicycle);
+    return bicycle;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const bicycleHealth = async (id: any) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/cyclist/bicycle-health/${id}`,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const bicycle = response.data;
     console.log('bicycle from service', bicycle);
