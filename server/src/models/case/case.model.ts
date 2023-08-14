@@ -5,18 +5,19 @@ import { noteSchema } from './note.schema';
 import { supportTimeSchema } from './supportTime.schema';
 
 const caseSchema = new Schema({
-  caseNumber: { type: Number },
-  status: { type: String, required: true },
-  cyclist: { type: Schema.Types.ObjectId, ref: 'CyclistModel', required: true },
-  technician: { type: Schema.Types.ObjectId, ref: 'TechnicianModel', required: true },
-  bicycle: { type: Schema.Types.ObjectId, ref: 'BicycleModel', required: true },
-  type: { type: String, required: true },
-  tags: [{ type: String }],
-  order: { type: Schema.Types.ObjectId, ref: 'OrderModel' },
-  note: [noteSchema],
-  supportTime: supportTimeSchema,
-  interventionDetails: interventionDetailsSchema,
-  videoURL: { type: String },
+	caseNumber: { type: Number },
+	createdTime: { type: Date, default: new Date(), required: true },
+	status: { type: String, required: true },
+	cyclist: { type: Schema.Types.ObjectId, ref: 'CyclistModel', required: true },
+	technician: { type: Schema.Types.ObjectId, ref: 'TechnicianModel', required: true },
+	bicycle: { type: Schema.Types.ObjectId, ref: 'BicycleModel', required: true },
+	type: { type: String, required: true },
+	tags: [{ type: String }],
+	order: { type: Schema.Types.ObjectId, ref: 'OrderModel' },
+	note: [noteSchema],
+	supportTime: supportTimeSchema,
+	interventionDetails: interventionDetailsSchema,
+	videoURL: { type: String },
 });
 
 const CaseModel = model<Case>('Case', caseSchema);

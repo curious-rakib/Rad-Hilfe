@@ -2,6 +2,7 @@ import { Types } from '../models/database';
 
 interface Case {
 	caseNumber?: number;
+	createdTime?: Date;
 	status: string;
 	cyclist: Types.ObjectId | undefined;
 	technician: Types.ObjectId | undefined;

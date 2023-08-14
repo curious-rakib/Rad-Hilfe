@@ -9,6 +9,7 @@ import PaginationComponent from '../../../../components/Pagination';
 import { useEffect, useState } from 'react';
 
 import { Case } from '../Agenda';
+import moment from 'moment';
 
 const Cases = () => {
 	const [cases, setCases] = useState<Case[]>([]);
@@ -31,7 +32,18 @@ const Cases = () => {
 		const result = localStorage.getItem('cases');
 		if (result) {
 			const parsedResult = JSON.parse(result);
+			console.log('Cases page:', parsedResult);
 			setCases(parsedResult);
+
+			const filteredCases = cases.map((Case) => ({
+				'Case No': `#${Case.caseNumber}`,
+				'Case Type': Case.type,
+				Status: Case.status,
+				'Client Name': Case.clientName,
+				'Date Created': moment(Case.supportTime.timeStamp).format('MM-DD-YYYY'),
+				'Bicycle Health': Math.floor(Math.random() * 100),
+				Action: null,
+			}));
 		}
 	}, []);
 

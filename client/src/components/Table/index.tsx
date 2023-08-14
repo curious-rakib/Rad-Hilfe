@@ -6,7 +6,8 @@ import FullHealthBar from '../Bicycle Full Health Bar';
 // import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData';
 import { Case } from '../../pages/Technician/Dashboard/Agenda';
 
-const TableComponent = ({ cases }: { cases: Case[] }) => {
+const TableComponent = ({ cases }: { cases: any[] }) => {
+	console.log('Table cases:', cases);
 	return (
 		<>
 			<TableContainer

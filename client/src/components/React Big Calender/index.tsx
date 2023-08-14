@@ -46,7 +46,6 @@ const AgendaCalendar = ({ cases }: { cases: Case[] }) => {
 	const [myEventsList, setMyEventList] = useState<Event[]>([]);
 
 	useEffect(() => {
-		console.log('cases:', cases);
 		const events = cases.map((caseItem) => {
 			const [startTimeStr, endTimeStr] = caseItem.supportTime.slotTime.split('-');
 			const startTime = moment(startTimeStr.trim(), 'HH:mm').toDate();

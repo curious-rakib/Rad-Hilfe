@@ -69,6 +69,7 @@ import { createCase } from '../../../../features/technician/slices/technicianCas
 export interface Case {
 	_id?: string;
 	caseNumber?: number;
+	createdTime?: Date;
 	status: string;
 	cyclist: ObjectId | undefined;
 	technician: ObjectId | undefined;
@@ -109,7 +110,7 @@ const Agenda = () => {
 		const fetchCaseData = async () => {
 			try {
 				const result = await TechnicianGetAllCasesService();
-				console.log(result);
+
 				dispatch(createCase(result));
 				localStorage.setItem('cases', result);
 				setCaseData(result);
@@ -121,8 +122,8 @@ const Agenda = () => {
 	}, []);
 
 	const today = moment().startOf('day');
-	const todayCases = caseData.filter((Case) => moment(Case.supportTime.timeStamp).isSame(today, 'day'));
-	const futureCases = caseData.filter((Case) => moment(Case.supportTime.timeStamp).isAfter(today, 'day'));
+	const todayCases = caseData.filter((Case) => moment(Case.createdTime!).isSame(today, 'day'));
+	const futureCases = caseData.filter((Case) => moment(Case.createdTime!).isAfter(today, 'day'));
 
 	return (
 		<Box>
@@ -210,7 +211,7 @@ const Agenda = () => {
 									<Casebox
 										key={index}
 										caseType={Case.type}
-										date={Case.supportTime.timeStamp}
+										date={Case.createdTime!}
 										clientName={Case.clientName}
 										time={Case.supportTime.slotTime}
 									/>

@@ -136,6 +136,7 @@ const TechnicianSignUp = () => {
 								size={'md'}
 								color={'secondary'}
 								text={'Sign Up'}
+								fontWeight={''}
 							/>
 						</>
 						<>
