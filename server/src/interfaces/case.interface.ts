@@ -11,8 +11,8 @@ interface Case {
   order?: Types.ObjectId;
   note?: Note[];
   supportTime: SupportTime;
-  interventionDetails: InterventionDetails;
-  videoURL: string;
+  interventionDetails?: InterventionDetails;
+  videoURL?: string;
 }
 
 interface Note {

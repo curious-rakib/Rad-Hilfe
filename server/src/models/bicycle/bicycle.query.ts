@@ -152,47 +152,13 @@ const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycl
 
 const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
   try {
-    const allDamagedParts = await BicycleModel.aggregate([
-      {
-        $match: {
-          _id: bicycleId,
-        },
-      },
-      {
-        $unwind: '$bicycleParts',
-      },
-      {
-        $lookup: {
-          from: 'subparts',
-          localField: 'bicycleParts.subpart',
-          foreignField: '_id',
-          as: 'subpartInfo',
-        },
-      },
-      {
-        $unwind: '$subpartInfo',
-      },
-      {
-        $addFields: {
-          'bicycleParts.name': '$subpartInfo.name',
-          'bicycleParts.price': '$subpartInfo.price',
-          'bicycleParts.category': '$subpartInfo.category',
-          'bicycleParts.plan': '$subpartInfo.plan',
-        },
-      },
-      {
-        $match: {
-          'bicycleParts.health': { $lt: 30 },
-        },
-      },
-      {
-        $group: {
-          _id: '$_id',
-          bicycleParts: { $push: '$bicycleParts' },
-        },
-      },
-    ]);
-    return allDamagedParts;
+    const bicycle = await BicycleModel.find({ _id: bicycleId }, { bicycleParts: 1 });
+
+    if (bicycle) {
+      return bicycle[0].bicycleParts;
+    }
+
+    return null;
   } catch (error) {
     console.error(error);
   }

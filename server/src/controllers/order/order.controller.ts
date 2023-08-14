@@ -2,23 +2,11 @@ import { Request, Response } from 'express';
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 
-import {
-  addOrder,
-  createOrder,
-  fetchCyclistPlan,
-} from '../../models/order/order.query';
+import { addOrder, createOrder, fetchCyclistPlan } from '../../models/order/order.query';
 
 const setUpOrder = async (req: Request, res: Response) => {
-  console.log(req.body);
   try {
-    const {
-      bicycleParts,
-      deliveryAddress,
-      contactNumber,
-      note,
-      slot,
-      totalPrice,
-    } = req.body;
+    const { bicycleParts, deliveryAddress, contactNumber, note, slot, totalPrice } = req.body;
     const newOrder = {
       bicycleParts,
       deliveryAddress,
