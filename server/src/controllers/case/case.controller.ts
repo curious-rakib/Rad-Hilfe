@@ -9,7 +9,7 @@ import { Types } from '../../models/database';
 
 const createPassiveCase = async (req: Request, res: Response) => {
   try {
-    const { type, tags, note, supportTime, interventionDetails, videoURL } = req.body;
+    const { type, tags, note, supportTime, interventionDetails, orderId } = req.body;
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
@@ -19,12 +19,6 @@ const createPassiveCase = async (req: Request, res: Response) => {
 
       if (!cyclist) {
         return res.status(404).send('Cyclist not found.');
-      }
-
-      const orderLength = cyclist.orders?.length;
-      let orderId;
-      if (orderLength! > 0) {
-        orderId = cyclist.orders![orderLength! - 1];
       }
 
       const order = await findOrderById(new Types.ObjectId(orderId));
@@ -45,18 +39,20 @@ const createPassiveCase = async (req: Request, res: Response) => {
           tags,
           note,
           interventionDetails,
-          videoURL,
           supportTime,
         };
 
         const createdCase = await createNewCase(newCase);
-        cyclist.cases?.push(createdCase._id);
-        await cyclist.save();
-        technician?.cases?.push(createdCase._id);
-        await technician?.save();
 
-        res.status(200).send(createdCase);
-        return;
+        if (createdCase) {
+          cyclist.cases?.push(createdCase._id);
+          await cyclist.save();
+          technician?.cases?.push(createdCase._id);
+          await technician?.save();
+
+          res.status(200).send(createdCase);
+          return;
+        }
       }
     }
     return res.status(401).send('Unauthorized');
@@ -108,10 +104,12 @@ const createActiveCase = async (req: Request, res: Response) => {
         };
 
         const createdCase = await createNewCase(newCase);
-        cyclist.cases?.push(createdCase._id);
-        await cyclist.save();
-        res.status(200).send(createdCase);
-        return;
+        if (createdCase) {
+          cyclist.cases?.push(createdCase._id);
+          await cyclist.save();
+          res.status(200).send(createdCase);
+          return;
+        }
       }
     }
     return res.status(401).send('Unauthorized');

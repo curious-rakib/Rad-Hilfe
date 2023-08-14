@@ -26,7 +26,6 @@ cyclistRouter.get('/profile', cyclistController.profile);
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
 cyclistRouter.put('/set-up-address-edit', cyclistController.setUpAddressEdit);
 cyclistRouter.post('/weather-data', cyclistController.weatherData);
-// cyclistRouter.post('/api/create-payment', paymentController.payment);
 cyclistRouter.get('/cyclist-name', cyclistController.cyclistName);
 cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 

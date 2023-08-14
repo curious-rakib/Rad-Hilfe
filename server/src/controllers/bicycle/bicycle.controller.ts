@@ -58,7 +58,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
-    if (session) {
+    if (session && createdBicycle) {
       const bicycleId = new Types.ObjectId(createdBicycle!._id);
       await addBicycle(session.userEmail, bicycleId);
       res.status(201).send(createdBicycle);

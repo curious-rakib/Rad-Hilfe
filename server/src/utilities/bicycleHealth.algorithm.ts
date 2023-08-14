@@ -37,19 +37,75 @@ const damageCalculateForOnePart = (
 
 const calculatePartsHealth = (
   bicycleSubParts: BicycleParts[],
-  pavedDistance: number,
-  unpavedDistance: number
+  dailyCommuteDays: number,
+  dailyCommutetotalDistance: number,
+  dailyCommutedUnpavedRoad: number,
+  isRecreational: boolean,
+  recreationalCommuteDays: number,
+  recreationalCommutetotalDistance: number,
+  recreationalCommutedActivityType: string[]
 ) => {
   bicycleDependency.forEach((dependencyPart) => {
     const subpart = bicycleSubParts.filter((bicycleSubPart) => {
       return String(bicycleSubPart.subpart._id) === dependencyPart._id;
     });
 
+    const lastRevisionDate = moment(subpart[0].lastMaintained);
+
+    const totalDailyCommutedPavedDistance = getDistance(
+      2,
+      lastRevisionDate,
+      dailyCommuteDays,
+      dailyCommutetotalDistance,
+      1 - dailyCommutedUnpavedRoad / 100
+    );
+
+    const totalDailyCommutedUnpavedDistance = getDistance(
+      2,
+      lastRevisionDate,
+      dailyCommuteDays,
+      dailyCommutetotalDistance,
+      dailyCommutedUnpavedRoad / 100
+    );
+
+    let totalRecreationalCommutedPavedDistance = 0;
+    let totalRecreationalCommutedUnpavedDistance = 0;
+
+    let unpavedRoadFactor = 0;
+    if (isRecreational) {
+      if (recreationalCommutedActivityType.includes('off-road')) {
+        unpavedRoadFactor = getRecreationalCommuteUnpavedFactor(
+          recreationalCommutedActivityType.length
+        );
+      }
+
+      totalRecreationalCommutedPavedDistance = getDistance(
+        1,
+        lastRevisionDate,
+        recreationalCommuteDays,
+        recreationalCommutetotalDistance,
+        1 - unpavedRoadFactor
+      );
+
+      totalRecreationalCommutedPavedDistance = getDistance(
+        1,
+        lastRevisionDate,
+        recreationalCommuteDays,
+        recreationalCommutetotalDistance,
+        unpavedRoadFactor
+      );
+    }
+
+    const totalPavedDistance =
+      totalDailyCommutedPavedDistance + totalRecreationalCommutedPavedDistance;
+    const totalUnpavedDistance =
+      totalDailyCommutedUnpavedDistance + totalRecreationalCommutedUnpavedDistance;
+
     damageCalculateForOnePart(
       subpart[0],
       dependencyPart,
-      pavedDistance,
-      unpavedDistance,
+      totalPavedDistance,
+      totalUnpavedDistance,
       bicycleSubParts
     );
   });
@@ -82,69 +138,21 @@ const bicycleHealthAlgorithm = async () => {
         bicycle.revisionYear && (lastRevisionYear = bicycle.revisionYear);
       }
 
-      const lastRevisionDate = moment([lastRevisionYear, lastRevisionMonth - 1]);
-
-      const totalDailyCommutedPavedDistance = getDistance(
-        2,
-        lastRevisionDate,
-        bicycle.dailyCommute.days.length,
-        bicycle.dailyCommute.totalDistance,
-        1 - bicycle.dailyCommute.unpavedRoad / 100
-      );
-
-      const totalDailyCommutedUnpavedDistance = getDistance(
-        2,
-        lastRevisionDate,
-        bicycle.dailyCommute.days.length,
-        bicycle.dailyCommute.totalDistance,
-        bicycle.dailyCommute.unpavedRoad / 100
-      );
-
-      let totalRecreationalCommutedPavedDistance = 0;
-      let totalRecreationalCommutedUnpavedDistance = 0;
-
-      let unpavedRoadFactor = 0;
-      if (bicycle.recreationalCommute) {
-        if (bicycle.recreationalCommute.activityType.includes('off-road')) {
-          unpavedRoadFactor = getRecreationalCommuteUnpavedFactor(
-            bicycle.recreationalCommute.activityType.length
-          );
-        }
-
-        totalRecreationalCommutedPavedDistance = getDistance(
-          1,
-          lastRevisionDate,
-          bicycle.recreationalCommute.days.length,
-          bicycle.recreationalCommute.lengthOfRide,
-          1 - unpavedRoadFactor
-        );
-
-        totalRecreationalCommutedPavedDistance = getDistance(
-          1,
-          lastRevisionDate,
-          bicycle.recreationalCommute.days.length,
-          bicycle.recreationalCommute.lengthOfRide,
-          unpavedRoadFactor
-        );
-      }
-
-      const totalPavedDistance =
-        totalDailyCommutedPavedDistance + totalRecreationalCommutedPavedDistance;
-      const totalUnpavedDistance =
-        totalDailyCommutedUnpavedDistance + totalRecreationalCommutedUnpavedDistance;
-
       bicycle.bicycleParts &&
-        calculatePartsHealth(bicycle.bicycleParts, totalPavedDistance, totalUnpavedDistance);
+        calculatePartsHealth(
+          bicycle.bicycleParts,
+          bicycle.dailyCommute.days.length,
+          bicycle.dailyCommute.totalDistance,
+          bicycle.dailyCommute.unpavedRoad,
+          !!bicycle.recreationalCommute,
+          bicycle.recreationalCommute!.days.length,
+          bicycle.recreationalCommute!.lengthOfRide,
+          bicycle.recreationalCommute!.activityType
+        );
 
       let totalSubpartHealth = 0;
       bicycle.bicycleParts!.forEach((part) => {
         totalSubpartHealth += part.health;
-
-        // const subpart = bicycleDependency.filter((dependencyPart) => {
-        //   return String(part.subpart._id) === dependencyPart._id;
-        // });
-
-        // console.log(subpart[0].name, part.health);
       });
 
       bicycle.totalHealth = totalSubpartHealth / bicycle.bicycleParts!.length;
