@@ -63,9 +63,6 @@ const addTechnicianDetails = async (email: string, setTechnician: any) => {
 const findSubpartTechnician = async (subparts: Types.ObjectId[]) => {
   try {
     const technicians = await TechnicianModel.find({ subpartExpertise: { $in: subparts } });
-
-    console.log(technicians);
-
     if (technicians) {
       const techniciansWithMatches = technicians.map(
         (technician) =>
@@ -79,7 +76,7 @@ const findSubpartTechnician = async (subparts: Types.ObjectId[]) => {
       techniciansWithMatches.sort((a, b) => b!.matchCount - a!.matchCount);
 
       const sortedTechnicians = techniciansWithMatches.map((entry) => entry!.technician);
-      return sortedTechnicians[0]._id;
+      return sortedTechnicians[0];
     }
   } catch (error) {
     console.log(error);

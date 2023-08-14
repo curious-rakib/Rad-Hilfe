@@ -6,21 +6,18 @@ import { supportTimeSchema } from './supportTime.schema';
 
 const caseSchema = new Schema({
   caseNumber: { type: Number },
-  status: { type: String, required: false },
-  cyclist: { type: Schema.Types.ObjectId, ref: 'CyclistModel', required: true },
+  createdTime: { type: Date, default: new Date(), required: true },
+  status: { type: String, required: true },
+  cyclist: { type: Schema.Types.ObjectId, ref: 'Cyclist', required: true },
   technician: {
     type: Schema.Types.ObjectId,
-    ref: 'TechnicianModel',
-    required: false,
+    ref: 'Technician',
+    required: true,
   },
-  bicycle: {
-    type: Schema.Types.ObjectId,
-    ref: 'BicycleModel',
-    required: false,
-  },
+  bicycle: { type: Schema.Types.ObjectId, ref: 'Bicycle', required: true },
   type: { type: String, required: true },
   tags: [{ type: String }],
-  order: { type: Schema.Types.ObjectId, ref: 'OrderModel' },
+  order: { type: Schema.Types.ObjectId, ref: 'Order' },
   note: [noteSchema],
   supportTime: supportTimeSchema,
   interventionDetails: interventionDetailsSchema,

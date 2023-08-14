@@ -7,17 +7,14 @@ import {
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
-import {
-  findSubpartTechnician,
-  findTechnicianById,
-} from '../../models/technician/technician.query';
+import { findSubpartTechnician } from '../../models/technician/technician.query';
 import { findOrderById } from '../../models/order/order.query';
 import { Types } from '../../models/database';
 
 const createPassiveCase = async (req: Request, res: Response) => {
   console.log(req.body);
   try {
-    const { type, tags, note, supportTime, interventionDetails, videoURL } =
+    const { type, tags, note, supportTime, interventionDetails, orderId } =
       req.body;
 
     const token = req.cookies.accessToken;
@@ -30,17 +27,12 @@ const createPassiveCase = async (req: Request, res: Response) => {
         return res.status(404).send('Cyclist not found.');
       }
 
-      const orderLength = cyclist.orders?.length;
-      let orderId;
-      if (orderLength! > 0) {
-        orderId = cyclist.orders![orderLength! - 1];
-      }
-
       const order = await findOrderById(new Types.ObjectId(orderId));
+
       if (order) {
-        console.log(order);
         const subparts = order.bicycleParts;
-        const technicianId = await findSubpartTechnician(subparts);
+        const technician = await findSubpartTechnician(subparts);
+        const technicianId = technician?._id;
 
         const newCase = {
           cyclist: cyclist._id,
@@ -53,15 +45,20 @@ const createPassiveCase = async (req: Request, res: Response) => {
           tags,
           note,
           interventionDetails,
-          videoURL,
           supportTime,
         };
 
         const createdCase = await createNewCase(newCase);
-        cyclist.cases?.push(createdCase._id);
-        await cyclist.save();
-        res.status(200).send(createdCase);
-        return;
+
+        if (createdCase) {
+          cyclist.cases?.push(createdCase._id);
+          await cyclist.save();
+          technician?.cases?.push(createdCase._id);
+          await technician?.save();
+
+          res.status(200).send(createdCase);
+          return;
+        }
       }
     }
     return res.status(401).send('Unauthorized');
@@ -94,9 +91,9 @@ const createActiveCase = async (req: Request, res: Response) => {
 
       const order = await findOrderById(new Types.ObjectId(orderId));
       if (order) {
-        console.log(order);
         const subparts = order.bicycleParts;
-        const technicianId = await findSubpartTechnician(subparts);
+        const technician = await findSubpartTechnician(subparts);
+        const technicianId = technician?._id;
 
         const newCase = {
           cyclist: cyclist._id,
@@ -114,10 +111,12 @@ const createActiveCase = async (req: Request, res: Response) => {
         };
 
         const createdCase = await createNewCase(newCase);
-        cyclist.cases?.push(createdCase._id);
-        await cyclist.save();
-        res.status(200).send(createdCase);
-        return;
+        if (createdCase) {
+          cyclist.cases?.push(createdCase._id);
+          await cyclist.save();
+          res.status(200).send(createdCase);
+          return;
+        }
       }
     }
     return res.status(401).send('Unauthorized');

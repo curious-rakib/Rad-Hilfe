@@ -5,7 +5,6 @@ moment().format();
 
 import {
   createBicycle,
-  findBicycleById,
   findBicycleHealthById,
   getAllDamagedParts,
   getBicycleById,
@@ -15,7 +14,6 @@ import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { addBicycle } from '../../models/cyclist/cyclist.query';
 
-import { bicycleHealthAlgorithm } from '../../utilities/bicycleHealth.algorithm';
 import Subparts from '../../models/bicycle/subparts.json';
 
 const setUpBicycle = async (req: Request, res: Response) => {
@@ -61,10 +59,9 @@ const setUpBicycle = async (req: Request, res: Response) => {
 
     const token = req.cookies.accessToken;
     const session: SessionData | undefined = getSession(token);
-    if (session) {
+    if (session && createdBicycle) {
       const bicycleId = new Types.ObjectId(createdBicycle!._id);
       await addBicycle(session.userEmail, bicycleId);
-      await bicycleHealthAlgorithm();
       res.status(201).send(createdBicycle);
       return;
     }
@@ -169,8 +166,6 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
 const bicycleDamagedPart = async (req: Request, res: Response) => {
   try {
     const bicycleId = req.params.id;
-    // console.log(req.params.id);
-    // console.log('bicycleId', bicycleId);
     if (!bicycleId) {
       res.status(401).send('Failed to find bicycle!');
       return;
@@ -179,20 +174,31 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
     const damagedParts = await getAllDamagedParts(
       new Types.ObjectId(bicycleId)
     );
-    // console.log(damagedParts);
 
     if (damagedParts) {
-      //console.log('damagedParts from server', damagedParts);
-      // const updatedDamagePartsInfo = damagedParts.map((part) => {
-      //   const newInfo = {
-      //     _id: part.bicycleParts.subpart,
-      //     name: Subparts.filter((subpart) => {}),
-      //   };
+      const updatedDamagePartsInfo = damagedParts.map((part) => {
+        const info = Subparts.filter(
+          (subpart) => subpart._id === String(part.subpart)
+        );
 
-      //   part.bicycleParts.subpart;
-      // });
+        const newInfo = {
+          _id: part.subpart,
+          name: info[0].name,
+          price: info[0].price,
+          category: info[0].category,
+          plan: info[0].plan,
+          health: part.health,
+          lastMaintained: part.lastMaintained,
+        };
 
-      res.status(200).send(damagedParts);
+        return newInfo;
+      });
+
+      const newDamagedParts = updatedDamagePartsInfo.filter(
+        (part) => part.health < 30
+      );
+
+      res.status(200).send(newDamagedParts);
       return;
     }
   } catch (error) {

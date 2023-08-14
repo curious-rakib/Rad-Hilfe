@@ -265,12 +265,11 @@ const availableSupportTime = async (req: Request, res: Response) => {
         return res.status(404).send('Cyclist not found.');
       }
 
-      const technicianId = await findSubpartTechnician(subparts);
-      const technician = await findTechnicianById(new Types.ObjectId(technicianId));
+      const technician = await findSubpartTechnician(subparts);
 
-      if (technicianId && technician) {
+      if (technician?._id && technician) {
         console.log(technician);
-        const slots = await findAvailableSupportTimeForCyclist(String(technicianId));
+        const slots = await findAvailableSupportTimeForCyclist(String(technician._id));
 
         res.status(200).send({ technician: technician, slots });
         return;
