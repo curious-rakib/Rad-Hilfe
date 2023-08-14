@@ -16,33 +16,80 @@ import {
 
 import InputField from '../InputField';
 import SubmitButton from '../Button';
-import { useState } from 'react';
-function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setShow }: { setShow: Function }) {
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import mapboxgl from 'mapbox-gl';
+import { useDispatch } from 'react-redux';
+import { totalDistance } from '../../features/cyclist/commuteDetails-slice';
+import { useAppDispatch } from '../../app/hooks';
+interface Markar {
+    lat: number,
+    lng: number
 
+}
+function HomeOfficeAddressLayover({ onToggle, markars }: { onToggle: Function, markars: Markar[] }) {
+    const [homelocationName, setHomeLocationName] = useState('');
+    const [worklocationName, setWorkLocationName] = useState('');
+    // console.log('homeOfiice page', markars);
+    // console.log(mapboxgl.accessToken);
+
+
+
+
+    useEffect(() => {
+
+        const rGeocodingWork = async () => {
+
+            try {
+                if (markars) {
+                    const startCoordslat = markars[0].lat;
+
+                    const startCoordslng = markars[0].lng;
+
+
+
+
+                    const endCoordslat = markars[markars.length - 1].lat;
+                    const endCoordslng = markars[markars.length - 1].lng;
+                    const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${startCoordslng},${startCoordslat}.json?access_token=${mapboxgl.accessToken}`);
+                    const response2 = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${endCoordslng},${endCoordslat}.json?access_token=${mapboxgl.accessToken}`)
+
+                    setHomeLocationName(response.data.features[0].place_name)
+                    setWorkLocationName(response2.data.features[0].place_name)
+
+                }
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        rGeocodingWork();
+
+    }, [markars]);
+
+
+    const dispatch = useAppDispatch();
     const handleChange = () => {
-        // console.log('clcik from home');
-    };
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    };
+    const handleClick = () => {
+        const Distance = localStorage.getItem("totalDistance");
+        const numberTotalDistance = Number(Distance)
+
+
+
+        dispatch(totalDistance(numberTotalDistance))
+
+    }
+
 
     return (
         <Stack spacing={9}>
-            <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay />
-                <ModalContent h={100}>
-                    {/* <ModalHeader>Modal Title</ModalHeader> */}
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <p>
-                            Please,set a marker of your address
-                        </p>
-                    </ModalBody>
 
-                </ModalContent>
-            </Modal>
             <InputField
 
-
+                location={homelocationName}
                 id='home'
                 isRequired={true}
                 type='text'
@@ -53,18 +100,9 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
                 color="accent"
                 onToggle={onToggle} borderRadius={''}
             />
-            {/* <Button
-                onClick={onOpen}
-                variant={'unstyled'}
-                color={'gray.50'}
-                opacity={'60%'}
-                border={'2px solid'}
-                borderColor={'accent'}
-                rounded={'xl'}
-            >
-                Home Address
-            </Button> */}
+
             <InputField
+                location={markars.length > 1 ? worklocationName : ''}
                 borderRadius='10px'
                 id='work'
                 isRequired={true}
@@ -79,6 +117,7 @@ function HomeOfficeAddressLayover({ onToggle }: { onToggle: Function }, { setSho
 
             <Center mt={-3}>
                 <SubmitButton
+                    onClick={handleClick}
                     loadingText='Submitting'
                     size='lg'
                     bg='accent'

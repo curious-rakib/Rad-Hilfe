@@ -35,7 +35,7 @@ export const bicycleDamagedPart = async (id: any) => {
     );
 
     const damagedParts = response.data;
-    // console.log('damagedParts from service', damagedParts);
+    //console.log('damagedParts from service', damagedParts);
     return damagedParts;
   } catch (error) {
     console.log(error);
@@ -53,7 +53,7 @@ export const bicycle = async (id: any) => {
     });
 
     const bicycle = response.data;
-    // console.log('bicycle from service', bicycle);
+    console.log('bicycle from service', bicycle);
     return bicycle;
   } catch (error) {
     console.log(error);

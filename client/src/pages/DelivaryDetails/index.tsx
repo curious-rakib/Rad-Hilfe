@@ -88,15 +88,18 @@ const DelivaryDetails = () => {
     };
 
     const totalPrice = useAppSelector((state) => state.order.totalPrice)
-    let caseforPassive = useAppSelector((state) => state.order);
+    let orderForCase = useAppSelector((state) => state.order);
 
 
     const handleClick = () => {
 
 
         const fetchData = async () => {
-            const passiveCase = await order(caseforPassive);
-            console.log('passiveCase', passiveCase);
+            const orderCase = await order(orderForCase);
+            const orderId = orderCase._id;
+            localStorage.setItem("orderId", orderId)
+
+            // console.log('passiveCase', orderCase);
         }
         fetchData();
     }

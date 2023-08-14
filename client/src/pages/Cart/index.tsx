@@ -63,6 +63,7 @@ const Cart = () => {
         const fetchData = async () => {
             try {
                 const bikeId = localStorage.getItem('bikeID');
+                console.log(bikeId);
                 const damagedPartsBiCycle = await bicycleDamagedPart(bikeId);
                 console.log('damagedPartsBiCycle from cart page', damagedPartsBiCycle);
                 const dataObj = damagedPartsBiCycle[0].bicycleParts.map((eachBicycle: any) => ({

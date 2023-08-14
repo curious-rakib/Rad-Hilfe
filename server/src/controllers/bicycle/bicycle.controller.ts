@@ -179,7 +179,7 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
     const damagedParts = await getAllDamagedParts(
       new Types.ObjectId(bicycleId)
     );
-    //console.log(damagedParts);
+    // console.log(damagedParts);
 
     if (damagedParts) {
       //console.log('damagedParts from server', damagedParts);

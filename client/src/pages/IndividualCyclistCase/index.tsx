@@ -4,15 +4,17 @@ import { Button } from "@chakra-ui/react";
 
 
 const IndividualCyclistCase = () => {
+    const individualPassiveCase = localStorage.getItem('passiveCase');
+    const individualCase = (JSON.parse(individualPassiveCase!));
     return (
         <Box color={'accent'} p={7} mt={4}>
             <Stack spacing={1}>
-                <Text fontWeight={'bold'} fontSize={'xl'}>Case #2986 | Active</Text>
+                <Text fontWeight={'bold'} fontSize={'xl'}>Case #2986 | {individualCase.type}</Text>
                 <Flex
                     alignItems={'center'}
                     gap={5}
                 >
-                    <Text>Status: Ongoing</Text>
+                    <Text>Status: {individualCase.status}</Text>
                     <Circle size='10px' bg='#17C05B' color='#17C05B'>
 
                     </Circle>

@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 const PayPalButton = () => {
+    const passive = localStorage.getItem("passive");
+    const parsedPassive = JSON.parse(passive!);
+    console.log(parsedPassive)
+
+
     const createOrder = async () => {
         try {
             const response = await axios.post(
-                'http://localhost:4000/api/create-payment'
+                'http://localhost:4000/api/create-payment', parsedPassive
             );
             console.log(response);
             const approvalUrl = response.data.approval_url;

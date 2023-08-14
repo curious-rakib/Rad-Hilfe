@@ -2,9 +2,10 @@ import { Box, Button, Center, Flex, Heading, Stack, Text, Textarea } from '@chak
 import { useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
 import React from 'react';
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import PaypalButton from '../../components/PaypalButton';
+import { useAppSelector } from '../../app/hooks';
 interface Slots {
     id: any;
     day: string;
@@ -12,7 +13,9 @@ interface Slots {
     chosen: boolean;
 }
 const SetUpExpertCall = () => {
+    const navigate = useNavigate();
     const [slots, setSlots] = useState<Slots[]>([]);
+    const [selectedSlot, setSelectedSlot] = useState({ slot: '' })
     let [value, setValue] = React.useState('')
 
     let handleInputChange = (e: { target: { value: any; }; }) => {
@@ -51,14 +54,35 @@ const SetUpExpertCall = () => {
     }, []);
     const handleSlotClick = (slot: Slots) => {
 
-        setSlots((prevSlots) =>
-            prevSlots.map((s) => ({
+        setSlots((prevSlots) => {
+            const updatedSlots = prevSlots.map((s) => ({
                 ...s,
-                chosen: s.id === slot.id ? true : false
+                chosen: s.id === slot.id ? true : false,
             }))
-        );
+            const chosenTime = updatedSlots.filter(item => item.chosen).map(item => item.time);
+            const slotObj = { slot: chosenTime[0] };
+
+            setSelectedSlot(slotObj);
+
+            return updatedSlots;
+        });
+
+
     };
-    console.log(slots);
+
+    const totalPrice = useAppSelector((state) => state.order.totalPrice);
+    const orderId = localStorage.getItem("orderId");
+    const passiveDetails = {
+        totalPrice: totalPrice,
+        orderId: orderId,
+        supportTime: selectedSlot.slot
+    }
+    // console.log(passiveDetails);
+    localStorage.setItem("passive", JSON.stringify(passiveDetails))
+
+
+
+
     return (
         <Box px={4}>
             <Stack spacing={6} mt={20}>
