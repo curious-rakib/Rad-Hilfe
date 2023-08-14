@@ -2,28 +2,38 @@ import { Box, Flex, Text, VStack, Image } from '@chakra-ui/react';
 import TableComponent from '../../../../components/Table';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
 import './cases.styles.css';
-import { cases } from '../Dummy Data/dummyCaseData';
+// import { cases } from '../Dummy Data/dummyCaseData';
 import SearchBox from '../../../../components/Search Box';
 import FilterComponent from '../../../../components/Filter';
 import PaginationComponent from '../../../../components/Pagination';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Case } from '../Agenda';
 
 const Cases = () => {
+	const [cases, setCases] = useState<Case[]>([]);
 	const [filteredCases, setFilteredCases] = useState(cases);
 
 	const handleStatusFilter = (selectedStatus: string) => {
-		const filteredData = cases.filter((caseItem) => {
-			return selectedStatus.includes(caseItem['Status']);
-		});
-
-		setFilteredCases(filteredData);
+		// const filteredData = cases.filter((caseItem: Case) => {
+		// 	return selectedStatus.includes(caseItem[status]);
+		// });
+		// setFilteredCases(filteredData);
 	};
 	const handleTypeFilter = (selectedType: string) => {
-		const filteredData = cases.filter((caseItem) => {
-			return selectedType.includes(caseItem['Case Type']);
-		});
-		setFilteredCases(filteredData);
+		// const filteredData = cases.filter((caseItem: Case) => {
+		// 	return selectedType.includes(caseItem[type]);
+		// });
+		// setFilteredCases(filteredData);
 	};
+
+	useEffect(() => {
+		const result = localStorage.getItem('cases');
+		if (result) {
+			const parsedResult = JSON.parse(result);
+			setCases(parsedResult);
+		}
+	}, []);
 
 	return (
 		<>
@@ -88,7 +98,7 @@ const Cases = () => {
 							/>
 						</Flex>
 					</Flex>
-					<TableComponent />
+					<TableComponent cases={cases} />
 				</Box>
 				<Box
 					h={'6vh'}

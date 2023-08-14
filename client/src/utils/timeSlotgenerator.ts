@@ -8,7 +8,7 @@ export function timeSlotGenerator(start: number, end: number) {
 		if (hour == 11) continue;
 		const slotStartTime = `${hour.toString().padStart(2, '0')}:00`;
 		const slotEndTime = `${(hour + 1).toString().padStart(2, '0')}:00`;
-		const slotName = String.fromCharCode(65 + hour - 7); // A, B, C, ...
+		const slotName = String.fromCharCode(65 + hour - 7);
 		const slotTime = `${slotStartTime}-${slotEndTime}`;
 
 		timeSlots.push({

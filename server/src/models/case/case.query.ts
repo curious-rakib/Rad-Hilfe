@@ -5,7 +5,22 @@ import { findTechnicianByEmail, findTechnicianById } from '../technician/technic
 import { Types } from '../database';
 
 const createNewCase = async (item: Case) => {
-	return await CaseModel.create(item);
+	try {
+		const newCase = await CaseModel.create(item);
+		if (newCase) {
+			const updatedCase = await CaseModel.findByIdAndUpdate(
+				{ _id: newCase._id },
+				{
+					$inc: {
+						caseNumber: 1,
+					},
+				}
+			);
+			return updatedCase;
+		}
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 const findAllCases = async (email: string) => {
@@ -22,21 +37,33 @@ const findAllCases = async (email: string) => {
 			},
 			{
 				$lookup: {
-					from: 'cyclists', // Collection name for cyclists
+					from: 'cyclists',
 					localField: 'cyclist',
 					foreignField: '_id',
 					as: 'cyclistInfo',
 				},
 			},
 			{
-				$unwind: '$cyclistInfo', // Unwind the array
+				$unwind: '$cyclistInfo',
 			},
 			{
 				$project: {
 					_id: 1,
 
-					// ... other fields you want to include
-					cyclistName: '$cyclistInfo.name', // Extract cyclist name
+					status: 1,
+					cyclist: 1,
+					technician: 1,
+
+					bicycle: 1,
+					type: 1,
+					tags: 1,
+					order: 1,
+					note: 1,
+					supportTime: 1,
+					interventionDetails: 1,
+					videoURL: 1,
+
+					clientName: '$cyclistInfo.name',
 				},
 			},
 		]);

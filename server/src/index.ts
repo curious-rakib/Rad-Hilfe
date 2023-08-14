@@ -11,7 +11,7 @@ dotenv.config({ path: __dirname + '/.env' });
 const app: Application = express();
 
 const corsConfig = {
-	origin: 'http://localhost:5174',
+	origin: 'http://localhost:5173',
 	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	credentials: true,
 };

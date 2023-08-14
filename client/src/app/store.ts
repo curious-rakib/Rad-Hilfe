@@ -5,9 +5,10 @@ import commuteSliceReducer from '../features/cyclist/commuteDetails-slice';
 import recreationalSliceReducer from '../features/cyclist/recreationalCommute-slice';
 import bikeInputSliceReducer from '../features/cyclist/bikeDetails-slice';
 import rootSetBikeReducer from '../features/cyclist/setUpBike-slice';
-import technicianSlice from '../features/technician/slices/technicianSlice';
+import technicianSlice, { technician } from '../features/technician/slices/technicianSlice';
 import { technicianApi } from '../features/technician/api/technicianApi';
 import orderSliceReducer from '../features/cyclist/order-slice';
+import technicianCasesSlice from '../features/technician/slices/technicianCasesSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
 		rootSetBikeReducer: rootSetBikeReducer,
 		order: orderSliceReducer,
 		technician: technicianSlice,
+		technicianCases: technicianCasesSlice,
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(technicianApi.middleware),
 });

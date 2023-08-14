@@ -1,11 +1,18 @@
 import { Box, Text, Flex } from '@chakra-ui/react';
+import moment from 'moment';
 
 const caseBoxColor: Record<string, string> = {
 	Active: 'accent',
 	Passive: 'third',
 };
 
-const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date: string; clientName: string; time: string }) => {
+const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date: Date; clientName: string; time: string }) => {
+	const formattedDate = moment(date).format('MMMM Do, YYYY');
+	const [startTimeStr, endTimeStr] = time.split('-');
+	const startTime = moment(startTimeStr.trim(), 'HH:mm').format('h:mm A');
+	const endTime = moment(endTimeStr.trim(), 'HH:mm').format('h:mm A');
+
+	const formattedTime = `${startTime} - ${endTime}`;
 	return (
 		<>
 			<Box
@@ -22,7 +29,7 @@ const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date:
 						fontWeight={'600'}>
 						Case Type: {caseType}
 					</Text>
-					<Text>{date}</Text>
+					<Text>{formattedDate}</Text>
 				</Flex>
 				<Flex
 					justify={'space-between'}
@@ -32,7 +39,7 @@ const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date:
 						fontSize={'1rem'}>
 						Call with {clientName}
 					</Text>
-					<Text mt={'1rem'}> {time}</Text>
+					<Text mt={'1rem'}> {formattedTime}</Text>
 				</Flex>
 			</Box>
 		</>
