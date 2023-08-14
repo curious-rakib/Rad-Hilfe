@@ -7,11 +7,14 @@ import SearchBox from '../../../../components/Search Box';
 import FilterComponent from '../../../../components/Filter';
 import PaginationComponent from '../../../../components/Pagination';
 import { useEffect, useState } from 'react';
-
 import { Case } from '../Agenda';
 import moment from 'moment';
+import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
+import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
+import { useAppDispatch } from '../../../../app/hooks';
 
 const Cases = () => {
+	const dispatch = useAppDispatch();
 	const [cases, setCases] = useState<Case[]>([]);
 	const [filteredCases, setFilteredCases] = useState(cases);
 
@@ -29,22 +32,18 @@ const Cases = () => {
 	};
 
 	useEffect(() => {
-		const result = localStorage.getItem('cases');
-		if (result) {
-			const parsedResult = JSON.parse(result);
-			console.log('Cases page:', parsedResult);
-			setCases(parsedResult);
-
-			const filteredCases = cases.map((Case) => ({
-				'Case No': `#${Case.caseNumber}`,
-				'Case Type': Case.type,
-				Status: Case.status,
-				'Client Name': Case.clientName,
-				'Date Created': moment(Case.supportTime.timeStamp).format('MM-DD-YYYY'),
-				'Bicycle Health': Math.floor(Math.random() * 100),
-				Action: null,
-			}));
-		}
+		const fetchCaseData = async () => {
+			try {
+				const result = await TechnicianGetAllCasesService();
+				console.log(result);
+				dispatch(createCases(result));
+				localStorage.setItem('cases', result);
+				setCases(result);
+			} catch (error) {
+				console.error('Error while fetching!');
+			}
+		};
+		fetchCaseData();
 	}, []);
 
 	return (
@@ -110,7 +109,7 @@ const Cases = () => {
 							/>
 						</Flex>
 					</Flex>
-					<TableComponent cases={cases} />
+					<TableComponent />
 				</Box>
 				<Box
 					h={'6vh'}

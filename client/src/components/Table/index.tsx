@@ -3,11 +3,10 @@ import './table.styles.css';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
-// import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData';
+import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData';
 import { Case } from '../../pages/Technician/Dashboard/Agenda';
 
-const TableComponent = ({ cases }: { cases: any[] }) => {
-	console.log('Table cases:', cases);
+const TableComponent = () => {
 	return (
 		<>
 			<TableContainer

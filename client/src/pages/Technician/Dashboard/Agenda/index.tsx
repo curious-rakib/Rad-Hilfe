@@ -7,7 +7,7 @@ import Casebox from '../../../../components/Case Box';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
 import { ObjectId } from 'mongoose';
 import { useAppDispatch } from '../../../../app/hooks';
-import { createCase } from '../../../../features/technician/slices/technicianCasesSlice';
+import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
 
 // const caseData = [
 // 	{
@@ -111,7 +111,7 @@ const Agenda = () => {
 			try {
 				const result = await TechnicianGetAllCasesService();
 
-				dispatch(createCase(result));
+				dispatch(createCases(result));
 				localStorage.setItem('cases', result);
 				setCaseData(result);
 			} catch (error) {

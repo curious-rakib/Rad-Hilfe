@@ -32,11 +32,11 @@ const technicianCasesSlice = createSlice({
 	name: 'technicianCases',
 	initialState,
 	reducers: {
-		createCase: (state, action) => {
-			return action.payload;
+		createCases: (state, action) => {
+			return [...action.payload];
 		},
 	},
 });
 
-export const { createCase } = technicianCasesSlice.actions;
+export const { createCases } = technicianCasesSlice.actions;
 export default technicianCasesSlice.reducer;
