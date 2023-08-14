@@ -7,6 +7,7 @@ import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData
 import { Case } from '../../pages/Technician/Dashboard/Agenda';
 
 const TableComponent = () => {
+	// const cases=use
 	return (
 		<>
 			<TableContainer

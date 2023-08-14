@@ -54,8 +54,9 @@ const createPassiveCase = async (req: Request, res: Response) => {
 					return;
 				}
 			}
+			return res.status(401).send('Order Not Found!');
 		}
-		return res.status(401).send('Unauthorized');
+		return res.status(401).send('Session Not Found!');
 	} catch (error) {
 		console.error('Creating case failed!', error);
 		res.status(501).send('Creating case failed!');
