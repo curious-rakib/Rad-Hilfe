@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { authenticator } from '../../middlewares/authenticator';
 import { cyclistAuthorizer } from '../../middlewares/authorizer';
-import { generator } from '../../middlewares/generator';
 
 import * as cyclistController from '../../controllers/cyclist/cyclist.controller';
 import * as bicycleController from '../../controllers/bicycle/bicycle.controller';
@@ -12,7 +11,6 @@ import * as technicianController from '../../controllers/technician/technician.c
 
 const cyclistRouter = Router();
 
-cyclistRouter.use(generator);
 // public
 cyclistRouter.post('/sign-up', cyclistController.signUp);
 cyclistRouter.post('/sign-in', cyclistController.signIn);
@@ -21,29 +19,22 @@ cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 
 // private router
-cyclistRouter.use(authenticator, cyclistAuthorizer, generator);
+cyclistRouter.use(authenticator, cyclistAuthorizer);
 
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
 cyclistRouter.put('/set-up-address-edit', cyclistController.setUpAddressEdit);
 cyclistRouter.post('/weather-data', cyclistController.weatherData);
-// cyclistRouter.post('/api/create-payment', paymentController.payment);
 cyclistRouter.get('/cyclist-name', cyclistController.cyclistName);
 cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
-cyclistRouter.put(
-  '/set-up-bicycle-edit/:id',
-  bicycleController.setUpBicycleEdit
-);
+cyclistRouter.put('/set-up-bicycle-edit/:id', bicycleController.setUpBicycleEdit);
 cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth);
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
-cyclistRouter.get(
-  '/bicycle-damaged-part/:id',
-  bicycleController.bicycleDamagedPart
-);
+cyclistRouter.get('/bicycle-damaged-part/:id', bicycleController.bicycleDamagedPart);
 
 // order
 cyclistRouter.get('/get-plan', orderController.getPlan);

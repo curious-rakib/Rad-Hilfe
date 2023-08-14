@@ -1,19 +1,18 @@
 import { Types } from '../models/database';
 
 interface Case {
-	caseNumber?: number;
-	createdTime?: Date;
-	status: string;
-	cyclist: Types.ObjectId | undefined;
-	technician: Types.ObjectId | undefined;
-	bicycle: Types.ObjectId | undefined;
-	type: string;
-	tags: string[];
-	order?: Types.ObjectId;
-	note?: Note[];
-	supportTime: SupportTime;
-	interventionDetails: InterventionDetails;
-	videoURL: string;
+  caseNumber?: number;
+  status: string;
+  cyclist: Types.ObjectId | undefined;
+  technician: Types.ObjectId | undefined;
+  bicycle: Types.ObjectId | undefined;
+  type: string;
+  tags: string[];
+  order?: Types.ObjectId;
+  note?: Note[];
+  supportTime: SupportTime;
+  interventionDetails?: InterventionDetails;
+  videoURL?: string;
 }
 
 interface Note {

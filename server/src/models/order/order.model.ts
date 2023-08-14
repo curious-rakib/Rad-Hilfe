@@ -2,7 +2,7 @@ import { Order } from '../../interfaces/order.interface';
 import { Schema, Types, model } from '../database';
 
 const orderSchema = new Schema({
-  bicycleParts: { type: [Types.ObjectId], ref: 'SubpartModel', required: true },
+  bicycleParts: { type: [Types.ObjectId], ref: 'Subpart', required: true },
   deliveryAddress: { type: String, required: true },
   contactNumber: { type: String, required: true },
   note: { type: String },

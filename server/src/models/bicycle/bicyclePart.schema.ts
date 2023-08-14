@@ -3,7 +3,7 @@ import { Schema, Types } from '../database';
 const bicyclePartsSchema = new Schema({
   subpart: {
     type: Types.ObjectId,
-    ref: 'SubpartModel',
+    ref: 'Subpart',
   },
   health: {
     type: Number,
