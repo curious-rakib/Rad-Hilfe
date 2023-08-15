@@ -1,5 +1,5 @@
 import { SearchIcon } from '@chakra-ui/icons';
-import { Input, InputGroup, InputLeftElement, InputRightElement, Spinner } from '@chakra-ui/react';
+import { Flex, Input, InputGroup, InputLeftElement, InputRightElement, Spinner } from '@chakra-ui/react';
 import { useState } from 'react';
 import './search.styles.css';
 
@@ -10,7 +10,14 @@ const SearchBox = () => {
 		setInput('');
 	};
 	return (
-		<div className="search-container">
+		<Flex
+			alignItems={'center'}
+			justify={'flex-start'}
+			p={'10px'}
+			gap={'10px'}
+			w={'350px'}
+			borderRadius={'15px'}
+			bg={' rgba(217, 217, 217, 0.01)'}>
 			<InputGroup>
 				<InputLeftElement pointerEvents="none">
 					<SearchIcon
@@ -20,7 +27,7 @@ const SearchBox = () => {
 				</InputLeftElement>
 				<Input
 					type="text"
-					placeholder="Search Cases..."
+					placeholder="Search Cases By Name..."
 					focusBorderColor="secondary"
 					onChange={handleInputChange}
 				/>
@@ -34,7 +41,7 @@ const SearchBox = () => {
 					</InputRightElement>
 				)}
 			</InputGroup>
-		</div>
+		</Flex>
 	);
 };
 

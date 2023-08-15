@@ -11,11 +11,12 @@ import moment from 'moment';
 import { extractCaseData } from '../../pages/Technician/Dashboard/Cases';
 
 const TableComponent = () => {
-	const dispatch = useAppDispatch();
-	const allCases = useAppSelector((state: any) => state.technicianCases);
-	const cases = extractCaseData(allCases);
+	// const dispatch = useAppDispatch();
+	// const allCases = useAppSelector((state: any) => state.technicianCases);
+	// const cases = extractCaseData(allCases);
 
-	dispatch(createPresentableCases(cases));
+	// dispatch(createPresentableCases(cases));
+	const cases = useAppSelector((state: any) => state.presentableCases);
 
 	return (
 		<>
@@ -57,7 +58,7 @@ const TableComponent = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{cases.map((Case, index) => (
+						{cases.map((Case: any, index: number) => (
 							<Tr key={index}>
 								{Object.values(Case).map((value, index) => {
 									if (index !== 0) {

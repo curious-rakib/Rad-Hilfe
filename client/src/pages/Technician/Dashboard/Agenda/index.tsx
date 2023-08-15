@@ -12,7 +12,7 @@ import { createCases } from '../../../../features/technician/slices/technicianCa
 export interface Case {
 	_id?: string;
 	caseNumber?: number;
-	createdTime?: Date;
+	createdTime: Date;
 	status: string;
 	cyclist: Cyclist | ObjectId | undefined;
 	technician: ObjectId | undefined;
@@ -98,7 +98,7 @@ const Agenda = () => {
 				const result = await TechnicianGetAllCasesService();
 
 				dispatch(createCases(result));
-				localStorage.setItem('cases', result);
+
 				setCaseData(result);
 			} catch (error) {
 				console.error('Error while fetching!');
@@ -197,7 +197,7 @@ const Agenda = () => {
 									<Casebox
 										key={index}
 										caseType={Case.type}
-										date={Case.createdTime!}
+										date={Case.createdTime}
 										clientName={Case.clientName}
 										time={Case.supportTime.slotTime}
 									/>

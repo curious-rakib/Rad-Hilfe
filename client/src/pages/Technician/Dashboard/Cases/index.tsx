@@ -1,7 +1,7 @@
 import { Box, Flex, Text, VStack, Image } from '@chakra-ui/react';
 import TableComponent from '../../../../components/Table';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
-import './cases.styles.css';
+
 // import { cases } from '../Dummy Data/dummyCaseData';
 import SearchBox from '../../../../components/Search Box';
 import FilterComponent from '../../../../components/Filter';
@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { Case } from '../Agenda';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
 import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch } from '../../../../app/hooks';
 import { createPresentableCases } from '../../../../features/technician/slices/casesPresentationSlice';
 import moment from 'moment';
 
@@ -33,7 +33,7 @@ const Cases = () => {
 
 	const handleStatusFilter = (selectedStatus: string) => {
 		if (selectedStatus.length === 0) {
-			dispatch(createPresentableCases(cases));
+			dispatch(createPresentableCases(extractCaseData(cases)));
 			return;
 		}
 
@@ -41,13 +41,18 @@ const Cases = () => {
 			return caseItem.status === selectedStatus;
 		});
 		console.log(filteredData);
-		dispatch(createPresentableCases(filteredData));
+		dispatch(createPresentableCases(extractCaseData(filteredData)));
 	};
 	const handleTypeFilter = (selectedType: string) => {
-		// const filteredData = cases.filter((caseItem: Case) => {
-		// 	return selectedType.includes(caseItem[type]);
-		// });
-		// setFilteredCases(filteredData);
+		if (selectedType.length === 0) {
+			dispatch(createPresentableCases(extractCaseData(cases)));
+			return;
+		}
+		const filteredData = cases.filter((caseItem: Case) => {
+			return caseItem.type === selectedType;
+		});
+		console.log(filteredData);
+		dispatch(createPresentableCases(extractCaseData(filteredData)));
 	};
 
 	useEffect(() => {
@@ -56,7 +61,8 @@ const Cases = () => {
 				const result = await TechnicianGetAllCasesService();
 				// console.log(result);
 				dispatch(createCases(result));
-				localStorage.setItem('cases', result);
+				dispatch(createPresentableCases(extractCaseData(result)));
+
 				setCases(result);
 			} catch (error) {
 				console.error('Error while fetching!');

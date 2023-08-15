@@ -11,6 +11,7 @@ import orderSliceReducer from '../features/cyclist/order-slice';
 import technicianCasesSlice from '../features/technician/slices/technicianCasesSlice';
 import casesPresentationSlice from '../features/technician/slices/casesPresentationSlice';
 import filterByStatusSlice from '../features/technician/slices/filterByStatusSlice';
+import filterByTypeSlice from '../features/technician/slices/filterByTypeSlice copy';
 
 export const store = configureStore({
 	reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
 		technicianCases: technicianCasesSlice,
 		presentableCases: casesPresentationSlice,
 		filterByStatus: filterByStatusSlice,
+		filterByType: filterByTypeSlice,
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(technicianApi.middleware),
 });
