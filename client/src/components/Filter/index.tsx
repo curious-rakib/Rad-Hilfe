@@ -1,6 +1,4 @@
-import { Box, Select } from '@chakra-ui/react';
-import './filter.styles.css';
-import { useAppDispatch } from '../../app/hooks';
+import { Select } from '@chakra-ui/react';
 
 const FilterComponent = ({ name, options, onChange }: { name: string; options: string[]; onChange: (newOption: string) => void }) => {
 	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

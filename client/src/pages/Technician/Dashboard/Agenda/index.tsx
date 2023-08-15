@@ -1,4 +1,4 @@
-import { Flex, Text, Image, Box, HStack, Stack, Heading, Divider, Center } from '@chakra-ui/react';
+import { Flex, Text, Image, Box, Heading, Divider, Center, Stack } from '@chakra-ui/react';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
 import AgendaCalendar from '../../../../components/React Big Calender';
 import moment from 'moment';
@@ -12,7 +12,7 @@ import { createCases } from '../../../../features/technician/slices/technicianCa
 export interface Case {
 	_id?: string;
 	caseNumber?: number;
-	createdTime: Date;
+	createdTime: Date | string;
 	status: string;
 	cyclist: Cyclist | ObjectId | undefined;
 	technician: ObjectId | undefined;
@@ -35,7 +35,7 @@ export interface Note {
 export interface SupportTime {
 	slotName: string;
 	slotTime: string;
-	timeStamp: Date;
+	timeStamp: Date | string;
 }
 export interface InterventionDetails {
 	firstCall: string | Date;

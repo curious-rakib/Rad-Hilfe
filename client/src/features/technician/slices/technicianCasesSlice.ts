@@ -5,6 +5,7 @@ const initialState: Case[] = [
 	{
 		_id: '',
 		caseNumber: 0,
+		createdTime: '',
 		status: '',
 		cyclist: undefined,
 		technician: undefined,
@@ -16,7 +17,7 @@ const initialState: Case[] = [
 		supportTime: {
 			slotName: '',
 			slotTime: '',
-			timeStamp: new Date(),
+			timeStamp: '',
 		},
 		interventionDetails: {
 			firstCall: '',
