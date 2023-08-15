@@ -1,4 +1,5 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
+import VideoContainer from '../../../../components/Video Container';
 
 const IndividualCase = () => {
 	return (
@@ -32,12 +33,12 @@ const IndividualCase = () => {
 			</Flex>
 			<Box m={'1rem'}>
 				<Flex>
-					<Box flex={0.5}>
-						<Center>
-							<Box> Zaber</Box>
-						</Center>
+					<Box
+						flex={0.5}
+						justifyContent={'center'}>
+						<VideoContainer />
 					</Box>
-					<Box flex={0.5}>Ahmed</Box>
+					<Box flex={0.5}>Right Side</Box>
 				</Flex>
 			</Box>
 		</Box>
