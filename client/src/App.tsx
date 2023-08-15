@@ -49,9 +49,7 @@ function App() {
 					<Route
 						path="/cyclist-case"
 						element={<CyclistTabCases />}></Route>
-					<Route
-						path="/individual"
-						element={<IndividualCyclistCase />}></Route>
+
 
 					<Route
 						path="/setup-daily-route"
@@ -73,7 +71,7 @@ function App() {
 				<Routes>
 					<Route element={<Navbar theme="secondary" />}>
 						<Route
-							path="/individual-cyclist-case"
+							path="/individual-cyclist-case/:id"
 							element={<IndividualCyclistCase />}></Route>
 
 						<Route

@@ -142,6 +142,7 @@ const getAllCases = async (req: Request, res: Response) => {
 };
 
 const getCaseById = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const caseId: string = req.params.id;
     if (!caseId) {
