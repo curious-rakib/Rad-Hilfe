@@ -92,6 +92,7 @@ const TechnicianSignIn = () => {
 								size={'md'}
 								color={'secondary'}
 								text={'Sign In'}
+								fontWeight={''}
 							/>
 						</>
 					</Flex>

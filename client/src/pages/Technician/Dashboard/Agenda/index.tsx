@@ -9,71 +9,14 @@ import { ObjectId } from 'mongoose';
 import { useAppDispatch } from '../../../../app/hooks';
 import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
 
-// const caseData = [
-// 	{
-// 		caseType: 'Active',
-// 		date: 'Aug 13, 2023',
-// 		clientName: 'Mr. Heimdall',
-// 		time: '2:00-3:00',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 14, 2023',
-// 		clientName: 'Ms. Freyja',
-// 		time: '10:00-11:30',
-// 	},
-// 	{
-// 		caseType: 'Active',
-// 		date: 'Aug 15, 2023',
-// 		clientName: 'Mr. Odin',
-// 		time: '15:30-16:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// 	{
-// 		caseType: 'Passive',
-// 		date: 'Aug 19, 2023',
-// 		clientName: 'Mr. Thor',
-// 		time: '18:30-20:30',
-// 	},
-// ];
-
 export interface Case {
 	_id?: string;
 	caseNumber?: number;
 	createdTime?: Date;
 	status: string;
-	cyclist: ObjectId | undefined;
+	cyclist: Cyclist | ObjectId | undefined;
 	technician: ObjectId | undefined;
-	bicycle: ObjectId | undefined;
+	bicycle: ObjectId | Bicycle | undefined;
 	type: string;
 	tags: string[];
 	order?: ObjectId;
@@ -98,6 +41,49 @@ export interface InterventionDetails {
 	firstCall: string | Date;
 	followUpCall: string | Date;
 	supportQuality: Number;
+}
+
+export interface Cyclist {
+	bicycle: string | ObjectId;
+	cases: Case[];
+	email: string;
+	homeAddress: string;
+	name: string;
+	orders: string[] | ObjectId[];
+	password: string;
+	phone: string;
+	plan: string;
+	role: string;
+	workAddress: string;
+	__v: number;
+	_id: ObjectId | string;
+}
+
+export interface Bicycle {
+	bicycleParts: any[];
+	brand: string;
+	dailyCommute: {
+		days: string[];
+		unpavedRoad: number;
+		totalDistance: number;
+		_id: string | ObjectId;
+	};
+	isRevised: boolean;
+	model: string;
+	purchaseMonth: number;
+	purchaseYear: number;
+	recreationalCommute: {
+		days: string[];
+		activityType: string[];
+		lengthOfRide: number;
+		_id: string | ObjectId;
+	};
+	revisionMonth: number | null;
+	revisionYear: number | null;
+	serialNumber: string;
+	totalHealth: number;
+	__v: number;
+	_id: string | ObjectId;
 }
 
 const Agenda = () => {

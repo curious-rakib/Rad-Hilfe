@@ -40,7 +40,7 @@ const findAllCases = async (email: string) => {
 				populate: 'bicycleParts',
 			});
 		else
-			return await CaseModel.find({ technician: technician?._id }).populate({
+			return await CaseModel.find({ technician: technician?._id }).populate('cyclist').populate({ path: 'bicycle', populate: 'totalHealth' }).populate({
 				path: 'order',
 				populate: 'bicycleParts',
 			});

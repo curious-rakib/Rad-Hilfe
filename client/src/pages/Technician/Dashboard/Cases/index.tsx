@@ -8,21 +8,40 @@ import FilterComponent from '../../../../components/Filter';
 import PaginationComponent from '../../../../components/Pagination';
 import { useEffect, useState } from 'react';
 import { Case } from '../Agenda';
-import moment from 'moment';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
 import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
-import { useAppDispatch } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { createPresentableCases } from '../../../../features/technician/slices/casesPresentationSlice';
+import moment from 'moment';
+
+export const extractCaseData = (cases: Case[]) => {
+	return cases.map((caseItem: any) => ({
+		'Case Id': caseItem._id,
+		'Case No': `#${caseItem.caseNumber}`,
+		'Case Type': caseItem.type,
+		Status: caseItem.status,
+		'Client Name': caseItem.cyclist?.name,
+		'Date Created': moment(caseItem.createdTime).format('DD-MMM-YYYY'),
+		'Bicycle Health': caseItem.bicycle?.totalHealth,
+		Action: null,
+	}));
+};
 
 const Cases = () => {
 	const dispatch = useAppDispatch();
 	const [cases, setCases] = useState<Case[]>([]);
-	const [filteredCases, setFilteredCases] = useState(cases);
 
 	const handleStatusFilter = (selectedStatus: string) => {
-		// const filteredData = cases.filter((caseItem: Case) => {
-		// 	return selectedStatus.includes(caseItem[status]);
-		// });
-		// setFilteredCases(filteredData);
+		if (selectedStatus.length === 0) {
+			dispatch(createPresentableCases(cases));
+			return;
+		}
+
+		const filteredData = cases.filter((caseItem: Case) => {
+			return caseItem.status === selectedStatus;
+		});
+		console.log(filteredData);
+		dispatch(createPresentableCases(filteredData));
 	};
 	const handleTypeFilter = (selectedType: string) => {
 		// const filteredData = cases.filter((caseItem: Case) => {
@@ -35,7 +54,7 @@ const Cases = () => {
 		const fetchCaseData = async () => {
 			try {
 				const result = await TechnicianGetAllCasesService();
-				console.log(result);
+				// console.log(result);
 				dispatch(createCases(result));
 				localStorage.setItem('cases', result);
 				setCases(result);

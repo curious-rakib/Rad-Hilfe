@@ -1,13 +1,13 @@
 import { Box, Select } from '@chakra-ui/react';
 import './filter.styles.css';
+import { useAppDispatch } from '../../app/hooks';
 
 const FilterComponent = ({ name, options, onChange }: { name: string; options: string[]; onChange: (newOption: string) => void }) => {
 	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		event.preventDefault();
 		const selectedValue = event.target.value;
-		console.log(selectedValue);
 
-		if (onChange && selectedValue) {
+		if (onChange) {
 			onChange(selectedValue);
 		}
 	};

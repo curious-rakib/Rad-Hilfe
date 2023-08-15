@@ -9,6 +9,8 @@ import technicianSlice from '../features/technician/slices/technicianSlice';
 import { technicianApi } from '../features/technician/api/technicianApi';
 import orderSliceReducer from '../features/cyclist/order-slice';
 import technicianCasesSlice from '../features/technician/slices/technicianCasesSlice';
+import casesPresentationSlice from '../features/technician/slices/casesPresentationSlice';
+import filterByStatusSlice from '../features/technician/slices/filterByStatusSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -21,6 +23,8 @@ export const store = configureStore({
 		order: orderSliceReducer,
 		technician: technicianSlice,
 		technicianCases: technicianCasesSlice,
+		presentableCases: casesPresentationSlice,
+		filterByStatus: filterByStatusSlice,
 	},
 	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(technicianApi.middleware),
 });
