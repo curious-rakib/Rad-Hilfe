@@ -12,7 +12,7 @@ const caseSchema = new Schema({
   technician: {
     type: Schema.Types.ObjectId,
     ref: 'Technician',
-    required: true,
+    required: false,
   },
   bicycle: { type: Schema.Types.ObjectId, ref: 'Bicycle', required: true },
   type: { type: String, required: true },

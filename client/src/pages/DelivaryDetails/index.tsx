@@ -10,7 +10,7 @@ import {
 import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { delivery } from '../../features/cyclist/order-slice';
+import { bicycleParts, delivery } from '../../features/cyclist/order-slice';
 import { time } from '../../features/cyclist/order-slice';
 import { order } from '../../services/order';
 import { Link as ReactRouterLink } from 'react-router-dom'
@@ -23,6 +23,9 @@ interface Slots {
 }
 const DelivaryDetails = () => {
     const dispatch = useAppDispatch();
+
+
+    // console.log(subpartsArray);
     const [slots, setSlots] = useState<Slots[]>([]);
 
 
@@ -85,6 +88,7 @@ const DelivaryDetails = () => {
 
 
 
+
     };
 
     const totalPrice = useAppSelector((state) => state.order.totalPrice)
@@ -98,7 +102,7 @@ const DelivaryDetails = () => {
             const orderCase = await order(orderForCase);
             const orderId = orderCase._id;
             localStorage.setItem("orderId", orderId)
-
+            // dispatch(bicycleParts(subpartsArray))
             // console.log('passiveCase', orderCase);
         }
         fetchData();

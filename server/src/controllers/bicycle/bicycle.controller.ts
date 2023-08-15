@@ -165,7 +165,8 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
 
 const bicycleDamagedPart = async (req: Request, res: Response) => {
   try {
-    const bicycleId = req.params.id;
+    let bicycleId = req.params.id;
+    console.log(bicycleId);
     if (!bicycleId) {
       res.status(401).send('Failed to find bicycle!');
       return;

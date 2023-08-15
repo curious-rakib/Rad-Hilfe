@@ -15,12 +15,15 @@ technicianRouter.post('/forgot-password', technicianController.forgotPassword);
 technicianRouter.post('/reset-password', technicianController.resetPassword);
 
 // private router
-technicianRouter.use(authenticator, technicianAuthorizer);
+// technicianRouter.use(authenticator, technicianAuthorizer);
 
 // technician
 technicianRouter.get('/profile', technicianController.profile);
 technicianRouter.put('/profile-edit', technicianController.editProfile);
-technicianRouter.post('/set-up-technician', technicianController.setUpTechnician);
+technicianRouter.post(
+  '/set-up-technician',
+  technicianController.setUpTechnician
+);
 
 // bicycle
 

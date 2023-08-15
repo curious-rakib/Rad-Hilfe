@@ -19,7 +19,7 @@ cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 
 // private router
-cyclistRouter.use(authenticator, cyclistAuthorizer);
+// cyclistRouter.use(authenticator, cyclistAuthorizer);
 
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
@@ -31,10 +31,16 @@ cyclistRouter.put('/select-plan', cyclistController.selectPlan);
 
 // bicycle
 cyclistRouter.post('/set-up-bicycle', bicycleController.setUpBicycle);
-cyclistRouter.put('/set-up-bicycle-edit/:id', bicycleController.setUpBicycleEdit);
+cyclistRouter.put(
+  '/set-up-bicycle-edit/:id',
+  bicycleController.setUpBicycleEdit
+);
 cyclistRouter.get('/bicycle-health/:id', bicycleController.getBicycleHealth);
 cyclistRouter.get('/bicycle/:id', bicycleController.getBicycle);
-cyclistRouter.get('/bicycle-damaged-part/:id', bicycleController.bicycleDamagedPart);
+cyclistRouter.get(
+  '/bicycle-damaged-part/:id',
+  bicycleController.bicycleDamagedPart
+);
 
 // order
 cyclistRouter.get('/get-plan', orderController.getPlan);
@@ -52,6 +58,9 @@ cyclistRouter.get('/all-subpart', subpartController.allSubpart);
 
 // technician
 cyclistRouter.post('/subpart-expert', technicianController.findSubpartExpart);
-cyclistRouter.post('/available-support-time', technicianController.availableSupportTime);
+cyclistRouter.post(
+  '/available-support-time',
+  technicianController.availableSupportTime
+);
 
 export { cyclistRouter };
