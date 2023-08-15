@@ -7,7 +7,7 @@ export interface TabularCase {
 	'Case Type': string;
 	Status: string;
 	'Client Name': string;
-	'Date Created': Date;
+	'Date Created': Date | string;
 	'Bicycle Health': Number;
 	Action: null;
 }
@@ -19,7 +19,7 @@ const initialState: TabularCase[] = [
 		'Case Type': '',
 		Status: '',
 		'Client Name': '',
-		'Date Created': new Date(),
+		'Date Created': '',
 		'Bicycle Health': 0,
 		Action: null,
 	},

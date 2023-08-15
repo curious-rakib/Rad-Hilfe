@@ -3,7 +3,7 @@ import logo from './../../../../assets/logo(Midnight Blue).svg';
 import AgendaCalendar from '../../../../components/React Big Calender';
 import moment from 'moment';
 import { useEffect, useMemo, useState } from 'react';
-import Casebox from '../../../../components/Case Box';
+import CaseBox from '../../../../components/Case Box';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
 import { ObjectId } from 'mongoose';
 import { useAppDispatch } from '../../../../app/hooks';
@@ -108,8 +108,8 @@ const Agenda = () => {
 	}, []);
 
 	const today = moment().startOf('day');
-	const todayCases = caseData.filter((Case) => moment(Case.createdTime!).isSame(today, 'day'));
-	const futureCases = caseData.filter((Case) => moment(Case.createdTime!).isAfter(today, 'day'));
+	const todayCases = caseData.filter((Case) => moment(Case.createdTime).isSame(today, 'day'));
+	const futureCases = caseData.filter((Case) => moment(Case.createdTime).isAfter(today, 'day'));
 
 	return (
 		<Box>
@@ -150,7 +150,6 @@ const Agenda = () => {
 				</Flex>
 			</Flex>
 			<Stack
-				mt={'2rem'}
 				p={'1rem'}
 				color={'secondary'}
 				direction={'row'}
@@ -162,8 +161,9 @@ const Agenda = () => {
 					h={'75vh'}
 					color={'secondary'}
 					borderRadius={'.5rem'}
-					bg={'#e2e8f0'}
 					overflowY={'scroll'}
+					boxShadow={'0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'}
+					bg={'#fffddd'}
 					__css={{
 						scrollbarWidth: 'thin',
 						scrollbarColor: 'var(--scrollbar-thumb) var(--scrollbar-bg)',
@@ -187,14 +187,13 @@ const Agenda = () => {
 							Upcoming Cases
 						</Text>
 					</Center>
-
-					<Flex
-						direction={'column'}
-						alignItems={'center'}>
-						{futureCases &&
-							futureCases.map((Case, index) => {
+					{futureCases && futureCases.length > 0 ? (
+						<Flex
+							direction={'column'}
+							alignItems={'center'}>
+							{futureCases.map((Case, index) => {
 								return (
-									<Casebox
+									<CaseBox
 										key={index}
 										caseType={Case.type}
 										date={Case.createdTime}
@@ -203,7 +202,16 @@ const Agenda = () => {
 									/>
 								);
 							})}
-					</Flex>
+						</Flex>
+					) : (
+						<Center p={'2rem'}>
+							<Text
+								fontSize={'1.25rem'}
+								color={'secondary'}>
+								No cases onwards!
+							</Text>
+						</Center>
+					)}
 				</Box>
 			</Stack>
 		</Box>

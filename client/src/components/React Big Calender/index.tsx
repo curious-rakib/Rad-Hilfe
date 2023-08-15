@@ -46,20 +46,23 @@ const AgendaCalendar = ({ cases }: { cases: Case[] }) => {
 	const [myEventsList, setMyEventList] = useState<Event[]>([]);
 
 	useEffect(() => {
-		const events = cases.map((caseItem) => {
-			const [startTimeStr, endTimeStr] = caseItem.supportTime.slotTime.split('-');
-			const startTime = moment(startTimeStr.trim(), 'HH:mm').toDate();
-			const endTime = moment(endTimeStr.trim(), 'HH:mm').toDate();
+		const events = cases
+			.filter((caseItem) => caseItem.supportTime) // Filter out cases without supportTime
+			.map((caseItem) => {
+				const [startTimeStr, endTimeStr] = caseItem.supportTime.slotTime.split('-');
+				const startTime = moment(startTimeStr.trim(), 'HH:mm').toDate();
+				const endTime = moment(endTimeStr.trim(), 'HH:mm').toDate();
 
-			return {
-				start: startTime,
-				end: endTime,
-				title: `Client Name: ${caseItem.clientName} has a ${caseItem.type} case`,
-			};
-		});
+				return {
+					start: startTime,
+					end: endTime,
+					title: `Client Name: ${caseItem.clientName} has a ${caseItem.type} case`,
+				};
+			});
 
 		setMyEventList(events);
 	}, [cases]);
+
 	return (
 		<>
 			<Calendar

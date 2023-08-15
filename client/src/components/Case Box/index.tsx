@@ -6,7 +6,7 @@ const caseBoxColor: Record<string, string> = {
 	Passive: 'third',
 };
 
-const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date: Date | string; clientName: string; time: string }) => {
+const CaseBox = ({ caseType, date, clientName, time }: { caseType: string; date: Date | string; clientName: string; time: string }) => {
 	const formattedDate = moment(date).format('MMMM Do, YYYY');
 	const [startTimeStr, endTimeStr] = time.split('-');
 	const startTime = moment(startTimeStr.trim(), 'HH:mm').format('h:mm A');
@@ -46,4 +46,4 @@ const Casebox = ({ caseType, date, clientName, time }: { caseType: string; date:
 	);
 };
 
-export default Casebox;
+export default CaseBox;

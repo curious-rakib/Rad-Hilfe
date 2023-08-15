@@ -25,6 +25,7 @@ import ThankYou from './pages/ThankYou';
 import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
+import IndividualCase from './pages/Technician/Dashboard/Individual Case';
 
 function App() {
 	return (
@@ -72,7 +73,6 @@ function App() {
 				</Routes>
 				<Routes>
 					<Route element={<Navbar theme="secondary" />}>
-
 						<Route
 							path="/bike-health"
 							element={<HealthBar />}
@@ -116,6 +116,11 @@ function App() {
 						<Route
 							path="/profile"
 							element={<TechnicianProfile />}
+						/>
+
+						<Route
+							path="/individual-case"
+							element={<IndividualCase />}
 						/>
 					</Route>
 				</Routes>

@@ -1,21 +1,11 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
-import './table.styles.css';
 import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
-// import { cases } from '../../pages/Technician/Dashboard/Dummy Data/dummyCaseData';
-import { Case } from '../../pages/Technician/Dashboard/Agenda';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { createPresentableCases } from '../../features/technician/slices/casesPresentationSlice';
-import moment from 'moment';
-import { extractCaseData } from '../../pages/Technician/Dashboard/Cases';
+import { formatText } from './../../utils/formatText';
+import { useAppSelector } from '../../app/hooks';
 
 const TableComponent = () => {
-	// const dispatch = useAppDispatch();
-	// const allCases = useAppSelector((state: any) => state.technicianCases);
-	// const cases = extractCaseData(allCases);
-
-	// dispatch(createPresentableCases(cases));
 	const cases = useAppSelector((state: any) => state.presentableCases);
 
 	return (
@@ -77,7 +67,7 @@ const TableComponent = () => {
 														fontWeight={'400'}
 														lineHeight={'2rem'}
 														borderRadius={'1rem'}>
-														<Center>{index === 3 ? <Text as="b">{value}</Text> : <Text>{value}</Text>}</Center>
+														<Center>{index === 3 ? <Text as="b">{formatText(value)}</Text> : <Text>{formatText(value)}</Text>}</Center>
 													</Box>
 												</Td>
 											);
