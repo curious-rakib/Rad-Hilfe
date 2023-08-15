@@ -25,6 +25,7 @@ import ThankYou from './pages/ThankYou';
 import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
+import Chat from './pages/Chat';
 
 function App() {
 	return (
@@ -49,7 +50,11 @@ function App() {
 					<Route
 						path="/cyclist-case"
 						element={<CyclistTabCases />}></Route>
+					<Route
+						path='/chat'
+						element={<Chat />}
 
+					></Route>
 
 					<Route
 						path="/setup-daily-route"

@@ -25,7 +25,7 @@ const SignUp = () => {
 	};
 
 	const { first, last, email, password, phone } = useAppSelector((state: any) => state.input);
-	console.log(first, last, email, password, phone);
+	// console.log(first, last, email, password, phone);
 
 	const handleClick = async () => {
 		const name = first + last;

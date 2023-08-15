@@ -45,6 +45,16 @@ const MyBike = () => {
 
     const date = Math.floor(Math.random() * (28 - 1 + 1)) + 1;
 
+
+
+
+
+
+
+
+
+
+
     return (
         <Box bg='third'>
             <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='35rem' px={3} >
