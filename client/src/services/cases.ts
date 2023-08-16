@@ -40,7 +40,7 @@ export const getAallCases = async () => {
   }
 };
 export const getCaseById = async (id: any) => {
-  console.log('from service', id);
+  // console.log('from service', id);
   try {
     const response = await axios.get(
       `${BASE_URL}/cyclist/get-case-by-id/${id}`,

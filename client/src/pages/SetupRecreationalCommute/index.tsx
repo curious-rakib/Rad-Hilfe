@@ -1,5 +1,5 @@
 import { Box, Center, Container, Stack, Text, Flex, Select } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import Days from '../../components/Days';
 import SubmitButton from '../../components/Button';
@@ -11,6 +11,7 @@ import { lengthOfRideDetails } from '../../features/cyclist/recreationalCommute-
 import { days } from '../../features/cyclist/recreationalCommute-slice';
 import { setUpBikeInfo } from '../../services/bikeDetails';
 const Recreation = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedValue, setSelectedValue] = useState('');
   const handleSelectChange = (event: any) => {
@@ -31,6 +32,7 @@ const Recreation = () => {
     const average = (lowerNum + upperNum) / 2;
     const dataObj = { lengthOfRide: average };
     dispatch(lengthOfRideDetails(dataObj));
+    navigate('/home')
   };
 
   useEffect(() => {
@@ -100,16 +102,16 @@ const Recreation = () => {
         </Select>
       </Stack>
       <Center mt={16}>
-        <ChakraLink as={ReactRouterLink} to='/home' w='content-box'>
-          <SubmitButton
-            onClick={handleClick}
-            loadingText='Submitting'
-            size='lg'
-            bg='fourth'
-            w='12.5rem'
-            color='secondary'
-            text='Submit' fontWeight={''} />
-        </ChakraLink>
+        {/* <ChakraLink as={ReactRouterLink} to='/home' w='content-box'> */}
+        <SubmitButton
+          onClick={handleClick}
+          loadingText='Submitting'
+          size='lg'
+          bg='fourth'
+          w='12.5rem'
+          color='secondary'
+          text='Submit' fontWeight={''} />
+        {/* </ChakraLink> */}
       </Center>
     </Container>
   );
