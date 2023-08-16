@@ -15,6 +15,7 @@ import {
 } from '../../models/technician/technician.query';
 import { Types } from '../../models/database';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
+import { TechnicianModel } from '../../models/technician/technician.model';
 
 let storedOTP: OTP | null = null;
 
@@ -273,6 +274,10 @@ const availableSupportTime = async (req: Request, res: Response) => {
 
         res.status(200).send({ technician: technician, slots });
         return;
+      } else {
+        const technician = await TechnicianModel.find({});
+
+        res.status(200).send({ technician: technician[0] });
       }
     }
 

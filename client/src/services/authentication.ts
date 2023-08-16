@@ -38,8 +38,26 @@ export const userLogin = async (user: any) => {
 
 export const profile = async () => {
   try {
-    const token = localStorage.getItem('accessToken');
     const response = await fetch(`${BASE_URL}/cyclist/profile`, {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const user = await response.json();
+
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCyclistName = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/cyclist/cyclist-name`, {
       method: 'GET',
       credentials: 'include',
       mode: 'cors',

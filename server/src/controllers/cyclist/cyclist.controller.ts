@@ -236,7 +236,7 @@ const cyclistName = async (req: Request, res: Response) => {
 
     if (session) {
       const cyclist = await findCyclistByEmail(session.userEmail);
-      cyclist && res.status(200).send(cyclist.name);
+      cyclist && res.status(200).send({ name: cyclist.name });
       return;
     }
 
