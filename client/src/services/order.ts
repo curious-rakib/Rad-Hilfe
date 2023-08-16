@@ -20,3 +20,21 @@ export const order = async (order: any) => {
     console.log(error);
   }
 };
+
+export const getPlan = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/cyclist/get-plan`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    const plan = response.data;
+    console.log('plan from service', plan);
+    return plan;
+  } catch (error) {
+    console.log(error);
+  }
+};

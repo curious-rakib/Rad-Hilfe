@@ -25,127 +25,63 @@ import ThankYou from './pages/ThankYou';
 import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
+import Chat from './pages/Chat';
+import Maintenance from './pages/Maintenance';
 
 function App() {
-	return (
-		<>
-			<Router>
-				<Routes>
-					<Route
-						path="/login"
-						element={<Login />}
-					/>
-					<Route
-						path="/signup"
-						element={<SignUp />}
-					/>
-					<Route
-						path="/home"
-						element={<Home />}
-					/>
-					<Route
-						path="/thankyou"
-						element={<ThankYou></ThankYou>}></Route>
-					<Route
-						path="/cyclist-case"
-						element={<CyclistTabCases />}></Route>
+  return (
+    <>
+      <Router>
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/home' element={<Home />} />
 
+          <Route path='/thankyou' element={<ThankYou></ThankYou>}></Route>
+          <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
 
-					<Route
-						path="/setup-daily-route"
-						element={<SetupDailyRoute />}
-					/>
-					<Route
-						path="/setup-bike-details"
-						element={<SetupBikeDetails />}
-					/>
-					<Route
-						path="/setup-commute-details"
-						element={<SetupDailyCommute />}
-					/>
-					<Route
-						path="/setup-recreation-details"
-						element={<SetupRecreationalCommute />}
-					/>
-				</Routes>
-				<Routes>
-					<Route element={<Navbar theme="secondary" />}>
-						<Route
-							path="/individual-cyclist-case/:id"
-							element={<IndividualCyclistCase />}></Route>
+          <Route path='/setup-daily-route' element={<SetupDailyRoute />} />
+          <Route path='/setup-bike-details' element={<SetupBikeDetails />} />
+          <Route path='/setup-commute-details' element={<SetupDailyCommute />} />
+          <Route path='/setup-recreation-details' element={<SetupRecreationalCommute />} />
+        </Routes>
+        <Routes>
+          <Route element={<Navbar theme='secondary' />}>
+            <Route path='/individual-cyclist-case/:id' element={<IndividualCyclistCase />}></Route>
 
-						<Route
-							path="/bike-health"
-							element={<HealthBar />}
-						/>
-						<Route
-							path="/delivery-details"
-							element={<DelivaryDetails />}
-						/>
-						<Route
-							path="/expert-call"
-							element={<SetUpExpertCall />}
-						/>
-						<Route
-							path="/cart"
-							element={<Cart />}></Route>
-					</Route>
-				</Routes>
-				<Routes>
-					<Route element={<Navbar theme="third" />}>
-						<Route
-							path="/care-plan"
-							element={<CarePlan />}
-						/>
-						<Route
-							path="/my-bike"
-							element={<MyBike />}
-						/>
-					</Route>
-				</Routes>
+            <Route path='/bike-health' element={<HealthBar />} />
+            <Route path='/delivery-details' element={<DelivaryDetails />} />
+            <Route path='/expert-call' element={<SetUpExpertCall />} />
+            <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/chat' element={<Chat />}></Route>
+            <Route path='/maintenance' element={<Maintenance />} />
+          </Route>
+        </Routes>
+        <Routes>
+          <Route element={<Navbar theme='third' />}>
+            <Route path='/care-plan' element={<CarePlan />} />
+            <Route path='/my-bike' element={<MyBike />} />
+          </Route>
+        </Routes>
 
-				<Routes>
-					<Route element={<Dashboard />}>
-						<Route
-							path="/agenda"
-							element={<Agenda />}
-						/>
-						<Route
-							path="/cases"
-							element={<Cases />}
-						/>
-						<Route
-							path="/profile"
-							element={<TechnicianProfile />}
-						/>
-					</Route>
-				</Routes>
+        <Routes>
+          <Route element={<Dashboard />}>
+            <Route path='/agenda' element={<Agenda />} />
+            <Route path='/cases' element={<Cases />} />
+            <Route path='/profile' element={<TechnicianProfile />} />
+          </Route>
+        </Routes>
 
-				<Routes>
-					<Route
-						path="/technician-signup"
-						element={<TechnicianSignUp />}
-					/>
-					<Route
-						path="/technician-signin"
-						element={<TechnicianSignIn />}
-					/>
-					<Route
-						path="/technician-setup-1"
-						element={<SetUpContact />}
-					/>
-					<Route
-						path="/technician-setup-2"
-						element={<SetUpExpertise />}
-					/>
-					<Route
-						path="/technician-setup-3"
-						element={<SetUpWorkingSchedule />}
-					/>
-				</Routes>
-			</Router>
-		</>
-	);
+        <Routes>
+          <Route path='/technician-signup' element={<TechnicianSignUp />} />
+          <Route path='/technician-signin' element={<TechnicianSignIn />} />
+          <Route path='/technician-setup-1' element={<SetUpContact />} />
+          <Route path='/technician-setup-2' element={<SetUpExpertise />} />
+          <Route path='/technician-setup-3' element={<SetUpWorkingSchedule />} />
+        </Routes>
+      </Router>
+    </>
+  );
 }
 
 export default App;

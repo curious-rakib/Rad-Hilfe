@@ -12,5 +12,3 @@ export const months = [
   'Nov',
   'Dec',
 ];
-
-//   console.log(months); // Output: ["Jan", "Feb", "Mar", ..., "Dec"]
