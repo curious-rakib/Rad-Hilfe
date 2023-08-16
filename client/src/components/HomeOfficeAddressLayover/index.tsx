@@ -1,27 +1,13 @@
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Stack,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Center, Stack } from '@chakra-ui/react';
 
 import InputField from '../InputField';
 import SubmitButton from '../Button';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import mapboxgl from 'mapbox-gl';
-import { useDispatch } from 'react-redux';
 import { totalDistance } from '../../features/cyclist/commuteDetails-slice';
 import { useAppDispatch } from '../../app/hooks';
+import { Link } from 'react-router-dom';
 interface Markar {
   lat: number;
   lng: number;
@@ -105,18 +91,20 @@ function HomeOfficeAddressLayover({
         onToggle={onToggle}
       />
 
-      <Center>
-        <SubmitButton
-          onClick={handleClick}
-          loadingText='Submitting'
-          size='lg'
-          bg='accent'
-          w='200px'
-          color='secondary'
-          text='Next'
-          borderRadius={'10px'}
-          fontWeight={'bold'}
-        />
+      <Center mt={-3}>
+        <Link to={'/setup-bike-details'}>
+          <SubmitButton
+            onClick={handleClick}
+            loadingText='Submitting'
+            size='lg'
+            bg='accent'
+            w='200px'
+            color='secondary'
+            text='Next'
+            borderRadius={'10px'}
+            fontWeight={'bold'}
+          />
+        </Link>
       </Center>
     </Stack>
   );

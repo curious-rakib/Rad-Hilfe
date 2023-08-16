@@ -5,6 +5,7 @@ import { Flex } from '@chakra-ui/react';
 import { radialHealthData } from '../../data/radialHealthData';
 import { useEffect, useState } from 'react';
 import { bicycle } from '../../services/bikeDetails';
+import { Link } from 'react-router-dom';
 
 function HealthBar() {
   const [healthData, setHealthData] = useState(radialHealthData);
@@ -57,14 +58,17 @@ function HealthBar() {
       <HealthRadialChart healthData={healthData} />
       <HealthBarAccordion />
       <Flex mt={'2rem'} pb={'2rem'} justifyContent={'center'} fontWeight={'20px'}>
-        <SubmitButton
-          w=''
-          loadingText='Replace'
-          size='lg'
-          bg='accent'
-          color='secondary'
-          text='Replace now'
-        />
+        <Link to='/cart'>
+          <SubmitButton
+            loadingText='Replace'
+            size='lg'
+            bg='accent'
+            w='12.5rem'
+            color='secondary'
+            text='Replace now'
+            fontWeight={''}
+          />
+        </Link>
       </Flex>
     </>
   );

@@ -20,10 +20,12 @@ import { useAppSelector } from '../../app/hooks';
 import { bicycleDamagedPart } from '../../services/bikeDetails';
 import { useDispatch } from 'react-redux';
 import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';
+import { categoryToColor } from '../../data/categoryToColor';
 interface Parts {
     _id: string,
     partsName: string,
     price: number,
+    category: string,
     qty: number
 }
 
@@ -48,6 +50,7 @@ const Cart = () => {
         _id: '',
         partsName: '',
         price: 0,
+        category: '',
         qty: 1
     }]
 
@@ -88,6 +91,7 @@ const Cart = () => {
                     _id: eachBicycle._id,
                     partsName: eachBicycle.name,
                     price: eachBicycle.price,
+                    category: eachBicycle.category,
                     qty: 1
                 }))
                 const sortedData = dataObj.sort((p1: Parts, p2: Parts) => (p1.partsName.length - p2.partsName.length))
@@ -143,6 +147,8 @@ const Cart = () => {
     }
 
 
+    console.log(parts);
+
 
     return (
         <Box p={8} >
@@ -167,7 +173,7 @@ const Cart = () => {
                                             width: '28px',
                                             height: '22px',
                                         }}
-                                        bg={'pink.300'}
+                                        bg={categoryToColor[p.category as keyof typeof categoryToColor]}
                                         size={'25px'}
                                         mr={'8px'}
                                     >

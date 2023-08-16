@@ -11,24 +11,24 @@ import { getWeatherData } from '../../services/weather';
 import logo from '../../assets/logo.svg';
 
 const Home = () => {
-  // const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
-  //     (state) => state.rootSetBikeReducer
-  // );
-  // const bikeInfo = {
-  //     ...bikeDetails,
-  //     dailyCommute,
-  //     recreationalCommute,
-  // };
+  const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
+    (state) => state.rootSetBikeReducer
+  );
+  const bikeInfo = {
+    ...bikeDetails,
+    dailyCommute,
+    recreationalCommute,
+  };
 
-  // // console.log(bikeInfo);
-  // console.log(bikeDetails, dailyCommute, recreationalCommute);
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //         const result = await setUpBikeInfo(bikeInfo);
-  //         console.log('from home', result);
-  //     };
-  //     fetchData();
-  // }, [])
+  // console.log(bikeInfo);
+  console.log(bikeDetails, dailyCommute, recreationalCommute);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await setUpBikeInfo(bikeInfo);
+      console.log('from home', result);
+    };
+    fetchData();
+  }, [])
 
   //name
 

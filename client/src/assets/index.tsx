@@ -1,19 +1,45 @@
 import { Flex, Box, VStack, HStack, Text, Center, Image, SimpleGrid, Grid, GridItem } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import caseCyclist from './cases-cyclist.svg';
 import maintenance from './maintence.svg';
-import profile from './profile.svg';
+import profile1 from './profile.svg';
 import avatar from './avatar.svg';
 import signout from './signout.svg';
 import { themes } from '../data/navbarTheme';
 import { themeCollections } from '../data/navbarTheme';
+import { profile } from '../services/authentication';
 function Navbar({ theme }: { theme: keyof themeCollections }) {
+	const navigate = useNavigate();
 	const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
 	const [hidden, setHidden] = useState(!isOpen);
+	const goBack = () => {
+		navigate(-1);
+	};
+	const [name, setName] = useState('')
+	const [email, setEmail] = useState('')
+	useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const userData = await profile();
+				const userName = userData.name;
+				const userEmail = userData.email;
+				setName(userName);
+				setEmail(userEmail);
+
+
+				console.log(userData);
+			} catch (error) {
+
+				console.error("Error fetching user data:", error);
+			}
+		};
+
+		fetchUserData();
+	}, []);
 
 	return (
 		<>
@@ -27,11 +53,14 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 					width={'31px'}
 					borderRadius="45px"
 					borderColor={themes[theme].textColor}>
-					<ChevronLeftIcon
-						marginLeft={'2px'}
-						color={themes[theme].textColor}
-						fontSize="x-large"
-					/>
+					<button onClick={goBack}>
+						<ChevronLeftIcon
+							marginLeft={'2px'}
+							color={themes[theme].textColor}
+							fontSize="x-large"
+						/>
+
+					</button>
 				</Box>
 				<Box>
 					<HamburgerIcon
@@ -79,7 +108,7 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 										fontWeight: 'bold',
 										fontSize: '18px',
 									}}>
-									Anna
+									{name}
 								</span>
 								<br />
 								<span
@@ -89,7 +118,7 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 										fontSize: '14px',
 									}}>
 									{' '}
-									anna@gmail.com
+									{email}
 								</span>
 							</Text>
 						</VStack>
@@ -101,16 +130,17 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 						spacingY="20px"
 						mt={28}
 						mb={64}>
-						<Box height="40px">
-							{' '}
-							<HStack spacing={7}>
-								<Image
-									src={caseCyclist}
-									boxSize="35px"
-								/>
-								<Text fontWeight={'bold'}>Cases</Text>
-							</HStack>
-						</Box>
+						<Link to={'cyclist-case'}>
+
+
+							<Box height='40px'>
+								{' '}
+								<HStack spacing={7}>
+									<Image src={caseCyclist} boxSize='35px' />
+									<Text fontWeight={'bold'}>Cases</Text>
+								</HStack>
+							</Box>
+						</Link>
 						<Box height="40px">
 							{' '}
 							<HStack spacing={7}>
@@ -125,16 +155,15 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 								<Text fontWeight={'bold'}>Maintenance</Text>
 							</HStack>
 						</Box>
-						<Box height="40px">
-							{' '}
-							<HStack spacing={7}>
-								<Image
-									src={profile}
-									boxSize="35px"
-								/>
-								<Text fontWeight={'bold'}>Profile</Text>
-							</HStack>
-						</Box>
+						<Link to='cyclist-profile'>
+							<Box height='40px'>
+								{' '}
+								<HStack spacing={7}>
+									<Image src={profile1} boxSize='35px' />
+									<Text fontWeight={'bold'}>Profile</Text>
+								</HStack>
+							</Box>
+						</Link>
 					</SimpleGrid>
 					<Box>
 						{' '}

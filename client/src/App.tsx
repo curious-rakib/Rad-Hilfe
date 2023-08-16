@@ -27,6 +27,7 @@ import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
 import Chat from './pages/Chat';
 import Maintenance from './pages/Maintenance';
+import CyclistProfile from './pages/CyclistProfile';
 
 function App() {
   return (
@@ -36,9 +37,11 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/home' element={<Home />} />
+          <Route path='/cyclist-profile' element={<CyclistProfile />} />
 
           <Route path='/thankyou' element={<ThankYou></ThankYou>}></Route>
           <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
+          <Route path='/chat' element={<Chat />}></Route>
 
           <Route path='/setup-daily-route' element={<SetupDailyRoute />} />
           <Route path='/setup-bike-details' element={<SetupBikeDetails />} />
