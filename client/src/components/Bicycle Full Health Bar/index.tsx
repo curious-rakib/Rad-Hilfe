@@ -9,6 +9,7 @@ export default function FullHealthBar({ health }: { health: number }) {
 			marginTop={'auto'}
 			marginBottom={'auto'}>
 			<Progress
+				bg={'gray.500'}
 				value={health}
 				colorScheme={`${healthColorChoose(health)}`}
 				borderRadius={'8px'}

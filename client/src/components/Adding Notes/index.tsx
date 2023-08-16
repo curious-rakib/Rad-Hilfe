@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Text, Icon } from '@chakra-ui/react';
 import { MouseEventHandler, useState } from 'react';
-import { GrAddCircle } from 'react-icons/gr';
+import { GrAdd } from 'react-icons/gr';
 import { IconContext } from 'react-icons';
 
 const AddingNotes = () => {
@@ -40,7 +40,7 @@ const AddingNotes = () => {
 				mt={'1rem'}
 				gap={'1rem'}>
 				<Input
-					placeholder="Add Note"
+					placeholder="Write a note..."
 					_placeholder={{ color: 'secondary' }}
 					bg={'#d9d9d9'}
 					color={'secondary'}
@@ -49,10 +49,19 @@ const AddingNotes = () => {
 				/>
 				<Button
 					bg={'#d9d9d9'}
-					onClick={handleAdd}>
-					<IconContext.Provider value={{ color: 'red' }}>
-						<GrAddCircle size={30} />
-					</IconContext.Provider>
+					onClick={handleAdd}
+					color={'secondary'}
+					borderRadius={'.75rem'}>
+					<Flex
+						justify={'center'}
+						alignItems={'center'}>
+						<Text m={'.25rem'}> Add</Text>
+						<Icon
+							as={GrAdd}
+							color={'secondary'}
+							boxSize={'1.15rem'}
+						/>
+					</Flex>
 				</Button>
 			</Flex>
 		</Flex>

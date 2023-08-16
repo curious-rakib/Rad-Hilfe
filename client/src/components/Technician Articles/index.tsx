@@ -12,7 +12,7 @@ const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 						<Box
 							borderRadius={'1rem'}
 							boxShadow={'2xl'}
-							w={'20rem'}
+							w={'25rem'}
 							h={'7rem'}
 							m={'.5rem'}
 							p={'1rem'}

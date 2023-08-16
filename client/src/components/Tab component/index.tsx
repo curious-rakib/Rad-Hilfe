@@ -2,6 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import HealthBarListTechnician from '../Technician Health Bar List';
 import AddingNotes from '../Adding Notes';
 import ReplacementParts from '../Replacement Parts';
+import { useAppSelector } from '../../app/hooks';
 
 const bicycleParts = [
 	{
@@ -73,6 +74,9 @@ const bicycleParts = [
 ];
 
 const TechnicianTab = () => {
+	const bicycle = useAppSelector((state: any) => state.bikeDetails);
+	console.log('bicycle', bicycle);
+
 	return (
 		<>
 			<Tabs
@@ -91,10 +95,10 @@ const TechnicianTab = () => {
 
 				<TabPanels>
 					<TabPanel>
-						<HealthBarListTechnician bicycleParts={bicycleParts} />
+						<HealthBarListTechnician bicycleParts={bicycle.bicycleParts} />
 					</TabPanel>
 					<TabPanel>
-						<ReplacementParts replacableParts={bicycleParts} />
+						<ReplacementParts replacableParts={bicycle.bicycleParts} />
 					</TabPanel>
 
 					<TabPanel>

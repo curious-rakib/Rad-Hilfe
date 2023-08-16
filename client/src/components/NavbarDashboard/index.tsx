@@ -4,8 +4,12 @@ import agenda from './../../assets/agenda.svg';
 import cases from './../../assets/cases.svg';
 import profile from './../../assets/technician-profile.svg';
 import logout from './../../assets/logout.svg';
+import { useAppSelector } from '../../app/hooks';
+import { Link } from 'react-router-dom';
 
 function NavbarDashboard() {
+	const technician = useAppSelector((state: any) => state.technician);
+	console.log(technician);
 	return (
 		<Box
 			borderRadius={'2rem'}
@@ -26,11 +30,19 @@ function NavbarDashboard() {
 							src={avatar}
 							alt="avatar"></Image>
 
-						<Text
-							m={2}
-							fontSize={'1.155rem'}>
-							Leonard Susskind
-						</Text>
+						{technician.name ? (
+							<Text
+								m={2}
+								fontSize={'1.155rem'}>
+								{technician.name}
+							</Text>
+						) : (
+							<Text
+								m={2}
+								fontSize={'1.155rem'}>
+								Leonard Susskind
+							</Text>
+						)}
 					</Flex>
 				</Center>
 
@@ -40,48 +52,54 @@ function NavbarDashboard() {
 						alignItems={'center'}
 						justifyContent={'flex-start'}
 						gap={'1.5rem'}>
-						<Flex
-							gap={'.5rem'}
-							_active={{ backgroundColor: 'third', color: 'secondary', w: '8.5vw', h: '5vh', borderRadius: 'md' }}>
-							<Image
-								src={agenda}
-								alt="calendar icon"></Image>
+						<Link to="/agenda">
+							<Flex
+								gap={'.5rem'}
+								_active={{ backgroundColor: 'third', color: 'secondary', w: '8.5vw', h: '5vh', borderRadius: 'md' }}>
+								<Image
+									src={agenda}
+									alt="calendar icon"></Image>
 
-							<Text
-								as="b"
-								fontSize={'1.35rem'}>
-								Agenda
-							</Text>
-						</Flex>
+								<Text
+									as="b"
+									fontSize={'1.35rem'}>
+									Agenda
+								</Text>
+							</Flex>
+						</Link>
 
-						<Flex
-							gap={'.5rem'}
-							mr={'1rem'}
-							_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
-							<Image
-								src={cases}
-								alt="cases icon"
-								_active={{ color: 'secondary' }}></Image>
-							<Text
-								as="b"
-								fontSize={'1.35rem'}>
-								Cases
-							</Text>
-						</Flex>
+						<Link to="/cases">
+							<Flex
+								gap={'.5rem'}
+								mr={'1rem'}
+								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
+								<Image
+									src={cases}
+									alt="cases icon"
+									_active={{ color: 'secondary' }}></Image>
+								<Text
+									as="b"
+									fontSize={'1.35rem'}>
+									Cases
+								</Text>
+							</Flex>
+						</Link>
 
-						<Flex
-							gap={'.5rem'}
-							mr={'.7rem'}
-							_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
-							<Image
-								src={profile}
-								alt="profile icon"></Image>
-							<Text
-								as="b"
-								fontSize={'1.35rem'}>
-								Profile
-							</Text>
-						</Flex>
+						<Link to="/profile">
+							<Flex
+								gap={'.5rem'}
+								mr={'.7rem'}
+								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
+								<Image
+									src={profile}
+									alt="profile icon"></Image>
+								<Text
+									as="b"
+									fontSize={'1.35rem'}>
+									Profile
+								</Text>
+							</Flex>
+						</Link>
 					</Flex>
 				</Box>
 				<Box mt={'14rem'}>

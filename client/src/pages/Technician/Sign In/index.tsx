@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 const TechnicianSignIn = () => {
 	const dispatch = useAppDispatch();
+
 	const navigate = useNavigate();
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
@@ -27,7 +28,7 @@ const TechnicianSignIn = () => {
 			const technicianSignInData = { email, password };
 			const result = await TechnicianSignInService(technicianSignInData);
 			if (result) {
-				console.log('Go to agenda page');
+				navigate('/agenda');
 			}
 		} catch (error) {
 			console.error('Error before posting in backend!');

@@ -12,7 +12,7 @@ interface Case {
   note?: Note[];
   supportTime: SupportTime;
   interventionDetails?: InterventionDetails;
-  videoURL?: string;
+  videoURL?: string[];
 }
 
 interface Note {

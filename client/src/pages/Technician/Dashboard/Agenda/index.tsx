@@ -130,7 +130,6 @@ const Agenda = () => {
 					</Text>
 					<Text
 						color={'secondary'}
-						// as="b"
 						fontSize="1.5rem"
 						fontFamily={'Inter'}>
 						{currentDay}
