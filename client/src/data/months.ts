@@ -12,8 +12,6 @@ export const months = [
   'Nov',
   'Dec',
 ];
-<<<<<<< HEAD
-=======
 
 export const numberToMonths = {
   Jan: 1,
@@ -31,4 +29,3 @@ export const numberToMonths = {
 };
 
 //   console.log(months); // Output: ["Jan", "Feb", "Mar", ..., "Dec"]
->>>>>>> 660d17efb6250cc9cc3e55d2a167cf39d315d03d
