@@ -9,6 +9,7 @@ import { createAccount } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
 import signupValidatorSchema from './validator';
+import { Link } from 'react-router-dom';
 
 
 
@@ -33,7 +34,7 @@ const SignUp = () => {
 
 		localStorage.setItem('userData', JSON.stringify(userData));
 		const registeredUser = await createAccount(userData);
-		console.log('registeredUser     ', registeredUser);
+		// console.log('registeredUser     ', registeredUser);
 	};
 	const handleGoogleAuth = async (event: any) => {
 		event.preventDefault();
@@ -155,15 +156,17 @@ const SignUp = () => {
 						<Stack
 							spacing={10}
 							pt={2}>
-							<SubmitButton
-								borderRadius={'1.25rem'}
-								onClick={handleClick}
-								loadingText="Submitting"
-								size="lg"
-								bg="accent"
-								w=""
-								color="secondary"
-								text="Sign Up" fontWeight={''} />
+							<Link to={'/login'}>
+								<SubmitButton
+									borderRadius={'1.25rem'}
+									onClick={handleClick}
+									loadingText="Submitting"
+									size="lg"
+									bg="accent"
+									w="100%"
+									color="secondary"
+									text="Sign Up" fontWeight={''} />
+							</Link>
 						</Stack>
 						<Flex
 							mb={'.75rem'}
@@ -190,6 +193,10 @@ const SignUp = () => {
 								color="secondary"
 								text="Sign in with Google"
 							/>
+
+
+
+
 							<SubmitButton
 								svgUrl={facebookLogo}
 								borderRadius={'1.25rem'}
@@ -202,11 +209,13 @@ const SignUp = () => {
 								color="secondary"
 								text="Sign in with Facebook"
 							/>
+
+
 						</Stack>
 					</Stack>
 				</Box>
-			</Stack>
-		</Box>
+			</Stack >
+		</Box >
 	);
 };
 

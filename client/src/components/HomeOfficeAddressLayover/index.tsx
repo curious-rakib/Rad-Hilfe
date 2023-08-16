@@ -22,6 +22,7 @@ import mapboxgl from 'mapbox-gl';
 import { useDispatch } from 'react-redux';
 import { totalDistance } from '../../features/cyclist/commuteDetails-slice';
 import { useAppDispatch } from '../../app/hooks';
+import { Link } from 'react-router-dom';
 interface Markar {
     lat: number,
     lng: number
@@ -32,7 +33,7 @@ function HomeOfficeAddressLayover({ onToggle, markars }: { onToggle: Function, m
     const [worklocationName, setWorkLocationName] = useState('');
     // console.log('homeOfiice page', markars);
     // console.log(mapboxgl.accessToken);
-
+    localStorage.setItem("homeLocation", JSON.stringify(homelocationName))
 
 
 
@@ -116,14 +117,16 @@ function HomeOfficeAddressLayover({ onToggle, markars }: { onToggle: Function, m
             />
 
             <Center mt={-3}>
-                <SubmitButton
-                    onClick={handleClick}
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    text='Next' borderRadius={'10px'} fontWeight={'bold'} />
+                <Link to={'/setup-bike-details'}>
+                    <SubmitButton
+                        onClick={handleClick}
+                        loadingText='Submitting'
+                        size='lg'
+                        bg='accent'
+                        w='200px'
+                        color='secondary'
+                        text='Next' borderRadius={'10px'} fontWeight={'bold'} />
+                </Link>
             </Center>
         </Stack>
     );

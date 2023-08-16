@@ -9,8 +9,9 @@ import {
     Grid,
     GridItem
 } from '@chakra-ui/react';
-import { Link, Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import { FcLike } from 'react-icons/fc';
 // import bike from '../../assets/bike.svg';
 import MyBikeProgressBar from '../../components/MyBikeProgressBar';
@@ -111,16 +112,21 @@ const MyBike = () => {
 
                 </Text>
                 <Center pt={'.25rem'}>
-                    <ReplaceButton
-                        borderRadius='.75rem'
-                        fontWeight='800'
-                        loadingText='Submitting'
-                        size='lg'
-                        bg='accent'
-                        w='200px'
-                        color='secondary'
-                        text='Replace now'
-                    />
+
+                    <ChakraLink as={ReactRouterLink} to='/cart'>
+
+                        <ReplaceButton
+                            borderRadius='.75rem'
+                            fontWeight='800'
+                            loadingText='Submitting'
+                            size='lg'
+                            bg='accent'
+                            w='200px'
+                            color='secondary'
+                            text='Replace now'
+                        />
+                    </ChakraLink>
+
                 </Center>
             </Stack>
         </Box >

@@ -26,6 +26,7 @@ import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
 import Chat from './pages/Chat';
+import CyclistProfile from './pages/CyclistProfile';
 
 function App() {
 	return (
@@ -44,6 +45,11 @@ function App() {
 						path="/home"
 						element={<Home />}
 					/>
+					<Route
+						path="/cyclist-profile"
+						element={<CyclistProfile />}
+					/>
+
 					<Route
 						path="/thankyou"
 						element={<ThankYou></ThankYou>}></Route>
