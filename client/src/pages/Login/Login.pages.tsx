@@ -7,7 +7,6 @@ import {
   HStack,
   Heading,
   Input,
-
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -69,7 +68,9 @@ const Login = () => {
               name='email'
               borderColor='accent'
               _placeholder={{ color: 'accent', opacity: '60%' }}
-              color={'accent'} borderRadius={''} />
+              color={'accent'}
+              borderRadius={''}
+            />
             <InputField
               id='password'
               isRequired={true}
@@ -79,10 +80,12 @@ const Login = () => {
               name='password'
               _placeholder={{ color: 'accent', opacity: '60%' }}
               borderColor='accent'
-              color={'accent'} borderRadius={''} />
+              color={'accent'}
+              borderRadius={''}
+            />
 
             <Stack spacing={10} pt={2}>
-              <Link to={'//setup-daily-route'}>
+              <Link to={'/setup-daily-route'}>
                 <SubmitButton
                   borderRadius={'1.25rem'}
                   onClick={handleClick}
@@ -91,13 +94,17 @@ const Login = () => {
                   w='100%'
                   bg='accent'
                   color='secondary'
-                  text='Sign In' fontWeight={''} />
+                  text='Sign In'
+                  fontWeight={''}
+                />
               </Link>
-
             </Stack>
             <Stack color={'accent'} mb={'1.5rem'} mt={'-0.5rem'}>
               <Text>
-                Don't have an account? <Link to={'/signup'} style={{ "textDecoration": "underline" }}>Sign Up</Link>
+                Don't have an account?{' '}
+                <Link to={'/signup'} style={{ textDecoration: 'underline' }}>
+                  Sign Up
+                </Link>
               </Text>
             </Stack>
 
@@ -110,7 +117,9 @@ const Login = () => {
                 w=''
                 bg='third'
                 color='secondary'
-                text='Sign in with Google' fontWeight={''} />
+                text='Sign in with Google'
+                fontWeight={''}
+              />
               <SubmitButton
                 svgUrl={facebookLogo}
                 borderRadius={'1.25rem'}
@@ -119,7 +128,9 @@ const Login = () => {
                 w=''
                 bg='fourth'
                 color='secondary'
-                text='Sign in with Facebook' fontWeight={''} />
+                text='Sign in with Facebook'
+                fontWeight={''}
+              />
             </Stack>
           </Stack>
         </Box>

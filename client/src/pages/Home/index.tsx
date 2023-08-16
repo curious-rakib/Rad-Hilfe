@@ -28,7 +28,7 @@ const Home = () => {
       console.log('from home', result);
     };
     fetchData();
-  }, [])
+  }, []);
 
   //name
 
@@ -156,18 +156,20 @@ const Home = () => {
             </ChakraLink>
           </GridItem>
           <GridItem colSpan={3} rowSpan={3} bg=''>
-            <Cards
-              name={'Request support'}
-              textStyle={''}
-              fontWeight={'extrabold'}
-              fontSize={'xl'}
-              w={''}
-              h={'8rem'}
-              bg={'third'}
-              color={'black'}
-              px='2.75rem'
-              py='8'
-            ></Cards>
+            <ChakraLink as={ReactRouterLink} to='/chat'>
+              <Cards
+                name={'Request support'}
+                textStyle={''}
+                fontWeight={'extrabold'}
+                fontSize={'xl'}
+                w={''}
+                h={'8rem'}
+                bg={'third'}
+                color={'black'}
+                px='2.75rem'
+                py='8'
+              ></Cards>
+            </ChakraLink>
           </GridItem>
           <GridItem colSpan={6} bg=''>
             <Cards
