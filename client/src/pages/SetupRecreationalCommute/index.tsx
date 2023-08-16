@@ -1,5 +1,5 @@
 import { Box, Center, Container, Stack, Text, Flex, Select } from '@chakra-ui/react';
-import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import Days from '../../components/Days';
 import SubmitButton from '../../components/Button';
@@ -10,23 +10,12 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { lengthOfRideDetails } from '../../features/cyclist/recreationalCommute-slice';
 import { days } from '../../features/cyclist/recreationalCommute-slice';
 import { setUpBikeInfo } from '../../services/bikeDetails';
-
 const Recreation = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedValue, setSelectedValue] = useState('');
   const handleSelectChange = (event: any) => {
     setSelectedValue(event.target.value);
-  };
-
-  const handleClick = () => {
-    const [lower, upper] = selectedValue.split('-');
-    const lowerNum = parseInt(lower);
-
-    const upperNum = parseInt(upper);
-    const average = (lowerNum + upperNum) / 2;
-    const dataObj = { lengthOfRide: average };
-
-    dispatch(lengthOfRideDetails(dataObj));
   };
   const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
     (state) => state.rootSetBikeReducer
@@ -36,17 +25,27 @@ const Recreation = () => {
     dailyCommute,
     recreationalCommute,
   };
-
-  // console.log(bikeInfo);
+  const handleClick = () => {
+    const [lower, upper] = selectedValue.split('-');
+    const lowerNum = parseInt(lower);
+    const upperNum = parseInt(upper);
+    const average = (lowerNum + upperNum) / 2;
+    const dataObj = { lengthOfRide: average };
+    dispatch(lengthOfRideDetails(dataObj));
+    navigate('/home')
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await setUpBikeInfo(bikeInfo);
-      const bikeId = result._id;
-      localStorage.setItem('bikeID', bikeId);
-      localStorage.setItem('bikeInfo', result);
-      // console.log('bikeID', bikeId);
       // console.log('result', result);
+
+      if (result) {
+        const bikeId = result._id;
+        localStorage.setItem('bikeID', bikeId);
+        localStorage.setItem('bikeInfo', JSON.stringify(result));
+      }
+
     };
     fetchData();
   }, []);
@@ -56,7 +55,6 @@ const Recreation = () => {
   //     const recreationalCommute = { days, activityType, lengthOfRide };
   //     localStorage.setItem('recreationalCommute', JSON.stringify(recreationalCommute))
   // }, [])
-
   return (
     <Container p={6}>
       <Center mt={'2rem'} mb={'3rem'}>
@@ -70,7 +68,6 @@ const Recreation = () => {
           Select which days you ride your bike to work
         </Text>
       </Box>
-
       <Center my={10}>
         <Days colorScheme='fourth' reducer={days}></Days>
       </Center>
@@ -82,7 +79,6 @@ const Recreation = () => {
           <RecreationButton></RecreationButton>
         </Center>
       </Stack>
-
       <Stack spacing={4}>
         <Text color={'fourth'} textAlign={'left'} fontSize={'xl'} fontWeight={'semibold'} mt={10}>
           Typical Length of Rides
@@ -105,22 +101,19 @@ const Recreation = () => {
           </option>
         </Select>
       </Stack>
-
       <Center mt={16}>
-        <ChakraLink as={ReactRouterLink} to='/home' w='content-box'>
-          <SubmitButton
-            onClick={handleClick}
-            loadingText='Submitting'
-            size='lg'
-            bg='fourth'
-            w='12.5rem'
-            color='secondary'
-            text='Submit'
-          />
-        </ChakraLink>
+        {/* <ChakraLink as={ReactRouterLink} to='/home' w='content-box'> */}
+        <SubmitButton
+          onClick={handleClick}
+          loadingText='Submitting'
+          size='lg'
+          bg='fourth'
+          w='12.5rem'
+          color='secondary'
+          text='Submit' fontWeight={''} />
+        {/* </ChakraLink> */}
       </Center>
     </Container>
   );
 };
-
 export default Recreation;

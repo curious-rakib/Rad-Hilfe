@@ -43,7 +43,10 @@ const getBicycleById = async (bicycleId: Types.ObjectId) => {
 
 const findBicycleHealthById = async (bicycleId: Types.ObjectId) => {
   try {
-    const bicycle = await BicycleModel.findById({ _id: bicycleId }, { totalHealth: 1 });
+    const bicycle = await BicycleModel.findById(
+      { _id: bicycleId },
+      { totalHealth: 1 }
+    );
     if (bicycle) return bicycle;
     return null;
   } catch (error) {
@@ -93,7 +96,10 @@ const getAllBicycle = async () => {
   }
 };
 
-const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycle) => {
+const bicycleHealthUpgration = async (
+  bicycleId: Types.ObjectId,
+  bicycle: Bicycle
+) => {
   try {
     const updatedBicycle = await BicycleModel.findOneAndUpdate(
       { _id: bicycleId },
@@ -113,7 +119,10 @@ const bicycleHealthUpgration = async (bicycleId: Types.ObjectId, bicycle: Bicycl
 
 const getAllDamagedParts = async (bicycleId: Types.ObjectId) => {
   try {
-    const bicycle = await BicycleModel.find({ _id: bicycleId }, { bicycleParts: 1 });
+    const bicycle = await BicycleModel.find(
+      { _id: bicycleId },
+      { bicycleParts: 1 }
+    );
 
     if (bicycle) {
       return bicycle[0].bicycleParts;

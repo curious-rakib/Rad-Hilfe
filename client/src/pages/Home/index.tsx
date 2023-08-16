@@ -4,33 +4,35 @@ import { FaCloud } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { profile } from '../../services/authentication';
 import { useAppSelector } from '../../app/hooks';
-import { setUpBikeInfo } from '../../services/bikeDetails';
+import { bicycleHealth, setUpBikeInfo } from '../../services/bikeDetails';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { getWeatherData } from '../../services/weather';
 import logo from '../../assets/logo.svg';
 
 const Home = () => {
-  // const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
-  //     (state) => state.rootSetBikeReducer
-  // );
-  // const bikeInfo = {
-  //     ...bikeDetails,
-  //     dailyCommute,
-  //     recreationalCommute,
-  // };
+  const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
+    (state) => state.rootSetBikeReducer
+  );
+  const bikeInfo = {
+    ...bikeDetails,
+    dailyCommute,
+    recreationalCommute,
+  };
 
-  // // console.log(bikeInfo);
-  // console.log(bikeDetails, dailyCommute, recreationalCommute);
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //         const result = await setUpBikeInfo(bikeInfo);
-  //         console.log('from home', result);
-  //     };
-  //     fetchData();
-  // }, [])
+  // console.log(bikeInfo);
+  console.log(bikeDetails, dailyCommute, recreationalCommute);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await setUpBikeInfo(bikeInfo);
+      console.log('from home', result);
+    };
+    fetchData();
+  }, [])
 
   //name
+
+  const [healthData, setHealthData] = useState(0);
   const [name, setName] = useState('');
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +42,15 @@ const Home = () => {
 
       setName(userName);
     };
+
+    const health = async () => {
+      const healthD = await bicycleHealth('64db5ac230ba9ed8cfdadfda');
+      setHealthData(Math.round(healthD.totalHealth));
+
+      console.log(healthData);
+    };
+
+    health();
     fetchData();
   }, []);
 
@@ -53,6 +64,7 @@ const Home = () => {
     description: '',
     temperature: 0,
   };
+
   const [locationData, setLocationData] = useState(initialState);
   const [currentWeather, setCurrentWeather] = useState(initialWeather);
   let userLoctaion = navigator.geolocation;
@@ -114,10 +126,8 @@ const Home = () => {
           <GridItem rowSpan={6} colSpan={3}>
             <ChakraLink as={ReactRouterLink} to='/my-bike'>
               <Cards
-
                 fontWeight={'extrabold'}
                 fontSize={'4xl'}
-
                 name={'My bike'}
                 textStyle={''}
                 w={'100%'}
@@ -140,7 +150,9 @@ const Home = () => {
                 bg={'accent'}
                 color={'black'}
                 px='4'
-                py='12' textStyle={''}              ></Cards>
+                py='12'
+                textStyle={''}
+              ></Cards>
             </ChakraLink>
           </GridItem>
           <GridItem colSpan={3} rowSpan={3} bg=''>
@@ -159,6 +171,7 @@ const Home = () => {
           </GridItem>
           <GridItem colSpan={6} bg=''>
             <Cards
+              health={healthData}
               fontWeight={'extrabold'}
               fontSize={'2xl'}
               name={'My bike health'}

@@ -10,13 +10,25 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
 import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
+import { numberToMonths } from '../../data/months';
 function SetupBikeDetails() {
   const [fullRevision, setFullrevision] = useState<boolean>(false);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
 
   const dispatch = useAppDispatch();
   const handleChange = (event: any) => {
-    const { name, value, type } = event.target;
+
+    let { name, value, type } = event.target;
+
+    if (name === 'purchaseMonth' || name === 'revisionMonth') {
+      const monthValue = value as keyof typeof numberToMonths;
+      value = numberToMonths[monthValue];
+    }
+
+
+    if (name === "purchaseYear") {
+      console.log('Purchase Year: ', value);
+    }
 
     const dataObj = {
       [name]: type === 'number' ? Number(value) : value,
@@ -102,15 +114,15 @@ function SetupBikeDetails() {
         <InputField
           id='purchasemonth'
           isRequired={true}
-          type='number'
-          placeholder='Purchase Month'
+          type='text'
+          placeholder='Purchase Month (e.g: Jan)'
           onChange={handleChange}
           name='purchaseMonth'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
           color={'third'} borderRadius={''} />
         <InputField
-          id='purchaseyear'
+          id='purchaseYear'
           isRequired={true}
           type='number'
           placeholder='Purchase Year'
@@ -133,8 +145,8 @@ function SetupBikeDetails() {
         <InputField
           id='revisionmonth'
           isRequired={true}
-          type='number'
-          placeholder='Revision Month'
+          type='text'
+          placeholder='Revision Month (e.g: Jan)'
           onChange={handleChange}
           name='revisionMonth'
           borderColor='third'

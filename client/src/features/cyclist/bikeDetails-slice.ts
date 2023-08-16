@@ -25,7 +25,7 @@ const bikeInputSlice = createSlice({
   initialState,
   reducers: {
     bikeDetails: (state, action) => {
-      // console.log('data from bike details :', { ...state, ...action });
+      console.log('data from bike details :', { ...state, ...action.payload });
       return { ...state, ...action.payload };
     },
   },

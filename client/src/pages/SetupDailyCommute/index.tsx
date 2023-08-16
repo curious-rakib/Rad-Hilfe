@@ -14,7 +14,9 @@ import { useEffect, useState } from 'react';
 const SetupDailyCommute = () => {
   const [switchChecked, setSwitchChecked] = useState<boolean>(false);
 
-  const { days, unpavedRoad, totalDistance } = useAppSelector((state) => state.commute);
+  const { days, unpavedRoad, totalDistance } = useAppSelector((state) => (state.commute));
+  // console.log(totalDistance);
+
   const handleClick = async () => {
     const dailyCommute = { days, unpavedRoad, totalDistance };
     localStorage.setItem('dailyCommute', JSON.stringify(dailyCommute));
@@ -69,8 +71,7 @@ const SetupDailyCommute = () => {
             bg='accent'
             w='12.5rem'
             color='secondary'
-            text='Next'
-          />
+            text='Next' fontWeight={''} />
         </ChakraLink>
       </Center>
     </Container>

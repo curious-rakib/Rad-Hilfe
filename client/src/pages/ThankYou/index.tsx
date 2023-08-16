@@ -1,10 +1,37 @@
 'use client'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink, useSearchParams } from 'react-router-dom'
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { ArrowBackIcon, CheckCircleIcon } from '@chakra-ui/icons'
+import { useEffect } from 'react'
+import { passiveCase } from '../../services/cases'
 
 export default function Success() {
+    const [queryParameters] = useSearchParams();
+    const orderId = (queryParameters.get("orderId"));
+    const supportTimeStart = (queryParameters.get("supportTimeStart"));
+    const supportTimeEnd = (queryParameters.get("supportTimeEnd"));
+
+    const createPassiveCase = {
+        orderId: orderId,
+        supportTimeStart: supportTimeStart,
+        supportTimeEnd: supportTimeEnd,
+        type: 'Passive'
+    }
+    useEffect(() => {
+
+        const data = async () => {
+            const result = await passiveCase(createPassiveCase);
+            console.log('result from thank you', result);
+            localStorage.setItem("passiveCase", JSON.stringify(result))
+        }
+        data()
+
+    }, [])
+
+
+
+
     return (
         <Box color={'accent'}>
 

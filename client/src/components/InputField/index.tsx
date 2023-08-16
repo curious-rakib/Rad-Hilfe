@@ -12,6 +12,7 @@ const InputField = ({
 	_placeholder,
 	color,
 	onToggle,
+	location,
 }: {
 	id: string;
 	isRequired: boolean;
@@ -25,6 +26,7 @@ const InputField = ({
 		opacity: string;
 	};
 	color: string;
+	location?: string;
 	borderRadius: string;
 	onToggle?: Function;
 }) => {
@@ -34,6 +36,7 @@ const InputField = ({
 				id={id}
 				isRequired={isRequired}>
 				<Input
+					value={location}
 					type={type}
 					borderRadius={borderRadius}
 					placeholder={placeholder}

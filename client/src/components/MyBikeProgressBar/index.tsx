@@ -1,6 +1,7 @@
 import { AccordionIcon, Flex, Progress } from '@chakra-ui/react';
 import React from 'react';
 import { SlArrowDown } from 'react-icons/sl';
+import { Link } from 'react-router-dom';
 
 const MyBikeProgressBar = () => {
     return (
@@ -12,18 +13,19 @@ const MyBikeProgressBar = () => {
                 rounded='full'
                 w='330px'
             />
-
-            <SlArrowDown
-                style={{
-                    marginLeft: '10px',
-                    backgroundColor: '#C1FAA6',
-                    borderRadius: '50%',
-                    padding: '4px',
-                    transform: 'rotate(270deg)',
-                }}
-                size={24}
-                color='001F3F'
-            />
+            <Link to='/bike-health'>
+                <SlArrowDown
+                    style={{
+                        marginLeft: '10px',
+                        backgroundColor: '#C1FAA6',
+                        borderRadius: '50%',
+                        padding: '4px',
+                        transform: 'rotate(270deg)',
+                    }}
+                    size={24}
+                    color='001F3F'
+                />
+            </Link>
         </Flex>
     );
 };

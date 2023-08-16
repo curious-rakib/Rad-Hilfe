@@ -19,17 +19,38 @@ import { FiMinus } from 'react-icons/fi';
 import { useAppSelector } from '../../app/hooks';
 import { bicycleDamagedPart } from '../../services/bikeDetails';
 import { useDispatch } from 'react-redux';
-import { totalPrice } from '../../features/cyclist/order-slice';
+import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';
+import { categoryToColor } from '../../data/categoryToColor';
 interface Parts {
+    _id: string,
     partsName: string,
     price: number,
+    category: string,
     qty: number
 }
 
 const Cart = () => {
+    // let subpartsArray: any[] = [];
+    // const bikeInfo = localStorage.getItem('bikeInfo');
+    // if (bikeInfo) {
+    //     try {
+    //         const parsedBikeInfo = JSON.parse(bikeInfo);
+    //         const bicycleParts = parsedBikeInfo.bicycleParts;
+    //         for (let i = 0; i < bicycleParts.length; i++) {
+    //             const subpart = bicycleParts[i].subpart;
+    //             subpartsArray.push(subpart);
+    //         }
+    //     } catch (error) {
+    //         console.error("Error parsing bikeInfo:", error);
+    //     }
+    // } else {
+    //     console.warn("No bikeInfo found in localStorage");
+    // }
     const initialState: Parts[] = [{
+        _id: '',
         partsName: '',
         price: 0,
+        category: '',
         qty: 1
     }]
 
@@ -63,15 +84,18 @@ const Cart = () => {
         const fetchData = async () => {
             try {
                 const bikeId = localStorage.getItem('bikeID');
+                // console.log(bikeId);
                 const damagedPartsBiCycle = await bicycleDamagedPart(bikeId);
                 console.log('damagedPartsBiCycle from cart page', damagedPartsBiCycle);
-                const dataObj = damagedPartsBiCycle[0].bicycleParts.map((eachBicycle: any) => ({
+                const dataObj = damagedPartsBiCycle.map((eachBicycle: any) => ({
+                    _id: eachBicycle._id,
                     partsName: eachBicycle.name,
                     price: eachBicycle.price,
+                    category: eachBicycle.category,
                     qty: 1
                 }))
                 const sortedData = dataObj.sort((p1: Parts, p2: Parts) => (p1.partsName.length - p2.partsName.length))
-                console.log('sorted', sortedData);
+                // console.log('sorted', sortedData);
                 setParts(((prev) => [...sortedData]))
 
 
@@ -98,8 +122,13 @@ const Cart = () => {
         setParts(updated);
     };
 
+
     useEffect(() => {
-        // console.log("useffect parts", parts);
+        const filteredParts = parts.filter(part => part.qty === 1);
+        const subpartFilteredIds = filteredParts.map(part => part._id);
+        dispatch(bicycleParts(subpartFilteredIds))
+
+        // console.log("useffect parts", subpartFilteredIds);
     }, [parts])
 
     const calculateTotalPrice = () => {
@@ -116,6 +145,10 @@ const Cart = () => {
 
         dispatch(totalPrice(calculateTotalPrice()))
     }
+
+
+    console.log(parts);
+
 
     return (
         <Box p={8} >
@@ -140,7 +173,7 @@ const Cart = () => {
                                             width: '28px',
                                             height: '22px',
                                         }}
-                                        bg={'pink.300'}
+                                        bg={categoryToColor[p.category as keyof typeof categoryToColor]}
                                         size={'25px'}
                                         mr={'8px'}
                                     >

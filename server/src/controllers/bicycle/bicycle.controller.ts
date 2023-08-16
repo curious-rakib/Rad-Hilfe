@@ -30,6 +30,7 @@ const setUpBicycle = async (req: Request, res: Response) => {
       dailyCommute,
       recreationalCommute,
     } = req.body;
+
     const newBicycle = {
       brand,
       model,
@@ -164,17 +165,22 @@ const setUpBicycleEdit = async (req: Request, res: Response) => {
 
 const bicycleDamagedPart = async (req: Request, res: Response) => {
   try {
-    const bicycleId = req.params.id;
+    let bicycleId = req.params.id;
+    console.log(bicycleId);
     if (!bicycleId) {
       res.status(401).send('Failed to find bicycle!');
       return;
     }
 
-    const damagedParts = await getAllDamagedParts(new Types.ObjectId(bicycleId));
+    const damagedParts = await getAllDamagedParts(
+      new Types.ObjectId(bicycleId)
+    );
 
     if (damagedParts) {
       const updatedDamagePartsInfo = damagedParts.map((part) => {
-        const info = Subparts.filter((subpart) => subpart._id === String(part.subpart));
+        const info = Subparts.filter(
+          (subpart) => subpart._id === String(part.subpart)
+        );
 
         const newInfo = {
           _id: part.subpart,
@@ -189,7 +195,9 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
         return newInfo;
       });
 
-      const newDamagedParts = updatedDamagePartsInfo.filter((part) => part.health < 30);
+      const newDamagedParts = updatedDamagePartsInfo.filter(
+        (part) => part.health < 30
+      );
 
       res.status(200).send(newDamagedParts);
       return;
@@ -200,4 +208,10 @@ const bicycleDamagedPart = async (req: Request, res: Response) => {
   }
 };
 
-export { setUpBicycle, getBicycle, getBicycleHealth, setUpBicycleEdit, bicycleDamagedPart };
+export {
+  setUpBicycle,
+  getBicycle,
+  getBicycleHealth,
+  setUpBicycleEdit,
+  bicycleDamagedPart,
+};

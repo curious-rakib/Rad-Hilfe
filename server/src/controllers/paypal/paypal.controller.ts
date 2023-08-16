@@ -1,4 +1,4 @@
-import paypal from 'paypal-rest-sdk';
+import paypal, { order } from 'paypal-rest-sdk';
 
 paypal.configure({
   mode: 'sandbox',
@@ -9,26 +9,31 @@ paypal.configure({
 });
 
 export const payment = async (req: any, res: any) => {
+  const { totalPrice, supportTime, orderId } = req.body;
+  const [supportTimeStart, supportTimeEnd] = supportTime.split(' - ');
+  // console.log(supportTime);
+  // console.log(orderId);
   const paymentDetails = {
     intent: 'sale',
     payer: { payment_method: 'paypal' },
     transactions: [
       {
         amount: {
-          total: '10.00',
+          total: totalPrice ? JSON.stringify(totalPrice) : '10.00',
           currency: 'USD',
         },
         description: 'Purchase Description',
       },
     ],
     redirect_urls: {
-      return_url: 'http://localhost:5173/thankyou',
+      return_url: `http://localhost:5173/thankyou?orderId=${orderId}&supportTimeStart=${supportTimeStart}&supportTimeEnd=${supportTimeEnd}`,
       cancel_url: 'http://localhost:3001/cancel',
     },
   };
 
   paypal.payment.create(paymentDetails, (error: any, payment: any) => {
     if (error) {
+      console.log(error.response.details);
       res
         .status(500)
         .json({ error: 'An error occurred while creating the payment.' });

@@ -20,7 +20,11 @@ const commuteSlice = createSlice({
     unpavedRoad: (state, action) => {
       return { ...state, ...action.payload };
     },
+    totalDistance: (state, action) => {
+      console.log(action.payload);
+      return { ...state, ...action.payload };
+    },
   },
 });
-export const { commuteDays, unpavedRoad } = commuteSlice.actions;
+export const { commuteDays, unpavedRoad, totalDistance } = commuteSlice.actions;
 export default commuteSlice.reducer;

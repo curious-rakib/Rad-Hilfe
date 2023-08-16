@@ -26,6 +26,9 @@ import CyclistTabCases from './pages/CyclistTabCases';
 import IndividualCyclistCase from './pages/IndividualCyclistCase';
 import Agenda from './pages/Technician/Dashboard/Agenda';
 import IndividualCase from './pages/Technician/Dashboard/Individual Case';
+import CyclistProfile from './pages/CyclistProfile';
+import Maintenance from './pages/Maintenance';
+import Chat from './pages/Chat';
 
 function App() {
 	return (
@@ -45,14 +48,19 @@ function App() {
 						element={<Home />}
 					/>
 					<Route
+						path="/cyclist-profile"
+						element={<CyclistProfile />}
+					/>
+
+					<Route
 						path="/thankyou"
 						element={<ThankYou></ThankYou>}></Route>
 					<Route
 						path="/cyclist-case"
 						element={<CyclistTabCases />}></Route>
 					<Route
-						path="/individual"
-						element={<IndividualCyclistCase />}></Route>
+						path="/chat"
+						element={<Chat />}></Route>
 
 					<Route
 						path="/setup-daily-route"
@@ -74,6 +82,10 @@ function App() {
 				<Routes>
 					<Route element={<Navbar theme="secondary" />}>
 						<Route
+							path="/individual-cyclist-case/:id"
+							element={<IndividualCyclistCase />}></Route>
+
+						<Route
 							path="/bike-health"
 							element={<HealthBar />}
 						/>
@@ -88,6 +100,13 @@ function App() {
 						<Route
 							path="/cart"
 							element={<Cart />}></Route>
+						<Route
+							path="/chat"
+							element={<Chat />}></Route>
+						<Route
+							path="/maintenance"
+							element={<Maintenance />}
+						/>
 					</Route>
 				</Routes>
 				<Routes>
@@ -117,7 +136,6 @@ function App() {
 							path="/profile"
 							element={<TechnicianProfile />}
 						/>
-
 						<Route
 							path="/individual-case"
 							element={<IndividualCase />}

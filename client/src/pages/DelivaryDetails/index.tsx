@@ -10,7 +10,7 @@ import {
 import { ChangeEvent, useEffect, useState } from 'react';
 import InputField from '../../components/InputField';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { delivery } from '../../features/cyclist/order-slice';
+import { bicycleParts, delivery } from '../../features/cyclist/order-slice';
 import { time } from '../../features/cyclist/order-slice';
 import { order } from '../../services/order';
 import { Link as ReactRouterLink } from 'react-router-dom'
@@ -23,6 +23,9 @@ interface Slots {
 }
 const DelivaryDetails = () => {
     const dispatch = useAppDispatch();
+
+
+    // console.log(subpartsArray);
     const [slots, setSlots] = useState<Slots[]>([]);
 
 
@@ -30,25 +33,25 @@ const DelivaryDetails = () => {
     const deliverySlots = [
         {
             id: 1,
-            day: 'Thurs 03 Aug',
+            day: 'Thurs 18 Aug',
             time: '17:00 - 18:00',
             chosen: false,
         },
         {
             id: 2,
-            day: 'Thurs 03 Aug',
+            day: 'Thurs 18 Aug',
             time: '19:00 - 20:00',
             chosen: false,
         },
         {
             id: 3,
-            day: 'Fri 04 Aug',
+            day: 'Fri 19 Aug',
             time: '19:00 - 20:00',
             chosen: false,
         },
         {
             id: 4,
-            day: 'Fri 04 Aug',
+            day: 'Fri 19 Aug',
             time: '19:00 - 20:00',
             chosen: false,
         },
@@ -85,18 +88,22 @@ const DelivaryDetails = () => {
 
 
 
+
     };
 
     const totalPrice = useAppSelector((state) => state.order.totalPrice)
-    let caseforPassive = useAppSelector((state) => state.order);
+    let orderForCase = useAppSelector((state) => state.order);
 
 
     const handleClick = () => {
 
 
         const fetchData = async () => {
-            const passiveCase = await order(caseforPassive);
-            console.log('passiveCase', passiveCase);
+            const orderCase = await order(orderForCase);
+            const orderId = orderCase._id;
+            localStorage.setItem("orderId", orderId)
+            // dispatch(bicycleParts(subpartsArray))
+            // console.log('passiveCase', orderCase);
         }
         fetchData();
     }

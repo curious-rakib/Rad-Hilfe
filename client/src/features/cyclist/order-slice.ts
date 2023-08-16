@@ -32,7 +32,7 @@ const orderSlice = createSlice({
       return { ...state, totalPrice: action.payload };
     },
     bicycleParts: (state, action) => {
-      return { ...state, ...action.payload };
+      return { ...state, bicycleParts: action.payload };
     },
   },
 });

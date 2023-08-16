@@ -7,10 +7,11 @@ import {
   HStack,
   Heading,
   Input,
-  Link,
+
   Stack,
   Text,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import InputField from '../../components/InputField';
 import { ChangeEvent } from 'react';
 import SubmitButton from '../../components/Button';
@@ -81,19 +82,22 @@ const Login = () => {
               color={'accent'} borderRadius={''} />
 
             <Stack spacing={10} pt={2}>
-              <SubmitButton
-                borderRadius={'1.25rem'}
-                onClick={handleClick}
-                loadingText='Submitting'
-                size='lg'
-                w=''
-                bg='accent'
-                color='secondary'
-                text='Sign In' fontWeight={''} />
+              <Link to={'//setup-daily-route'}>
+                <SubmitButton
+                  borderRadius={'1.25rem'}
+                  onClick={handleClick}
+                  loadingText='Submitting'
+                  size='lg'
+                  w='100%'
+                  bg='accent'
+                  color='secondary'
+                  text='Sign In' fontWeight={''} />
+              </Link>
+
             </Stack>
             <Stack color={'accent'} mb={'1.5rem'} mt={'-0.5rem'}>
               <Text>
-                Don't have an account? <Link textDecoration={'underline'}>Sign Up</Link>
+                Don't have an account? <Link to={'/signup'} style={{ "textDecoration": "underline" }}>Sign Up</Link>
               </Text>
             </Stack>
 

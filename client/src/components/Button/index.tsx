@@ -11,7 +11,7 @@ const SubmitButton = ({
   w,
   color,
   text,
-  fontWeight
+  fontWeight,
 }: {
   svgUrl?: string;
   borderRadius?: string;
@@ -22,7 +22,7 @@ const SubmitButton = ({
   size: string;
   color: string;
   text: string;
-  fontWeight: string
+  fontWeight?: string;
 }) => {
   return (
     <Button

@@ -7,6 +7,7 @@ import { sendOTP } from './mailer.controller';
 import { addTechnicianDetails, createTechnician, findAvailableSupportTimeForCyclist, findSubpartTechnician, findTechnicianByEmail, findTechnicianById, updateTechnicianPassword } from '../../models/technician/technician.query';
 import { Types } from '../../models/database';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
+import { TechnicianModel } from '../../models/technician/technician.model';
 
 let storedOTP: OTP | null = null;
 
@@ -241,14 +242,18 @@ const availableSupportTime = async (req: Request, res: Response) => {
 				return res.status(404).send('Cyclist not found.');
 			}
 
-      const technician = await findSubpartTechnician(subparts);
+			const technician = await findSubpartTechnician(subparts);
 
-      if (technician?._id && technician) {
-        console.log(technician);
-        const slots = await findAvailableSupportTimeForCyclist(String(technician._id));
+			if (technician?._id && technician) {
+				console.log(technician);
+				const slots = await findAvailableSupportTimeForCyclist(String(technician._id));
 
 				res.status(200).send({ technician: technician, slots });
 				return;
+			} else {
+				const technician = await TechnicianModel.find({});
+
+				res.status(200).send({ technician: technician[0] });
 			}
 		}
 

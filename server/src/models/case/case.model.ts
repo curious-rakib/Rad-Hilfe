@@ -9,7 +9,11 @@ const caseSchema = new Schema({
 	createdTime: { type: Date, default: new Date(), required: true },
 	status: { type: String, required: true },
 	cyclist: { type: Schema.Types.ObjectId, ref: 'Cyclist', required: true },
-	technician: { type: Schema.Types.ObjectId, ref: 'Technician', required: true },
+	technician: {
+		type: Schema.Types.ObjectId,
+		ref: 'Technician',
+		required: false,
+	},
 	bicycle: { type: Schema.Types.ObjectId, ref: 'Bicycle', required: true },
 	type: { type: String, required: true },
 	tags: [{ type: String }],
@@ -17,7 +21,7 @@ const caseSchema = new Schema({
 	note: [noteSchema],
 	supportTime: supportTimeSchema,
 	interventionDetails: interventionDetailsSchema,
-	videoURL: [{ type: String }],
+	videoURL: { type: String },
 });
 
 const CaseModel = model<Case>('Case', caseSchema);
