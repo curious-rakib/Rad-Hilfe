@@ -4,9 +4,11 @@ import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
 import { formatText } from './../../utils/formatText';
 import { useAppSelector } from '../../app/hooks';
+import { useNavigate } from 'react-router-dom';
 
 const TableComponent = () => {
 	const cases = useAppSelector((state: any) => state.presentableCases);
+	const navigate = useNavigate();
 
 	return (
 		<>
@@ -99,6 +101,7 @@ const TableComponent = () => {
 														Raise
 													</Button>
 													<Button
+														onClick={() => navigate(`/individual-case/`)}
 														_hover={{ background: 'primary', color: 'secondary', outlineColor: 'third' }}
 														w={'20'}
 														h={'10'}

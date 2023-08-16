@@ -53,6 +53,7 @@ const TechnicianProfile = () => {
 							size={'md'}
 							color={'secondary'}
 							text={'Upload'}
+							fontWeight={''}
 						/>
 					</Box>
 
@@ -60,28 +61,6 @@ const TechnicianProfile = () => {
 						width={'90%'}
 						m={'0 auto'}
 						mb={'3rem'}>
-						<InputTechnician
-							id={'fullName'}
-							isRequired={false}
-							name={'name'}
-							type={'text'}
-							label={'Full Name'}
-							placeholder={'Enter Full Name'}
-							colorScheme={'secondary'}
-							onChange={handleChange}
-						/>
-
-						<InputTechnician
-							id={'email'}
-							isRequired={false}
-							type={'email'}
-							name={'email'}
-							label={'Email'}
-							placeholder={'Enter Your Email '}
-							colorScheme={'secondary'}
-							onChange={handleChange}
-						/>
-
 						<InputTechnician
 							id={'password'}
 							isRequired={false}
@@ -97,7 +76,7 @@ const TechnicianProfile = () => {
 							isRequired={false}
 							type={'text'}
 							name={'address'}
-							label={'Current Address'}
+							label={'Change Address'}
 							placeholder={'Enter Your Current Address '}
 							colorScheme={'secondary'}
 							onChange={handleChange}
@@ -107,7 +86,7 @@ const TechnicianProfile = () => {
 							isRequired={false}
 							type={'tel'}
 							name={'phone'}
-							label={'Contact Number'}
+							label={'Change Number'}
 							placeholder={'Enter Your Contact Number '}
 							colorScheme={'secondary'}
 							onChange={handleChange}
@@ -125,6 +104,7 @@ const TechnicianProfile = () => {
 							size={'lg'}
 							color={'secondary'}
 							text={'Confirm'}
+							fontWeight={''}
 						/>
 
 						<Button
@@ -134,6 +114,7 @@ const TechnicianProfile = () => {
 							size={'lg'}
 							color={'secondary'}
 							text={'Cancel'}
+							fontWeight={''}
 						/>
 					</Flex>
 				</Box>
