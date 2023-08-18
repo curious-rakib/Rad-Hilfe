@@ -13,7 +13,7 @@ export const createAccount = async (newUser: any) => {
       body: JSON.stringify(newUser),
     });
     const user = await response.json();
-    console.log(user);
+    // console.log(user);
     return user;
   } catch (error) {
     console.log(error);

@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import InputField from '../../components/InputField';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -34,13 +34,25 @@ const Login = () => {
     dispatch(signin(dataObj));
   };
   const { email, password } = useAppSelector((state) => state.signInInput);
-  // console.log(email, password);
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const signInUserData = { email, password };
+      const token = await userLogin(signInUserData);
+      console.log('signInUserUser     ', token);
+      localStorage.setItem('accessToken', token);
+    }
+    fetchData();
+  }, [])
 
   const handleClick = async (event: any) => {
-    const signInUserData = { email, password };
+    // const signInUserData = { email, password };
 
-    const token = await userLogin(signInUserData);
-    console.log('signInUserUser     ', token);
+    // const token = await userLogin(signInUserData);
+    // // console.log('signInUserUser     ', token);
+    // localStorage.setItem('accessToken', token);
   };
   return (
     <Box p={4}>

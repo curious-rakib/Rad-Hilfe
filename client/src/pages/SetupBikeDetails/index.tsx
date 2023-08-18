@@ -10,32 +10,38 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
 import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
-import { numberToMonths } from '../../data/months';
+import { months, numberToMonths } from '../../data/months';
 function SetupBikeDetails() {
   const [fullRevision, setFullrevision] = useState<boolean>(false);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
+  const [selectedPurchaseMonth, setSelectedPurchaseMonth] = useState<string>('');
+  const [selectedRevisionMonth, setSelectedRevisionMonth] = useState<string>('');
+  // console.log(selectedPurchaseMonth, selectedRevisionMonth);
 
   const dispatch = useAppDispatch();
   const handleChange = (event: any) => {
 
     let { name, value, type } = event.target;
 
-    if (name === 'purchaseMonth' || name === 'revisionMonth') {
+    if (selectedPurchaseMonth) {
+      const monthValue = value as keyof typeof numberToMonths;
+      console.log(monthValue);
+      value = numberToMonths[monthValue];
+
+    }
+
+    if (selectedRevisionMonth) {
       const monthValue = value as keyof typeof numberToMonths;
       value = numberToMonths[monthValue];
+      console.log(value);
     }
-
-
-    if (name === "purchaseYear") {
-      console.log('Purchase Year: ', value);
-    }
-
     const dataObj = {
       [name]: type === 'number' ? Number(value) : value,
       brand: selectedBrand,
       isRevised: fullRevision,
-    };
 
+    };
+    // console.log(dataObj);
     dispatch(bikeDetails(dataObj));
   };
 
@@ -111,7 +117,29 @@ function SetupBikeDetails() {
         color={'third'} borderRadius={''} />
 
       <HStack mb={'1rem'}>
-        <InputField
+
+        <Select
+          borderRadius={'.75rem'}
+          borderColor='third'
+          name='purchaseMonth'
+          placeholder='Purchase Month'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedPurchaseMonth(event.target.value)}
+          value={selectedPurchaseMonth}
+        >
+          {months.map((month, index) => (
+            <option key={index} value={month} style={{ backgroundColor: '#001F3F' }}>
+              {month}
+            </option>
+          ))}
+        </Select>
+
+
+
+
+
+        {/* <InputField
           id='purchasemonth'
           isRequired={true}
           type='text'
@@ -120,7 +148,7 @@ function SetupBikeDetails() {
           name='purchaseMonth'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          color={'third'} borderRadius={''} /> */}
         <InputField
           id='purchaseYear'
           isRequired={true}
@@ -142,16 +170,22 @@ function SetupBikeDetails() {
         <Text color={'third'}>Yes</Text>
       </HStack>
       <HStack>
-        <InputField
-          id='revisionmonth'
-          isRequired={true}
-          type='text'
-          placeholder='Revision Month (e.g: Jan)'
-          onChange={handleChange}
-          name='revisionMonth'
+        <Select
+          borderRadius={'.75rem'}
           borderColor='third'
-          _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          name='revisionMonth'
+          placeholder='Revision Month'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedRevisionMonth(event.target.value)}
+          value={selectedRevisionMonth}
+        >
+          {months.map((month, index) => (
+            <option key={index} value={month} style={{ backgroundColor: '#001F3F' }}>
+              {month}
+            </option>
+          ))}
+        </Select>
         <InputField
           id='revisionyear'
           isRequired={true}
