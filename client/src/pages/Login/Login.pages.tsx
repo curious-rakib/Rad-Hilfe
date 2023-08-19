@@ -9,10 +9,12 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
+  Button,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../components/InputField';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -23,6 +25,8 @@ import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
 
 const Login = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -30,32 +34,36 @@ const Login = () => {
 
     const dataObj = { [name]: value };
 
-    // console.log(dataObj);
+
     dispatch(signin(dataObj));
   };
   const { email, password } = useAppSelector((state) => state.signInInput);
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const signInUserData = { email, password };
-      const token = await userLogin(signInUserData);
-      console.log('signInUserUser     ', token);
-      localStorage.setItem('accessToken', token);
-    }
-    fetchData();
-  }, [])
 
   const handleClick = async (event: any) => {
-    // const signInUserData = { email, password };
+    const signInUserData = { email, password };
 
-    // const token = await userLogin(signInUserData);
-    // // console.log('signInUserUser     ', token);
-    // localStorage.setItem('accessToken', token);
+    const token = await userLogin(signInUserData);
+
+    localStorage.setItem('accessToken', token);
+    navigate('/setup-daily-route')
+    if (token) {
+      toast({
+        title: 'Logged In Succefully',
+
+        status: 'success',
+        duration: 10000,
+        position: 'top-right',
+        isClosable: true,
+      })
+    }
   };
+
   return (
     <Box p={4}>
+
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>
         <Center mt={10}>
           <HStack>
@@ -97,19 +105,19 @@ const Login = () => {
             />
 
             <Stack spacing={10} pt={2}>
-              <Link to={'/setup-daily-route'}>
-                <SubmitButton
-                  borderRadius={'1.25rem'}
-                  onClick={handleClick}
-                  loadingText='Submitting'
-                  size='lg'
-                  w='100%'
-                  bg='accent'
-                  color='secondary'
-                  text='Sign In'
-                  fontWeight={''}
-                />
-              </Link>
+              {/* <Link to={'/setup-daily-route'}> */}
+              <SubmitButton
+                borderRadius={'1.25rem'}
+                onClick={handleClick}
+                loadingText='Submitting'
+                size='lg'
+                w='100%'
+                bg='accent'
+                color='secondary'
+                text='Sign In'
+                fontWeight={''}
+              />
+              {/* </Link> */}
             </Stack>
             <Stack color={'accent'} mb={'1.5rem'} mt={'-0.5rem'}>
               <Text>

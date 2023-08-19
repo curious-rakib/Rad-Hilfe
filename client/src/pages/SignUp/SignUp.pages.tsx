@@ -1,6 +1,6 @@
 import { Image, Box, Center, Flex, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import React, { ChangeEvent, useState } from 'react';
-import Joi from 'joi';
+
 import { useToast } from '@chakra-ui/react'
 import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';

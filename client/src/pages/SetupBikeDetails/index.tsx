@@ -11,37 +11,49 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
 import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
 import { months, numberToMonths } from '../../data/months';
+import years from '../../data/years';
+
 function SetupBikeDetails() {
+  const dispatch = useAppDispatch();
   const [fullRevision, setFullrevision] = useState<boolean>(false);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedPurchaseMonth, setSelectedPurchaseMonth] = useState<string>('');
   const [selectedRevisionMonth, setSelectedRevisionMonth] = useState<string>('');
-  // console.log(selectedPurchaseMonth, selectedRevisionMonth);
+  const [selectedPurchaseYear, setSelectedPurchaseYear] = useState(2022);
+  const [selectedRevisionYear, setSelectedRevisionYear] = useState(2022);
 
-  const dispatch = useAppDispatch();
+  console.log(selectedPurchaseYear, selectedRevisionYear);
+
+
   const handleChange = (event: any) => {
 
     let { name, value, type } = event.target;
 
-    if (selectedPurchaseMonth) {
-      const monthValue = value as keyof typeof numberToMonths;
-      console.log(monthValue);
-      value = numberToMonths[monthValue];
 
-    }
+    // if (selectedPurchaseMonth) {
+    const purchaseMonthIndex = (months.indexOf(selectedPurchaseMonth) + 1);
 
-    if (selectedRevisionMonth) {
-      const monthValue = value as keyof typeof numberToMonths;
-      value = numberToMonths[monthValue];
-      console.log(value);
-    }
+    //   console.log('from handleChange purchaseMonthIndex', purchaseMonthIndex);
+
+    // }
+
+    // if (selectedRevisionMonth) {
+    // const monthValue = value as keyof typeof numberToMonths;
+    // value = numberToMonths[monthValue];
+    const revisionMonthIndex = (months.indexOf(selectedRevisionMonth) + 1)
+    //   console.log('from handle revision', revisionMonthIndex);
+    // }
     const dataObj = {
       [name]: type === 'number' ? Number(value) : value,
       brand: selectedBrand,
+      purchaseMonth: purchaseMonthIndex,
+      revisionMonth: revisionMonthIndex,
       isRevised: fullRevision,
+      // purchaseYear: selectedPurchaseYear,
+      // revisionYear: selectedRevisionYear
 
     };
-    // console.log(dataObj);
+
     dispatch(bikeDetails(dataObj));
   };
 
@@ -80,6 +92,7 @@ function SetupBikeDetails() {
         Details of your bike
       </Heading>
       <Select
+
         borderRadius={'.75rem'}
         borderColor='third'
         placeholder='Bike Brand'
@@ -149,7 +162,7 @@ function SetupBikeDetails() {
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
           color={'third'} borderRadius={''} /> */}
-        <InputField
+        {/* <InputField
           id='purchaseYear'
           isRequired={true}
           type='number'
@@ -158,7 +171,24 @@ function SetupBikeDetails() {
           name='purchaseYear'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          color={'third'} borderRadius={''} /> */}
+
+        <Select
+          borderRadius={'.75rem'}
+          borderColor='third'
+          name='purchaseYear'
+          placeholder='Purchase Year'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedPurchaseYear(Number(event.target.value))}
+          value={selectedPurchaseYear}
+        >
+          {years.map((year, index) => (
+            <option key={index} value={year} style={{ backgroundColor: '#001F3F' }}>
+              {year}
+            </option>
+          ))}
+        </Select>
       </HStack>
 
       <Text color={'third'} fontSize={'1.25rem'} fontWeight={'600'}>
@@ -186,7 +216,7 @@ function SetupBikeDetails() {
             </option>
           ))}
         </Select>
-        <InputField
+        {/* <InputField
           id='revisionyear'
           isRequired={true}
           type='number'
@@ -195,7 +225,41 @@ function SetupBikeDetails() {
           name='revisionYear'
           borderColor='third'
           _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          color={'third'} borderRadius={''} /> */}
+
+
+
+        <Select
+          borderRadius={'.75rem'}
+          borderColor='third'
+          placeholder='Revision Year'
+          name='revisionYear'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedRevisionYear(Number(event.target.value))}
+          value={selectedRevisionYear}
+        >
+          {years.map((year, index) => (
+            <option key={index} value={year} style={{ backgroundColor: '#001F3F' }}>
+              {year}
+            </option>
+          ))}
+        </Select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </HStack>
       <Text color={'third'} opacity={'60%'} mt={'-1rem'}>
         Your best guesss works

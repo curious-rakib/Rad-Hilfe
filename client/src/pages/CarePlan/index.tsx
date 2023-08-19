@@ -2,20 +2,30 @@ import { Box, Button, Text, Image, Flex, VStack, Center } from '@chakra-ui/react
 import rotateBike from '../../assets/rotateBike.svg';
 import check from '../../assets/checkMark.svg';
 import { useEffect, useState } from 'react';
-import { getPlan } from '../../services/order';
+import { getPlan, selectPlan } from '../../services/order';
 
 const CarePlan = () => {
   const [carePlan, setCarePlan] = useState('basic');
 
   useEffect(() => {
     const getData = async () => {
-      const plan = await getPlan();
-      setCarePlan(plan);
+      // const plan = await getPlan();
+      // const plan = await selectPlan('basic')
+
+      // setCarePlan(plan);
     };
 
     getData();
   });
 
+
+  useEffect(() => {
+    console.log('by clicking', carePlan);
+  }, [carePlan])
+  // const handleClick = () => {
+  //   console.log('clicked');
+
+  // }
   return (
     <Box
       bg='third'
@@ -25,6 +35,8 @@ const CarePlan = () => {
       position={'relative'}
       overflow={'hidden'}
     >
+
+
       <Box>
         <Image
           src={rotateBike}
@@ -35,6 +47,7 @@ const CarePlan = () => {
           zIndex={'-1'}
         />
         <Box
+          onClick={() => setCarePlan('basic')}
           color={'third'}
           position={'relative'}
           bg={'secondary'}
@@ -67,8 +80,18 @@ const CarePlan = () => {
         </Box>
       </Box>
 
+
+
+
+
+
+
       <Flex>
         <VStack
+          onClick={() => {
+            console.log('qover clicked');
+            setCarePlan('qover')
+          }}
           position={'relative'}
           bg={'#52D4A5'}
           p={3}
@@ -96,7 +119,9 @@ const CarePlan = () => {
             <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>€96</span> billed annually
           </Text>
         </VStack>
-        <VStack position={'relative'} bg={'fourth'} p={3} mr={4} rounded={'xl'} color={'#001F3F'}>
+        <VStack
+          onClick={() => setCarePlan('jobrad')}
+          position={'relative'} bg={'fourth'} p={3} mr={4} rounded={'xl'} color={'#001F3F'}>
           {carePlan === 'jobrad' && (
             <Image
               src={check}

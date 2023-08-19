@@ -21,6 +21,7 @@ import { bicycleDamagedPart } from '../../services/bikeDetails';
 import { useDispatch } from 'react-redux';
 import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';
 import { categoryToColor } from '../../data/categoryToColor';
+import { getPlan } from '../../services/order';
 interface Parts {
     _id: string,
     partsName: string,
@@ -55,31 +56,9 @@ const Cart = () => {
     }]
 
     const [parts, setParts] = useState<Parts[]>(initialState)
+    const [carePlan, setCarePlan] = useState('');
 
 
-
-    // const parts = [
-    //     {
-    //         partsName: 'Body Frame',
-    //         price: 300,
-    //         color: 'third',
-    //     },
-    //     {
-    //         partsName: 'Brakes',
-    //         price: 50,
-    //         color: 'fourth',
-    //     },
-    //     {
-    //         partsName: 'Wheel',
-    //         price: 100,
-    //         color: '#3B82F6',
-    //     },
-    //     {
-    //         partsName: 'Chain ring',
-    //         price: 20,
-    //         color: 'green',
-    //     },
-    // ];
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -107,7 +86,16 @@ const Cart = () => {
 
         fetchData();
     }, []);
+    useEffect(() => {
+        const getData = async () => {
+            const plan = await getPlan();
 
+            setCarePlan(plan);
+        };
+
+        getData();
+    });
+    // console.log('from cart', carePlan);
     const handleIncrement = (part: Parts) => {
         const updated = parts.map((p) =>
             (p.partsName === part.partsName && p.qty <= 0) ? { ...p, qty: p.qty + 1 } : p
@@ -156,7 +144,7 @@ const Cart = () => {
                 Cart
             </Text>
             <Text color={'third'} my={8} fontSize={'14px'}>
-                Active plan: Qover Care
+                Active plan: {carePlan}
             </Text>
             <Box h={'45vh'} overflowY="auto">
                 {parts.map((p, index) => (

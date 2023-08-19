@@ -96,6 +96,7 @@ const Home = () => {
 
   return (
     <Box p={4}>
+      
       <Flex>
         <Image src={logo} boxSize={'40px'} />
       </Flex>
