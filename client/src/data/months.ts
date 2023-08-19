@@ -28,4 +28,11 @@ export const numberToMonths = {
   December: 12,
 };
 
-//   console.log(months); // Output: ["Jan", "Feb", "Mar", ..., "Dec"]
+const startYear = 2010;
+const endYear = new Date().getFullYear();
+const years: number[] = [];
+for (let year = startYear; year <= endYear; year++) {
+  years.push(year);
+}
+
+export { years };

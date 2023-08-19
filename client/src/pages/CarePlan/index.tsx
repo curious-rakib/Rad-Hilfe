@@ -14,7 +14,7 @@ const CarePlan = () => {
     };
 
     getData();
-  });
+  }, [carePlan]);
 
   return (
     <Box
@@ -96,6 +96,7 @@ const CarePlan = () => {
             <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>€96</span> billed annually
           </Text>
         </VStack>
+
         <VStack position={'relative'} bg={'fourth'} p={3} mr={4} rounded={'xl'} color={'#001F3F'}>
           {carePlan === 'jobrad' && (
             <Image

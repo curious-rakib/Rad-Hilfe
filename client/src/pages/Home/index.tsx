@@ -1,4 +1,4 @@
-import { Container, Flex, Grid, GridItem, Text, Box, Image } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, Text, Box, Image } from '@chakra-ui/react';
 import Cards from '../../components/Cards';
 import { FaCloud } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
@@ -6,7 +6,7 @@ import { profile } from '../../services/authentication';
 import { useAppSelector } from '../../app/hooks';
 import { bicycleHealth, setUpBikeInfo } from '../../services/bikeDetails';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { getWeatherData } from '../../services/weather';
 import logo from '../../assets/logo.svg';
 
@@ -14,23 +14,28 @@ const Home = () => {
   const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
     (state) => state.rootSetBikeReducer
   );
+
   const bikeInfo = {
     ...bikeDetails,
     dailyCommute,
     recreationalCommute,
   };
 
-  // console.log(bikeInfo);
-  console.log(bikeDetails, dailyCommute, recreationalCommute);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await setUpBikeInfo(bikeInfo);
-      console.log('from home', result);
+      console.log('bike Info : ', bikeInfo);
+
+      if (!localStorage.getItem('bikeID')) {
+        const result = await setUpBikeInfo(bikeInfo);
+        if (result) {
+          const bikeId = result._id;
+          localStorage.setItem('bikeID', bikeId);
+          localStorage.setItem('bikeInfo', JSON.stringify(result));
+        }
+      }
     };
     fetchData();
   }, []);
-
-  //name
 
   const [healthData, setHealthData] = useState(0);
   const [name, setName] = useState('');
@@ -44,17 +49,17 @@ const Home = () => {
     };
 
     const health = async () => {
-      const healthD = await bicycleHealth('64db5ac230ba9ed8cfdadfda');
-      setHealthData(Math.round(healthD.totalHealth));
-
-      console.log(healthData);
+      if (localStorage.getItem('bikeID')) {
+        const bicycleId = localStorage.getItem('bikeID');
+        const healthD = await bicycleHealth(bicycleId);
+        setHealthData(Math.round(healthD.totalHealth));
+        localStorage.setItem('healthData', String(healthData));
+      }
     };
 
     health();
     fetchData();
   }, []);
-
-  //getting latitude,longitude
 
   const initialState = {
     longitude: 0,

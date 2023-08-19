@@ -1,18 +1,7 @@
-import {
-  Box,
-  Image,
-  Center,
-  Flex,
-  FormControl,
-  HStack,
-  Heading,
-  Input,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Image, Center, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import InputField from '../../components/InputField';
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent } from 'react';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -30,30 +19,18 @@ const Login = () => {
 
     const dataObj = { [name]: value };
 
-    // console.log(dataObj);
     dispatch(signin(dataObj));
   };
+
   const { email, password } = useAppSelector((state) => state.signInInput);
 
-
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const signInUserData = { email, password };
-      const token = await userLogin(signInUserData);
-      console.log('signInUserUser     ', token);
-      localStorage.setItem('accessToken', token);
-    }
-    fetchData();
-  }, [])
-
-  const handleClick = async (event: any) => {
-    // const signInUserData = { email, password };
-
-    // const token = await userLogin(signInUserData);
-    // // console.log('signInUserUser     ', token);
-    // localStorage.setItem('accessToken', token);
+  const handleClick = async () => {
+    const signInUserData = { email, password };
+    const token = await userLogin(signInUserData);
+    console.log('signInUserUser     ', token);
+    localStorage.setItem('accessToken', token);
   };
+
   return (
     <Box p={4}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>

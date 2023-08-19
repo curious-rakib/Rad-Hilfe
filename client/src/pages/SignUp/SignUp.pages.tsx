@@ -1,7 +1,8 @@
-import { Image, Box, Center, Flex, HStack, Heading, Stack, Text } from '@chakra-ui/react';
-import React, { ChangeEvent, useState } from 'react';
-import Joi from 'joi';
-import { useToast } from '@chakra-ui/react'
+import { Image, Box, Center, Flex, HStack, Heading, Stack, Text, useToast } from '@chakra-ui/react';
+import { ChangeEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import validator from 'validator';
+
 import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
@@ -11,34 +12,33 @@ import { createAccount } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
 
-import { Link, useNavigate } from 'react-router-dom';
-
-import validator from 'validator'
-
-
-
-
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const toast = useToast();
   const [errorMessage, setErrorMessage] = useState('');
   const validate = (value: any) => {
-
-    if (validator.isStrongPassword(value, {
-      minLength: 8, minLowercase: 1,
-      minUppercase: 1, minNumbers: 1, minSymbols: 1
-    })) {
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
       setErrorMessage(' Strong Password');
 
-
       setTimeout(() => {
-        setErrorMessage('')
-      }, 2000)
+        setErrorMessage('');
+      }, 500);
     } else {
-      setErrorMessage('Is Not Strong Password')
+      setErrorMessage(
+        'Must be 6 characters and includes atlest one character of A-Z, a-z, 0-9 and symbols(*, #, @ etc.).'
+      );
     }
-  }
+  };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === 'password') {
@@ -47,43 +47,37 @@ const SignUp = () => {
     const dataObj = { [name]: value };
 
     dispatch(signup(dataObj));
-
-
-
   };
-
-
 
   const { first, last, email, password, phone } = useAppSelector((state: any) => state.input);
 
-
   const handleClick = async () => {
-    const name = first + last;
-    const userData = { name, email, password, phone };
+    const name = first + ' ' + last;
+    const cyclistData = { name, email, password, phone };
 
-    localStorage.setItem('userData', JSON.stringify(userData));
-    const registeredUser = await createAccount(userData);
+    localStorage.setItem('cyclistData', JSON.stringify(cyclistData));
+    console.log(cyclistData);
+    const registeredUser = await createAccount(cyclistData);
 
     if (registeredUser) {
-      navigate('/login')
-    }
-    else {
+      navigate('/login');
+    } else {
       toast({
         title: 'User is not registered',
-        description: "please,register yourself",
+        description: 'please,register yourself',
         status: 'error',
         duration: 7000,
         position: 'top-right',
         isClosable: true,
-      })
+      });
     }
   };
+
   const handleGoogleAuth = async (event: any) => {
     event.preventDefault();
-
   };
   const handleFacebookAuth = async (event: any) => {
-
+    event.preventDefault();
   };
 
   return (
@@ -174,10 +168,11 @@ const SignUp = () => {
               color={'accent'}
               borderRadius={''}
             />
-            {errorMessage && <Text
-
-              color={errorMessage === ' Strong Password' ? 'green' : 'red.200'}
-            >{errorMessage}</Text>}
+            {errorMessage && (
+              <Text color={errorMessage === ' Strong Password' ? 'green' : 'red.200'}>
+                {errorMessage}
+              </Text>
+            )}
 
             <InputField
               id='confirmpassword'
@@ -193,7 +188,6 @@ const SignUp = () => {
             />
 
             <Stack spacing={10} pt={2}>
-
               <SubmitButton
                 borderRadius={'1.25rem'}
                 onClick={handleClick}
@@ -205,7 +199,6 @@ const SignUp = () => {
                 text='Sign Up'
                 fontWeight={''}
               />
-
             </Stack>
             <Flex mb={'.75rem'} align={'center'} justify={'space-between'} color={'accent'} px={2}>
               <Text>Have an account?</Text>

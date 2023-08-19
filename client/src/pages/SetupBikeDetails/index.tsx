@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Stack, HStack, VStack, Box, Heading, Text, Center, Select } from '@chakra-ui/react';
+import { useState } from 'react';
+import { HStack, VStack, Heading, Text, Center, Select, Box } from '@chakra-ui/react';
 import Progress from '../../components/ProgressBar';
 import InputField from '../../components/InputField';
 
@@ -10,38 +10,34 @@ import { Link as ChakraLink } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
 import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
-import { months, numberToMonths } from '../../data/months';
+import { months, years } from '../../data/months';
 function SetupBikeDetails() {
   const [fullRevision, setFullrevision] = useState<boolean>(false);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
+  const [selectedModel, setSelectedModel] = useState<string>('');
   const [selectedPurchaseMonth, setSelectedPurchaseMonth] = useState<string>('');
   const [selectedRevisionMonth, setSelectedRevisionMonth] = useState<string>('');
-  // console.log(selectedPurchaseMonth, selectedRevisionMonth);
+  const [selectedPurchaseYear, setSelectedPurchaseYear] = useState<number>(2023);
+  const [selectedRevisionYear, setSelectedRevisionYear] = useState<number>(2023);
 
   const dispatch = useAppDispatch();
   const handleChange = (event: any) => {
-
     let { name, value, type } = event.target;
 
-    if (selectedPurchaseMonth) {
-      const monthValue = value as keyof typeof numberToMonths;
-      console.log(monthValue);
-      value = numberToMonths[monthValue];
+    const purchaseMonthIndex = months.indexOf(selectedPurchaseMonth) + 1;
+    const revisionMonthIndex = months.indexOf(selectedRevisionMonth) + 1;
 
-    }
-
-    if (selectedRevisionMonth) {
-      const monthValue = value as keyof typeof numberToMonths;
-      value = numberToMonths[monthValue];
-      console.log(value);
-    }
     const dataObj = {
       [name]: type === 'number' ? Number(value) : value,
       brand: selectedBrand,
+      model: selectedModel,
       isRevised: fullRevision,
-
+      purchaseMonth: purchaseMonthIndex,
+      purchaseYear: selectedPurchaseYear,
+      revisionMonth: revisionMonthIndex,
+      revisionYear: selectedRevisionYear,
     };
-    // console.log(dataObj);
+
     dispatch(bikeDetails(dataObj));
   };
 
@@ -79,6 +75,7 @@ function SetupBikeDetails() {
       <Heading color={'third'} fontSize={'1.25rem'} fontFamily={'Inter'} fontWeight={'500'}>
         Details of your bike
       </Heading>
+
       <Select
         borderRadius={'.75rem'}
         borderColor='third'
@@ -94,16 +91,25 @@ function SetupBikeDetails() {
           </option>
         ))}
       </Select>
-      <InputField
-        id='bikemodel'
-        isRequired={true}
-        type='text'
-        placeholder='Bike Model'
-        onChange={handleChange}
-        name='model'
+
+      <Select
+        borderRadius={'.75rem'}
         borderColor='third'
-        _placeholder={{ color: 'third', opacity: '100%' }}
-        color={'third'} borderRadius={''} />
+        placeholder='Bike Model'
+        style={{ backgroundColor: '#001F3F' }}
+        color={'third'}
+        onChange={(event) => setSelectedModel(event.target.value)}
+        value={selectedModel}
+      >
+        {selectedBrand &&
+          bikeBrandsAndModels
+            .filter((brandObj) => brandObj.brand === selectedBrand)[0]
+            .models.map((model, index) => (
+              <option key={index} value={model} style={{ backgroundColor: '#001F3F' }}>
+                {model}
+              </option>
+            ))}
+      </Select>
 
       <InputField
         id='serialnum'
@@ -114,10 +120,11 @@ function SetupBikeDetails() {
         name='serialNumber'
         borderColor='third'
         _placeholder={{ color: 'third', opacity: '100%' }}
-        color={'third'} borderRadius={''} />
+        color={'third'}
+        borderRadius={''}
+      />
 
       <HStack mb={'1rem'}>
-
         <Select
           borderRadius={'.75rem'}
           borderColor='third'
@@ -135,30 +142,23 @@ function SetupBikeDetails() {
           ))}
         </Select>
 
-
-
-
-
-        {/* <InputField
-          id='purchasemonth'
-          isRequired={true}
-          type='text'
-          placeholder='Purchase Month (e.g: Jan)'
-          onChange={handleChange}
-          name='purchaseMonth'
+        <Select
+          overflowY={'scroll'}
+          borderRadius={'.75rem'}
           borderColor='third'
-          _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} /> */}
-        <InputField
-          id='purchaseYear'
-          isRequired={true}
-          type='number'
-          placeholder='Purchase Year'
-          onChange={handleChange}
           name='purchaseYear'
-          borderColor='third'
-          _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          placeholder='Purchase Year'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedPurchaseYear(Number(event.target.value))}
+          value={selectedPurchaseYear}
+        >
+          {years.map((year, index) => (
+            <option key={index} value={year} style={{ backgroundColor: '#001F3F' }}>
+              {year}
+            </option>
+          ))}
+        </Select>
       </HStack>
 
       <Text color={'third'} fontSize={'1.25rem'} fontWeight={'600'}>
@@ -186,16 +186,23 @@ function SetupBikeDetails() {
             </option>
           ))}
         </Select>
-        <InputField
-          id='revisionyear'
-          isRequired={true}
-          type='number'
-          placeholder='Revision Year'
-          onChange={handleChange}
-          name='revisionYear'
+        <Select
+          overflowY={'scroll'}
+          borderRadius={'.75rem'}
           borderColor='third'
-          _placeholder={{ color: 'third', opacity: '100%' }}
-          color={'third'} borderRadius={''} />
+          name='revisionYear'
+          placeholder='Revision Year'
+          style={{ backgroundColor: '#001F3F' }}
+          color={'third'}
+          onChange={(event) => setSelectedRevisionYear(Number(event.target.value))}
+          value={selectedRevisionYear}
+        >
+          {years.map((year, index) => (
+            <option key={index} value={year} style={{ backgroundColor: '#001F3F' }}>
+              {year}
+            </option>
+          ))}
+        </Select>
       </HStack>
       <Text color={'third'} opacity={'60%'} mt={'-1rem'}>
         Your best guesss works
@@ -210,7 +217,9 @@ function SetupBikeDetails() {
           bg='third'
           w='12.5rem'
           color='secondary'
-          text='Next' fontWeight={''} />
+          text='Next'
+          fontWeight={''}
+        />
       </ChakraLink>
     </VStack>
   );
