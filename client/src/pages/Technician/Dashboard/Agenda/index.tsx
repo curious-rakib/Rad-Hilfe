@@ -1,90 +1,32 @@
-import { Flex, Text, Image, Box, Heading, Divider, Center, Stack } from '@chakra-ui/react';
+import { Flex, Text, Image, Box, Center, Stack, Divider } from '@chakra-ui/react';
 import logo from './../../../../assets/logo(Midnight Blue).svg';
 import AgendaCalendar from '../../../../components/React Big Calender';
 import moment from 'moment';
 import { useEffect, useMemo, useState } from 'react';
 import CaseBox from '../../../../components/Case Box';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
-import { ObjectId } from 'mongoose';
 import { useAppDispatch } from '../../../../app/hooks';
 import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
+import { Case } from '../../../../interfaces/case.interface';
 
-export interface Case {
-	_id?: string;
-	caseNumber?: number;
-	createdTime: Date | string;
-	status: string;
-	cyclist: Cyclist | ObjectId | undefined;
-	technician: ObjectId | undefined;
-	bicycle: ObjectId | Bicycle | undefined;
-	type: string;
-	tags: string[];
-	order?: ObjectId;
-	note?: Note[];
-	supportTime: SupportTime;
-	interventionDetails: InterventionDetails;
-	videoURL?: string;
-	clientName: string;
-}
-
-export interface Note {
-	text: string;
-	timeStamp: Date;
-}
-
-export interface SupportTime {
-	slotName: string;
-	slotTime: string;
-	timeStamp: Date | string;
-}
-export interface InterventionDetails {
-	firstCall: string | Date;
-	followUpCall: string | Date;
-	supportQuality: Number;
-}
-
-export interface Cyclist {
-	bicycle: string | ObjectId;
-	cases: Case[];
-	email: string;
-	homeAddress: string;
-	name: string;
-	orders: string[] | ObjectId[];
-	password: string;
-	phone: string;
-	plan: string;
-	role: string;
-	workAddress: string;
-	__v: number;
-	_id: ObjectId | string;
-}
-
-export interface Bicycle {
-	bicycleParts: any[];
-	brand: string;
-	dailyCommute: {
-		days: string[];
-		unpavedRoad: number;
-		totalDistance: number;
-		_id: string | ObjectId;
-	};
-	isRevised: boolean;
-	model: string;
-	purchaseMonth: number;
-	purchaseYear: number;
-	recreationalCommute: {
-		days: string[];
-		activityType: string[];
-		lengthOfRide: number;
-		_id: string | ObjectId;
-	};
-	revisionMonth: number | null;
-	revisionYear: number | null;
-	serialNumber: string;
-	totalHealth: number;
-	__v: number;
-	_id: string | ObjectId;
-}
+const dummyFutureCases = [
+	{
+		type: 'Passive',
+		createdTime: '2023-08-20',
+		clientName: 'John Doe',
+		supportTime: {
+			slotTime: '10:00-11:00',
+		},
+	},
+	{
+		type: 'Active',
+		createdTime: '2023-08-21',
+		clientName: 'Jane Smith',
+		supportTime: {
+			slotTime: '14:00-15:00',
+		},
+	},
+];
 
 const Agenda = () => {
 	const dispatch = useAppDispatch();
@@ -152,7 +94,7 @@ const Agenda = () => {
 				p={'1rem'}
 				color={'secondary'}
 				direction={'row'}
-				spacing={'3rem'}>
+				spacing={'10vw'}>
 				<AgendaCalendar cases={todayCases} />
 
 				<Box
@@ -182,15 +124,16 @@ const Agenda = () => {
 						<Text
 							fontSize={'1.65rem'}
 							fontWeight={'700'}
-							p={'1rem'}>
-							Upcoming Cases
+							p={' 1rem'}>
+							Upcoming cases
 						</Text>
 					</Center>
-					{futureCases && futureCases.length > 0 ? (
+
+					{dummyFutureCases && dummyFutureCases.length > 0 ? (
 						<Flex
 							direction={'column'}
 							alignItems={'center'}>
-							{futureCases.map((Case, index) => {
+							{dummyFutureCases.map((Case, index) => {
 								return (
 									<CaseBox
 										key={index}

@@ -58,9 +58,6 @@ function App() {
 					<Route
 						path="/cyclist-case"
 						element={<CyclistTabCases />}></Route>
-					<Route
-						path="/chat"
-						element={<Chat />}></Route>
 
 					<Route
 						path="/setup-daily-route"

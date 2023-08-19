@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function NavbarDashboard() {
 	const technician = useAppSelector((state: any) => state.technician);
-	console.log(technician);
+
 	return (
 		<Box
 			borderRadius={'2rem'}

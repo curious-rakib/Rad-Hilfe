@@ -7,9 +7,8 @@ import { AiOutlineLeft } from 'react-icons/ai';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useEffect, useState } from 'react';
 import { TechnicianGetCaseByIdService } from '../../../../services/technician/case';
-import { Case } from '../Agenda';
 import { formatText } from '../../../../utils/formatText';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/hooks';
 import { bikeDetails } from '../../../../features/cyclist/bikeDetails-slice';
 
