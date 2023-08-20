@@ -23,14 +23,6 @@ const CyclistProfile = () => {
 
 
 
-
-
-
-
-
-
-
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {

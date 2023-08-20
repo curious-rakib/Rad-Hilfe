@@ -16,12 +16,14 @@ const SetUpExpertCall = () => {
     const navigate = useNavigate();
     const [slots, setSlots] = useState<Slots[]>([]);
     const [selectedSlot, setSelectedSlot] = useState({ slot: '' })
-    let [value, setValue] = React.useState('')
+    let [noteValue, setNoteValue] = React.useState('')
 
     let handleInputChange = (e: { target: { value: any; }; }) => {
         let inputValue = e.target.value
-        setValue(inputValue)
+        setNoteValue(inputValue)
     }
+    console.log(noteValue);
+
     const handleChange = () => { };
     const deliverySlots = [
         {
@@ -75,7 +77,8 @@ const SetUpExpertCall = () => {
     const passiveDetails = {
         totalPrice: totalPrice,
         orderId: orderId,
-        supportTime: selectedSlot.slot
+        supportTime: selectedSlot.slot,
+        expertNote: noteValue
     }
     // console.log(passiveDetails);
     localStorage.setItem("passive", JSON.stringify(passiveDetails))
@@ -118,7 +121,7 @@ const SetUpExpertCall = () => {
 
 
                 <Textarea
-                    value={value}
+                    value={noteValue}
                     onChange={handleInputChange}
                     placeholder='Notes for expert'
                     size='sm'

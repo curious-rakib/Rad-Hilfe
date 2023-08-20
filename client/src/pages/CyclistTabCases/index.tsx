@@ -8,6 +8,8 @@ import { categoryToColor } from '../../data/categoryToColor';
 
 const CyclistTabCases = () => {
     const [allCaseState, setAllCaseState] = useState<any[]>([])
+
+
     useEffect(() => {
         const fetchData = async () => {
             const allCase = await getAallCases();

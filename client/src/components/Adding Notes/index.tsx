@@ -16,7 +16,9 @@ const AddingNotes = () => {
 	return (
 		<Flex
 			direction={'column'}
-			alignItems={'center'}>
+			alignItems={'center'}
+
+		>
 			{notes.map((note, index) => (
 				<Box
 					key={index}
@@ -38,8 +40,16 @@ const AddingNotes = () => {
 
 			<Flex
 				mt={'1rem'}
-				gap={'1rem'}>
+				gap={'1rem'}
+				position={'fixed'}
+				bottom={70} // Stick to the top
+				right={380} // Stick to the right
+				zIndex={1}
+
+
+			>
 				<Input
+
 					placeholder="Write a note..."
 					_placeholder={{ color: 'secondary' }}
 					bg={'#d9d9d9'}

@@ -34,7 +34,7 @@ const ReplacementParts = ({ replacableParts }: { replacableParts: any[] }) => {
 											{formatComponentName(part.subpart.name)}
 										</Text>
 										<Flex
-											justify={'center'}
+											justify={'start'}
 											alignItems={'center'}>
 											<Text
 												mt={1}

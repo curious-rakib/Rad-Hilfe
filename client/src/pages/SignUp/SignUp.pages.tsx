@@ -1,5 +1,7 @@
 import { Image, Box, Center, Flex, HStack, Heading, Stack, Text } from '@chakra-ui/react';
 import React, { ChangeEvent, useState } from 'react';
+
+import { useToast } from '@chakra-ui/react'
 import InputField from '../../components/InputField';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
@@ -8,22 +10,52 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { createAccount } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
-import signupValidatorSchema from './validator';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
+
+import validator from 'validator'
+
+
+
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const toast = useToast();
+  const [errorMessage, setErrorMessage] = useState('');
+  const validate = (value: any) => {
 
+    if (validator.isStrongPassword(value, {
+      minLength: 8, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) {
+      setErrorMessage(' Strong Password');
+
+
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 2000)
+    } else {
+      setErrorMessage('Is Not Strong Password')
+    }
+  }
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-
+    if (name === 'password') {
+      validate(value);
+    }
     const dataObj = { [name]: value };
 
     dispatch(signup(dataObj));
+
+
+
   };
 
+
+
   const { first, last, email, password, phone } = useAppSelector((state: any) => state.input);
-  // console.log(first, last, email, password, phone);
+
 
   const handleClick = async () => {
     const name = first + last;
@@ -31,27 +63,29 @@ const SignUp = () => {
 
     localStorage.setItem('userData', JSON.stringify(userData));
     const registeredUser = await createAccount(userData);
-    // console.log('registeredUser     ', registeredUser);
+
+    if (registeredUser) {
+      navigate('/login')
+    }
+    else {
+      toast({
+        title: 'User is not registered',
+        description: "please,register yourself",
+        status: 'error',
+        duration: 7000,
+        position: 'top-right',
+        isClosable: true,
+      })
+    }
   };
   const handleGoogleAuth = async (event: any) => {
     event.preventDefault();
-    console.log('heelo');
+
   };
   const handleFacebookAuth = async (event: any) => {
-    <InputField
-      id='lastName'
-      isRequired={true}
-      type='text'
-      placeholder='Last Name'
-      onChange={handleChange}
-      name='last'
-      borderColor='accent'
-      _placeholder={{ color: 'accent', opacity: '60%' }}
-      color={''}
-      borderRadius={''}
-    />;
+
   };
-  // console.log(signup);
+
   return (
     <Box p={4}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>
@@ -140,6 +174,11 @@ const SignUp = () => {
               color={'accent'}
               borderRadius={''}
             />
+            {errorMessage && <Text
+
+              color={errorMessage === ' Strong Password' ? 'green' : 'red.200'}
+            >{errorMessage}</Text>}
+
             <InputField
               id='confirmpassword'
               isRequired={true}
@@ -154,19 +193,19 @@ const SignUp = () => {
             />
 
             <Stack spacing={10} pt={2}>
-              <Link to={'/login'}>
-                <SubmitButton
-                  borderRadius={'1.25rem'}
-                  onClick={handleClick}
-                  loadingText='Submitting'
-                  size='lg'
-                  bg='accent'
-                  w='100%'
-                  color='secondary'
-                  text='Sign Up'
-                  fontWeight={''}
-                />
-              </Link>
+
+              <SubmitButton
+                borderRadius={'1.25rem'}
+                onClick={handleClick}
+                loadingText='Submitting'
+                size='lg'
+                bg='accent'
+                w='100%'
+                color='secondary'
+                text='Sign Up'
+                fontWeight={''}
+              />
+
             </Stack>
             <Flex mb={'.75rem'} align={'center'} justify={'space-between'} color={'accent'} px={2}>
               <Text>Have an account?</Text>
@@ -210,6 +249,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-function setErrorMessages(arg0: { [x: string]: string }) {
-  throw new Error('Function not implemented.');
-}

@@ -9,7 +9,8 @@ paypal.configure({
 });
 
 export const payment = async (req: any, res: any) => {
-  const { totalPrice, supportTime, orderId } = req.body;
+  const { totalPrice, supportTime, orderId, expertNote } = req.body;
+
   const [supportTimeStart, supportTimeEnd] = supportTime.split(' - ');
   // console.log(supportTime);
   // console.log(orderId);
@@ -26,7 +27,9 @@ export const payment = async (req: any, res: any) => {
       },
     ],
     redirect_urls: {
-      return_url: `http://localhost:5173/thankyou?orderId=${orderId}&supportTimeStart=${supportTimeStart}&supportTimeEnd=${supportTimeEnd}`,
+      return_url: `http://localhost:5173/thankyou?orderId=${orderId}&supportTimeStart=${supportTimeStart}&supportTimeEnd=${supportTimeEnd}&expertNote=${encodeURIComponent(
+        expertNote
+      )}`,
       cancel_url: 'http://localhost:3001/cancel',
     },
   };

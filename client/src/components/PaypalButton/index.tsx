@@ -3,7 +3,7 @@ import axios from 'axios';
 const PayPalButton = () => {
     const passive = localStorage.getItem("passive");
     const parsedPassive = JSON.parse(passive!);
-    // console.log('parsedPassive', parsedPassive)
+    console.log('parsedPassive', parsedPassive)
 
 
     const createOrder = async () => {
