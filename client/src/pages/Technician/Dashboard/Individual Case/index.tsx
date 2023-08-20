@@ -8,7 +8,7 @@ import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useEffect, useState } from 'react';
 import { TechnicianGetCaseByIdService } from '../../../../services/technician/case';
 import { formatText } from '../../../../utils/formatText';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/hooks';
 import { bikeDetails } from '../../../../features/cyclist/bikeDetails-slice';
 
@@ -40,14 +40,13 @@ const IndividualCase = () => {
 	const dispatch = useAppDispatch();
 	const [Case, setCase] = useState<any[]>([]);
 	const [bicycleParts, setBicycleParts] = useState<any[]>([]);
-	// const id = useParams();
-	const caseId = '64dc5a3bccaa7c80383f3ef7';
+	const id = useParams();
 
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
 			try {
-				const result = await TechnicianGetCaseByIdService(caseId);
-				// console.log('case details: ', result[0].bicycle);
+				const result = await TechnicianGetCaseByIdService(id);
+
 				setCase(result);
 				setBicycleParts(result[0].bicycle.bicycleParts);
 				dispatch(bikeDetails(result[0].bicycle));
@@ -56,7 +55,7 @@ const IndividualCase = () => {
 			}
 		};
 		fetchIndividualCaseData();
-	}, []);
+	}, [id]);
 
 	return (
 		<>

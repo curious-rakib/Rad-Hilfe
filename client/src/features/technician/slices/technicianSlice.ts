@@ -17,7 +17,7 @@ export interface Technician {
 	imageUrl?: string;
 }
 
-const initialState: Technician = {
+export const initialState: Technician = {
 	name: '',
 	email: '',
 	password: '',
@@ -37,11 +37,11 @@ const technicianSlice = createSlice({
 	name: 'technician',
 	initialState,
 	reducers: {
-		technician: (state, action) => {
+		createTechnician: (state, action) => {
 			return { ...state, ...action.payload };
 		},
 	},
 });
 
-export const { technician } = technicianSlice.actions;
+export const { createTechnician } = technicianSlice.actions;
 export default technicianSlice.reducer;

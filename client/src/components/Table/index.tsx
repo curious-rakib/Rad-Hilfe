@@ -1,14 +1,23 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
-import { Box, Button, Center, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Select, Text } from '@chakra-ui/react';
 import { statusColor } from '../../data/statusColor';
 import FullHealthBar from '../Bicycle Full Health Bar';
 import { formatText } from './../../utils/formatText';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useNavigate } from 'react-router-dom';
+import { createPresentableCases } from '../../features/technician/slices/casesPresentationSlice';
+import { ChangeEvent } from 'react';
 
-const TableComponent = () => {
+const TableComponent = ({ handleActionChange }: { handleActionChange: (input: string, index: number) => void }) => {
 	const cases = useAppSelector((state: any) => state.presentableCases);
 	const navigate = useNavigate();
+
+	const handleChange = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
+		event.preventDefault();
+		const input = event.target.value;
+
+		if (input) handleActionChange(input, index);
+	};
 
 	if (cases.length === 0) {
 		return (
@@ -81,13 +90,13 @@ const TableComponent = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{cases.map((Case: any, index: number) => (
-							<Tr key={index}>
-								{Object.values(Case).map((value, index) => {
-									if (typeof value === 'string' && index < 6) {
+						{cases.map((Case: any, index1: number) => (
+							<Tr key={index1}>
+								{Object.values(Case).map((value, index2: number) => {
+									if (typeof value === 'string' && index2 < 6) {
 										return (
 											<Td
-												key={index}
+												key={index2}
 												p={'1rem 1rem 1rem 1rem'}
 												w={'11.65vw'}
 												borderBottom={'0'}>
@@ -99,7 +108,7 @@ const TableComponent = () => {
 													fontWeight={'400'}
 													lineHeight={'2rem'}
 													borderRadius={'1rem'}>
-													<Center>{index === 2 ? <Text as="b">{formatText(value)}</Text> : <Text>{formatText(value)}</Text>}</Center>
+													<Center>{index2 === 2 ? <Text as="b">{formatText(value)}</Text> : <Text>{formatText(value)}</Text>}</Center>
 												</Box>
 											</Td>
 										);
@@ -117,30 +126,52 @@ const TableComponent = () => {
 											<Td
 												w={'10vw'}
 												p={'2.5vh 1vw 2.5vh 1vw'}
-												key={index}
+												key={index2}
 												borderBottom={'0'}>
-												<Button
-													_hover={{ background: '#d1fbbd', color: 'secondary', outlineColor: 'secondary' }}
-													w={'20'}
-													h={'10'}
-													size={'10'}
-													mr={'2'}
-													borderRadius={15}
-													bg={'secondary'}
-													color={'accent'}>
-													Raise
-												</Button>
-												<Button
-													onClick={() => navigate(`/individual-case/`)}
-													_hover={{ background: 'primary', color: 'secondary', outlineColor: 'third' }}
-													w={'20'}
-													h={'10'}
-													size={'10'}
-													bg={'third'}
-													borderRadius={15}
-													color={'secondary'}>
-													View
-												</Button>
+												<Flex
+													justify={'center'}
+													alignItems={'center'}>
+													<Select
+														variant="unstyled"
+														_hover={{ background: '#d1fbbd', color: 'secondary', outlineColor: 'secondary' }}
+														w={'20'}
+														h={'10'}
+														_placeholder={{ backgroundColor: 'white' }}
+														size="md"
+														fontFamily={'Inter'}
+														fontSize={'1rem'}
+														fontWeight={'600'}
+														focusBorderColor="secondary"
+														iconSize="25"
+														textAlign={'end'}
+														mr={2}
+														borderRadius={15}
+														bg={'secondary'}
+														color={'accent'}
+														onChange={(event) => handleChange(event, index1)}>
+														<option
+															value="Raised"
+															style={{ backgroundColor: 'white' }}>
+															Raise
+														</option>
+														<option
+															value="Closed"
+															style={{ backgroundColor: 'white' }}>
+															Close
+														</option>
+													</Select>
+													<Button
+														onClick={() => navigate(`/individual-case/${value}`)}
+														_hover={{ background: 'primary', color: 'secondary', outlineColor: 'third' }}
+														w={'20'}
+														h={'10'}
+														size={'10'}
+														bg={'third'}
+														borderRadius={15}
+														color={'secondary'}>
+														View
+													</Button>
+												</Flex>
 											</Td>
 										);
 									}

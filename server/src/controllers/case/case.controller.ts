@@ -1,9 +1,5 @@
 import { Request, Response } from 'express';
-import {
-  createNewCase,
-  findAllCases,
-  findCaseById,
-} from '../../models/case/case.query';
+import { createNewCase, findAllCases, findCaseById } from '../../models/case/case.query';
 import { getSession } from '../../middlewares/sessionManagement';
 import { SessionData } from '../../interfaces/session.interface';
 import { findCyclistByEmail } from '../../models/cyclist/cyclist.query';
@@ -12,10 +8,9 @@ import { findOrderById } from '../../models/order/order.query';
 import { Types } from '../../models/database';
 
 const createPassiveCase = async (req: Request, res: Response) => {
-  console.log(req.body);
-  try {
-    const { type, tags, note, supportTime, interventionDetails, orderId } =
-      req.body;
+	console.log(req.body);
+	try {
+		const { type, tags, note, supportTime, interventionDetails, orderId } = req.body;
 
 		const token = req.cookies.accessToken;
 		const session: SessionData | undefined = getSession(token);
@@ -70,9 +65,8 @@ const createPassiveCase = async (req: Request, res: Response) => {
 };
 
 const createActiveCase = async (req: Request, res: Response) => {
-  try {
-    const { type, tags, note, supportTime, interventionDetails, videoURL } =
-      req.body;
+	try {
+		const { type, tags, note, supportTime, interventionDetails, videoURL } = req.body;
 
 		const token = req.cookies.accessToken;
 		const session: SessionData | undefined = getSession(token);
@@ -143,13 +137,12 @@ const getAllCases = async (req: Request, res: Response) => {
 };
 
 const getCaseById = async (req: Request, res: Response) => {
-  console.log(req.body);
-  try {
-    const caseId: string = req.params.id;
-    if (!caseId) {
-      res.status(402).send('Case id not found!');
-      return;
-    }
+	try {
+		const caseId: string = req.params.id;
+		if (!caseId) {
+			res.status(402).send('Case id not found!');
+			return;
+		}
 
 		const caseResult = await findCaseById(caseId);
 		res.status(200).send(caseResult);

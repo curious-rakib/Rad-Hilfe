@@ -134,7 +134,7 @@ function App() {
 							element={<TechnicianProfile />}
 						/>
 						<Route
-							path="/individual-case"
+							path="/individual-case/:id"
 							element={<IndividualCase />}
 						/>
 					</Route>

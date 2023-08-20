@@ -7,9 +7,9 @@ import PaginationComponent from '../../../../components/Pagination';
 import { useEffect, useState } from 'react';
 import { Case } from './../../../../interfaces/case.interface';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
-import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
+import { createCases, updateCaseStatus } from '../../../../features/technician/slices/technicianCasesSlice';
 import { useAppDispatch } from '../../../../app/hooks';
-import { createPresentableCases } from '../../../../features/technician/slices/casesPresentationSlice';
+import { createPresentableCases, updatePresentableCaseStatus } from '../../../../features/technician/slices/casesPresentationSlice';
 import moment from 'moment';
 import { Cyclist } from '../../../../interfaces/cyclist.interface';
 
@@ -66,6 +66,11 @@ const Cases = () => {
 		});
 
 		dispatch(createPresentableCases(extractCaseData(filteredCases)));
+	};
+
+	const handleActionChange = (input: string, index: number) => {
+		dispatch(updateCaseStatus({ index, status: input }));
+		dispatch(updatePresentableCaseStatus({ index, status: input }));
 	};
 
 	useEffect(() => {
@@ -148,7 +153,7 @@ const Cases = () => {
 							/>
 						</Flex>
 					</Flex>
-					<TableComponent />
+					<TableComponent handleActionChange={handleActionChange} />
 				</Box>
 				<Box
 					h={'6vh'}

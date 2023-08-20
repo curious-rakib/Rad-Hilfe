@@ -4,12 +4,29 @@ import agenda from './../../assets/agenda.svg';
 import cases from './../../assets/cases.svg';
 import profile from './../../assets/technician-profile.svg';
 import logout from './../../assets/logout.svg';
-import { useAppSelector } from '../../app/hooks';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { createTechnician, initialState } from '../../features/technician/slices/technicianSlice';
+import { TechnicianGetProfileService } from '../../services/technician/account';
+import { useAppDispatch } from '../../app/hooks';
 
 function NavbarDashboard() {
-	const technician = useAppSelector((state: any) => state.technician);
+	const [technician, setTechnician] = useState(initialState);
+	const dispatch = useAppDispatch();
 
+	useEffect(() => {
+		const fetchProfile = async () => {
+			try {
+				const result = await TechnicianGetProfileService();
+				console.log(result);
+				setTechnician(result);
+				dispatch(createTechnician(result));
+			} catch (error) {
+				console.error('Error before fetching!');
+			}
+		};
+		fetchProfile();
+	}, []);
 	return (
 		<Box
 			borderRadius={'2rem'}

@@ -1,6 +1,6 @@
 import { Flex, Box, Text, Heading, Image, Center } from '@chakra-ui/react';
 import image from './../../../assets/background_image.jpg';
-import TechnicianWorkingDays, { Day } from '../../../components/Technician Working Days/indexForSetup';
+import TechnicianWorkingDays from '../../../components/Technician Working Days/indexForSetup';
 import logo from './../../../assets/logo(Lilac).svg';
 import LoopSlotOrPartsComponent from '../../../components/Time Slots & Bicycle Parts/indexForSetup';
 import { TimeSlot, timeSlotGenerator } from '../../../utils/timeSlotgenerator';
