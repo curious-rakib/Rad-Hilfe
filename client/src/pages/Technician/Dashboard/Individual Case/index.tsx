@@ -18,24 +18,19 @@ import ActiveTags from '../../../../components/ActiveTags';
 
 const articles = [
 	{
-		title: 'Getting Started with React Hooks',
+		title: 'https://www.thecrucible.org/guides/bike-maintenance/repair-a-bike/',
 		author: 'John Smith',
 		date: '2023-08-16',
 	},
 	{
-		title: 'Introduction to Machine Learning Algorithms',
+		title: 'https://www.wikihow.com/Fix-Brakes-on-a-Bike',
 		author: 'Jane Doe',
 		date: '2023-08-15',
 	},
 	{
-		title: 'The Art of Writing Clean Code',
+		title: 'https://www.cycleplan.co.uk/cycle-savvy/how-to-adjust-bike-brakes/',
 		author: 'Alex Johnson',
 		date: '2023-08-14',
-	},
-	{
-		title: 'Exploring New Frontiers in Space Travel',
-		author: 'Emily Williams',
-		date: '2023-08-13',
 	},
 ];
 

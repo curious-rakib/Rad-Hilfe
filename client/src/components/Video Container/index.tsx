@@ -7,11 +7,10 @@ const VideoContainer = ({ bookMark }: { bookMark: boolean }) => {
 				ratio={16 / 9}
 				flex={0.9}>
 				<iframe
-					title="naruto"
-					src="https://www.youtube.com/embed/QhBnZ6NPOY0"
+					title="brakes"
+					src="https://youtu.be/OQsiceeCZ0M"
 					allowFullScreen
 				/>
-				{/* <BsBookmark /> */}
 			</AspectRatio>
 		</>
 	);
