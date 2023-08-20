@@ -120,7 +120,7 @@ const IndividualCyclistCase = () => {
               <Text fontSize={'lg'} fontWeight={'semibold'}>
                 Intervention details
               </Text>
-              <Text>First call: 07 Aug 2023 | 18:00</Text>
+              <Text>First call: 20 Aug 2023 | 18:00</Text>
               <Text>Follow-up call: Pending</Text>
               <Text>Support quality: ☆☆☆☆</Text>
             </Stack>

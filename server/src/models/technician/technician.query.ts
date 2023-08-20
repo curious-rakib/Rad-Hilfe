@@ -1,3 +1,4 @@
+import { date } from 'joi';
 import { Technician } from '../../interfaces/technician.interface';
 import { CaseModel } from '../case/case.model';
 import { Types } from '../database';
@@ -88,33 +89,52 @@ const findAvailableSupportTimeForCyclist = async (technicianId: string) => {
 
   let allSupportTime;
   if (cases) {
-    allSupportTime = cases.map((oneCase) => {
-      return oneCase.supportTime;
-    });
+    allSupportTime = cases
+      .map((oneCase) => {
+        return oneCase.supportTime;
+      })
+      .filter((oneCase) => {
+        return oneCase;
+      });
   }
+
+  const Day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const technician = await findTechnicianById(new Types.ObjectId(technicianId));
 
-  if (allSupportTime && technician) {
-    let availableSupportTime;
+  if (technician) {
+    let availableSupportTime: any[] = [];
 
     for (let day = 0; day < 7; day++) {
       const checkingDay = new Date();
       checkingDay.setDate(day);
 
-      availableSupportTime = allSupportTime.map((supportTime) => {
+      if (technician.workingDays?.includes(Day[checkingDay.getDay()]) && !allSupportTime) {
+        const dateSlotTime = {
+          date: Day[checkingDay.getDay()],
+          slots: technician.workingSlots?.filter((slot) => slot),
+        };
+
+        availableSupportTime.push(dateSlotTime);
+        continue;
+      }
+
+      availableSupportTime = allSupportTime!.map((supportTime) => {
         const supportDate = supportTime.timeStamp;
 
         let dateSlotTime;
         if (
           supportDate.getDate === checkingDay.getDate &&
           supportDate.getMonth === checkingDay.getMonth &&
-          supportDate.getFullYear === supportDate.getFullYear
+          supportDate.getFullYear === supportDate.getFullYear &&
+          technician.workingDays?.includes(Day[checkingDay.getDay()])
         ) {
           dateSlotTime = {
             date: supportDate,
             slots: technician.workingSlots?.filter((slot) => supportTime.slotTime !== slot),
           };
+
+          console.log(dateSlotTime);
 
           return dateSlotTime;
         }

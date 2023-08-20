@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { categoryToColor } from '../../data/categoryToColor';
 
 const CyclistTabCases = () => {
-  const expertNote = localStorage.getItem('expertNote');
+  const expertNote = JSON.parse(localStorage.getItem('expertNote'));
   const [allCaseState, setAllCaseState] = useState<any[]>([]);
   useEffect(() => {
     const fetchData = async () => {

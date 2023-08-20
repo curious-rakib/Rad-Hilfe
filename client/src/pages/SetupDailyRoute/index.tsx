@@ -87,35 +87,101 @@ function SetupDailyRoute() {
     return () => mapRef.current?.remove();
   }, []);
 
+  // useEffect(() => {
+
+  //   const fetchData = async () => {
+  //     const startCoordslat = markars[0].lat;
+
+  //     const startCoordslng = markars[0].lng;
+
+  //     const endCoordslat = markars[markars.length - 1].lat;
+  //     const endCoordslng = markars[markars.length - 1].lng;
+
+  //     try {
+  //       const response = await axios.get(
+  //         `https://api.mapbox.com/directions/v5/mapbox/cycling/${startCoordslng},${startCoordslat};${endCoordslng},${endCoordslat}`,
+
+  //         {
+  //           params: {
+  //             alternatives: true,
+  //             continue_straight: true,
+  //             geometries: 'geojson',
+  //             language: 'en',
+  //             overview: 'simplified',
+  //             steps: true,
+  //             access_token: mapboxgl.accessToken,
+  //           },
+  //         }
+  //       );
+
+  //       setDirections(response.data.routes);
+  //     } catch (error) {
+  //       console.error('Error fetching directions:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [markars]);
+
   useEffect(() => {
     const fetchData = async () => {
-      const startCoordslat = markars[0].lat;
+      if (markars.length > 1) {
+        const startCoordslat = markars[0].lat;
 
-      const startCoordslng = markars[0].lng;
+        const startCoordslng = markars[0].lng;
 
-      const endCoordslat = markars[markars.length - 1].lat;
-      const endCoordslng = markars[markars.length - 1].lng;
+        const endCoordslat = markars[markars.length - 1].lat;
+        const endCoordslng = markars[markars.length - 1].lng;
 
-      try {
-        const response = await axios.get(
-          `https://api.mapbox.com/directions/v5/mapbox/cycling/${startCoordslng},${startCoordslat};${endCoordslng},${endCoordslat}`,
+        try {
+          const response = await axios.get(
+            `https://api.mapbox.com/directions/v5/mapbox/cycling/${startCoordslng},${startCoordslat};${endCoordslng},${endCoordslat}`,
 
-          {
-            params: {
-              alternatives: true,
-              continue_straight: true,
-              geometries: 'geojson',
-              language: 'en',
-              overview: 'simplified',
-              steps: true,
-              access_token: mapboxgl.accessToken,
-            },
+            {
+              params: {
+                alternatives: true,
+                continue_straight: true,
+                geometries: 'geojson',
+                language: 'en',
+                overview: 'simplified',
+                steps: true,
+                access_token: mapboxgl.accessToken,
+              },
+            }
+          );
+
+          // if the route already exists on the map, we'll reset it using setData
+          if (mapRef.current && !mapRef.current.getSource('route')) {
+            mapRef.current.addLayer({
+              id: 'route',
+              type: 'line',
+              source: {
+                type: 'geojson',
+                data: {
+                  type: 'Feature',
+                  properties: {},
+                  geometry: {
+                    type: 'LineString',
+                    coordinates: response.data.routes[0].geometry.coordinates,
+                  },
+                },
+              },
+              layout: {
+                'line-join': 'round',
+                'line-cap': 'round',
+              },
+              paint: {
+                'line-color': '#3887be',
+                'line-width': 5,
+                'line-opacity': 0.75,
+              },
+            });
           }
-        );
 
-        setDirections(response.data.routes);
-      } catch (error) {
-        console.error('Error fetching directions:', error);
+          setDirections(response.data.routes);
+        } catch (error) {
+          console.error('Error fetching directions:', error);
+        }
       }
     };
 

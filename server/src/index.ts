@@ -11,7 +11,7 @@ dotenv.config();
 const app: Application = express();
 
 const corsConfig = {
-  origin: 'http://localhost:5173',
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://192.168.68.60:5173/'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 };
@@ -25,9 +25,7 @@ try {
   mongoose.connection.on('open', () => console.log('🍁 Connected to Database'));
 
   app.listen(process.env.SERVER_PORT, () => {
-    console.log(
-      `🚀 Server is listening on port http://localhost:${process.env.SERVER_PORT}`
-    );
+    console.log(`🚀 Server is listening on port http://localhost:${process.env.SERVER_PORT}`);
   });
 } catch (error) {
   console.log(error);
