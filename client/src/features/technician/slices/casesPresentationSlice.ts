@@ -2,26 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ObjectId } from 'mongoose';
 
 export interface TabularCase {
-	'Case Id': ObjectId | string;
 	'Case No': string;
 	'Case Type': string;
 	Status: string;
 	'Client Name': string;
 	'Date Created': Date | string;
 	'Bicycle Health': Number;
-	Action: null;
+	'Case Id': ObjectId | string;
 }
 
 const initialState: TabularCase[] = [
 	{
-		'Case Id': '',
 		'Case No': '',
 		'Case Type': '',
 		Status: '',
 		'Client Name': '',
 		'Date Created': '',
 		'Bicycle Health': 0,
-		Action: null,
+		'Case Id': '',
 	},
 ];
 

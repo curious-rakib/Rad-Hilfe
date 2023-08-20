@@ -1,36 +1,13 @@
 import { SearchIcon } from '@chakra-ui/icons';
-import { Flex, Input, InputGroup, InputLeftElement, InputRightElement, Spinner } from '@chakra-ui/react';
-import { ChangeEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { createPresentableCases } from '../../features/technician/slices/casesPresentationSlice';
-import { extractCaseData } from '../../pages/Technician/Dashboard/Cases';
+import { Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { ChangeEvent } from 'react';
 
-const SearchBox = () => {
-	const cases = useAppSelector((state: any) => state.presentableCases);
-	const dispatch = useAppDispatch();
+const SearchBox = ({ handleInputChange }: { handleInputChange: (input: string) => void }) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		const inputValue = event.target.value;
 
-	const [showSpinner, setShowSpinner] = useState<boolean>(false);
-	const [input, setInput] = useState<string>('');
-
-	const handleInputChange = async (event: ChangeEvent<HTMLInputElement>) => {
-		const inputValue = event.target.value.toLowerCase();
-		setInput(inputValue);
-		// setShowSpinner(true);
-
-		if (inputValue.length === 0) {
-			dispatch(createPresentableCases(extractCaseData(cases)));
-			return;
-		}
-
-		const filteredCases = cases.filter((singleCase: any) => {
-			const clientName = singleCase['Client Name'].toLowerCase();
-			return clientName.includes(input);
-		});
-
-		console.log('Filtered Cases:', filteredCases);
-		dispatch(createPresentableCases(filteredCases));
-
-		// setShowSpinner(false);
+		handleInputChange(inputValue);
 	};
 
 	return (
@@ -53,7 +30,7 @@ const SearchBox = () => {
 					type="text"
 					placeholder="Search Cases By Name..."
 					focusBorderColor="secondary"
-					onChange={handleInputChange}
+					onChange={handleChange}
 					bg="#f7f7f7"
 					color="#001f3f"
 					borderColor="#001f3f"
@@ -65,15 +42,6 @@ const SearchBox = () => {
 					lineHeight="6px"
 					_placeholder={{ color: '#757474', opacity: 1 }}
 				/>
-
-				{showSpinner && (
-					<InputRightElement>
-						<Spinner
-							color="secondary"
-							size="sm"
-						/>
-					</InputRightElement>
-				)}
 			</InputGroup>
 		</Flex>
 	);

@@ -11,17 +11,17 @@ import { createCases } from '../../../../features/technician/slices/technicianCa
 import { useAppDispatch } from '../../../../app/hooks';
 import { createPresentableCases } from '../../../../features/technician/slices/casesPresentationSlice';
 import moment from 'moment';
+import { Cyclist } from '../../../../interfaces/cyclist.interface';
 
 export const extractCaseData = (cases: Case[]) => {
 	return cases.map((caseItem: any) => ({
-		'Case Id': caseItem._id,
 		'Case No': `#${caseItem.caseNumber}`,
 		'Case Type': caseItem.type,
 		Status: caseItem.status,
 		'Client Name': caseItem.cyclist?.name,
-		'Date Created': moment(caseItem.createdTime).format('DD-MMM-YYYY'),
+		'Date Created': moment(caseItem.createdTime).format('DD-MM-YYYY'),
 		'Bicycle Health': caseItem.bicycle?.totalHealth,
-		Action: null,
+		'Case Id': caseItem._id,
 	}));
 };
 
@@ -38,7 +38,7 @@ const Cases = () => {
 		const filteredData = cases.filter((caseItem: Case) => {
 			return caseItem.status === selectedStatus;
 		});
-		console.log(filteredData);
+
 		dispatch(createPresentableCases(extractCaseData(filteredData)));
 	};
 	const handleTypeFilter = (selectedType: string) => {
@@ -49,8 +49,23 @@ const Cases = () => {
 		const filteredData = cases.filter((caseItem: Case) => {
 			return caseItem.type === selectedType;
 		});
-		console.log(filteredData);
+
 		dispatch(createPresentableCases(extractCaseData(filteredData)));
+	};
+
+	const handleInputChange = (input: string) => {
+		if (input.length === 0) {
+			dispatch(createPresentableCases(extractCaseData(cases)));
+			return;
+		}
+
+		const filteredCases = cases.filter((singleCase: Case) => {
+			const clientName = typeof singleCase.cyclist === 'object' && 'name' in singleCase.cyclist ? (singleCase.cyclist as Cyclist).name.toLowerCase() : '';
+
+			return clientName.includes(input.toLowerCase());
+		});
+
+		dispatch(createPresentableCases(extractCaseData(filteredCases)));
 	};
 
 	useEffect(() => {
@@ -118,11 +133,12 @@ const Cases = () => {
 						justifyContent={'space-between'}
 						alignItems={'center'}
 						mb={2}>
-						<SearchBox />
+						<SearchBox handleInputChange={handleInputChange} />
+
 						<Flex mr={3}>
 							<FilterComponent
 								name={'Status'}
-								options={['Open', 'In Progress', 'Closed']}
+								options={['Pending', 'In Progress', 'Closed', 'Raised']}
 								onChange={handleStatusFilter}
 							/>
 							<FilterComponent
