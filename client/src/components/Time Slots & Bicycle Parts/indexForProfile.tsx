@@ -22,7 +22,7 @@ const LoopSlotOrPartsComponent = ({ item, onClick, outline }: { item: string; on
 			fontFamily={'Inter'}
 			onClick={handleClick}>
 			<Center>
-				<strong>{item === 'Front & Back Derailleur' ? (item = 'Derailleur') : item}</strong>
+				<strong>{item === 'Front And Back Derailleur' ? (item = 'Derailleur') : item}</strong>
 			</Center>
 		</Box>
 	);

@@ -50,7 +50,7 @@ const IndividualCase = () => {
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
 			try {
-				const result = await TechnicianGetCaseByIdService(id);
+				const result = await TechnicianGetCaseByIdService('64e0aa916996e744b1cfa9c4');
 
 				setCase(result);
 				setBicycleParts(result[0].bicycle.bicycleParts);

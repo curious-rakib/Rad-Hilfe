@@ -3,6 +3,7 @@ import moment from 'moment';
 import './calendar.styles.css';
 import { useEffect, useState } from 'react';
 import { Case } from '../../interfaces/case.interface';
+import { useAppSelector } from '../../app/hooks';
 const localizer = momentLocalizer(moment);
 
 export interface Event {
@@ -13,28 +14,29 @@ export interface Event {
 
 const dummyWorkingSlots = [{ slotTime: '9:00-10:00' }, { slotTime: '10:00-11:00' }, { slotTime: '11:00-12:00' }, { slotTime: '13:00-14:00' }, { slotTime: '14:00-15:00' }, { slotTime: '16:00-17:00' }, { slotTime: '18:00-19:00' }, { slotTime: '19:00-20:00' }];
 
-const slotStyleGetter = (date: Date) => {
-	const hour = moment(date).hour();
-	const style: React.CSSProperties = {};
-
-	const isWorkingHour = dummyWorkingSlots.some((slot) => {
-		const [startHour, endHour] = slot.slotTime.split('-');
-		const start = parseInt(startHour, 10);
-		const end = parseInt(endHour, 10);
-		return hour >= start && hour < end;
-	});
-
-	if (isWorkingHour) {
-		style.backgroundColor = 'green'; // Within working hours
-	} else {
-		style.backgroundColor = 'gray'; // Outside working hours
-	}
-
-	return { style };
-};
-
 const AgendaCalendar = ({ cases }: { cases: Case[] }) => {
 	const [myEventsList, setMyEventList] = useState<Event[]>([]);
+	const technician = useAppSelector((state: any) => state.technician);
+
+	const slotStyleGetter = (date: Date) => {
+		const hour = moment(date).hour();
+		const style: React.CSSProperties = {};
+
+		const isWorkingHour = technician.workingSlots.some((slot: any) => {
+			const [startHour, endHour] = slot.slotTime.split('-');
+			const start = parseInt(startHour, 10);
+			const end = parseInt(endHour, 10);
+			return hour >= start && hour < end;
+		});
+
+		if (isWorkingHour) {
+			style.backgroundColor = '#C1FAA6';
+		} else {
+			style.backgroundColor = '#bababa';
+		}
+
+		return { style };
+	};
 
 	useEffect(() => {
 		const events = cases
