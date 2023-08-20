@@ -29,6 +29,7 @@ import IndividualCase from './pages/Technician/Dashboard/Individual Case';
 import CyclistProfile from './pages/CyclistProfile';
 import Maintenance from './pages/Maintenance';
 import Chat from './pages/Chat';
+import TechnicianAccordian from './components/TechnicianAccordian';
 
 function App() {
   return (
@@ -72,7 +73,7 @@ function App() {
             <Route path='/agenda' element={<Agenda />} />
             <Route path='/cases' element={<Cases />} />
             <Route path='/profile' element={<TechnicianProfile />} />
-            <Route path='/individual-case' element={<IndividualCase />} />
+            <Route path='/individual-case/:id' element={<IndividualCase />} />
           </Route>
         </Routes>
 

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Case } from '../../../pages/Technician/Dashboard/Agenda';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Case } from '../../../interfaces/case.interface';
 
 const initialState: Case[] = [
 	{
@@ -36,8 +36,13 @@ const technicianCasesSlice = createSlice({
 		createCases: (state, action) => {
 			return [...action.payload];
 		},
+		updateCaseStatus: (state, action: PayloadAction<{ index: number; status: string }>) => {
+			const { index, status } = action.payload;
+			state[index].status = status;
+		},
 	},
 });
 
 export const { createCases } = technicianCasesSlice.actions;
+export const { updateCaseStatus } = technicianCasesSlice.actions;
 export default technicianCasesSlice.reducer;

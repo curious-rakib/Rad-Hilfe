@@ -88,7 +88,7 @@ const SetUpExpertCall = () => {
     orderId: orderId,
     supportTime: selectedSlot.slot,
   };
-  // console.log(passiveDetails);
+
   localStorage.setItem('passive', JSON.stringify(passiveDetails));
 
   return (
@@ -170,18 +170,6 @@ const SetUpExpertCall = () => {
       </Center>
 
       <Center>
-        {/* <Button
-                    loadingText='Submitting'
-                    size='lg'
-                    bg='accent'
-                    w='200px'
-                    color='secondary'
-                    mt={'40px'}
-                    borderRadius={16}
-                    fontWeight={'bold'}
-                >
-                    Book Call
-                </Button> */}
         <PaypalButton></PaypalButton>
       </Center>
     </Box>

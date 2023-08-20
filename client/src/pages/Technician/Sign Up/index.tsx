@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { ChangeEvent, useState, MouseEvent } from 'react';
 import { TechnicianSignInService, TechnicianSignUpService } from '../../../services/technician/account';
 import { useNavigate } from 'react-router-dom';
-import { technician } from '../../../features/technician/slices/technicianSlice';
+import { createTechnician } from '../../../features/technician/slices/technicianSlice';
 
 const TechnicianSignUp = () => {
 	const [newPassword, setNewPassword] = useState('');
@@ -34,7 +34,7 @@ const TechnicianSignUp = () => {
 		}
 		const signUpData = { [name]: value };
 
-		dispatch(technician(signUpData));
+		dispatch(createTechnician(signUpData));
 	};
 
 	const { name, email, password } = useAppSelector((state: any) => state.technician);

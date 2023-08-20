@@ -8,8 +8,10 @@ import avatar from '../../../../assets/avatarTechnician.svg';
 import InputTechnician from '../../../../components/Input Technician';
 import Button from '../../../../components/Button';
 import BicycleBrandList from '../../../../components/Bicyle Brand List';
+import { useAppSelector } from '../../../../app/hooks';
 
 const TechnicianProfile = () => {
+	const technician = useAppSelector((state: any) => state.technician);
 	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
 	const bicycleParts = parts;
 	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);

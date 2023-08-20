@@ -6,7 +6,7 @@ import avatar from '../../../assets/avatar.svg';
 import { ChangeEvent, useState } from 'react';
 import Button from '../../../components/Button';
 import { useAppDispatch } from '../../../app/hooks';
-import { technician } from '../../../features/technician/slices/technicianSlice';
+import { createTechnician } from '../../../features/technician/slices/technicianSlice';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import TechnicianProgressBar from '../../../components/Technician Progress Bar';
@@ -21,7 +21,7 @@ const SetUpContact = () => {
 		const { name, value } = event.target;
 		const contactData = { [name]: value };
 
-		dispatch(technician(contactData));
+		dispatch(createTechnician(contactData));
 	};
 	const { address, phone } = useSelector((state: any) => state.technician);
 	const handleClick = () => {

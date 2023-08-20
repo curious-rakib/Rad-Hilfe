@@ -39,6 +39,25 @@ export const getPlan = async () => {
   }
 };
 
+export const selectPlan = async (plan: any) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/cyclist/select-plan`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      data: JSON.stringify(plan),
+    });
+
+    const updatedPlan = response.data;
+    console.log('selectplan from service', updatedPlan);
+    return updatedPlan;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getTimeSlots = async (subparts: any) => {
   try {
     const response = await fetch(`${BASE_URL}/cyclist/available-support-time`, {

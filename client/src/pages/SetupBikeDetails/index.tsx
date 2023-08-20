@@ -12,6 +12,7 @@ import { bikeDetails } from '../../features/cyclist/bikeDetails-slice';
 import bikeBrandsAndModels from '../../data/bikeBrandsAndModels.json';
 import { months, years } from '../../data/months';
 function SetupBikeDetails() {
+  const dispatch = useAppDispatch();
   const [fullRevision, setFullrevision] = useState<boolean>(false);
   const [selectedBrand, setSelectedBrand] = useState<string>('');
   const [selectedModel, setSelectedModel] = useState<string>('');
@@ -20,7 +21,6 @@ function SetupBikeDetails() {
   const [selectedPurchaseYear, setSelectedPurchaseYear] = useState<number>(2023);
   const [selectedRevisionYear, setSelectedRevisionYear] = useState<number>(2023);
 
-  const dispatch = useAppDispatch();
   const handleChange = (event: any) => {
     let { name, value, type } = event.target;
 

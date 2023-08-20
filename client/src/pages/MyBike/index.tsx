@@ -1,7 +1,7 @@
-import { Box, Text, Flex, Stack, Center, Grid, GridItem } from '@chakra-ui/react';
+import { Box, VStack, Text, Flex, Stack, Image, Center, Grid, GridItem } from '@chakra-ui/react';
 
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink } from '@chakra-ui/react';
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { FcLike } from 'react-icons/fc';
 import MyBikeProgressBar from '../../components/MyBikeProgressBar';
 import bike from '../../assets/images/bike2.png';

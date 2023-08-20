@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const BASE_URL = 'http://localhost:4000';
 const token = localStorage.getItem('accessToken');
 
@@ -69,6 +71,28 @@ export const getCyclistName = async () => {
     const user = await response.json();
 
     return user;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateAddress = async (address: any) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/cyclist/set-up-address-edit`,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          body: JSON.stringify(address),
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const updatedAddress = response.data;
+    console.log('selectplan from service', updatedAddress);
+    return updatedAddress;
   } catch (error) {
     console.log(error);
   }

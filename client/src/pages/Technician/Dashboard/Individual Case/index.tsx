@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Text, Icon } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Text, Icon, Select } from '@chakra-ui/react';
 import VideoContainer from '../../../../components/Video Container';
 import TechnicianTab from '../../../../components/Tab component';
 import TechnicianArticles from '../../../../components/Technician Articles';
@@ -7,32 +7,30 @@ import { AiOutlineLeft } from 'react-icons/ai';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { useEffect, useState } from 'react';
 import { TechnicianGetCaseByIdService } from '../../../../services/technician/case';
-import { Case } from '../Agenda';
 import { formatText } from '../../../../utils/formatText';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/hooks';
 import { bikeDetails } from '../../../../features/cyclist/bikeDetails-slice';
+import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
+import TechnicianAccordian from '../../../../components/TechnicianAccordian';
+import VideoCarousol from '../../../../components/VideoCarousol';
+import ActiveTags from '../../../../components/ActiveTags';
 
 const articles = [
 	{
-		title: 'Getting Started with React Hooks',
+		title: 'https://www.thecrucible.org/guides/bike-maintenance/repair-a-bike/',
 		author: 'John Smith',
 		date: '2023-08-16',
 	},
 	{
-		title: 'Introduction to Machine Learning Algorithms',
+		title: 'https://www.wikihow.com/Fix-Brakes-on-a-Bike',
 		author: 'Jane Doe',
 		date: '2023-08-15',
 	},
 	{
-		title: 'The Art of Writing Clean Code',
+		title: 'https://www.cycleplan.co.uk/cycle-savvy/how-to-adjust-bike-brakes/',
 		author: 'Alex Johnson',
 		date: '2023-08-14',
-	},
-	{
-		title: 'Exploring New Frontiers in Space Travel',
-		author: 'Emily Williams',
-		date: '2023-08-13',
 	},
 ];
 
@@ -40,15 +38,15 @@ const IndividualCase = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [Case, setCase] = useState<any[]>([]);
+	const [bookMark, setBookMark] = useState<boolean>(false);
 	const [bicycleParts, setBicycleParts] = useState<any[]>([]);
-	// const id = useParams();
-	const caseId = '64dc5a3bccaa7c80383f3ef7';
+	const id = useParams();
 
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
 			try {
-				const result = await TechnicianGetCaseByIdService(caseId);
-				// console.log('case details: ', result[0].bicycle);
+				const result = await TechnicianGetCaseByIdService('64e0aa916996e744b1cfa9c4');
+
 				setCase(result);
 				setBicycleParts(result[0].bicycle.bicycleParts);
 				dispatch(bikeDetails(result[0].bicycle));
@@ -57,7 +55,7 @@ const IndividualCase = () => {
 			}
 		};
 		fetchIndividualCaseData();
-	}, []);
+	}, [id]);
 
 	return (
 		<>
@@ -78,13 +76,13 @@ const IndividualCase = () => {
 							fontSize={'1.40rem'}
 							textAlign={'center'}>
 							<Text whiteSpace={'nowrap'}> Case No</Text>
-							<Text fontWeight={'700'}> #{Case[0].caseNumber}</Text>
+							<Text fontWeight={'700'}>#{Case[0].caseNumber}</Text>
 						</Box>
 						<Box
 							fontSize={'1.40rem'}
 							textAlign={'center'}>
 							<Text whiteSpace={'nowrap'}> Case Status</Text>
-							<Text fontWeight={'700'}> {formatText(Case[0].status)} </Text>
+							<Text fontWeight={'700'}>{formatText(Case[0].status)}</Text>
 						</Box>
 						<Box
 							fontSize={'1.40rem'}
@@ -96,7 +94,7 @@ const IndividualCase = () => {
 							fontSize={'1.40rem'}
 							textAlign={'center'}>
 							<Text whiteSpace={'nowrap'}> Bike Brand</Text>
-							<Text fontWeight={'700'}> {formatText(Case[0].bicycle.brand)}</Text>
+							<Text fontWeight={'700'}>{formatText(Case[0].bicycle.brand)}</Text>
 						</Box>
 						<Box
 							fontSize={'1.40rem'}
@@ -104,13 +102,28 @@ const IndividualCase = () => {
 							<Text> Bike Model</Text>
 							<Text fontWeight={'700'}>{formatText(Case[0].bicycle.model)}</Text>
 						</Box>
-						<Button
+						<Box
 							fontSize={'1.30rem'}
 							bg={'red'}
 							color={'primary'}
+							rounded={'xl'}
 							_hover={{ outline: '1px solid red', backgroundColor: 'primary', color: 'red' }}>
-							<Text fontWeight={'700'}>Raise Case</Text>
-						</Button>
+							<Select
+								fontWeight={'700'}
+								defaultValue="default">
+								<option
+									value="default"
+									disabled>
+									Select status
+								</option>
+								<option
+									value="option1"
+									style={{ color: '#C1FAA6' }}>
+									Raise
+								</option>
+								<option value="option2">Close</option>
+							</Select>
+						</Box>
 					</Flex>
 					<Box m={'.5rem'}>
 						<Flex>
@@ -121,11 +134,13 @@ const IndividualCase = () => {
 										ml={'6rem'}>
 										<VideoContainer bookMark={false} />
 									</Box>
+									<ActiveTags></ActiveTags>
 									<Box
 										ml={'2rem'}
 										w={'30rem'}
 										mt={5}>
-										<TechnicianTab />
+										{/* <TechnicianTab /> */}
+										<TechnicianAccordian></TechnicianAccordian>
 									</Box>
 								</Flex>
 							</Box>
@@ -151,8 +166,13 @@ const IndividualCase = () => {
 										<Box w={'60%'}>
 											<VideoContainer bookMark={true} />
 										</Box>
+										<div
+											onClick={() => setBookMark(!bookMark)}
+											style={{ fontSize: '25px', marginLeft: '1rem', verticalAlign: 'top', marginTop: '-10rem' }}>
+											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
+										</div>
 										<Button
-											ml={'1rem'}
+											ml={'-1.7rem'}
 											bg={'#d9d9d9'}
 											borderRadius={'45%'}
 											color={'secondary'}>
@@ -162,20 +182,20 @@ const IndividualCase = () => {
 
 									<TechnicianArticles articles={articles} />
 
-									<Button
-										m={2}
-										borderRadius={'.75rem'}
-										bg={'secondary'}
-										_hover={{ outline: '1px solid #001f3f' }}>
-										Add Suggestions
-									</Button>
+									{/* <Button
+									m={2}
+									borderRadius={'.75rem'}
+									bg={'secondary'}
+									_hover={{ outline: '1px solid #001f3f' }}>
+									Add Suggestions
+								</Button> */}
 								</Flex>
 							</Box>
 						</Flex>
 					</Box>
 				</Box>
 			) : (
-				<> No case for you !</>
+				<> Couldn't Get Case Details!</>
 			)}
 		</>
 	);

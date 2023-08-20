@@ -30,7 +30,7 @@ export const TechnicianSignInService = async (signInData: Object) => {
 			.then((res) => res.data)
 			.catch((error) => console.error('Error from Server!', error.message));
 	} catch (error) {
-		console.error('Error in Sign in service!');
+		console.error('Error in Sign In Service!');
 	}
 };
 
@@ -46,6 +46,21 @@ export const TechnicianSetUpService = async (setUpData: Object) => {
 			.then((res) => res.data)
 			.catch((error) => console.error('Error from Server!', error.message));
 	} catch (error) {
-		console.error('Error in Set up service!');
+		console.error('Error in Set Up Service!');
+	}
+};
+
+export const TechnicianGetProfileService = async () => {
+	try {
+		return await axios({
+			url: `${baseUrl}/technician/profile`,
+			method: 'GET',
+			withCredentials: true,
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((res) => res.data)
+			.catch((error) => console.error('Error from Server!', error.message));
+	} catch (error) {
+		console.error('Error in Profile Service!');
 	}
 };

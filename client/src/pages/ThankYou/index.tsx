@@ -11,11 +11,17 @@ export default function Success() {
     const orderId = (queryParameters.get("orderId"));
     const supportTimeStart = (queryParameters.get("supportTimeStart"));
     const supportTimeEnd = (queryParameters.get("supportTimeEnd"));
+    const expertNote = (queryParameters.get("expertNote"));
+
+
+
 
     const createPassiveCase = {
+
         orderId: orderId,
         supportTimeStart: supportTimeStart,
         supportTimeEnd: supportTimeEnd,
+
         type: 'Passive'
     }
     useEffect(() => {

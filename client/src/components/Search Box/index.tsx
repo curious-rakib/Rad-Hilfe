@@ -1,13 +1,13 @@
 import { SearchIcon } from '@chakra-ui/icons';
-import { Flex, Input, InputGroup, InputLeftElement, InputRightElement, Spinner } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Flex, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import { ChangeEvent } from 'react';
 
-const SearchBox = () => {
-	const [showSpinner, setShowSpinner] = useState<boolean>(false);
-	const [input, setInput] = useState<string>('');
+const SearchBox = ({ handleInputChange }: { handleInputChange: (input: string) => void }) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		const inputValue = event.target.value;
 
-	const handleInputChange = async () => {
-		setInput('');
+		handleInputChange(inputValue);
 	};
 
 	return (
@@ -30,7 +30,7 @@ const SearchBox = () => {
 					type="text"
 					placeholder="Search Cases By Name..."
 					focusBorderColor="secondary"
-					onChange={handleInputChange}
+					onChange={handleChange}
 					bg="#f7f7f7"
 					color="#001f3f"
 					borderColor="#001f3f"
@@ -42,15 +42,6 @@ const SearchBox = () => {
 					lineHeight="6px"
 					_placeholder={{ color: '#757474', opacity: 1 }}
 				/>
-
-				{showSpinner && (
-					<InputRightElement>
-						<Spinner
-							color="secondary"
-							size="sm"
-						/>
-					</InputRightElement>
-				)}
 			</InputGroup>
 		</Flex>
 	);

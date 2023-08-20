@@ -5,7 +5,7 @@ import InputTechnician from '../../../components/Input Technician';
 import Button from '../../../components/Button';
 import { ChangeEvent, MouseEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { technician } from '../../../features/technician/slices/technicianSlice';
+import { createTechnician } from '../../../features/technician/slices/technicianSlice';
 import { TechnicianSignInService } from '../../../services/technician/account';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const TechnicianSignIn = () => {
 		event.preventDefault();
 		const { name, value } = event.target;
 		const signInData = { [name]: value };
-		dispatch(technician(signInData));
+		dispatch(createTechnician(signInData));
 	};
 	const { email, password } = useAppSelector((state: any) => state.technician);
 

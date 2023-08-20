@@ -8,6 +8,7 @@ import { bicycleDamagedPart } from '../../services/bikeDetails';
 import { useDispatch } from 'react-redux';
 import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';
 import { categoryToColor } from '../../data/categoryToColor';
+import { getPlan } from '../../services/order';
 interface Parts {
   _id: string;
   partsName: string;
@@ -27,7 +28,8 @@ const Cart = () => {
     },
   ];
 
-  const [parts, setParts] = useState<Parts[]>(initialState);
+    const [parts, setParts] = useState<Parts[]>(initialState)
+    const [carePlan, setCarePlan] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
