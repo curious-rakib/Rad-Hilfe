@@ -10,6 +10,17 @@ const TableComponent = () => {
 	const cases = useAppSelector((state: any) => state.presentableCases);
 	const navigate = useNavigate();
 
+	if (cases.length === 0) {
+		return (
+			<Text
+				fontSize="1.5rem"
+				textAlign="center"
+				mt={8}>
+				No cases found!
+			</Text>
+		);
+	}
+
 	return (
 		<>
 			<TableContainer

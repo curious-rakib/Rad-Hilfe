@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 .rbc-btn {
 	color: inherit;
 	font: inherit;
@@ -146,6 +147,26 @@ button.rbc-input::-moz-focus-inner {
 }
 .rbc-row-content-scrollable .rbc-row-content-scroll-container::-webkit-scrollbar {
 	display: none;
+}
+
+/* Custom styling for scrollbar track */
+.rbc-time-content::-webkit-scrollbar-track {
+	background: #701a1a;
+}
+
+/* Custom styling for scrollbar thumb */
+.rbc-time-content::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Custom styling for horizontal scrollbar track */
+.rbc-time-content::-webkit-scrollbar-track-horizontal {
+	background: #f1f1f1;
+}
+
+/* Custom styling for horizontal scrollbar thumb */
+.rbc-time-content::-webkit-scrollbar-thumb-horizontal {
+	background: #888;
 }
 
 .rbc-today {

@@ -11,6 +11,28 @@ export interface Event {
 	title: string;
 }
 
+const dummyWorkingSlots = [{ slotTime: '9:00-10:00' }, { slotTime: '10:00-11:00' }, { slotTime: '11:00-12:00' }, { slotTime: '13:00-14:00' }, { slotTime: '14:00-15:00' }, { slotTime: '16:00-17:00' }, { slotTime: '18:00-19:00' }, { slotTime: '19:00-20:00' }];
+
+const slotStyleGetter = (date: Date) => {
+	const hour = moment(date).hour();
+	const style: React.CSSProperties = {};
+
+	const isWorkingHour = dummyWorkingSlots.some((slot) => {
+		const [startHour, endHour] = slot.slotTime.split('-');
+		const start = parseInt(startHour, 10);
+		const end = parseInt(endHour, 10);
+		return hour >= start && hour < end;
+	});
+
+	if (isWorkingHour) {
+		style.backgroundColor = 'green'; // Within working hours
+	} else {
+		style.backgroundColor = 'gray'; // Outside working hours
+	}
+
+	return { style };
+};
+
 const AgendaCalendar = ({ cases }: { cases: Case[] }) => {
 	const [myEventsList, setMyEventList] = useState<Event[]>([]);
 
@@ -41,6 +63,7 @@ const AgendaCalendar = ({ cases }: { cases: Case[] }) => {
 				startAccessor="start"
 				endAccessor="end"
 				style={{ height: '75vh', width: '40rem' }}
+				slotPropGetter={slotStyleGetter}
 				defaultDate={new Date()}
 				min={moment().startOf('day').add(7, 'hours').toDate()}
 				max={moment().startOf('day').add(20, 'hours').toDate()}

@@ -5,7 +5,7 @@ import SearchBox from '../../../../components/Search Box';
 import FilterComponent from '../../../../components/Filter';
 import PaginationComponent from '../../../../components/Pagination';
 import { useEffect, useState } from 'react';
-import { Case } from '../Agenda';
+import { Case } from './../../../../interfaces/case.interface';
 import { TechnicianGetAllCasesService } from '../../../../services/technician/case';
 import { createCases } from '../../../../features/technician/slices/technicianCasesSlice';
 import { useAppDispatch } from '../../../../app/hooks';
@@ -57,7 +57,7 @@ const Cases = () => {
 		const fetchCaseData = async () => {
 			try {
 				const result = await TechnicianGetAllCasesService();
-				// console.log(result);
+
 				dispatch(createCases(result));
 				dispatch(createPresentableCases(extractCaseData(result)));
 
@@ -139,7 +139,7 @@ const Cases = () => {
 					mt={'1rem'}>
 					<PaginationComponent
 						currentPage={1}
-						totalPages={3}
+						totalPages={Math.floor(cases.length / 5)}
 						onPageChange={undefined}
 					/>
 				</Box>
