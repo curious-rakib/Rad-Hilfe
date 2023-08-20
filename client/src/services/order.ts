@@ -41,16 +41,18 @@ export const getPlan = async () => {
 
 export const getTimeSlots = async (subparts: any) => {
   try {
-    const response = await axios.post(`${BASE_URL}/cyclist/available-support-time`, {
-      withCredentials: true,
+    const response = await fetch(`${BASE_URL}/cyclist/available-support-time`, {
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        body: JSON.stringify(subparts),
         authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(subparts),
     });
 
-    const slots = response.data;
+    const slots = response.json();
     console.log('time slots from service', slots);
     return slots;
   } catch (error) {

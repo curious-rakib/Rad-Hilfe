@@ -1,22 +1,9 @@
-import {
-  AccordionIcon,
-  Circle,
-  Flex,
-  Box,
-  SimpleGrid,
-  Text,
-  Button,
-  Grid,
-  GridItem,
-  Center,
-} from '@chakra-ui/react';
+import { Circle, Flex, Box, Text, Button, Grid, GridItem, Center } from '@chakra-ui/react';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
-import { color } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { HiPlusSm, HiOutlineMinusSm } from 'react-icons/hi';
+import { Link as ChakraLink } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { HiPlusSm } from 'react-icons/hi';
 import { FiMinus } from 'react-icons/fi';
-import { useAppSelector } from '../../app/hooks';
 import { bicycleDamagedPart } from '../../services/bikeDetails';
 import { useDispatch } from 'react-redux';
 import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';

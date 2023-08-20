@@ -24,8 +24,9 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       console.log('bike Info : ', bikeInfo);
+      const localBikeId = localStorage.getItem('bikeId');
 
-      if (!localStorage.getItem('bikeID')) {
+      if (!localBikeId || !JSON.parse(localBikeId)) {
         const result = await setUpBikeInfo(bikeInfo);
         if (result) {
           const bikeId = result._id;
@@ -138,7 +139,7 @@ const Home = () => {
                 w={'100%'}
                 h={'17rem'}
                 bg={'fourth'}
-                color={'black'}
+                color={'secondary'}
                 px='1.25rem'
                 py='5.15rem'
               ></Cards>
@@ -153,7 +154,7 @@ const Home = () => {
                 w={''}
                 h={'8rem'}
                 bg={'accent'}
-                color={'black'}
+                color={'secondary'}
                 px='4'
                 py='12'
                 textStyle={''}
@@ -170,7 +171,7 @@ const Home = () => {
                 w={''}
                 h={'8rem'}
                 bg={'third'}
-                color={'black'}
+                color={'secondary'}
                 px='2.75rem'
                 py='8'
               ></Cards>
@@ -186,7 +187,7 @@ const Home = () => {
               w={''}
               h={'8rem'}
               bg={'accent'}
-              color={'black'}
+              color={'secondary'}
               px='1rem'
               py='2.65rem'
             ></Cards>

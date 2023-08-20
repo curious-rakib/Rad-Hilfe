@@ -1,12 +1,12 @@
 import { Box, Image, Center, HStack, Heading, Stack, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../components/InputField';
 import { ChangeEvent } from 'react';
 import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signin } from '../../features/cyclist/cyclistSignIn-slice';
-import { userLogin } from '../../services/authentication';
+import { profile, userLogin } from '../../services/authentication';
 
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
@@ -22,13 +22,26 @@ const Login = () => {
     dispatch(signin(dataObj));
   };
 
+  const navigate = useNavigate();
+
   const { email, password } = useAppSelector((state) => state.signInInput);
 
   const handleClick = async () => {
     const signInUserData = { email, password };
     const token = await userLogin(signInUserData);
-    console.log('signInUserUser     ', token);
     localStorage.setItem('accessToken', token);
+
+    if (token) {
+      if (localStorage.getItem('accessToken')) {
+        const cyclist = await profile();
+
+        if (cyclist && cyclist.bicycle) {
+          navigate('/home');
+        } else {
+          navigate('/setup-daily-route');
+        }
+      }
+    }
   };
 
   return (
@@ -74,19 +87,17 @@ const Login = () => {
             />
 
             <Stack spacing={10} pt={2}>
-              <Link to={'/setup-daily-route'}>
-                <SubmitButton
-                  borderRadius={'1.25rem'}
-                  onClick={handleClick}
-                  loadingText='Submitting'
-                  size='lg'
-                  w='100%'
-                  bg='accent'
-                  color='secondary'
-                  text='Sign In'
-                  fontWeight={''}
-                />
-              </Link>
+              <SubmitButton
+                borderRadius={'1.25rem'}
+                onClick={handleClick}
+                loadingText='Submitting'
+                size='lg'
+                w='100%'
+                bg='accent'
+                color='secondary'
+                text='Sign In'
+                fontWeight={''}
+              />
             </Stack>
             <Stack color={'accent'} mb={'1.5rem'} mt={'-0.5rem'}>
               <Text>

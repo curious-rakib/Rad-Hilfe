@@ -38,7 +38,7 @@ const MyBike = () => {
   const date = (new Date().getDate() % 28) + 1;
 
   return (
-    <Box bg='third'>
+    <Box bg='third' position={'relative'}>
       <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='35rem' px={3}>
         <GridItem w='100%' h={''}>
           <Stack spacing={4} color={'secondary'}>
@@ -79,7 +79,9 @@ const MyBike = () => {
           </Stack>
         </GridItem>
         <GridItem w='12.9rem' mt={'2rem'}>
-          <img src={bike} alt='' />
+          <Box position={'absolute'}>
+            <img src={bike} alt='' />
+          </Box>
         </GridItem>
       </Grid>
 

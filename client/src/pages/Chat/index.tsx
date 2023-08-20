@@ -6,6 +6,7 @@ import { getCyclistName } from '../../services/authentication';
 import { parts } from '../../data/partsData';
 import { getAllSubpart } from '../../services/bikeDetails';
 import { getTimeSlots } from '../../services/order';
+import { getCaseNumber } from '../../services/cases';
 
 let arr: any[] = [
   {
@@ -129,6 +130,14 @@ let arr: any[] = [
     ],
     from: 'user',
   },
+  {
+    type: 'text',
+    data: [
+      'Great. You have a call booked for Wed, 08 Aug at 15:00',
+      'Download the meeting link to have it in your calendar',
+    ],
+    from: 'bot',
+  },
 ];
 
 const Chat: React.FC = () => {
@@ -139,15 +148,18 @@ const Chat: React.FC = () => {
   useEffect(() => {
     const getData = async () => {
       const cyclistName = await getCyclistName();
-
       if (cyclistName) {
         arr[0].data[0] = 'Hi ' + cyclistName.name;
       }
 
       const allSubparts = await getAllSubpart();
-
       if (allSubparts) {
         setGetSubpart(allSubparts);
+      }
+
+      const caseNum = await getCaseNumber();
+      if (caseNum) {
+        arr[2].data[0] = `We are opening an Active case number ${caseNum.caseNumber}`;
       }
     };
     getData();

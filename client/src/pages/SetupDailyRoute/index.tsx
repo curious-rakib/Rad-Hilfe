@@ -1,19 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { Flex, Stack, Text, VStack } from '@chakra-ui/react';
-import mapboxgl, { Popup, Marker, Map, accessToken } from 'mapbox-gl';
+import { Stack, Text, VStack } from '@chakra-ui/react';
+import mapboxgl, { Popup, Marker, Map } from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { motion } from 'framer-motion';
 import { useDisclosure } from '@chakra-ui/react';
 import { MapboxSearchBox } from '@mapbox/search-js-web';
 import 'mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { useNavigate } from 'react-router-dom';
 import { config } from '../../../config.ts';
 import HomeOfficeAddressLayOver from '../../components/HomeOfficeAddressLayover';
 import { Box } from '@chakra-ui/react';
 import { Slide } from '@chakra-ui/react';
 import axios from 'axios';
-import { totalDistance } from '../../features/cyclist/commuteDetails-slice.ts';
-import { useDispatch } from 'react-redux';
 
 function SetupDailyRoute() {
   const [markars, setMarkars] = useState<{ lat: number; lng: number }[]>([]);
@@ -127,6 +123,7 @@ function SetupDailyRoute() {
   }, [markars]);
 
   const distance = directions[0].distance;
+  console.log(directions);
   localStorage.setItem('totalDistance', JSON.stringify(distance));
   // console.log(distance);
 
