@@ -44,10 +44,10 @@ const IndividualCase = () => {
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
 			try {
-				const result = await TechnicianGetCaseByIdService('64e1e209489b715566a55ed6');
-				console.log(result);
+				const result = await TechnicianGetCaseByIdService('64e317503be13c72615f8044');
+
 				setCase(result);
-				dispatch(createDetailedCase(result));
+				dispatch(createDetailedCase(result[0]));
 				dispatch(bikeDetails(result[0].bicycle));
 			} catch (error) {
 				console.error('Error in component while fetching !');
@@ -126,25 +126,26 @@ const IndividualCase = () => {
 						</Box>
 					</Flex>
 					<Box m={'.5rem'}>
-						<Flex>
-							<Box w={'50rem'}>
+						<Flex mt={'2rem'}>
+							<Box flex={0.6}>
 								<Flex direction={'column'}>
 									<Box
 										w={'50%'}
 										ml={'6rem'}>
 										<VideoContainer bookMark={false} />
 									</Box>
-									<ActiveTags></ActiveTags>
+
 									<Box
-										ml={'2rem'}
-										w={'30rem'}
-										mt={5}>
+										w={'90%'}
+										mt={5}
+										boxShadow={'2xl'}
+										borderRadius={'md'}>
 										<TechnicianAccordian></TechnicianAccordian>
 									</Box>
 								</Flex>
 							</Box>
 							<Box
-								w={'35rem'}
+								flex={0.4}
 								boxShadow={'2xl'}>
 								<Flex
 									mt={'1rem'}

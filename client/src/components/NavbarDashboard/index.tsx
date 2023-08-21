@@ -18,7 +18,7 @@ function NavbarDashboard() {
 		const fetchProfile = async () => {
 			try {
 				const result = await TechnicianGetProfileService();
-				console.log(result);
+
 				setTechnician(result);
 				dispatch(createTechnician(result));
 			} catch (error) {
@@ -70,9 +70,7 @@ function NavbarDashboard() {
 						justifyContent={'flex-start'}
 						gap={'1.5rem'}>
 						<Link to="/agenda">
-							<Flex
-								gap={'.5rem'}
-								_active={{ backgroundColor: 'third', color: 'secondary', w: '8.5vw', h: '5vh', borderRadius: 'md' }}>
+							<Flex gap={'.5rem'}>
 								<Image
 									src={agenda}
 									alt="calendar icon"></Image>
@@ -88,8 +86,7 @@ function NavbarDashboard() {
 						<Link to="/cases">
 							<Flex
 								gap={'.5rem'}
-								mr={'1rem'}
-								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
+								mr={'1rem'}>
 								<Image
 									src={cases}
 									alt="cases icon"
@@ -105,8 +102,7 @@ function NavbarDashboard() {
 						<Link to="/profile">
 							<Flex
 								gap={'.5rem'}
-								mr={'.7rem'}
-								_active={{ backgroundColor: 'third', color: 'secondary', w: '7.5vw', h: '5vh', borderRadius: 'md' }}>
+								mr={'.7rem'}>
 								<Image
 									src={profile}
 									alt="profile icon"></Image>
@@ -120,9 +116,7 @@ function NavbarDashboard() {
 					</Flex>
 				</Box>
 				<Box mt={'14rem'}>
-					<Flex
-						gap={'.55rem'}
-						_active={{ backgroundColor: 'third', color: 'secondary', w: '8vw', h: '5vh', borderRadius: 'md' }}>
+					<Flex gap={'.55rem'}>
 						<Image
 							src={logout}
 							alt="logout icon"></Image>

@@ -23,34 +23,34 @@ const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
 									<Flex
 										alignItems="center"
 										justifyContent="space-between"
-										gap={'1rem'}
-									>
+										gap={'1rem'}>
 										<Text flex={0.5}>{formatText(part.subpart.name)}</Text>
 										<Box flex={0.5}>
 											<FullHealthBar health={part.health} />
 										</Box>
-										<Button bg={'accent'}
+										<Button
+											bg={'#099b09'}
+											borderRadius={'1.25rem'}
+											h={'2rem'}
+											w={'5rem'}
 											_hover={{
 												bg: 'white',
-												color: 'accent',
-												border: '2px solid green',
-												width: '5.625rem'
-											}}
-
-										>
+												color: '#099b09',
+												border: '2px solid #099b09',
+											}}>
 											Restore
-											{/* <Text color={'white'}>Restore</Text> */}
 										</Button>
-										<Button bg={'red'}
+										<Button
+											bg={'red'}
+											borderRadius={'1.25rem'}
+											h={'2rem'}
+											w={'5rem'}
 											_hover={{
 												bg: 'white',
 												color: 'red',
 												border: '2px solid red',
-												width: '5.625rem'
-											}}
-										>
+											}}>
 											Deplete
-
 										</Button>
 									</Flex>
 								</ListItem>

@@ -1,6 +1,6 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import { Box, Button, Center, Flex, Select, Text } from '@chakra-ui/react';
-import { statusColor } from '../../data/statusColor';
+import { statusColor } from '../../data/statusColorDictionary';
 import FullHealthBar from '../Bicycle Full Health Bar';
 import { formatText } from './../../utils/formatText';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
