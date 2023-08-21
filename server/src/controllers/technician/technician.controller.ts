@@ -240,7 +240,7 @@ const findSubpartExpart = async (req: Request, res: Response) => {
   try {
     const { subparts } = req.body;
 
-    const technicians = await findSubpartTechnician(subparts);
+    const technicians: any = await findSubpartTechnician(subparts);
 
     if (technicians) {
       res.status(200).send(technicians);
@@ -269,7 +269,6 @@ const availableSupportTime = async (req: Request, res: Response) => {
       const technician = await findSubpartTechnician(subparts);
 
       if (technician?._id && technician) {
-        console.log(technician);
         const slots = await findAvailableSupportTimeForCyclist(String(technician._id));
 
         res.status(200).send({ technician: technician, slots });
