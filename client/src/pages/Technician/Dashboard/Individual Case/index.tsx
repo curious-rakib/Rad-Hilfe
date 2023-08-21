@@ -181,14 +181,6 @@ const IndividualCase = () => {
 									</Flex>
 
 									<TechnicianArticles articles={articles} />
-
-									{/* <Button
-									m={2}
-									borderRadius={'.75rem'}
-									bg={'secondary'}
-									_hover={{ outline: '1px solid #001f3f' }}>
-									Add Suggestions
-								</Button> */}
 								</Flex>
 							</Box>
 						</Flex>
