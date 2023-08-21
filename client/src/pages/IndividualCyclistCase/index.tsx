@@ -42,6 +42,27 @@ const IndividualCyclistCase = () => {
 
   const exactMonth = months[month];
 
+  // console.log(caseByIdState);
+
+  function getParsedDate(strDate: any) {
+    const newDate = new Date(strDate);
+    const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+    const day = daysOfTheWeek[newDate.getDay()];
+    const date = newDate.getDate();
+    const mon = months[newDate.getMonth()];
+    const year = newDate.getFullYear();
+
+    return day + ' ' + date + ' ' + mon;
+
+  }
+
+  // {
+  //   caseByIdState.length>0?
+  //   const firstCalldate = caseByIdState[0].note[1].text.slice(8) : null
+  // }
+
   return (
     <div>
       {caseByIdState.length > 0 ? (
@@ -120,7 +141,7 @@ const IndividualCyclistCase = () => {
               <Text fontSize={'lg'} fontWeight={'semibold'}>
                 Intervention details
               </Text>
-              <Text>First call: 20 Aug 2023 | 18:00</Text>
+              <Text>First call: {getParsedDate(caseByIdState[0].note[1].text.slice(9))}  | {caseByIdState[0].order.slot}</Text>
               <Text>Follow-up call: Pending</Text>
               <Text>Support quality: ☆☆☆☆</Text>
             </Stack>

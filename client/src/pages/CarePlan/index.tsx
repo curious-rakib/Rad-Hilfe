@@ -3,15 +3,20 @@ import rotateBike from '../../assets/rotateBike.svg';
 import check from '../../assets/checkMark.svg';
 import { useEffect, useState } from 'react';
 import { getPlan, selectPlan } from '../../services/order';
+import { Link } from 'react-router-dom';
 
 const CarePlan = () => {
   const [carePlan, setCarePlan] = useState('basic');
 
   useEffect(() => {
     const getData = async () => {
+      // console.log('from useEffect', carePlan);
       // const plan = await getPlan();
-      // const plan = await selectPlan('basic')
-      // setCarePlan(plan);
+      const planService = await selectPlan({ plan: carePlan });
+      const plan = planService.plan
+      // console.log('from useEffect', plan);
+
+      setCarePlan(plan);
     };
 
     getData();
@@ -20,16 +25,13 @@ const CarePlan = () => {
   useEffect(() => {
     console.log('by clicking', carePlan);
   }, [carePlan]);
-  // const handleClick = () => {
-  //   console.log('clicked');
 
-  // }
   return (
     <Box
       bg='third'
       h={'100vh'}
       top={'-1px'}
-      zIndex={'-2'}
+      zIndex={'0'}
       position={'relative'}
       overflow={'hidden'}
     >
@@ -79,7 +81,7 @@ const CarePlan = () => {
       <Flex>
         <VStack
           onClick={() => {
-            console.log('qover clicked');
+
             setCarePlan('qover');
           }}
           position={'relative'}
@@ -140,16 +142,18 @@ const CarePlan = () => {
         </VStack>
       </Flex>
       <Center bg='third' mt='' h='20vh'>
-        <Button
-          loadingText='Submitting'
-          size='lg'
-          bg='accent'
-          w='200px'
-          color='secondary'
-          fontWeight={'bold'}
-        >
-          Get Plan
-        </Button>
+        <Link to={'/cart'}>
+          <Button
+            loadingText='Submitting'
+            size='lg'
+            bg='accent'
+            w='200px'
+            color='secondary'
+            fontWeight={'bold'}
+          >
+            Get Plan
+          </Button>
+        </Link>
       </Center>
     </Box>
   );

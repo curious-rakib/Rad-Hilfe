@@ -38,7 +38,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/home' element={<Home />} />
+          {/* <Route path='/home' element={<Home />} /> */}
           <Route path='/cyclist-profile' element={<CyclistProfile />} />
 
           <Route path='/thankyou' element={<ThankYou></ThankYou>}></Route>
@@ -52,7 +52,7 @@ function App() {
         <Routes>
           <Route element={<Navbar theme='secondary' />}>
             <Route path='/individual-cyclist-case/:id' element={<IndividualCyclistCase />}></Route>
-
+            <Route path='/home' element={<Home />} />
             <Route path='/bike-health' element={<HealthBar />} />
             <Route path='/delivery-details' element={<DelivaryDetails />} />
             <Route path='/expert-call' element={<SetUpExpertCall />} />

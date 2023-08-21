@@ -1,7 +1,7 @@
 import { Flex, Box, VStack, HStack, Text, Center, Image, SimpleGrid, Grid, GridItem } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import caseCyclist from './cases-cyclist.svg';
@@ -12,8 +12,11 @@ import signout from './signout.svg';
 import { themes } from '../data/navbarTheme';
 import { themeCollections } from '../data/navbarTheme';
 import { profile } from '../services/authentication';
+import logo from '../assets/logo.svg';
+
 function Navbar({ theme }: { theme: keyof themeCollections }) {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
 	const [hidden, setHidden] = useState(!isOpen);
 	const goBack = () => {
@@ -47,21 +50,33 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 				backgroundColor={themes[theme].navbarBackgroundColor}
 				p={'3vh 4vw 3vh 4vw'}
 				justifyContent={'space-between'}>
-				<Box
-					border={'2px solid'}
-					height={'31px'}
-					width={'31px'}
-					borderRadius="45px"
-					borderColor={themes[theme].textColor}>
-					<button onClick={goBack}>
-						<ChevronLeftIcon
-							marginLeft={'2px'}
-							color={themes[theme].textColor}
-							fontSize="x-large"
-						/>
 
-					</button>
-				</Box>
+				{
+					location.pathname === '/home' ?
+
+
+						<>
+							<Image src={logo} boxSize={'50px'} />
+						</> : <>
+							<Box
+								border={'2px solid'}
+								height={'31px'}
+								width={'31px'}
+								borderRadius="45px"
+								borderColor={themes[theme].textColor}>
+								<button onClick={goBack}>
+									<ChevronLeftIcon
+										marginLeft={'2px'}
+										color={themes[theme].textColor}
+										fontSize="x-large"
+									/>
+
+								</button>
+
+							</Box>
+						</>
+				}
+
 				<Box>
 					<HamburgerIcon
 						color={themes[theme].textColor}

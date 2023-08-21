@@ -4,7 +4,11 @@ import bcrypt from 'bcrypt';
 import { SessionData } from '../../interfaces/session.interface';
 import { OTP } from '../../interfaces/account.interface';
 
-import { getSession, createSession, destroySession } from '../../middlewares/sessionManagement';
+import {
+  getSession,
+  createSession,
+  destroySession,
+} from '../../middlewares/sessionManagement';
 import { sendOTP } from './mailer.controller';
 import {
   addCyclistAddress,
@@ -220,7 +224,10 @@ const weatherData = async (req: Request, res: Response) => {
   try {
     const { longitude, latitude } = req.body;
 
-    const weatherData = await getWeatherData(Number(longitude), Number(latitude));
+    const weatherData = await getWeatherData(
+      Number(longitude),
+      Number(latitude)
+    );
 
     res.status(200).send(weatherData);
   } catch (error) {
@@ -247,6 +254,7 @@ const cyclistName = async (req: Request, res: Response) => {
 };
 
 const selectPlan = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const { plan } = req.body;
 
@@ -254,7 +262,7 @@ const selectPlan = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
 
     if (session && (await addCyclistPlan(session.userEmail, plan))) {
-      res.status(200).send(`Your selected ${plan} plan`);
+      res.status(200).send({ plan });
       return;
     }
 
