@@ -1,4 +1,4 @@
-import { Box, Link, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 	return (
@@ -9,15 +9,16 @@ const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 						<Box
 							borderRadius={'1rem'}
 							boxShadow={'lg'}
-							w={'90%'}
+							w={'fit-content'}
 							m={'.5rem'}
 							p={'1rem'}
 							key={index}>
-							<Link
-								color="teal.500"
-								href="#">
-								<Text>{article.title}</Text>
-							</Link>
+							<a
+								href={article.link}
+								target="_blank"
+								color="secondary">
+								{article.title}
+							</a>
 						</Box>
 					);
 				})}

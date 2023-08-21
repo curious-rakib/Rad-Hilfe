@@ -3,8 +3,23 @@ import { List, ListItem, Box, Flex, Text, Button, Circle } from '@chakra-ui/reac
 import FullHealthBar from '../Bicycle Full Health Bar';
 import { formatText } from '../../utils/formatText';
 import { categoryToColor } from '../../data/categoryToColor';
+import { useState } from 'react';
 
 const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
+	const [partHealths, setPartHealths] = useState(bicycleParts.map((part) => part.health));
+
+	const handleRestore = (index: number) => {
+		const updatedHealths = [...partHealths];
+		updatedHealths[index] = 100;
+		setPartHealths(updatedHealths);
+	};
+
+	const handleDeplete = (index: number) => {
+		const updatedHealths = [...partHealths];
+		updatedHealths[index] = 0;
+		setPartHealths(updatedHealths);
+	};
+
 	return (
 		<>
 			<Box
@@ -30,9 +45,10 @@ const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
 											size={'1rem'}></Circle>
 										<Text flex={0.5}>{formatText(part.subpart.name)}</Text>
 										<Box flex={0.5}>
-											<FullHealthBar health={part.health} />
+											<FullHealthBar health={partHealths[index]} />
 										</Box>
 										<Button
+											onClick={() => handleRestore(index)}
 											bg={'#099b09'}
 											borderRadius={'1.25rem'}
 											h={'2rem'}
@@ -45,6 +61,7 @@ const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
 											Restore
 										</Button>
 										<Button
+											onClick={() => handleDeplete(index)}
 											bg={'red'}
 											borderRadius={'1.25rem'}
 											h={'2rem'}

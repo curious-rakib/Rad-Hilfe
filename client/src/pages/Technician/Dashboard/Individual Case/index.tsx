@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Text, Icon, Select } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Icon, Select } from '@chakra-ui/react';
 import VideoContainer from '../../../../components/Video Container';
 import TechnicianArticles from '../../../../components/Technician Articles';
 import { AiOutlineRight } from 'react-icons/ai';
@@ -15,17 +15,20 @@ import { createDetailedCase } from '../../../../features/technician/slices/caseD
 
 const articles = [
 	{
-		title: 'https://www.thecrucible.org/guides/bike-maintenance/repair-a-bike/',
+		title: 'Repair a bike:basics',
+		link: 'https://www.thecrucible.org/guides/bike-maintenance/repair-a-bike/',
 		author: 'John Smith',
 		date: '2023-08-16',
 	},
 	{
-		title: 'https://www.wikihow.com/Fix-Brakes-on-a-Bike',
+		title: 'Wikihow:Fix a brake on a bike',
+		link: 'https://www.wikihow.com/Fix-Brakes-on-a-Bike',
 		author: 'Jane Doe',
 		date: '2023-08-15',
 	},
 	{
-		title: 'https://www.cycleplan.co.uk/cycle-savvy/how-to-adjust-bike-brakes/',
+		title: 'How to adjust bike brakes',
+		link: 'https://www.cycleplan.co.uk/cycle-savvy/how-to-adjust-bike-brakes/',
 		author: 'Alex Johnson',
 		date: '2023-08-14',
 	},
@@ -55,7 +58,7 @@ const IndividualCase = () => {
 
 	return (
 		<>
-			{Case.length > 0 ? (
+			{Case && Case.length > 0 ? (
 				<Box color={'secondary'}>
 					<Flex
 						gap={'4rem'}
@@ -147,7 +150,7 @@ const IndividualCase = () => {
 								<Flex
 									mt={'1rem'}
 									direction={'column'}
-									alignItems={'center'}
+									// alignItems={'center'}
 									justify={'center'}>
 									<Flex
 										alignItems={'center'}
