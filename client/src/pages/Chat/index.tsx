@@ -1,12 +1,14 @@
-import { Box, Button, Center } from '@chakra-ui/react';
+import { Box, Button, Center, IconButton, Input } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Text } from '@chakra-ui/react';
 import { months } from '../../data/months';
-import { getCyclistName } from '../../services/authentication';
+import { getCyclistName, profile } from '../../services/authentication';
 import { parts } from '../../data/partsData';
 import { getAllSubpart } from '../../services/bikeDetails';
-import { getTimeSlots } from '../../services/order';
-import { getCaseNumber } from '../../services/cases';
+import { getTimeSlots, order } from '../../services/order';
+import { activeCase, getCaseNumber, passiveCase } from '../../services/cases';
+import { CheckIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 let arr: any[] = [
   {
@@ -133,23 +135,53 @@ let arr: any[] = [
   {
     type: 'text',
     data: [
-      'Great. You have a call booked for Wed, 08 Aug at 15:00',
+      'Great. You have a call booked for Wed, 23 Aug at 9:00',
       'Download the meeting link to have it in your calendar',
     ],
     from: 'bot',
   },
+  {
+    type: 'option',
+    data: [
+      {
+        selected: false,
+        value: 'Resend',
+      },
+      {
+        selected: false,
+        value: 'Got it',
+      },
+    ],
+    from: 'user',
+  },
+
+  undefined,
 ];
 
 const Chat: React.FC = () => {
+  const meetingLink = (
+    <a href={'https://meet.google.com/tvy-dffh-aid'} style={{ textDecoration: 'underline' }}>
+      meeting link
+    </a>
+  );
+
+  const navigate = useNavigate();
+  const [cyclist, setCyclist] = useState<any>('');
   const [curindex, setCurindex] = useState<number>(0);
   const [messages, setMessages] = useState<any[]>([]);
   const [getSubpart, setGetSubpart] = useState<any[]>([]);
+  const [timeSlotsPerDay, setTimeSlotsPerDay] = useState<{ day: string; slots: string[] }[]>([]);
 
   useEffect(() => {
     const getData = async () => {
       const cyclistName = await getCyclistName();
       if (cyclistName) {
         arr[0].data[0] = 'Hi ' + cyclistName.name;
+      }
+
+      const cyclist = await profile();
+      if (cyclist) {
+        setCyclist(cyclist);
       }
 
       const allSubparts = await getAllSubpart();
@@ -162,11 +194,82 @@ const Chat: React.FC = () => {
         arr[2].data[0] = `We are opening an Active case number ${caseNum.caseNumber}`;
       }
     };
+
     getData();
   }, []);
 
+  useEffect(() => {
+    if (messages[7]) {
+      const selectedDayIndex = messages[7].data.findIndex((day: any) => day.selected);
+      if (selectedDayIndex === -1) return;
+
+      const newTimeSlots = timeSlotsPerDay.filter(
+        (timeSlots) => timeSlots.day === messages[7].data[selectedDayIndex].value
+      )[0];
+
+      arr[9].data = newTimeSlots.slots.map((slot: string) => {
+        return { value: slot, selected: false };
+      });
+    }
+  }, [messages]);
+
+  const creatingCase = async () => {
+    let newCase = {
+      type: 'Active',
+      tags: [],
+      note: [{ text: 'Active case', timeStamp: new Date() }],
+      supportTime: {},
+      orderId: '',
+    };
+
+    console.log(messages);
+    newCase.tags = messages[5].data.reduce((accumulator: any[], subpart: any) => {
+      if (subpart.selected) {
+        accumulator.push(subpart.value);
+      }
+      return accumulator;
+    }, []);
+
+    newCase.supportTime = {
+      slotName: 'B',
+      slotTime: '9:00-10:00',
+      timeStamp: new Date(new Date().setDate(23)),
+    };
+
+    let Order = {
+      bicycleParts: messages[5].data.reduce((accumulator: any[], subpart: any) => {
+        if (subpart.selected) {
+          const part = getSubpart.filter((part) => {
+            return String(part.name) === String(subpart.value.split(' ').join(''));
+          });
+
+          accumulator.push(part[0]._id);
+        }
+
+        return accumulator;
+      }, []),
+      deliveryAddress: 'N/A',
+      contactNumber: cyclist.phone,
+      note: '',
+      slot: 'N/A',
+      totalPrice: 0,
+    };
+
+    const createdOrder = await order(Order);
+
+    if (createdOrder) {
+      newCase.orderId = createdOrder._id;
+      console.log(newCase);
+      const createdCase = await passiveCase(newCase);
+      if (createdCase) {
+        navigate('/cyclist-case');
+      }
+    }
+  };
+
   const addNewMessage = () => {
-    if (curindex + 1 === arr.length) {
+    if (curindex + 1 >= arr.length) {
+      creatingCase();
       return;
     }
 
@@ -209,14 +312,41 @@ const Chat: React.FC = () => {
 
       (async function getData() {
         const timeSlot = await getTimeSlots(subparts);
-
         console.log(timeSlot);
+
+        if (timeSlot && timeSlot.slots.length) {
+          const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+          const days = timeSlot.slots.map((slot: any) => {
+            return { value: daysOfTheWeek[new Date(slot.date).getDay()], selected: false };
+          });
+
+          const technicianTimeSlotsPerDay = timeSlot.slots.map((timeSlot: any) => {
+            const parsedSlots = timeSlot.slots.map((time: any) => time.slotTime.split('-')[0]);
+
+            return {
+              day: daysOfTheWeek[new Date(timeSlot.date).getDay()],
+              slots: parsedSlots,
+            };
+          });
+
+          setTimeSlotsPerDay(technicianTimeSlotsPerDay);
+
+          arr[7].data = days;
+        }
       })();
+    }
+
+    if (curindex === 9) {
     }
 
     setMessages((prev) => [...prev, arr[curindex]]);
 
     setTimeout(() => {
+      if (arr[curindex + 1] === undefined) {
+        setCurindex(curindex + 2);
+        return;
+      }
+
       setMessages((prev) => [...prev, arr[curindex + 1]]);
       setCurindex(curindex + 2);
     }, 1000);
@@ -257,7 +387,11 @@ const Chat: React.FC = () => {
                 rounded='xl'
                 className={item.from === 'bot' ? 'text-[#001F3F]' : ''}
               >
-                {chat}
+                {chat === 'Download the meeting link to have it in your calendar' ? (
+                  <div>Download the {meetingLink} to have it in your calendar</div>
+                ) : (
+                  chat
+                )}
               </Box>
             ))
           ) : (
@@ -307,11 +441,36 @@ const Chat: React.FC = () => {
           w='81.5%'
           border='1px solid #C1FAA6'
           textAlign='center'
-          mb={'3rem'}
+          mt={'3rem'}
+          mb={'6rem'}
         >
           Confirm
         </Button>
       </Center>
+
+      {/* <Box position={'fixed'} bottom={'-0.5rem'} bg={'#001F3F'} h={'5rem'} w={'100%'} pt={'1rem'}>
+        <Input
+          borderColor='#C1FAA6'
+          borderRadius='xl'
+          backgroundColor='#001F3F'
+          width='18rem'
+          padding='2'
+          paddingLeft='3'
+          type='text'
+          ml={'1rem'}
+          mr={'1rem'}
+        />
+
+        <IconButton
+          isRound={true}
+          variant='solid'
+          colorScheme='teal'
+          bg={'#C1FAA6'}
+          aria-label='Done'
+          fontSize='20px'
+          icon={<CheckIcon />}
+        />
+      </Box> */}
     </Box>
   );
 };

@@ -11,6 +11,7 @@ export const passiveCase = async (passiveCase: any) => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(passiveCase),
     });
@@ -31,6 +32,7 @@ export const activeCase = async (passiveCase: any) => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(passiveCase),
     });
@@ -41,6 +43,7 @@ export const activeCase = async (passiveCase: any) => {
     console.log(error);
   }
 };
+
 export const getAallCases = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/cyclist/get-all-cases`, {
