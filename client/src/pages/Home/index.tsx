@@ -9,6 +9,9 @@ import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink } from '@chakra-ui/react';
 import { getWeatherData } from '../../services/weather';
 import logo from '../../assets/logo.svg';
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { themes } from '../../data/navbarTheme';
+import theme from '../../theme';
 
 const Home = () => {
   const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
@@ -103,9 +106,15 @@ const Home = () => {
   return (
     <Box p={4}>
       <Flex>
-        <Image src={logo} boxSize={'40px'} />
+        {/* <Image src={logo} boxSize={'40px'} /> */}
+        {/* <HamburgerIcon
+          color={themes[theme].textColor}
+          fontSize='xx-large'
+        // {...getButtonProps()}
+        /> */}
+
       </Flex>
-      <Box mt={24}>
+      <Box mt={7}>
         <Text fontSize={'2xl'} mb={4} fontWeight={'semibold'} color='accent'>
           Good morning, <br /> {name}
         </Text>

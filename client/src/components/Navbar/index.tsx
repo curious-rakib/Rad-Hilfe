@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import caseCyclist from '../../assets/cases-cyclist.svg';
@@ -26,6 +26,8 @@ import { profile } from '../../services/authentication';
 import { themeCollections } from '../../data/navbarTheme';
 function Navbar({ theme }: { theme: keyof themeCollections }) {
     const navigate = useNavigate();
+    let location = useLocation();
+    console.log(location.pathname);
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const [hidden, setHidden] = useState(!isOpen);
     const goBack = () => {
@@ -69,14 +71,21 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
                     borderRadius='45px'
                     borderColor={themes[theme].textColor}
                 >
-                    <button onClick={goBack}>
-                        <ChevronLeftIcon
-                            marginLeft={'2px'}
-                            color={themes[theme].textColor}
-                            fontSize="x-large"
-                        />
+                    {/* {
+                        location = '/home' ? <></> : <button onClick={goBack}>
+                            <ChevronLeftIcon
+                                marginLeft={'2px'}
+                                color={themes[theme].textColor}
+                                fontSize="x-large"
+                            />
 
-                    </button>
+                        </button>
+
+                    } */}
+                    {/* {
+                        location.pathname === '/home' ? <>hello</> : null
+                    } */}
+
                 </Box>
                 <Box>
                     <HamburgerIcon

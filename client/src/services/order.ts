@@ -40,18 +40,25 @@ export const getPlan = async () => {
 };
 
 export const selectPlan = async (plan: any) => {
+  console.log('plan from service', plan);
   try {
-    const response = await axios.put(`${BASE_URL}/cyclist/select-plan`, {
-      withCredentials: true,
+    const response = await fetch(`${BASE_URL}/cyclist/select-plan`, {
+      method: 'PUT',
+      credentials: 'include',
+
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      data: JSON.stringify(plan),
+      body: JSON.stringify(plan),
     });
 
-    const updatedPlan = response.data;
-    console.log('selectplan from service', updatedPlan);
+    if (!response.ok) {
+      throw new Error('Request failed');
+    }
+
+    const updatedPlan = await response.json();
+    // console.log('selectplan from service', updatedPlan);
     return updatedPlan;
   } catch (error) {
     console.log(error);
