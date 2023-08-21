@@ -279,7 +279,7 @@ const availableSupportTime = async (req: Request, res: Response) => {
         if (technician[0]) {
           const slots = await findAvailableSupportTimeForCyclist(String(technician[0]._id));
 
-          res.status(200).send({ technician: technician, slots });
+          res.status(200).send({ technician: technician[0], slots });
           return;
         } else {
           res.status(200).send('No technician found');
