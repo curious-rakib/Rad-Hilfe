@@ -32,6 +32,7 @@ import Chat from './pages/Chat';
 import TechnicianAccordian from './components/TechnicianAccordian';
 
 function App() {
+
   return (
     <>
       <Router>
@@ -42,7 +43,7 @@ function App() {
           <Route path='/cyclist-profile' element={<CyclistProfile />} />
 
           <Route path='/thankyou' element={<ThankYou></ThankYou>}></Route>
-          <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
+
 
           <Route path='/setup-daily-route' element={<SetupDailyRoute />} />
           <Route path='/setup-bike-details' element={<SetupBikeDetails />} />
@@ -58,7 +59,8 @@ function App() {
             <Route path='/expert-call' element={<SetUpExpertCall />} />
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/chat' element={<Chat />}></Route>
-            <Route path='/maintenance' element={<Maintenance />} />
+            <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
+            <Route path='/maintenance/:id' element={<Maintenance />} />
           </Route>
         </Routes>
         <Routes>

@@ -17,6 +17,7 @@ import logo from '../assets/logo.svg';
 function Navbar({ theme }: { theme: keyof themeCollections }) {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const bikeId = localStorage.getItem('bikeID');
 	const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
 	const [hidden, setHidden] = useState(!isOpen);
 	const goBack = () => {
@@ -156,20 +157,23 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
 								</HStack>
 							</Box>
 						</Link>
-						<Box height="40px">
-							{' '}
-							<HStack spacing={7}>
-								<Image
-									src={maintenance}
-									boxSize="35px"
-									sx={{
-										fill: 'blue.500',
-									}}
-								/>
+						<Link to={`maintenance/${bikeId}`}>
+							<Box height="40px">
+								{' '}
+								<HStack spacing={7}>
+									<Image
+										src={maintenance}
+										boxSize="35px"
+										sx={{
+											fill: 'blue.500',
+										}}
+									/>
 
-								<Text fontWeight={'bold'}>Maintenance</Text>
-							</HStack>
-						</Box>
+									<Text fontWeight={'bold'}>Maintenance</Text>
+								</HStack>
+							</Box>
+						</Link>
+
 						<Link to='cyclist-profile'>
 							<Box height='40px'>
 								{' '}

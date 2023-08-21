@@ -23,7 +23,7 @@ const IndividualCyclistCase = () => {
     const fetchData = async () => {
       try {
         const caseById = await getCaseById(id);
-        // console.log('Fetched case by id:', caseById);
+        console.log('Fetched case by id:', caseById);
         setCaseByIdState(caseById);
 
         if (caseById.length) {
