@@ -1,7 +1,8 @@
-import { List, ListItem, Box, Flex, Text, Button } from '@chakra-ui/react';
+import { List, ListItem, Box, Flex, Text, Button, Circle } from '@chakra-ui/react';
 
 import FullHealthBar from '../Bicycle Full Health Bar';
 import { formatText } from '../../utils/formatText';
+import { categoryToColor } from '../../data/categoryToColor';
 
 const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
 	return (
@@ -24,6 +25,9 @@ const HealthBarListTechnician = ({ bicycleParts }: { bicycleParts: any[] }) => {
 										alignItems="center"
 										justifyContent="space-between"
 										gap={'1rem'}>
+										<Circle
+											bg={categoryToColor[part.subpart.category as keyof typeof categoryToColor]}
+											size={'1rem'}></Circle>
 										<Text flex={0.5}>{formatText(part.subpart.name)}</Text>
 										<Box flex={0.5}>
 											<FullHealthBar health={part.health} />

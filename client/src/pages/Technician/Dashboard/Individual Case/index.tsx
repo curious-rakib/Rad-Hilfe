@@ -9,10 +9,8 @@ import { TechnicianGetCaseByIdService } from '../../../../services/technician/ca
 import { formatText } from '../../../../utils/formatText';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/hooks';
-import { bikeDetails } from '../../../../features/cyclist/bikeDetails-slice';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import TechnicianAccordian from '../../../../components/TechnicianAccordian';
-import ActiveTags from '../../../../components/ActiveTags';
 import { createDetailedCase } from '../../../../features/technician/slices/caseDetailsSlice';
 
 const articles = [
@@ -48,7 +46,6 @@ const IndividualCase = () => {
 
 				setCase(result);
 				dispatch(createDetailedCase(result[0]));
-				dispatch(bikeDetails(result[0].bicycle));
 			} catch (error) {
 				console.error('Error in component while fetching !');
 			}
@@ -104,40 +101,40 @@ const IndividualCase = () => {
 						</Box>
 						<Box
 							fontSize={'1.30rem'}
-							bg={'red'}
-							color={'primary'}
+							bg={'secondary'}
+							color={'third'}
 							rounded={'xl'}
-							_hover={{ outline: '1px solid red', backgroundColor: 'primary', color: 'red' }}>
+							_hover={{ outline: '1px solid #EDCBEF', backgroundColor: 'third', color: 'secondary' }}>
 							<Select
 								fontWeight={'700'}
-								defaultValue="default">
+								defaultValue=""
+								placeholder="Change status">
 								<option
-									value="default"
-									disabled>
-									Select status
-								</option>
-								<option
-									value="option1"
-									style={{ color: '#C1FAA6' }}>
+									value="Raised"
+									style={{ backgroundColor: 'primary', color: '#C1FAA6' }}>
 									Raise
 								</option>
-								<option value="option2">Close</option>
+								<option
+									value="Closed"
+									style={{ backgroundColor: 'primary', color: '#C1FAA6' }}>
+									Close
+								</option>
 							</Select>
 						</Box>
 					</Flex>
 					<Box m={'.5rem'}>
 						<Flex mt={'2rem'}>
-							<Box flex={0.6}>
+							<Box flex={0.55}>
 								<Flex direction={'column'}>
 									<Box
-										w={'50%'}
-										ml={'6rem'}>
+										w={'55%'}
+										m={'0 auto'}>
 										<VideoContainer bookMark={false} />
 									</Box>
 
 									<Box
 										w={'90%'}
-										mt={5}
+										m={'1rem auto'}
 										boxShadow={'2xl'}
 										borderRadius={'md'}>
 										<TechnicianAccordian></TechnicianAccordian>
@@ -145,7 +142,7 @@ const IndividualCase = () => {
 								</Flex>
 							</Box>
 							<Box
-								flex={0.4}
+								flex={0.45}
 								boxShadow={'2xl'}>
 								<Flex
 									mt={'1rem'}
@@ -155,9 +152,9 @@ const IndividualCase = () => {
 									<Flex
 										alignItems={'center'}
 										w={'100%'}
-										justify={'center'}>
+										justify={'center'}
+										gap={'1rem'}>
 										<Button
-											mr={'1rem'}
 											bg={'#d9d9d9'}
 											borderRadius={'45%'}
 											color={'secondary'}>
@@ -166,13 +163,12 @@ const IndividualCase = () => {
 										<Box w={'60%'}>
 											<VideoContainer bookMark={true} />
 										</Box>
-										<div
+										{/* <Box
 											onClick={() => setBookMark(!bookMark)}
 											style={{ fontSize: '25px', marginLeft: '1rem', verticalAlign: 'top', marginTop: '-10rem' }}>
 											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
-										</div>
+										</Box> */}
 										<Button
-											ml={'-1.7rem'}
 											bg={'#d9d9d9'}
 											borderRadius={'45%'}
 											color={'secondary'}>
@@ -187,7 +183,7 @@ const IndividualCase = () => {
 					</Box>
 				</Box>
 			) : (
-				<> Couldn't Get Case Details!</>
+				<> null</>
 			)}
 		</>
 	);

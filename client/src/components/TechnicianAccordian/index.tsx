@@ -1,5 +1,5 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box } from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box } from '@chakra-ui/react';
 import { useAppSelector } from '../../app/hooks';
 import ReplacementParts from '../Replacement Parts';
 import HealthBarListTechnician from '../Technician Health Bar List';
