@@ -8,7 +8,7 @@ const VideoContainer = ({ bookMark }: { bookMark: boolean }) => {
 				flex={0.9}>
 				<iframe
 					title="brakes"
-					src="https://youtu.be/OQsiceeCZ0M"
+					src="https://www.youtube.com/embed/OQsiceeCZ0M"
 					allowFullScreen
 				/>
 			</AspectRatio>

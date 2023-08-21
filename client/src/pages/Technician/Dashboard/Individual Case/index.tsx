@@ -1,6 +1,5 @@
 import { Box, Button, Center, Flex, Text, Icon, Select } from '@chakra-ui/react';
 import VideoContainer from '../../../../components/Video Container';
-import TechnicianTab from '../../../../components/Tab component';
 import TechnicianArticles from '../../../../components/Technician Articles';
 import { AiOutlineRight } from 'react-icons/ai';
 import { AiOutlineLeft } from 'react-icons/ai';
@@ -13,8 +12,8 @@ import { useAppDispatch } from '../../../../app/hooks';
 import { bikeDetails } from '../../../../features/cyclist/bikeDetails-slice';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import TechnicianAccordian from '../../../../components/TechnicianAccordian';
-import VideoCarousol from '../../../../components/VideoCarousol';
 import ActiveTags from '../../../../components/ActiveTags';
+import { createDetailedCase } from '../../../../features/technician/slices/caseDetailsSlice';
 
 const articles = [
 	{
@@ -39,16 +38,16 @@ const IndividualCase = () => {
 	const dispatch = useAppDispatch();
 	const [Case, setCase] = useState<any[]>([]);
 	const [bookMark, setBookMark] = useState<boolean>(false);
-	const [bicycleParts, setBicycleParts] = useState<any[]>([]);
+
 	const id = useParams();
 
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
 			try {
-				const result = await TechnicianGetCaseByIdService('64e0aa916996e744b1cfa9c4');
-
+				const result = await TechnicianGetCaseByIdService('64e1e209489b715566a55ed6');
+				console.log(result);
 				setCase(result);
-				setBicycleParts(result[0].bicycle.bicycleParts);
+				dispatch(createDetailedCase(result));
 				dispatch(bikeDetails(result[0].bicycle));
 			} catch (error) {
 				console.error('Error in component while fetching !');
@@ -67,6 +66,7 @@ const IndividualCase = () => {
 						justify={'center'}
 						alignItems={'center'}>
 						<Button
+							onClick={() => navigate(-1)}
 							bg={'#d9d9d9'}
 							borderRadius={'45%'}
 							color={'secondary'}>
@@ -139,7 +139,6 @@ const IndividualCase = () => {
 										ml={'2rem'}
 										w={'30rem'}
 										mt={5}>
-										{/* <TechnicianTab /> */}
 										<TechnicianAccordian></TechnicianAccordian>
 									</Box>
 								</Flex>

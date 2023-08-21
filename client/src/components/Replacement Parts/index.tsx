@@ -15,9 +15,10 @@ const ReplacementParts = ({ replacableParts }: { replacableParts: any[] }) => {
 				direction={'column'}
 				alignItems={'center'}>
 				{replacableParts &&
-					replacableParts.map((part) => {
+					replacableParts.map((part, index) => {
 						return (
 							<Box
+								key={index}
 								w={'80%'}
 								borderRadius={'1rem'}
 								p={'1rem'}
