@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Icon, Select } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Icon, Select, Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@chakra-ui/react';
 import VideoContainer from '../../../../components/Video Container';
 import TechnicianArticles from '../../../../components/Technician Articles';
 import { AiOutlineRight } from 'react-icons/ai';
@@ -12,6 +12,8 @@ import { useAppDispatch } from '../../../../app/hooks';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import TechnicianAccordian from '../../../../components/TechnicianAccordian';
 import { createDetailedCase } from '../../../../features/technician/slices/caseDetailsSlice';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import AddingNotes from '../../../../components/Adding Notes';
 
 const articles = [
 	{
@@ -179,6 +181,43 @@ const IndividualCase = () => {
 									</Flex>
 
 									<TechnicianArticles articles={articles} />
+
+									<Accordion
+										allowMultiple
+										bg={'white'}
+										h={'auto'}
+										boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+										p={5}
+										rounded={'2xl'}>
+										<AccordionItem
+											borderRadius={'md'}
+											color={'secondary'}
+											_hover={{ backgroundColor: 'third' }}>
+											{({ isExpanded }) => (
+												<Box>
+													<AccordionButton>
+														<Box
+															borderTop={'none'}
+															m={'30px 0 36px 0'}
+															flex=".95"
+															textAlign="left"
+															fontWeight={'700'}
+															fontSize={'xl'}>
+															Add your notes
+														</Box>
+														{isExpanded ? <MinusIcon fontSize="1.15rem" /> : <AddIcon fontSize="1.15rem" />}
+													</AccordionButton>
+													<Box
+														h={'auto'}
+														overflowY={'auto'}>
+														<AccordionPanel pb={'1rem'}>
+															<AddingNotes />
+														</AccordionPanel>
+													</Box>
+												</Box>
+											)}
+										</AccordionItem>
+									</Accordion>
 								</Flex>
 							</Box>
 						</Flex>

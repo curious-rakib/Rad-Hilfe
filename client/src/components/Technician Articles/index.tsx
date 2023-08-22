@@ -2,7 +2,7 @@ import { Box, Flex } from '@chakra-ui/react';
 
 const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 	return (
-		<Flex>
+		<Flex mt={'1rem'}>
 			{articles &&
 				articles.map((article, index) => {
 					return (
