@@ -38,6 +38,24 @@ export const userLogin = async (user: any) => {
   } catch (error) {}
 };
 
+export const userLogout = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/cyclist/sign-out`, {
+      method: 'GET',
+      credentials: 'include',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const profile = async () => {
   try {
     const response = await fetch(`${BASE_URL}/cyclist/profile`, {

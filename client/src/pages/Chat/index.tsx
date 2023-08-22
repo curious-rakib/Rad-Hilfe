@@ -235,22 +235,13 @@ const Chat: React.FC = () => {
       return accumulator;
     }, []);
 
-    let newMessage = [...messages];
-    newMessage[10].data[0] = `Great. You have a call booked for ${
-      daysOfTheWeek[new Date(selectedSupportTime[0].timeStamp).getDay()]
-    }, ${new Date(selectedSupportTime[0].timeStamp).getDate()} ${months[
-      new Date(selectedSupportTime[0].timeStamp).getMonth()
-    ].slice(0, 3)} at ${selectedSupportTime[0].slotTime}.`;
-
-    setMessages(newMessage);
-
     newCase.supportTime = selectedSupportTime[0];
 
     let Order = {
       bicycleParts: messages[5].data.reduce((accumulator: any[], subpart: any) => {
         if (subpart.selected) {
           const part = getSubpart.filter((part) => {
-            return String(part.name) === String(subpart.value.split(' ').join(''));
+            return String(part.name) === String(subpart.value);
           });
 
           accumulator.push(part[0]._id);
@@ -294,6 +285,8 @@ const Chat: React.FC = () => {
         return accumulator;
       }, []);
 
+      console.log(category);
+
       let subpartData: any[] = [];
 
       category.forEach((name: any) => {
@@ -314,9 +307,7 @@ const Chat: React.FC = () => {
       const subpart = messages[5].data.filter((part: any) => part.selected);
 
       const subparts = subpart.reduce((accumulator: any[], value: any) => {
-        const part = getSubpart.filter(
-          (subpart) => String(subpart.name) === String(value.value.split(' ').join(''))
-        );
+        const part = getSubpart.filter((subpart) => String(subpart.name) === String(value.value));
 
         accumulator.push(part[0]._id);
         return accumulator;
@@ -364,11 +355,43 @@ const Chat: React.FC = () => {
       });
     }
 
+    if (curindex === 10) {
+      const selectedDay = messages[7].data.filter((day: any) => day.selected);
+      const selectedSlot = messages[9].data.filter((slot: any) => slot.selected);
+
+      const selectedSupportTime = getSlot.reduce((accumulator: any[], slot: any) => {
+        if (daysOfTheWeek[new Date(slot.date).getDay()] === selectedDay[0].value) {
+          let supportTime = {
+            slotName: 'B',
+            slotTime: '9:00-10:00',
+            timeStamp: new Date(slot.date),
+          };
+
+          const bookedSlot = slot.slots.filter((slot: any) => {
+            return slot.slotTime.split('-')[0] === selectedSlot[0].value;
+          })[0];
+
+          supportTime.slotName = bookedSlot.slotName;
+          supportTime.slotTime = bookedSlot.slotTime;
+
+          accumulator.push(supportTime);
+        }
+
+        return accumulator;
+      }, []);
+
+      arr[10].data[0] = `Great. You have a call booked for ${
+        daysOfTheWeek[new Date(selectedSupportTime[0].timeStamp).getDay()]
+      }, ${new Date(selectedSupportTime[0].timeStamp).getDate()} ${months[
+        new Date(selectedSupportTime[0].timeStamp).getMonth()
+      ].slice(0, 3)} at ${selectedSupportTime[0].slotTime}.`;
+    }
+
     setMessages((prev) => [...prev, arr[curindex]]);
 
     setTimeout(() => {
       if (arr[curindex + 1] === undefined) {
-        setCurindex(curindex + 2);
+        setCurindex(curindex + 1);
         return;
       }
 

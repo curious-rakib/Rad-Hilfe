@@ -1,9 +1,7 @@
-import { Box, Button, Center, Flex, Heading, Stack, Text, Textarea } from '@chakra-ui/react';
+import { Box, Center, Flex, Heading, Stack, Text, Textarea } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import InputField from '../../components/InputField';
 import React from 'react';
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import PaypalButton from '../../components/PaypalButton';
 import { useAppSelector } from '../../app/hooks';
 import { profile } from '../../services/authentication';

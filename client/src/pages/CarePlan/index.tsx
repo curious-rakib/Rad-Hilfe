@@ -3,8 +3,7 @@ import rotateBike from '../../assets/rotateBike.svg';
 import check from '../../assets/checkMark.svg';
 import { useEffect, useState } from 'react';
 import { getPlan, selectPlan } from '../../services/order';
-import { Link, useNavigate } from 'react-router-dom';
-import { handleStreetSelection } from '@mapbox/search-js-web/dist/utils/autofill';
+import { useNavigate } from 'react-router-dom';
 
 const CarePlan = () => {
   const [carePlan, setCarePlan] = useState('Basic');

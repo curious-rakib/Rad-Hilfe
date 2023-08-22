@@ -44,7 +44,7 @@ const setCard = ({
               {name}
             </Text>
 
-            <Text fontSize={'1rem'} position={'absolute'} right={'42px'}>
+            <Text fontSize={'1rem'} position={'absolute'} right={'43px'}>
               {health}%
             </Text>
 

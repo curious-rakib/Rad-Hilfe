@@ -1,7 +1,7 @@
-import { Box, VStack, Text, Flex, Stack, Image, Center, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Text, Flex, Stack, Center, Grid, GridItem } from '@chakra-ui/react';
 
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { FcLike } from 'react-icons/fc';
 import MyBikeProgressBar from '../../components/MyBikeProgressBar';
 import bike from '../../assets/images/bike2.png';
@@ -38,7 +38,7 @@ const MyBike = () => {
   const date = (new Date().getDate() % 28) + 1;
 
   return (
-    <Box bg='third' position={'relative'}>
+    <Box bg='third' position={'relative'} top={'-0.5rem'}>
       <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='35rem' px={3}>
         <GridItem w='100%' h={''}>
           <Stack spacing={4} color={'secondary'}>

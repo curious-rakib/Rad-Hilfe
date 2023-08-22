@@ -1,15 +1,4 @@
-import {
-  Flex,
-  Box,
-  VStack,
-  HStack,
-  Text,
-  Center,
-  Image,
-  SimpleGrid,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
+import { Flex, Box, VStack, HStack, Text, Image, SimpleGrid } from '@chakra-ui/react';
 import { useDisclosure } from '@chakra-ui/react';
 import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
@@ -22,9 +11,8 @@ import avatar from './avatar.svg';
 import signout from './signout.svg';
 import { themes } from '../data/navbarTheme';
 import { themeCollections } from '../data/navbarTheme';
-import { profile } from '../services/authentication';
+import { profile, userLogout } from '../services/authentication';
 import logo from '../assets/logo.svg';
-import { handleStreetSelection } from '@mapbox/search-js-web/dist/utils/autofill';
 
 function Navbar({ theme }: { theme: keyof themeCollections }) {
   const navigate = useNavigate();
@@ -56,7 +44,10 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
   }, []);
 
   const handleClick = async () => {
-    navigate('/login');
+    const isSignOut = await userLogout();
+    if (isSignOut) {
+      navigate('/login');
+    }
   };
 
   return (

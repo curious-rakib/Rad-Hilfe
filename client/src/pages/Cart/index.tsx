@@ -9,16 +9,14 @@ import { useDispatch } from 'react-redux';
 import { bicycleParts, totalPrice } from '../../features/cyclist/order-slice';
 import { categoryToColor } from '../../data/categoryToColor';
 import { getPlan } from '../../services/order';
+
 interface Parts {
   _id: string;
   partsName: string;
   price: number;
   category: string;
   qty: number;
-  plans: Plan[];
-}
-interface Plan {
-  planName: string;
+  plans: string[];
 }
 
 const Cart = () => {
@@ -29,7 +27,7 @@ const Cart = () => {
       price: 0,
       category: '',
       qty: 1,
-      plans: [{ planName: '' }],
+      plans: [''],
     },
   ];
 
@@ -51,20 +49,14 @@ const Cart = () => {
           price: eachBicycle.price,
           category: eachBicycle.category,
           qty: 1,
-          plans: [
-            {
-              planName: updateplan,
-            },
-          ],
+          plans: [updateplan],
         }));
-
-        // console.log('from dataObj', dataObj);
 
         const sortedData = dataObj.sort(
           (p1: Parts, p2: Parts) => p1.partsName.length - p2.partsName.length
         );
 
-        setParts((prev) => [...sortedData]);
+        setParts(() => [...sortedData]);
       } catch (error) {
         console.log('Error fetching data:', error);
       }
@@ -91,14 +83,20 @@ const Cart = () => {
     const filteredParts = parts.filter((part) => part.qty === 1);
     const subpartFilteredIds = filteredParts.map((part) => part._id);
     dispatch(bicycleParts(subpartFilteredIds));
-
-    // console.log("useffect parts", subpartFilteredIds);
   }, [parts]);
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
 
+    if (carePlan === 'Slipstream') {
+      return totalPrice;
+    }
+
     for (let i = 0; i < parts.length; i++) {
+      if (parts[i].plans[0] === 'Qover') {
+        continue;
+      }
+
       totalPrice += parts[i].qty * parts[i].price;
     }
     return totalPrice + 100;
@@ -131,7 +129,11 @@ const Cart = () => {
                       width: '28px',
                       height: '22px',
                     }}
-                    bg={categoryToColor[p.category as keyof typeof categoryToColor]}
+                    bg={
+                      categoryToColor[
+                        p.category.split(' ').join('') as keyof typeof categoryToColor
+                      ]
+                    }
                     size={'25px'}
                     mr={'8px'}
                   ></Circle>
@@ -159,7 +161,6 @@ const Cart = () => {
                   </Button>
                   <Text mx={3} fontWeight={'bold'}>
                     {p.qty}
-                    {/* {newpart[index].qty} */}
                   </Text>
                   <Button
                     size={'xs'}
@@ -174,7 +175,10 @@ const Cart = () => {
                 </Flex>
               </GridItem>
               <GridItem h='10' color={'white'} ml={10}>
-                <Text> €{carePlan === 'Slipstream' ? p.qty * p.price * 0 : p.qty * p.price}</Text>
+                <Text>
+                  {' '}
+                  €{carePlan === 'Slipstream' || p.plans[0] === 'Qover' ? 0 : p.qty * p.price}
+                </Text>
               </GridItem>
             </Grid>
             <hr />
