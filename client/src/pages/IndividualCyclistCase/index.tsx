@@ -1,24 +1,49 @@
-import { PhoneIcon } from '@chakra-ui/icons';
-import { Box, Text, Flex, Circle, Stack, HStack, VStack } from '@chakra-ui/layout';
-import { Button } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  Flex,
+  Circle,
+  Stack,
+  HStack,
+  VStack,
+} from '@chakra-ui/layout';
+import {
+  Button,
+  ListItem,
+  UnorderedList,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { getCaseById } from '../../services/cases';
 import { months } from '../../data/months';
 import { categoryToColor } from '../../data/categoryToColor';
-
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react';
+import React from 'react';
 const IndividualCyclistCase = () => {
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg='blackAlpha.300'
+      backdropFilter='blur(10px) hue-rotate(90deg)'
+    />
+  );
   const { id } = useParams();
 
-  const expertNote = localStorage.getItem('expertNote');
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [overlay, setOverlay] = React.useState(<OverlayOne />);
   const [caseByIdState, setCaseByIdState] = useState<any[]>([]);
   const [date, setDate] = useState<number>(1);
   const [month, setMonth] = useState<number>(1);
   const [year, setYear] = useState<number>(1970);
 
-  // const individualPassiveCase = localStorage.getItem('passiveCase');
-  // const individualCase = (JSON.parse(individualPassiveCase!));
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,12 +62,9 @@ const IndividualCyclistCase = () => {
       }
     };
     fetchData();
-    // console.log('Calling useEffect')
   }, [id]);
 
   const exactMonth = months[month];
-
-  // console.log(caseByIdState);
 
   function getParsedDate(strDate: any) {
     const newDate = new Date(strDate);
@@ -65,15 +87,9 @@ const IndividualCyclistCase = () => {
     const day = daysOfTheWeek[newDate.getDay()];
     const date = newDate.getDate();
     const mon = months[newDate.getMonth()];
-    const year = newDate.getFullYear();
 
     return day + ' ' + date + ' ' + mon;
   }
-
-  // {
-  //   caseByIdState.length>0?
-  //   const firstCalldate = caseByIdState[0].note[1].text.slice(8) : null
-  // }
 
   return (
     <div>
@@ -82,7 +98,8 @@ const IndividualCyclistCase = () => {
           <Box color={'accent'} p={7} mt={4}>
             <Stack spacing={1}>
               <Text fontWeight={'bold'} fontSize={'xl'}>
-                Case #{caseByIdState[0].caseNumber || 1} | {caseByIdState[0].type || 'Active'}
+                Case #{caseByIdState[0].caseNumber || 1} |{' '}
+                {caseByIdState[0].type || 'Active'}
               </Text>
               <Flex alignItems={'center'} gap={5}>
                 <Text>Status: {caseByIdState[0].status}</Text>
@@ -91,7 +108,9 @@ const IndividualCyclistCase = () => {
               <Text>
                 Date opened: {date} {exactMonth} {year}{' '}
               </Text>
-              <Text>Technician assigned:{caseByIdState[0].technician.name || 1}</Text>
+              <Text>
+                Technician assigned:{caseByIdState[0].technician.name || 1}
+              </Text>
             </Stack>
 
             <Box>
@@ -99,10 +118,16 @@ const IndividualCyclistCase = () => {
                 Main issues
               </Text>
 
-              <Flex mt={2} flexWrap='wrap' color={'black'} fontWeight={'semibold'}>
+              <Flex
+                mt={2}
+                flexWrap='wrap'
+                color={'black'}
+                fontWeight={'semibold'}
+              >
                 {caseByIdState[0].order.bicycleParts
                   .reduce((acc: any[], part: any) => {
-                    if (!acc.includes(part.category)) return [...acc, part.category];
+                    if (!acc.includes(part.category))
+                      return [...acc, part.category];
                     return acc;
                   }, [])
                   .map((category: any) => (
@@ -129,7 +154,11 @@ const IndividualCyclistCase = () => {
                           width: '28px',
                           height: '22px',
                         }}
-                        bg={categoryToColor[part.category as keyof typeof categoryToColor]}
+                        bg={
+                          categoryToColor[
+                          part.category as keyof typeof categoryToColor
+                          ]
+                        }
                         size={'25px'}
                         mr={'8px'}
                       >
@@ -152,28 +181,64 @@ const IndividualCyclistCase = () => {
             {caseByIdState[0].type === 'Active' ? (
               ''
             ) : (
-              <Stack spacing={1}>
-                <Text fontSize={'lg'} fontWeight={'semibold'}>
-                  Intervention details
-                </Text>
-                <Text>
-                  First call: {getParsedDate(caseByIdState[0].note[1].text.slice(9))} |{' '}
-                  {caseByIdState[0].order.slot}
-                </Text>
-                <Text>Follow-up call: Pending</Text>
-                <Text>Support quality: ☆☆☆☆</Text>
-              </Stack>
+              <>
+                <Stack spacing={1}>
+                  <Text fontSize={'lg'} fontWeight={'semibold'}>
+                    Intervention details
+                  </Text>
+                  <Text>
+                    First call:{' '}
+                    {getParsedDate(caseByIdState[0].note[1].text.slice(9))} |{' '}
+                    {caseByIdState[0].order.slot}
+                  </Text>
+                  <Text>Follow-up call: Pending</Text>
+                  <Text>Support quality: ☆☆☆☆</Text>
+                </Stack>
+
+                <Box my={5}>
+                  <Flex gap={4} rounded={'full'}>
+                    <Button
+                      onClick={() => {
+                        setOverlay(<OverlayOne />);
+                        onOpen();
+                      }}
+                      bg={'third'}
+                      fontWeight={'bold'}
+                      p={6}
+                      rounded={'xl'}
+                      color={'secondary'}
+                    >
+                      Open case notes
+                    </Button>
+                    <Button
+                      bg={'third'}
+                      fontWeight={'bold'}
+                      p={6}
+                      rounded={'xl'}
+                      color={'secondary'}
+                    >
+                      Diagnostic video
+                    </Button>
+                  </Flex>
+
+                  <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                    {overlay}
+                    <ModalContent bg={'secondary'}>
+                      <ModalHeader>Notes</ModalHeader>
+                      <ModalCloseButton />
+                      <ModalBody>
+                        <UnorderedList>
+                          <ListItem> {caseByIdState[0].note[0].text}</ListItem>
+                        </UnorderedList>
+                      </ModalBody>
+                      <ModalFooter>
+                        <Button onClick={onClose}>Close</Button>
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+                </Box>
+              </>
             )}
-            <Box my={5}>
-              <Flex gap={4} rounded={'full'}>
-                <Button bg={'third'} fontWeight={'bold'} p={6} rounded={'xl'} color={'secondary'}>
-                  Open case notes
-                </Button>
-                <Button bg={'third'} fontWeight={'bold'} p={6} rounded={'xl'} color={'secondary'}>
-                  Diagnostic video
-                </Button>
-              </Flex>
-            </Box>
           </Box>
         </>
       ) : (
