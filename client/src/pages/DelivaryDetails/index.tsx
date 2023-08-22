@@ -36,25 +36,25 @@ const DelivaryDetails = () => {
   const deliverySlots = [
     {
       id: 1,
-      day: 'Thurs 22 Aug',
+      day: 'Thurs 23 Aug',
       time: '17:00 - 18:00',
       chosen: false,
     },
     {
       id: 2,
-      day: 'Thurs 22 Aug',
+      day: 'Thurs 23 Aug',
       time: '19:00 - 20:00',
       chosen: false,
     },
     {
       id: 3,
-      day: 'Fri 23 Aug',
+      day: 'Fri 24 Aug',
       time: '19:00 - 20:00',
       chosen: false,
     },
     {
       id: 4,
-      day: 'Fri 23 Aug',
+      day: 'Fri 24 Aug',
       time: '19:00 - 20:00',
       chosen: false,
     },
