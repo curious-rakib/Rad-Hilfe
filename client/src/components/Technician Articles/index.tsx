@@ -1,8 +1,8 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 
 const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 	return (
-		<>
+		<Flex>
 			{articles &&
 				articles.map((article, index) => {
 					return (
@@ -22,7 +22,7 @@ const TechnicianArticles = ({ articles }: { articles: any[] }) => {
 						</Box>
 					);
 				})}
-		</>
+		</Flex>
 	);
 };
 

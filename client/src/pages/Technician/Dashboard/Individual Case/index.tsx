@@ -150,7 +150,6 @@ const IndividualCase = () => {
 								<Flex
 									mt={'1rem'}
 									direction={'column'}
-									// alignItems={'center'}
 									justify={'center'}>
 									<Flex
 										alignItems={'center'}
