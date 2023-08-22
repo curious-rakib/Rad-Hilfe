@@ -1,7 +1,7 @@
 import { Box, FormControl, Input, Text } from '@chakra-ui/react';
 import { ChangeEventHandler } from 'react';
 
-const InputTechnician = ({ id, isRequired, type, label, name, placeholder, colorScheme, onChange }: { id: string; isRequired: boolean; type: string; label: string; name: string; placeholder: string; colorScheme: string; onChange: ChangeEventHandler<HTMLInputElement> }) => {
+const InputTechnician = ({ id, isRequired, type, label, name, placeholder, colorScheme, onChange, value }: { id: string; isRequired: boolean; type: string; label: string; name: string; placeholder: string; colorScheme: string; onChange: ChangeEventHandler<HTMLInputElement>; value: string }) => {
 	return (
 		<Box>
 			<FormControl
@@ -27,6 +27,7 @@ const InputTechnician = ({ id, isRequired, type, label, name, placeholder, color
 					color={colorScheme}
 					name={name}
 					onChange={onChange}
+					value={value}
 				/>
 			</FormControl>
 		</Box>

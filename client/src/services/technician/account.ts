@@ -64,3 +64,17 @@ export const TechnicianGetProfileService = async () => {
 		console.error('Error in Profile Service!');
 	}
 };
+export const TechnicianLogOutService = async () => {
+	try {
+		return await axios({
+			url: `${baseUrl}/technician/sign-out`,
+			method: 'GET',
+			withCredentials: true,
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((res) => res)
+			.catch((error) => console.error('Error from Server!', error.message));
+	} catch (error) {
+		console.error('Error in Sign Out Service!');
+	}
+};

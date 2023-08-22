@@ -1,6 +1,7 @@
 export interface TimeSlot {
 	slotName: string;
 	slotTime: string;
+	_id?: string;
 }
 export function timeSlotGenerator(start: number, end: number) {
 	const timeSlots: TimeSlot[] = [];

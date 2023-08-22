@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, Icon, Select } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Icon, Select, Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@chakra-ui/react';
 import VideoContainer from '../../../../components/Video Container';
 import TechnicianArticles from '../../../../components/Technician Articles';
 import { AiOutlineRight } from 'react-icons/ai';
@@ -12,6 +12,8 @@ import { useAppDispatch } from '../../../../app/hooks';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import TechnicianAccordian from '../../../../components/TechnicianAccordian';
 import { createDetailedCase } from '../../../../features/technician/slices/caseDetailsSlice';
+import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import AddingNotes from '../../../../components/Adding Notes';
 
 const articles = [
 	{
@@ -35,12 +37,24 @@ const articles = [
 ];
 
 const IndividualCase = () => {
+	const src = 'https://www.youtube.com/embed/OQsiceeCZ0M';
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [Case, setCase] = useState<any[]>([]);
 	const [bookMark, setBookMark] = useState<boolean>(false);
+	const [bookMarkedVideos, setBookMarkedVideos] = useState<string>('');
+	const [showBookMarkedVideos, setShowBookMarkedVideos] = useState<boolean>(false);
 
 	const id = useParams();
+
+	const handleSetBookMark = () => {
+		setBookMark(!bookMark);
+		if (bookMarkedVideos && bookMarkedVideos.length > 0) {
+			setBookMarkedVideos('');
+			return;
+		}
+		setBookMarkedVideos(src);
+	};
 
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
@@ -132,7 +146,7 @@ const IndividualCase = () => {
 									<Box
 										w={'55%'}
 										m={'0 auto'}>
-										<VideoContainer bookMark={false} />
+										<VideoContainer src={src} />
 									</Box>
 
 									<Box
@@ -150,8 +164,8 @@ const IndividualCase = () => {
 								<Flex
 									mt={'1rem'}
 									direction={'column'}
-									// alignItems={'center'}
-									justify={'center'}>
+									justify={'center'}
+									gap={'1rem'}>
 									<Flex
 										alignItems={'center'}
 										w={'100%'}
@@ -164,22 +178,76 @@ const IndividualCase = () => {
 											<AiOutlineLeft size={20} />
 										</Button>
 										<Box w={'60%'}>
-											<VideoContainer bookMark={true} />
+											<VideoContainer src={src} />
 										</Box>
-										{/* <Box
-											onClick={() => setBookMark(!bookMark)}
-											style={{ fontSize: '25px', marginLeft: '1rem', verticalAlign: 'top', marginTop: '-10rem' }}>
-											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
-										</Box> */}
+
 										<Button
 											bg={'#d9d9d9'}
 											borderRadius={'45%'}
 											color={'secondary'}>
 											<AiOutlineRight size={20} />
 										</Button>
+										<Box
+											onClick={handleSetBookMark}
+											style={{ fontSize: '25px', position: 'relative', marginBottom: '10rem' }}>
+											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
+										</Box>
 									</Flex>
 
 									<TechnicianArticles articles={articles} />
+
+									<Accordion
+										allowMultiple
+										bg={'white'}
+										_hover={{ backgroundColor: 'accent' }}
+										h={'auto'}
+										boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+										p={5}
+										rounded={'2xl'}>
+										<AccordionItem
+											borderRadius={'md'}
+											color={'secondary'}>
+											{({ isExpanded }) => (
+												<Box>
+													<AccordionButton>
+														<Box
+															borderTop={'none'}
+															m={'30px 0 36px 0'}
+															flex=".95"
+															textAlign="left"
+															fontWeight={'700'}
+															fontSize={'xl'}>
+															Add your notes
+														</Box>
+														{isExpanded ? <MinusIcon fontSize="1.15rem" /> : <AddIcon fontSize="1.15rem" />}
+													</AccordionButton>
+													<Box
+														h={'auto'}
+														overflowY={'auto'}>
+														<AccordionPanel pb={'1rem'}>
+															<AddingNotes />
+														</AccordionPanel>
+													</Box>
+												</Box>
+											)}
+										</AccordionItem>
+									</Accordion>
+									<Button
+										onClick={() => setShowBookMarkedVideos(!showBookMarkedVideos)}
+										margin={'1rem auto'}
+										color={'third'}
+										bg={'secondary'}
+										_hover={{ color: 'secondary', bg: 'primary', border: '2px solid #001f3f' }}>
+										Filter Bookmarks
+									</Button>
+
+									{showBookMarkedVideos && (
+										<Box
+											w={'60%'}
+											margin={'0 auto'}>
+											<VideoContainer src={bookMarkedVideos} />
+										</Box>
+									)}
 								</Flex>
 							</Box>
 						</Flex>
