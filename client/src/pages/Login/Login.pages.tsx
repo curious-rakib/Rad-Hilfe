@@ -1,17 +1,4 @@
-import {
-  Box,
-  Image,
-  Center,
-  Flex,
-  FormControl,
-  HStack,
-  Heading,
-  Input,
-  Stack,
-  Text,
-  useToast,
-  Button,
-} from '@chakra-ui/react';
+import { Box, Image, Center, HStack, Heading, Stack, Text, useToast } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../../components/InputField';
 import { ChangeEvent } from 'react';
@@ -19,7 +6,7 @@ import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signin } from '../../features/cyclist/cyclistSignIn-slice';
-import { userLogin } from '../../services/authentication';
+import { profile, userLogin } from '../../services/authentication';
 
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
@@ -34,36 +21,65 @@ const Login = () => {
 
     const dataObj = { [name]: value };
 
-
     dispatch(signin(dataObj));
   };
+
   const { email, password } = useAppSelector((state) => state.signInInput);
 
-
-
-
-  const handleClick = async (event: any) => {
+  const handleClick = async () => {
     const signInUserData = { email, password };
-
     const token = await userLogin(signInUserData);
-
     localStorage.setItem('accessToken', token);
-    navigate('/setup-daily-route')
+
     if (token) {
       toast({
         title: 'Logged In Succefully',
 
         status: 'success',
-        duration: 10000,
+        duration: 3000,
         position: 'top-right',
         isClosable: true,
-      })
+      });
+      if (localStorage.getItem('accessToken')) {
+        const cyclist = await profile();
+
+        if (cyclist && cyclist.bicycle) {
+          navigate('/home');
+        } else {
+          navigate('/setup-daily-route');
+        }
+      }
     }
   };
 
+  const handleGoogleAuth = async (event: any) => {
+    event.preventDefault();
+  };
+  const handleFacebookAuth = async (event: any) => {
+    event.preventDefault();
+  };
+
+  // const handleClick = async (event: any) => {
+  //   const signInUserData = { email, password };
+
+  //   const token = await userLogin(signInUserData);
+
+  //   localStorage.setItem('accessToken', token);
+  //   navigate('/setup-daily-route');
+  //   if (token) {
+  //     toast({
+  //       title: 'Logged In Succefully',
+
+  //       status: 'success',
+  //       duration: 10000,
+  //       position: 'top-right',
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
+
   return (
     <Box p={4}>
-
       <Stack spacing={8} mx={'auto'} maxW={'lg'}>
         <Center mt={10}>
           <HStack>
@@ -105,7 +121,6 @@ const Login = () => {
             />
 
             <Stack spacing={10} pt={2}>
-              {/* <Link to={'/setup-daily-route'}> */}
               <SubmitButton
                 borderRadius={'1.25rem'}
                 onClick={handleClick}
@@ -117,7 +132,6 @@ const Login = () => {
                 text='Sign In'
                 fontWeight={''}
               />
-              {/* </Link> */}
             </Stack>
             <Stack color={'accent'} mb={'1.5rem'} mt={'-0.5rem'}>
               <Text>
@@ -132,24 +146,27 @@ const Login = () => {
               <SubmitButton
                 svgUrl={googleLogo}
                 borderRadius={'1.25rem'}
+                onClick={handleGoogleAuth}
                 loadingText='Submitting'
                 size='lg'
-                w=''
                 bg='third'
+                w=''
+                fontWeight='bold'
                 color='secondary'
                 text='Sign in with Google'
-                fontWeight={''}
               />
+
               <SubmitButton
                 svgUrl={facebookLogo}
                 borderRadius={'1.25rem'}
+                onClick={handleFacebookAuth}
                 loadingText='Submitting'
                 size='lg'
-                w=''
                 bg='fourth'
+                w=''
+                fontWeight='bold'
                 color='secondary'
                 text='Sign in with Facebook'
-                fontWeight={''}
               />
             </Stack>
           </Stack>

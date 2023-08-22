@@ -1,5 +1,16 @@
-import { Center, Stack } from '@chakra-ui/react';
-
+import {
+  Center,
+  Stack,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from '@chakra-ui/react';
 import InputField from '../InputField';
 import SubmitButton from '../Button';
 import { useEffect, useState } from 'react';
@@ -7,7 +18,8 @@ import axios from 'axios';
 import mapboxgl from 'mapbox-gl';
 import { totalDistance } from '../../features/cyclist/commuteDetails-slice';
 import { useAppDispatch } from '../../app/hooks';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { updateAddress } from '../../services/authentication';
 interface Markar {
   lat: number;
   lng: number;
@@ -15,19 +27,22 @@ interface Markar {
 function HomeOfficeAddressLayover({
   onToggle,
   markars,
+  onClear,
 }: {
   onToggle: Function;
   markars: Markar[];
+  onClear: Function;
 }) {
   const [homelocationName, setHomeLocationName] = useState('');
   const [worklocationName, setWorkLocationName] = useState('');
-  // console.log('homeOfiice page', markars);
-  // console.log(mapboxgl.accessToken);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const rGeocodingWork = async () => {
       try {
-        if (markars) {
+        if (markars.length) {
           const startCoordslat = markars[0].lat;
 
           const startCoordslng = markars[0].lng;
@@ -54,45 +69,85 @@ function HomeOfficeAddressLayover({
 
   const dispatch = useAppDispatch();
   const handleChange = () => {};
-  const handleClick = () => {
+
+  const handleClick = async () => {
     const Distance = localStorage.getItem('totalDistance');
     const numberTotalDistance = Number(Distance);
 
     dispatch(totalDistance(numberTotalDistance));
+
+    const setupAddress = await updateAddress({
+      homeAddress: homelocationName,
+      workAddress: worklocationName,
+    });
+
+    if (setupAddress) {
+      navigate('/setup-bike-details');
+    }
   };
 
   return (
-    <Stack spacing={9}>
-      <InputField
-        location={homelocationName}
-        id='home'
-        isRequired={true}
-        type='text'
-        placeholder='Home Address'
-        onChange={handleChange}
-        name='home'
-        borderColor='accent'
-        color='accent'
-        onToggle={onToggle}
-        borderRadius={''}
-      />
+    <>
+      <Modal isOpen={isOpen} onClose={onClose} size='sm'>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Clear map?</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Are you sure you want to clear the map?</ModalBody>
 
-      <InputField
-        location={markars.length > 1 ? worklocationName : ''}
-        borderRadius='10px'
-        id='work'
-        isRequired={true}
-        type='text'
-        placeholder='Work Address'
-        onChange={handleChange}
-        name='work'
-        borderColor='accent'
-        color='accent'
-        onToggle={onToggle}
-      />
+          <ModalFooter>
+            <Button variant='ghost' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              variant='solid'
+              color='primary'
+              background='red.600'
+              onClick={(event) => {
+                onClear(event);
+                onClose();
+              }}
+            >
+              Clear
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
-      <Center mt={-3}>
-        <Link to={'/setup-bike-details'}>
+      <Stack spacing={9}>
+        <InputField
+          location={markars.length > 0 ? homelocationName : ''}
+          id='home'
+          isRequired={true}
+          type='text'
+          placeholder='Home Address'
+          onChange={handleChange}
+          name='home'
+          borderColor='accent'
+          color='accent'
+          onToggle={onToggle}
+          borderRadius={''}
+        />
+
+        <InputField
+          location={markars.length > 1 ? worklocationName : ''}
+          borderRadius='10px'
+          id='work'
+          isRequired={true}
+          type='text'
+          placeholder='Work Address'
+          onChange={handleChange}
+          name='work'
+          borderColor='accent'
+          color='accent'
+          onToggle={onToggle}
+        />
+
+        <Center mt={-3}>
+          <Button borderRadius={'10px'} w='200px' size='lg' fontWeight={'700'} onClick={onOpen}>
+            Clear Map
+          </Button>
+
           <SubmitButton
             onClick={handleClick}
             loadingText='Submitting'
@@ -104,9 +159,9 @@ function HomeOfficeAddressLayover({
             borderRadius={'10px'}
             fontWeight={'bold'}
           />
-        </Link>
-      </Center>
-    </Stack>
+        </Center>
+      </Stack>
+    </>
   );
 }
 

@@ -25,7 +25,7 @@ const signUp = async (req: Request, res: Response) => {
       password,
       phone,
       role = 'cyclist',
-      plan = 'basic',
+      plan = 'Basic',
       homeAddress = '',
       workAddress = '',
     } = req.body;
@@ -203,10 +203,10 @@ const setUpAddressEdit = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
 
     if (session) {
-      await addCyclistAddress(session.userEmail, homeAddress, workAddress);
-
-      res.status(200).send('Home address and work address added');
-      return;
+      if (await addCyclistAddress(session.userEmail, homeAddress, workAddress)) {
+        res.status(200).send({ homeAddress, workAddress });
+        return;
+      }
     }
 
     res.status(401).send('Session is invalid.');
@@ -247,6 +247,7 @@ const cyclistName = async (req: Request, res: Response) => {
 };
 
 const selectPlan = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     const { plan } = req.body;
 
@@ -254,7 +255,7 @@ const selectPlan = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
 
     if (session && (await addCyclistPlan(session.userEmail, plan))) {
-      res.status(200).send(`Your selected ${plan} plan`);
+      res.status(200).send({ plan });
       return;
     }
 

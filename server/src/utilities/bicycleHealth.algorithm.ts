@@ -50,6 +50,8 @@ const calculatePartsHealth = (
       return String(bicycleSubPart.subpart._id) === dependencyPart._id;
     });
 
+    if (subpart.length === 0) return;
+
     const lastRevisionDate = moment(subpart[0].lastMaintained);
 
     const totalDailyCommutedPavedDistance = getDistance(

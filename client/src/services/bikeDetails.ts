@@ -10,6 +10,7 @@ export const setUpBikeInfo = async (bikeinfo: any) => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(bikeinfo),
     });

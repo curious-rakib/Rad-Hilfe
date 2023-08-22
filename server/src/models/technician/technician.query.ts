@@ -88,40 +88,58 @@ const findAvailableSupportTimeForCyclist = async (technicianId: string) => {
 
   let allSupportTime;
   if (cases) {
-    allSupportTime = cases.map((oneCase) => {
-      return oneCase.supportTime;
-    });
+    allSupportTime = cases
+      .map((oneCase) => {
+        return oneCase.supportTime;
+      })
+      .filter((oneCase) => {
+        return oneCase;
+      });
   }
+
+  const Day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const technician = await findTechnicianById(new Types.ObjectId(technicianId));
 
-  if (allSupportTime && technician) {
-    let availableSupportTime;
+  if (technician) {
+    const availableSupportTime: any[] = [];
 
     for (let day = 0; day < 7; day++) {
       const checkingDay = new Date();
-      checkingDay.setDate(day);
+      checkingDay.setDate(new Date().getDate() + day + 2);
 
-      availableSupportTime = allSupportTime.map((supportTime) => {
-        const supportDate = supportTime.timeStamp;
-
-        let dateSlotTime;
-        if (
-          supportDate.getDate === checkingDay.getDate &&
-          supportDate.getMonth === checkingDay.getMonth &&
-          supportDate.getFullYear === supportDate.getFullYear
-        ) {
-          dateSlotTime = {
-            date: supportDate,
-            slots: technician.workingSlots?.filter((slot) => supportTime.slotTime !== slot),
+      if (technician.workingDays?.includes(Day[checkingDay.getDay()])) {
+        if (allSupportTime === undefined || allSupportTime.length == 0) {
+          const dateSlotTime = {
+            date: checkingDay,
+            slots: technician.workingSlots?.filter((slot: any) => slot),
           };
 
-          return dateSlotTime;
-        }
-      });
+          availableSupportTime.push(dateSlotTime);
+        } else {
+          const checkSlotsOfDay = allSupportTime.reduce((accumulator: any[], supportTime: any) => {
+            const supportDate = supportTime.timeStamp;
+            if (
+              supportDate.getDate === checkingDay.getDate &&
+              supportDate.getMonth === checkingDay.getMonth &&
+              supportDate.getFullYear === supportDate.getFullYear
+            ) {
+              accumulator.push(supportTime.slotTime);
+            }
 
-      return availableSupportTime;
+            return accumulator;
+          }, []);
+
+          availableSupportTime.push({
+            date: checkingDay,
+            slots: technician.workingSlots?.filter(
+              (slot: any) => !checkSlotsOfDay.includes(slot.slotTime)
+            ),
+          });
+        }
+      }
     }
+    return availableSupportTime;
   }
 };
 

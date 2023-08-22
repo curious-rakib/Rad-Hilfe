@@ -38,19 +38,27 @@ export const getPlan = async () => {
     console.log(error);
   }
 };
+
 export const selectPlan = async (plan: any) => {
+  console.log('plan from service', plan);
   try {
-    const response = await axios.put(`${BASE_URL}/cyclist/select-plan`, {
-      withCredentials: true,
+    const response = await fetch(`${BASE_URL}/cyclist/select-plan`, {
+      method: 'PUT',
+      credentials: 'include',
+
       headers: {
         'Content-Type': 'application/json',
-        body: JSON.stringify(plan),
         authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(plan),
     });
 
-    const updatedPlan = response.data;
-    console.log('selectplan from service', updatedPlan);
+    if (!response.ok) {
+      throw new Error('Request failed');
+    }
+
+    const updatedPlan = await response.json();
+    // console.log('selectplan from service', updatedPlan);
     return updatedPlan;
   } catch (error) {
     console.log(error);
@@ -59,19 +67,18 @@ export const selectPlan = async (plan: any) => {
 
 export const getTimeSlots = async (subparts: any) => {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/cyclist/available-support-time`,
-      {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-          body: JSON.stringify(subparts),
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/cyclist/available-support-time`, {
+      method: 'POST',
+      credentials: 'include',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(subparts),
+    });
 
-    const slots = response.data;
+    const slots = response.json();
     console.log('time slots from service', slots);
     return slots;
   } catch (error) {

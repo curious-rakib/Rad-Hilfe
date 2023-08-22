@@ -27,3 +27,12 @@ export const numberToMonths = {
   November: 11,
   December: 12,
 };
+
+const startYear = 2010;
+const endYear = new Date().getFullYear();
+const years: number[] = [];
+for (let year = startYear; year <= endYear; year++) {
+  years.push(year);
+}
+
+export { years };

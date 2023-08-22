@@ -3,164 +3,126 @@ import { Box, VStack, Text, Flex, Stack, Image, Center, Grid, GridItem } from '@
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { FcLike } from 'react-icons/fc';
-// import bike from '../../assets/bike.svg';
 import MyBikeProgressBar from '../../components/MyBikeProgressBar';
-import { SlArrowDown } from 'react-icons/sl';
 import bike from '../../assets/images/bike2.png';
 import ReplaceButton from '../../components/ReplaceButton';
-import { useAppSelector } from '../../app/hooks';
 import { useEffect, useState } from 'react';
+import { months } from '../../data/months';
+import { bicycle, bicycleDamagedPart } from '../../services/bikeDetails';
 
 const MyBike = () => {
-	const initialState = {
-		brand: '',
-		model: '',
-		serialNumber: '',
-		purchaseMonth: '',
-		purchaseYear: '',
-	};
+  const initialState = {
+    brand: '',
+    model: '',
+    serialNumber: 0,
+    purchaseMonth: 1,
+    purchaseYear: 0,
+  };
 
-	const [bikeDetails, setBikeDetails] = useState(initialState);
+  const [bikeDetails, setBikeDetails] = useState(initialState);
+  const [health, sethealth] = useState(100);
+  const [dPart, setDpart] = useState(0);
 
-	useEffect(() => {
-		const storeBikeData = localStorage.getItem('bikeData');
-		if (storeBikeData) {
-			let parseBikeData = JSON.parse(storeBikeData);
+  useEffect(() => {
+    const fetchData = async () => {
+      const bicycleData = await bicycle(localStorage.getItem('bikeID'));
+      const damagePart = await bicycleDamagedPart(localStorage.getItem('bikeID'));
 
-			setBikeDetails(parseBikeData);
-		}
-	}, []);
-	const { brand, model, serialNumber, purchaseMonth, purchaseYear } = bikeDetails;
+      setDpart(damagePart.length);
+      setBikeDetails(bicycleData);
+      sethealth(bicycleData.totalHealth);
+    };
+    fetchData();
+  }, []);
 
-	const date = Math.floor(Math.random() * (28 - 1 + 1)) + 1;
+  const date = (new Date().getDate() % 28) + 1;
 
-	return (
-		<Box bg="third">
-			<Grid
-				alignItems={'flex-start'}
-				templateColumns="repeat(2, 1fr)"
-				gap={4}
-				h="35rem"
-				px={3}>
-				<GridItem
-					w="100%"
-					h={''}>
-					<Stack
-						spacing={4}
-						color={'secondary'}>
-						{' '}
-						<Box mt={'100px'}>
-							<Text
-								fontWeight="semibold"
-								fontSize={'sm'}>
-								Bike Brand
-							</Text>
-							<Text
-								fontWeight={'bold'}
-								fontSize={'2xl'}
-								mt={-1}>
-								{brand}
-							</Text>
-						</Box>
-						<Box>
-							<Text
-								fontWeight="semibold"
-								fontSize={'sm'}>
-								Bike Model
-							</Text>
-							<Text
-								fontWeight={'bold'}
-								fontSize={'2xl'}
-								mt={-1}>
-								{model}
-							</Text>
-						</Box>
-						<Box>
-							<Text
-								fontWeight="semibold"
-								fontSize={'sm'}
-								style={{ whiteSpace: 'nowrap' }}>
-								Serial Number
-							</Text>
-							<Text
-								fontWeight={'bold'}
-								fontSize={'2xl'}
-								mt={-1}>
-								{serialNumber}
-							</Text>
-						</Box>
-						<Box>
-							<Text
-								fontWeight="semibold"
-								fontSize={'sm'}>
-								Start Date
-							</Text>
-							<Text
-								fontWeight={'bold'}
-								fontSize={'2xl'}
-								mt={-1}>
-								{date} Jan {purchaseYear}
-							</Text>
-						</Box>
-					</Stack>
-				</GridItem>
-				<GridItem
-					w="12.9rem"
-					mt={'2rem'}>
-					<img
-						src={bike}
-						alt=""
-					/>
-				</GridItem>
-			</Grid>
+  return (
+    <Box bg='third' position={'relative'}>
+      <Grid alignItems={'flex-start'} templateColumns='repeat(2, 1fr)' gap={4} h='35rem' px={3}>
+        <GridItem w='100%' h={''}>
+          <Stack spacing={4} color={'secondary'}>
+            {' '}
+            <Box mt={'100px'}>
+              <Text fontWeight='semibold' fontSize={'sm'}>
+                Bike Brand
+              </Text>
+              <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>
+                {bikeDetails.brand}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontWeight='semibold' fontSize={'sm'}>
+                Bike Model
+              </Text>
+              <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>
+                {bikeDetails.model}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontWeight='semibold' fontSize={'sm'} style={{ whiteSpace: 'nowrap' }}>
+                Serial Number
+              </Text>
+              <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>
+                {bikeDetails.serialNumber}
+              </Text>
+            </Box>
+            <Box>
+              <Text fontWeight='semibold' fontSize={'sm'}>
+                Start Date
+              </Text>
+              <Text fontWeight={'bold'} fontSize={'2xl'} mt={-1}>
+                {date} {months[Number(bikeDetails.purchaseMonth) - 1].slice(0, 3)}{' '}
+                {bikeDetails.purchaseYear}
+              </Text>
+            </Box>
+          </Stack>
+        </GridItem>
+        <GridItem w='12.9rem' mt={'2rem'}>
+          <Box position={'absolute'}>
+            <img src={bike} alt='' />
+          </Box>
+        </GridItem>
+      </Grid>
 
-			<Stack
-				rounded={'3rem'}
-				p={6}
-				bg={'secondary'}
-				bottom={6}
-				position="fixed"
-				width="100%">
-				<Flex mt={'2rem'}>
-					<Text
-						color={'accent'}
-						mr={2}
-						textStyle={''}
-						fontWeight={'400'}
-						fontSize={'xl'}>
-						My bike's health{' '}
-					</Text>
+      <Stack rounded={'3rem'} p={6} bg={'secondary'} bottom={6} position='fixed' width='100%'>
+        <Flex mt={'2rem'}>
+          <Text color={'accent'} mr={2} textStyle={''} fontWeight={'400'} fontSize={'xl'}>
+            My bike's health{' '}
+          </Text>
 
-					<FcLike size={27} />
-				</Flex>
+          <FcLike size={27} />
+        </Flex>
 
-				<MyBikeProgressBar />
-				<Text
-					color={'accent'}
-					my={4}
-					fontSize={'sm'}>
-					{' '}
-					You need to replace <span style={{ borderBottom: '1px solid currentColor' }}>5 components</span> in your bicycle
-				</Text>
-				<Center pt={'.25rem'}>
-					<ChakraLink
-						as={ReactRouterLink}
-						to="/cart">
-						<ReplaceButton
-							borderRadius=".75rem"
-							fontWeight="800"
-							loadingText="Submitting"
-							size="lg"
-							bg="accent"
-							w="200px"
-							color="secondary"
-							text="Replace now"
-						/>
-					</ChakraLink>
-				</Center>
-			</Stack>
-		</Box>
-	);
+        <MyBikeProgressBar health={Number(health)} />
+        <Text color={'accent'} my={4} fontSize={'sm'}>
+          {' '}
+          You need to replace{' '}
+          <span style={{ borderBottom: '1px solid currentColor' }}>
+            {' '}
+            <ChakraLink as={ReactRouterLink} to='/cart'>
+              {dPart} components{' '}
+            </ChakraLink>
+          </span>{' '}
+          in your bicycle
+        </Text>
+        <Center pt={'.25rem'}>
+          <ChakraLink as={ReactRouterLink} to='/cart'>
+            <ReplaceButton
+              borderRadius='.75rem'
+              fontWeight='800'
+              loadingText='Submitting'
+              size='lg'
+              bg='accent'
+              w='200px'
+              color='secondary'
+              text='Replace now'
+            />
+          </ChakraLink>
+        </Center>
+      </Stack>
+    </Box>
+  );
 };
 
 export default MyBike;

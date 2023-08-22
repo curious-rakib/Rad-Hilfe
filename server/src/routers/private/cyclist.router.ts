@@ -19,12 +19,11 @@ cyclistRouter.post('/forgot-password', cyclistController.forgotPassword);
 cyclistRouter.post('/reset-password', cyclistController.resetPassword);
 
 // private router
-// cyclistRouter.use(authenticator, cyclistAuthorizer);
+cyclistRouter.use(authenticator, cyclistAuthorizer);
 
 // cyclist
 cyclistRouter.get('/profile', cyclistController.profile);
 cyclistRouter.post('/set-up-address', cyclistController.setUpAddress);
-cyclistRouter.put('/set-up-address-edit', cyclistController.setUpAddressEdit);
 cyclistRouter.post('/weather-data', cyclistController.weatherData);
 cyclistRouter.get('/cyclist-name', cyclistController.cyclistName);
 cyclistRouter.put('/select-plan', cyclistController.selectPlan);
@@ -45,10 +44,12 @@ cyclistRouter.post('/create-case', caseController.createPassiveCase);
 cyclistRouter.post('/create-chat-case', caseController.createActiveCase);
 cyclistRouter.get('/get-all-cases', caseController.getAllCases);
 cyclistRouter.get('/get-case-by-id/:id', caseController.getCaseById);
+cyclistRouter.get('/case-number', caseController.getCaseNumber);
 
 // subpart
 cyclistRouter.post('/add-subparts', subpartController.addSubparts);
 cyclistRouter.get('/all-subpart', subpartController.allSubpart);
+// cyclistRouter.post('/subpartFix', subpartController.subpartFix);
 
 // technician
 cyclistRouter.post('/subpart-expert', technicianController.findSubpartExpart);

@@ -11,8 +11,9 @@ export default function Success() {
     const orderId = (queryParameters.get("orderId"));
     const supportTimeStart = (queryParameters.get("supportTimeStart"));
     const supportTimeEnd = (queryParameters.get("supportTimeEnd"));
-    const expertNote = (queryParameters.get("expertNote"));
-
+    const note = (queryParameters.get("note"));
+    const partsNote = note?.split('+').join(' ');
+    const firstCall = (queryParameters.get('firstCall'));
 
 
 
@@ -21,6 +22,11 @@ export default function Success() {
         orderId: orderId,
         supportTimeStart: supportTimeStart,
         supportTimeEnd: supportTimeEnd,
+        note: [{ text: partsNote, timeStamp: new Date() },
+        { text: "firstCall" + firstCall, timeStamp: new Date() }
+
+
+        ],
 
         type: 'Passive'
     }

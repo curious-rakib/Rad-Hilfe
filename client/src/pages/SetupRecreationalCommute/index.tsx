@@ -1,15 +1,14 @@
-import { Box, Center, Container, Stack, Text, Flex, Select } from '@chakra-ui/react';
-import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { Box, Center, Container, Stack, Text, Select } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 import Days from '../../components/Days';
 import SubmitButton from '../../components/Button';
 import ProgressBar from '../../components/ProgressBar';
 import RecreationButton from '../../components/RecreationButton';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useState } from 'react';
+import { useAppDispatch } from '../../app/hooks';
 import { lengthOfRideDetails } from '../../features/cyclist/recreationalCommute-slice';
 import { days } from '../../features/cyclist/recreationalCommute-slice';
-import { setUpBikeInfo } from '../../services/bikeDetails';
+
 const Recreation = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -17,14 +16,7 @@ const Recreation = () => {
   const handleSelectChange = (event: any) => {
     setSelectedValue(event.target.value);
   };
-  const { bikeDetails, dailyCommute, recreationalCommute } = useAppSelector(
-    (state) => state.rootSetBikeReducer
-  );
-  const bikeInfo = {
-    ...bikeDetails,
-    dailyCommute,
-    recreationalCommute,
-  };
+
   const handleClick = () => {
     const [lower, upper] = selectedValue.split('-');
     const lowerNum = parseInt(lower);
@@ -32,29 +24,9 @@ const Recreation = () => {
     const average = (lowerNum + upperNum) / 2;
     const dataObj = { lengthOfRide: average };
     dispatch(lengthOfRideDetails(dataObj));
-    navigate('/home')
+    navigate('/home');
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await setUpBikeInfo(bikeInfo);
-      // console.log('result', result);
-
-      if (result) {
-        const bikeId = result._id;
-        localStorage.setItem('bikeID', bikeId);
-        localStorage.setItem('bikeInfo', JSON.stringify(result));
-      }
-
-    };
-    fetchData();
-  }, []);
-  // const { days, activityType, lengthOfRide } = useAppSelector((state) => state.recreation);
-  // console.log(days, activityType, lengthOfRide);
-  // useEffect(() => {
-  //     const recreationalCommute = { days, activityType, lengthOfRide };
-  //     localStorage.setItem('recreationalCommute', JSON.stringify(recreationalCommute))
-  // }, [])
   return (
     <Container p={6}>
       <Center mt={'2rem'} mb={'3rem'}>
@@ -110,7 +82,9 @@ const Recreation = () => {
           bg='fourth'
           w='12.5rem'
           color='secondary'
-          text='Submit' fontWeight={''} />
+          text='Submit'
+          fontWeight={''}
+        />
         {/* </ChakraLink> */}
       </Center>
     </Container>

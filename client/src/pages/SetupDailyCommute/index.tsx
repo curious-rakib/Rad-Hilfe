@@ -1,4 +1,4 @@
-import { Box, Center, Container, HStack, Progress, Stack, Switch, VStack } from '@chakra-ui/react';
+import { Box, Center, Container, HStack } from '@chakra-ui/react';
 import Days from '../../components/Days';
 import SetSlider from '../../components/Slider';
 import SetSwitch from '../../components/Switch';
@@ -6,16 +6,15 @@ import { Text } from '@chakra-ui/react';
 import ProgressBar from '../../components/ProgressBar';
 import SubmitButton from '../../components/Button';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
+import { Link as ChakraLink } from '@chakra-ui/react';
 import { commuteDays } from '../../features/cyclist/commuteDetails-slice';
 import { useAppSelector } from '../../app/hooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const SetupDailyCommute = () => {
   const [switchChecked, setSwitchChecked] = useState<boolean>(false);
 
-  const { days, unpavedRoad, totalDistance } = useAppSelector((state) => (state.commute));
-  // console.log(totalDistance);
+  const { days, unpavedRoad, totalDistance } = useAppSelector((state) => state.commute);
 
   const handleClick = async () => {
     const dailyCommute = { days, unpavedRoad, totalDistance };
@@ -71,7 +70,9 @@ const SetupDailyCommute = () => {
             bg='accent'
             w='12.5rem'
             color='secondary'
-            text='Next' fontWeight={''} />
+            text='Next'
+            fontWeight={''}
+          />
         </ChakraLink>
       </Center>
     </Container>
