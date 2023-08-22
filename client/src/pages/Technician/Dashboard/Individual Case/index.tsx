@@ -37,12 +37,24 @@ const articles = [
 ];
 
 const IndividualCase = () => {
+	const src = 'https://www.youtube.com/embed/OQsiceeCZ0M';
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [Case, setCase] = useState<any[]>([]);
 	const [bookMark, setBookMark] = useState<boolean>(false);
+	const [bookMarkedVideos, setBookMarkedVideos] = useState<string>('');
+	const [showBookMarkedVideos, setShowBookMarkedVideos] = useState<boolean>(false);
 
 	const id = useParams();
+
+	const handleSetBookMark = () => {
+		setBookMark(!bookMark);
+		if (bookMarkedVideos && bookMarkedVideos.length > 0) {
+			setBookMarkedVideos('');
+			return;
+		}
+		setBookMarkedVideos(src);
+	};
 
 	useEffect(() => {
 		const fetchIndividualCaseData = async () => {
@@ -134,7 +146,7 @@ const IndividualCase = () => {
 									<Box
 										w={'55%'}
 										m={'0 auto'}>
-										<VideoContainer bookMark={false} />
+										<VideoContainer src={src} />
 									</Box>
 
 									<Box
@@ -165,19 +177,20 @@ const IndividualCase = () => {
 											<AiOutlineLeft size={20} />
 										</Button>
 										<Box w={'60%'}>
-											<VideoContainer bookMark={true} />
+											<VideoContainer src={src} />
 										</Box>
-										{/* <Box
-											onClick={() => setBookMark(!bookMark)}
-											style={{ fontSize: '25px', marginLeft: '1rem', verticalAlign: 'top', marginTop: '-10rem' }}>
-											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
-										</Box> */}
+
 										<Button
 											bg={'#d9d9d9'}
 											borderRadius={'45%'}
 											color={'secondary'}>
 											<AiOutlineRight size={20} />
 										</Button>
+										<Box
+											onClick={handleSetBookMark}
+											style={{ fontSize: '25px', position: 'relative', marginBottom: '10rem' }}>
+											{bookMark ? <BsBookmarkFill /> : <BsBookmark />}
+										</Box>
 									</Flex>
 
 									<TechnicianArticles articles={articles} />
@@ -191,8 +204,7 @@ const IndividualCase = () => {
 										rounded={'2xl'}>
 										<AccordionItem
 											borderRadius={'md'}
-											color={'secondary'}
-											_hover={{ backgroundColor: 'third' }}>
+											color={'secondary'}>
 											{({ isExpanded }) => (
 												<Box>
 													<AccordionButton>
@@ -218,6 +230,22 @@ const IndividualCase = () => {
 											)}
 										</AccordionItem>
 									</Accordion>
+									<Button
+										onClick={() => setShowBookMarkedVideos(!showBookMarkedVideos)}
+										margin={'1rem auto'}
+										color={'third'}
+										bg={'secondary'}
+										_hover={{ color: 'secondary', bg: 'primary', border: '2px solid #001f3f' }}>
+										Filter Bookmarks
+									</Button>
+
+									{showBookMarkedVideos && (
+										<Box
+											w={'60%'}
+											margin={'0 auto'}>
+											<VideoContainer src={src} />
+										</Box>
+									)}
 								</Flex>
 							</Box>
 						</Flex>

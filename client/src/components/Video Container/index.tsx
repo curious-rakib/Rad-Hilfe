@@ -1,6 +1,6 @@
 import { AspectRatio, Flex, Text, Icon } from '@chakra-ui/react';
 import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
-const VideoContainer = ({ bookMark }: { bookMark: boolean }) => {
+const VideoContainer = ({ src }: { src: string }) => {
 	return (
 		<>
 			<AspectRatio
@@ -8,7 +8,7 @@ const VideoContainer = ({ bookMark }: { bookMark: boolean }) => {
 				flex={0.9}>
 				<iframe
 					title="brakes"
-					src="https://www.youtube.com/embed/OQsiceeCZ0M"
+					src={src}
 					allowFullScreen
 				/>
 			</AspectRatio>

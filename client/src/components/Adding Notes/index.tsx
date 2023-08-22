@@ -20,7 +20,7 @@ const AddingNotes = () => {
 				<Box
 					key={index}
 					bg={'#d9d9d9'}
-					w={'20rem'}
+					w={'85%'}
 					h={'4rem'}
 					m={'.30rem'}
 					p={'.5rem'}
