@@ -72,6 +72,7 @@ const TechnicianProfile = () => {
 							placeholder={'* * * * * * * * * * * * * *'}
 							colorScheme={'secondary'}
 							onChange={handleChange}
+							value={technician.password}
 						/>
 						<InputTechnician
 							id={'address'}
@@ -82,6 +83,7 @@ const TechnicianProfile = () => {
 							placeholder={'Enter Your Current Address '}
 							colorScheme={'secondary'}
 							onChange={handleChange}
+							value={technician && technician.address}
 						/>
 						<InputTechnician
 							id={'phone'}
@@ -92,6 +94,7 @@ const TechnicianProfile = () => {
 							placeholder={'Enter Your Contact Number '}
 							colorScheme={'secondary'}
 							onChange={handleChange}
+							value={technician.phone}
 						/>
 					</Box>
 
@@ -233,7 +236,7 @@ const TechnicianProfile = () => {
 									textAlign={'center'}>
 									{bicycleParts.map((part) => {
 										const isPartSelected = technician.subpartExpertise.some((chosenPart: string) => chosenPart === part._id);
-										console.log(isPartSelected);
+
 										return (
 											<LoopSlotOrPartsComponent
 												key={part._id}
