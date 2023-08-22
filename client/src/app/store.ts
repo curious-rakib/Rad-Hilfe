@@ -6,12 +6,10 @@ import recreationalSliceReducer from '../features/cyclist/recreationalCommute-sl
 import bikeInputSliceReducer from '../features/cyclist/bikeDetails-slice';
 import rootSetBikeReducer from '../features/cyclist/setUpBike-slice';
 import technicianSlice from '../features/technician/slices/technicianSlice';
-import { technicianApi } from '../features/technician/api/technicianApi';
 import orderSliceReducer from '../features/cyclist/order-slice';
 import technicianCasesSlice from '../features/technician/slices/technicianCasesSlice';
 import casesPresentationSlice from '../features/technician/slices/casesPresentationSlice';
-import filterByStatusSlice from '../features/technician/slices/filterByStatusSlice';
-import filterByTypeSlice from '../features/technician/slices/filterByTypeSlice copy';
+import caseDetailsSlice from '../features/technician/slices/caseDetailsSlice';
 
 export const store = configureStore({
 	reducer: {
@@ -25,10 +23,8 @@ export const store = configureStore({
 		technician: technicianSlice,
 		technicianCases: technicianCasesSlice,
 		presentableCases: casesPresentationSlice,
-		filterByStatus: filterByStatusSlice,
-		filterByType: filterByTypeSlice,
+		caseDetails: caseDetailsSlice,
 	},
-	// middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(technicianApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

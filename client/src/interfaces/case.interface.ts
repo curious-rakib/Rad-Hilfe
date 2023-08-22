@@ -17,7 +17,6 @@ export interface Case {
 	supportTime: SupportTime;
 	interventionDetails: InterventionDetails;
 	videoURL?: string;
-	clientName: string;
 }
 
 export interface SupportTime {

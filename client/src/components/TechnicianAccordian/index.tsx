@@ -1,106 +1,115 @@
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
-import {
-    Accordion,
-    AccordionItem,
-    AccordionButton,
-    AccordionPanel,
-    AccordionIcon,
-    Box,
-} from '@chakra-ui/react'
-import AddingNotes from '../Adding Notes';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box } from '@chakra-ui/react';
 import { useAppSelector } from '../../app/hooks';
 import ReplacementParts from '../Replacement Parts';
 import HealthBarListTechnician from '../Technician Health Bar List';
+import ActiveTags from '../ActiveTags';
 
 const TechnicianAccordian = () => {
-    const bicycle = useAppSelector((state: any) => state.bikeDetails);
+	const Case = useAppSelector((state: any) => state.caseDetails);
+	const bicycle = Case.bicycle;
+	console.log(Case.order);
 
-    return (
-        <div style={{ width: '42rem' }}>
-            <Accordion allowMultiple bg={'white'} h={450} boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)" p={5} rounded={'2xl'}>
+	return (
+		<Accordion
+			allowMultiple
+			bg={'white'}
+			h={'auto'}
+			boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
+			p={5}
+			rounded={'2xl'}>
+			<AccordionItem
+				borderRadius={'md'}
+				color={'secondary'}
+				_hover={{ backgroundColor: 'third' }}>
+				{({ isExpanded }) => (
+					<Box>
+						<AccordionButton>
+							<Box
+								borderTop={'none'}
+								m={'30px 0 36px 0'}
+								flex=".95"
+								textAlign="left"
+								fontWeight={'700'}
+								fontSize={'xl'}>
+								Bicycle Health
+							</Box>
+							{isExpanded ? <MinusIcon fontSize="1.15rem" /> : <AddIcon fontSize="1.15rem" />}
+						</AccordionButton>
 
+						<Box
+							h={'auto'}
+							overflowY={'auto'}>
+							<AccordionPanel pb={'1rem'}>
+								<HealthBarListTechnician bicycleParts={bicycle.bicycleParts} />
+							</AccordionPanel>
+						</Box>
+					</Box>
+				)}
+			</AccordionItem>
+			<AccordionItem
+				color={'secondary'}
+				borderRadius={'md'}
+				_hover={{ backgroundColor: 'fourth' }}>
+				{({ isExpanded }) => (
+					<Box>
+						<AccordionButton>
+							<Box
+								borderTop={'none'}
+								m={'30px 0 36px 0'}
+								flex=".95"
+								textAlign="left"
+								fontWeight={'700'}
+								fontSize={'xl'}>
+								Replacement Kit
+							</Box>
+							{isExpanded ? <MinusIcon fontSize="1.15rem" /> : <AddIcon fontSize="1.15rem" />}
+						</AccordionButton>
 
-                <AccordionItem color={'secondary'} >
-                    {({ isExpanded }) => (
-                        <div >
-                            <h2 style={{ borderTop: 'none', marginBottom: '36px', marginTop: '30px' }}>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'
-                                        fontWeight={'700'}
-                                        fontSize={'xl'}
-                                    >
-                                        Bicycle Health
-                                    </Box>
-                                    {isExpanded ? (
-                                        <MinusIcon fontSize='12px' />
-                                    ) : (
-                                        <AddIcon fontSize='12px' />
-                                    )}
-                                </AccordionButton>
-                            </h2>
-                            <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                <AccordionPanel pb={4}>
-                                    <HealthBarListTechnician bicycleParts={bicycle.bicycleParts} />
-                                </AccordionPanel>
-                            </div>
-                        </div>
-                    )}
-                </AccordionItem>
-                <AccordionItem color={'secondary'}>
-                    {({ isExpanded }) => (
-                        <div >
-                            <h2 style={{
-                                borderTop: 'none',
-                                marginBottom: '36px', marginTop: '30px', borderBottom: 'none'
-                            }}>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left' fontWeight={'700'}
-                                        fontSize={'xl'}
+						<Box
+							h={'auto'}
+							overflowY={'auto'}>
+							<AccordionPanel pb={'1rem'}>
+								<ReplacementParts replacableParts={bicycle.bicycleParts} />
+							</AccordionPanel>
+						</Box>
+					</Box>
+				)}
+			</AccordionItem>
 
-                                    >
-                                        Replacement Kit
-                                    </Box>
-                                    {isExpanded ? (
-                                        <MinusIcon fontSize='12px' />
-                                    ) : (
-                                        <AddIcon fontSize='12px' />
-                                    )}
-                                </AccordionButton>
-                            </h2>
-                            <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                <AccordionPanel pb={4}>
-                                    <ReplacementParts replacableParts={bicycle.bicycleParts} />
-                                </AccordionPanel>
-                            </div>
-                        </div>
-                    )}
-                </AccordionItem>
-                {/* <AccordionItem color={'white'}>
-                    {({ isExpanded }) => (
-                        <div>
-                            <h2 style={{ borderTop: 'none', marginBottom: '36px', marginTop: '30px' }}>
-                                <AccordionButton>
-                                    <Box as="span" flex='1' textAlign='left'>
-                                        Notes
-                                    </Box>
-                                    {isExpanded ? (
-                                        <MinusIcon fontSize='12px' />
-                                    ) : (
-                                        <AddIcon fontSize='12px' />
-                                    )}
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={6} style={{ maxHeight: '200px', overflowY: 'auto', }}>
+			{Case.type === 'Active' ? (
+				<AccordionItem
+					color={'secondary'}
+					borderRadius={'md'}
+					_hover={{ backgroundColor: 'third' }}>
+					{({ isExpanded }) => (
+						<Box>
+							<AccordionButton>
+								<Box
+									borderTop={'none'}
+									m={'30px 0 36px 0'}
+									flex=".95"
+									textAlign="left"
+									fontWeight={'700'}
+									fontSize={'xl'}>
+									Chatbot Tags
+								</Box>
+								{isExpanded ? <MinusIcon fontSize="1.15rem" /> : <AddIcon fontSize="1.15rem" />}
+							</AccordionButton>
 
-                                <AddingNotes />
-
-                            </AccordionPanel>
-                        </div>
-                    )}
-                </AccordionItem> */}
-            </Accordion>
-        </div >
-    );
+							<Box
+								h={'auto'}
+								overflowY={'auto'}>
+								<AccordionPanel pb={'1rem'}>
+									<ActiveTags></ActiveTags>
+								</AccordionPanel>
+							</Box>
+						</Box>
+					)}
+				</AccordionItem>
+			) : null}
+		</Accordion>
+	);
 };
 
 export default TechnicianAccordian;

@@ -1,4 +1,3 @@
-const Joi = require('joi');
 import { Cyclist } from '../../interfaces/cyclist.interface';
 import { Schema, Types, model } from '../database';
 
@@ -7,8 +6,6 @@ const cyclistSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: {
     type: String,
-    min: 8,
-    max: 4096,
     required: true,
   },
   role: { type: String, required: true },
