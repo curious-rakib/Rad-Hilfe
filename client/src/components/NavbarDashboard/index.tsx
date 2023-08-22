@@ -1,18 +1,33 @@
-import { Image, Text, Box, Flex, VStack, Center } from '@chakra-ui/react';
+import { Image, Text, Box, Flex, VStack, Center, Button } from '@chakra-ui/react';
 import avatar from './../../assets/avatar.svg';
 import agenda from './../../assets/agenda.svg';
 import cases from './../../assets/cases.svg';
 import profile from './../../assets/technician-profile.svg';
 import logout from './../../assets/logout.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { createTechnician, initialState } from '../../features/technician/slices/technicianSlice';
-import { TechnicianGetProfileService } from '../../services/technician/account';
+import { TechnicianGetProfileService, TechnicianLogOutService } from '../../services/technician/account';
 import { useAppDispatch } from '../../app/hooks';
+import Cookies from 'js-cookie';
 
 function NavbarDashboard() {
 	const [technician, setTechnician] = useState(initialState);
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+
+	const handleLogOutClick = async () => {
+		try {
+			const result = await TechnicianLogOutService();
+			console.log(result);
+			if (result && result.status === 200) {
+				Cookies.remove('accessToken');
+				navigate('/technician-signin');
+			}
+		} catch (error) {
+			console.error('Error while logging out !');
+		}
+	};
 
 	useEffect(() => {
 		const fetchProfile = async () => {
@@ -115,7 +130,10 @@ function NavbarDashboard() {
 						</Link>
 					</Flex>
 				</Box>
-				<Box mt={'14rem'}>
+				<Button
+					mt={'14rem'}
+					bg={'inherit'}
+					onClick={handleLogOutClick}>
 					<Flex gap={'.55rem'}>
 						<Image
 							src={logout}
@@ -126,7 +144,7 @@ function NavbarDashboard() {
 							Logout
 						</Text>
 					</Flex>
-				</Box>
+				</Button>
 			</VStack>
 		</Box>
 	);
