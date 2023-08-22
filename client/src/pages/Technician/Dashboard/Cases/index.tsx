@@ -155,15 +155,17 @@ const Cases = () => {
 					</Flex>
 					<TableComponent handleActionChange={handleActionChange} />
 				</Box>
-				<Box
-					h={'6vh'}
-					mt={'1rem'}>
-					<PaginationComponent
-						currentPage={1}
-						totalPages={Math.floor(cases.length / 5)}
-						onPageChange={undefined}
-					/>
-				</Box>
+				{cases && cases.length > 0 ? (
+					<Box
+						h={'6vh'}
+						mt={'1rem'}>
+						<PaginationComponent
+							currentPage={1}
+							totalPages={Math.floor(cases.length / 5)}
+							onPageChange={undefined}
+						/>
+					</Box>
+				) : null}
 			</VStack>
 		</>
 	);

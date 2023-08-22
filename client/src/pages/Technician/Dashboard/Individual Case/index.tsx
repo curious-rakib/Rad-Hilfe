@@ -243,7 +243,7 @@ const IndividualCase = () => {
 										<Box
 											w={'60%'}
 											margin={'0 auto'}>
-											<VideoContainer src={src} />
+											<VideoContainer src={bookMarkedVideos} />
 										</Box>
 									)}
 								</Flex>

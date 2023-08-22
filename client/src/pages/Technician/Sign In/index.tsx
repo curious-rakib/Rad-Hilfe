@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, Image } from '@chakra-ui/react';
-import image from './../../../assets/background_image.jpg';
+import backGroundVideo from './../../../assets/cyclingVideo.mp4';
 import logo from './../../../assets/logo(Lilac).svg';
 import InputTechnician from '../../../components/Input Technician';
 import Button from '../../../components/Button';
@@ -39,9 +39,28 @@ const TechnicianSignIn = () => {
 			<Flex
 				w={'100vw'}
 				h={'100vh'}
-				bgImage={image}>
+				position={'relative'}>
+				<video
+					autoPlay
+					loop
+					muted
+					style={{
+						position: 'absolute',
+						top: 0,
+						left: 0,
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+					}}>
+					<source
+						src={backGroundVideo}
+						type="video/mp4"
+					/>
+					Your browser does not support the video tag.
+				</video>
 				<Box flex={0.6}></Box>
 				<Box
+					zIndex={1}
 					bg={'secondary'}
 					flex={0.4}>
 					<Flex
