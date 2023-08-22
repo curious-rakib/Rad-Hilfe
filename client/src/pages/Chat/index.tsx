@@ -1,4 +1,4 @@
-import { Box, Button, Center, IconButton, Input } from '@chakra-ui/react';
+import { Box, Button, Center } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Text } from '@chakra-ui/react';
 import { months } from '../../data/months';
@@ -6,8 +6,7 @@ import { getCyclistName, profile } from '../../services/authentication';
 import { parts } from '../../data/partsData';
 import { getAllSubpart } from '../../services/bikeDetails';
 import { getTimeSlots, order } from '../../services/order';
-import { activeCase, getCaseNumber, passiveCase } from '../../services/cases';
-import { CheckIcon } from '@chakra-ui/icons';
+import { getCaseNumber, passiveCase } from '../../services/cases';
 import { useNavigate } from 'react-router-dom';
 
 let arr: any[] = [
@@ -154,7 +153,6 @@ let arr: any[] = [
     ],
     from: 'user',
   },
-
   undefined,
 ];
 
@@ -165,11 +163,14 @@ const Chat: React.FC = () => {
     </a>
   );
 
+  const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+
   const navigate = useNavigate();
   const [cyclist, setCyclist] = useState<any>('');
   const [curindex, setCurindex] = useState<number>(0);
   const [messages, setMessages] = useState<any[]>([]);
   const [getSubpart, setGetSubpart] = useState<any[]>([]);
+  const [getSlot, setGetSlot] = useState<any[]>([]);
   const [timeSlotsPerDay, setTimeSlotsPerDay] = useState<{ day: string; slots: string[] }[]>([]);
 
   useEffect(() => {
@@ -198,21 +199,6 @@ const Chat: React.FC = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    if (messages[7]) {
-      const selectedDayIndex = messages[7].data.findIndex((day: any) => day.selected);
-      if (selectedDayIndex === -1) return;
-
-      const newTimeSlots = timeSlotsPerDay.filter(
-        (timeSlots) => timeSlots.day === messages[7].data[selectedDayIndex].value
-      )[0];
-
-      arr[9].data = newTimeSlots.slots.map((slot: string) => {
-        return { value: slot, selected: false };
-      });
-    }
-  }, [messages]);
-
   const creatingCase = async () => {
     let newCase = {
       type: 'Active',
@@ -222,7 +208,6 @@ const Chat: React.FC = () => {
       orderId: '',
     };
 
-    console.log(messages);
     newCase.tags = messages[5].data.reduce((accumulator: any[], subpart: any) => {
       if (subpart.selected) {
         accumulator.push(subpart.value);
@@ -230,11 +215,36 @@ const Chat: React.FC = () => {
       return accumulator;
     }, []);
 
-    newCase.supportTime = {
-      slotName: 'B',
-      slotTime: '9:00-10:00',
-      timeStamp: new Date(new Date().setDate(23)),
-    };
+    const selectedDay = messages[7].data.filter((day: any) => day.selected);
+    const selectedSlot = messages[9].data.filter((slot: any) => slot.selected);
+
+    const selectedSupportTime = getSlot.reduce((accumulator: any[], slot: any) => {
+      if (daysOfTheWeek[new Date(slot.date).getDay()] === selectedDay[0].value) {
+        let supportTime = { slotName: 'B', slotTime: '9:00-10:00', timeStamp: new Date(slot.date) };
+
+        const bookedSlot = slot.slots.filter((slot: any) => {
+          return slot.slotTime.split('-')[0] === selectedSlot[0].value;
+        })[0];
+
+        supportTime.slotName = bookedSlot.slotName;
+        supportTime.slotTime = bookedSlot.slotTime;
+
+        accumulator.push(supportTime);
+      }
+
+      return accumulator;
+    }, []);
+
+    let newMessage = [...messages];
+    newMessage[10].data[0] = `Great. You have a call booked for ${
+      daysOfTheWeek[new Date(selectedSupportTime[0].timeStamp).getDay()]
+    }, ${new Date(selectedSupportTime[0].timeStamp).getDate()} ${months[
+      new Date(selectedSupportTime[0].timeStamp).getMonth()
+    ].slice(0, 3)} at ${selectedSupportTime[0].slotTime}.`;
+
+    setMessages(newMessage);
+
+    newCase.supportTime = selectedSupportTime[0];
 
     let Order = {
       bicycleParts: messages[5].data.reduce((accumulator: any[], subpart: any) => {
@@ -262,7 +272,9 @@ const Chat: React.FC = () => {
       console.log(newCase);
       const createdCase = await passiveCase(newCase);
       if (createdCase) {
-        navigate('/cyclist-case');
+        setTimeout(() => {
+          navigate('/cyclist-case');
+        }, 3000);
       }
     }
   };
@@ -317,7 +329,8 @@ const Chat: React.FC = () => {
         console.log(timeSlot);
 
         if (timeSlot && timeSlot.slots.length) {
-          const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+          setGetSlot(timeSlot.slots);
+
           const days = timeSlot.slots.map((slot: any) => {
             return { value: daysOfTheWeek[new Date(slot.date).getDay()], selected: false };
           });
@@ -338,7 +351,17 @@ const Chat: React.FC = () => {
       })();
     }
 
-    if (curindex === 9) {
+    if (curindex === 8) {
+      const selectedDayIndex = messages[7].data.findIndex((day: any) => day.selected);
+      if (selectedDayIndex === -1) return;
+
+      const newTimeSlots = timeSlotsPerDay.filter(
+        (timeSlots) => timeSlots.day === messages[7].data[selectedDayIndex].value
+      )[0];
+
+      arr[9].data = newTimeSlots.slots.map((slot: string) => {
+        return { value: slot, selected: false };
+      });
     }
 
     setMessages((prev) => [...prev, arr[curindex]]);

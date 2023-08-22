@@ -14,20 +14,21 @@ import { parts } from '../../data/partsData';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { useEffect, useState } from 'react';
 import { bicycle, bicycleDamagedPart } from '../../services/bikeDetails';
+import { Link } from 'react-router-dom';
 
 function HealthBarAccordion() {
   const [componentsLength, setComponentsLength] = useState(0);
+  const [bicycleParts, setbicycleParts] = useState<any[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const bicycleId = localStorage.getItem('bikeID');
       const data = await bicycle(bicycleId);
       const damagedPartsBiCycle = await bicycleDamagedPart(bicycleId);
       const componentsLength = damagedPartsBiCycle.length;
-      setComponentsLength(componentsLength)
+      setComponentsLength(componentsLength);
 
-      data.bicycleParts.forEach((subpart: any, index: number) => {
-        parts[index].health = subpart.health;
-      });
+      setbicycleParts(data.bicycleParts);
     };
 
     fetchData();
@@ -36,7 +37,11 @@ function HealthBarAccordion() {
   return (
     <Flex alignItems='center' direction={'column'}>
       <Text fontSize={'15'} pt={'7'} pb={'3'} color={'accent'}>
-        You need to replace {componentsLength} components in your bicycle
+        You need to replace{' '}
+        <Link to='/cart' style={{ textDecoration: 'underLine' }}>
+          {componentsLength} components
+        </Link>{' '}
+        in your bicycle
       </Text>
       <Accordion w='90vw' allowMultiple allowToggle color={'white'}>
         <AccordionItem style={{ borderTopWidth: '0px' }}>
@@ -58,7 +63,6 @@ function HealthBarAccordion() {
                       >
                         {' '}
                       </Circle>
-
                       Wheel
                     </Flex>
                   </Box>
@@ -66,10 +70,10 @@ function HealthBarAccordion() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {parts.map((part) => {
+                {bicycleParts.map((part) => {
                   return (
-                    part.category === 'Wheel' && (
-                      <HealthBar health={parseInt(part.health)} partname={part.name} />
+                    part.subpart.category === 'Wheel' && (
+                      <HealthBar health={parseInt(part.health)} partname={part.subpart.name} />
                     )
                   );
                 })}
@@ -103,10 +107,10 @@ function HealthBarAccordion() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {parts.map((part) => {
+                {bicycleParts.map((part) => {
                   return (
-                    part.category === 'Frame' && (
-                      <HealthBar health={parseInt(part.health)} partname={part.name} />
+                    part.subpart.category === 'Frame' && (
+                      <HealthBar health={parseInt(part.health)} partname={part.subpart.name} />
                     )
                   );
                 })}
@@ -140,10 +144,10 @@ function HealthBarAccordion() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {parts.map((part) => {
+                {bicycleParts.map((part) => {
                   return (
-                    part.category === 'Brake' && (
-                      <HealthBar health={parseInt(part.health)} partname={part.name} />
+                    part.subpart.category === 'Brake' && (
+                      <HealthBar health={parseInt(part.health)} partname={part.subpart.name} />
                     )
                   );
                 })}
@@ -177,10 +181,10 @@ function HealthBarAccordion() {
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                {parts.map((part) => {
+                {bicycleParts.map((part) => {
                   return (
-                    part.category === 'DriveMechanics' && (
-                      <HealthBar health={parseInt(part.health)} partname={part.name} />
+                    part.subpart.category === 'DriveMechanics' && (
+                      <HealthBar health={parseInt(part.health)} partname={part.subpart.name} />
                     )
                   );
                 })}

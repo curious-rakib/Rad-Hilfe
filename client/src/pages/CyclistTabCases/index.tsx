@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { categoryToColor } from '../../data/categoryToColor';
 
 const CyclistTabCases = () => {
-
   const [allCaseState, setAllCaseState] = useState<any[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +24,6 @@ const CyclistTabCases = () => {
       resolveCases.push(caseData);
     }
   }
-  console.log(onGoingCases);
 
   return (
     <Box p={4} color={'accent'}>
@@ -85,11 +83,9 @@ const CyclistTabCases = () => {
                                 Case #{singleResolveCase.caseNumber}
                               </h2>
                               <h6 style={{ fontSize: '12px', marginBottom: '10px' }}>
-                                {singleResolveCase.note.length > 0 ?
-
-                                  singleResolveCase.note[0].text : null
-
-                                }
+                                {singleResolveCase.note.length > 0
+                                  ? singleResolveCase.note[0].text
+                                  : null}
                               </h6>
                             </Box>
                             <Box>
@@ -170,11 +166,9 @@ const CyclistTabCases = () => {
                                 Case #{singleOnGoingCase.caseNumber}
                               </h2>
                               <h6 style={{ fontSize: '12px', marginBottom: '10px' }}>
-                                {singleOnGoingCase.note.length > 0 ?
-
-                                  singleOnGoingCase.note[0].text : null
-
-                                }
+                                {singleOnGoingCase.note.length > 0
+                                  ? singleOnGoingCase.note[0].text
+                                  : null}
                               </h6>
                             </Box>
                             <Box>
@@ -192,18 +186,16 @@ const CyclistTabCases = () => {
                               <>
                                 <Box
                                   key={index}
-                                  bg={categoryToColor[(part.category)]}
+                                  bg={categoryToColor[part.category]}
                                   m={1}
                                   p={2}
                                   px={4}
                                   borderRadius='10px'
                                 >
-
                                   {part.name.split(/(?=[A-Z])/).join(' ')}
                                 </Box>
                               </>
                             ))}
-
                           </Flex>
                         </Box>
                       </Box>
