@@ -28,7 +28,7 @@
 		"name": "Gear Shifters",
 		"price": 40,
 		"depreciationRate": 0.6,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -36,7 +36,7 @@
 		"name": "Hub And Disc Rotor",
 		"price": 45,
 		"depreciationRate": 0.7,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -44,7 +44,7 @@
 		"name": "Chain",
 		"price": 15,
 		"depreciationRate": 0.95,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -52,7 +52,7 @@
 		"name": "Crank Arm",
 		"price": 10,
 		"depreciationRate": 0.5,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -60,7 +60,7 @@
 		"name": "Front And Back Derailleur",
 		"price": 25,
 		"depreciationRate": 0.75,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -68,7 +68,7 @@
 		"name": "Pedal",
 		"price": 8,
 		"depreciationRate": 0.55,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": ["Qover"]
 	},
 	{
@@ -76,7 +76,7 @@
 		"name": "Chain Ring",
 		"price": 20,
 		"depreciationRate": 0.85,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -84,7 +84,7 @@
 		"name": "Chain Stay",
 		"price": 30,
 		"depreciationRate": 0.45,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	},
 	{
@@ -92,7 +92,7 @@
 		"name": "Rear Casette",
 		"price": 40,
 		"depreciationRate": 0.9,
-		"category": "Drive Mechanics",
+		"category": "DriveMechanics",
 		"plan": []
 	}
 ]

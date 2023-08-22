@@ -5,10 +5,7 @@ import { BiPound } from 'react-icons/bi';
 import { useAppSelector } from '../../app/hooks';
 import { ObjectId } from 'mongoose';
 import { useState } from 'react';
-
-function formatComponentName(name: string): string {
-	return name.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b\w/g, (c) => c.toUpperCase());
-}
+import formatComponentName from '../../utils/formatComponentName';
 
 interface Part {
 	name: string;

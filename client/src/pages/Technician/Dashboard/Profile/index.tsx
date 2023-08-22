@@ -157,15 +157,18 @@ const TechnicianProfile = () => {
 								w={'32vw'}
 								wrap={'wrap'}
 								alignItems={'center'}
-								justify={'center'}>
+								justify={'center'}
+								textAlign={'center'}>
 								{timeSlots.map((slot) => {
+									const isSlotChosen = technician.workingSlots.some((workingSlot: TimeSlot) => workingSlot.slotTime === slot.slotTime);
+
 									return (
 										<LoopSlotOrPartsComponent
 											key={slot.slotName}
 											item={slot.slotTime}
 											onClick={() => handleClick(slot)}
 											outline={false}
-											alreadyChoosen={technician.workingSlots.includes(slot.slotName)}
+											alreadyChoosen={isSlotChosen}
 										/>
 									);
 								})}
@@ -226,15 +229,18 @@ const TechnicianProfile = () => {
 									w={'32vw'}
 									wrap={'wrap'}
 									justify={'center'}
-									alignItems={'center'}>
-									{bicycleParts.map((parts) => {
+									alignItems={'center'}
+									textAlign={'center'}>
+									{bicycleParts.map((part) => {
+										const isPartSelected = technician.subpartExpertise.some((chosenPart: string) => chosenPart === part._id);
+										console.log(isPartSelected);
 										return (
 											<LoopSlotOrPartsComponent
-												key={parts._id}
-												item={parts.name}
-												onClick={() => handleClick(parts.name)}
+												key={part._id}
+												item={part.name}
+												onClick={() => handleClick(part.name)}
 												outline={false}
-												alreadyChoosen={false}
+												alreadyChoosen={isPartSelected}
 											/>
 										);
 									})}
