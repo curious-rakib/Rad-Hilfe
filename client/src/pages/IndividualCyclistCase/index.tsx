@@ -109,7 +109,7 @@ const IndividualCyclistCase = () => {
                 Date opened: {date} {exactMonth} {year}{' '}
               </Text>
               <Text>
-                Technician assigned:{caseByIdState[0].technician.name || 1}
+                Technician assigned: {caseByIdState[0].technician.name || 1}
               </Text>
             </Stack>
 
