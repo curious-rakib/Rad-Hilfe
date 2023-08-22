@@ -12,14 +12,18 @@ import {
 import HealthBar from '../HealthBar';
 import { parts } from '../../data/partsData';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
-import { useEffect } from 'react';
-import { bicycle } from '../../services/bikeDetails';
+import { useEffect, useState } from 'react';
+import { bicycle, bicycleDamagedPart } from '../../services/bikeDetails';
 
 function HealthBarAccordion() {
+  const [componentsLength, setComponentsLength] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
       const bicycleId = localStorage.getItem('bikeID');
       const data = await bicycle(bicycleId);
+      const damagedPartsBiCycle = await bicycleDamagedPart(bicycleId);
+      const componentsLength = damagedPartsBiCycle.length;
+      setComponentsLength(componentsLength)
 
       data.bicycleParts.forEach((subpart: any, index: number) => {
         parts[index].health = subpart.health;
@@ -32,7 +36,7 @@ function HealthBarAccordion() {
   return (
     <Flex alignItems='center' direction={'column'}>
       <Text fontSize={'15'} pt={'7'} pb={'3'} color={'accent'}>
-        You need to replace 5 components in your bicycle
+        You need to replace {componentsLength} components in your bicycle
       </Text>
       <Accordion w='90vw' allowMultiple allowToggle color={'white'}>
         <AccordionItem style={{ borderTopWidth: '0px' }}>
@@ -54,7 +58,7 @@ function HealthBarAccordion() {
                       >
                         {' '}
                       </Circle>
-                      {/* <Box bg="#3B82F6" mr={'5px'}></Box>  */}
+
                       Wheel
                     </Flex>
                   </Box>

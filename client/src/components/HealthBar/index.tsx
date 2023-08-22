@@ -2,6 +2,7 @@ import { Progress, Text, Grid, GridItem } from '@chakra-ui/react';
 import { healthColorChoose } from '../../utils/healthColorChoose';
 
 function HealthBar({ health, partname }: { health: number; partname: string }) {
+
   return (
     <Grid templateColumns='repeat(10, 1fr)'>
       <GridItem colSpan={6}>
