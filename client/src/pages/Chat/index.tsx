@@ -310,8 +310,10 @@ const Chat: React.FC = () => {
         return accumulator;
       }, []);
 
+      console.log(subparts);
+
       (async function getData() {
-        const timeSlot = await getTimeSlots(subparts);
+        const timeSlot = await getTimeSlots({ subparts: subparts });
         console.log(timeSlot);
 
         if (timeSlot && timeSlot.slots.length) {
