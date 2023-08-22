@@ -1,8 +1,9 @@
 import { Box, Center } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
 
-const LoopSlotOrPartsComponent = ({ item, onClick, outline }: { item: string; onClick: Function; outline: boolean }) => {
-	const [isSelected, setIsSelected] = useState(false);
+const LoopSlotOrPartsComponent = ({ item, onClick, outline, alreadyChoosen }: { item: string; onClick: Function; outline: boolean; alreadyChoosen: boolean }) => {
+	const [isSelected, setIsSelected] = useState(alreadyChoosen || false);
 
 	const handleClick = () => {
 		setIsSelected(!isSelected);

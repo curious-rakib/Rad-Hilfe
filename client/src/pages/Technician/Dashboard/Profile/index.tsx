@@ -14,9 +14,9 @@ const TechnicianProfile = () => {
 	const technician = useAppSelector((state: any) => state.technician);
 	const timeSlots = timeSlotGenerator(7, 20); //generating time slots between 7am and 8pm
 	const bicycleParts = parts;
-	const [choosenTimeSlots, setChoosenTimeSlots] = useState<TimeSlot[]>([]);
 	const [inputBrand, setInputBrand] = useState<string>('');
 	const [brandList, setBrandList] = useState<string[]>([]);
+	console.log(technician);
 
 	const handleClick = (item: TimeSlot | string) => {
 		// console.log('selected:', item);
@@ -25,8 +25,8 @@ const TechnicianProfile = () => {
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {};
 
 	useEffect(() => {
-		setChoosenTimeSlots(timeSlots);
-	}, []);
+		setBrandList(technician.brandsExpertise);
+	}, [technician]);
 
 	return (
 		<>
@@ -155,7 +155,9 @@ const TechnicianProfile = () => {
 							</Text>
 							<Flex
 								w={'32vw'}
-								wrap={'wrap'}>
+								wrap={'wrap'}
+								alignItems={'center'}
+								justify={'center'}>
 								{timeSlots.map((slot) => {
 									return (
 										<LoopSlotOrPartsComponent
@@ -163,6 +165,7 @@ const TechnicianProfile = () => {
 											item={slot.slotTime}
 											onClick={() => handleClick(slot)}
 											outline={false}
+											alreadyChoosen={technician.workingSlots.includes(slot.slotName)}
 										/>
 									);
 								})}
@@ -221,7 +224,9 @@ const TechnicianProfile = () => {
 								</Text>
 								<Flex
 									w={'32vw'}
-									wrap={'wrap'}>
+									wrap={'wrap'}
+									justify={'center'}
+									alignItems={'center'}>
 									{bicycleParts.map((parts) => {
 										return (
 											<LoopSlotOrPartsComponent
@@ -229,6 +234,7 @@ const TechnicianProfile = () => {
 												item={parts.name}
 												onClick={() => handleClick(parts.name)}
 												outline={false}
+												alreadyChoosen={false}
 											/>
 										);
 									})}

@@ -8,7 +8,6 @@ import ActiveTags from '../ActiveTags';
 const TechnicianAccordian = () => {
 	const Case = useAppSelector((state: any) => state.caseDetails);
 	const bicycle = Case.bicycle;
-	console.log(Case.order);
 
 	return (
 		<Accordion

@@ -19,12 +19,12 @@ const AddingNotes = () => {
 			{notes.map((note, index) => (
 				<Box
 					key={index}
-					bg={'#d9d9d9'}
+					bg={'#e1fdd5'}
 					w={'85%'}
 					h={'4rem'}
 					m={'.30rem'}
 					p={'.5rem'}
-					borderRadius={'1rem'}>
+					borderRadius={'.5rem'}>
 					<Text
 						color={'secondary'}
 						fontFamily={'Inter'}

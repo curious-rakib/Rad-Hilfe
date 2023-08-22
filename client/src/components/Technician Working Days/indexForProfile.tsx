@@ -1,5 +1,6 @@
 import { Circle, HStack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
 
 interface Day {
 	id: string;
@@ -7,47 +8,57 @@ interface Day {
 	chosen: boolean;
 }
 const TechnicianWorkingDays = ({ colorScheme, outline }: { colorScheme: string; outline: boolean }) => {
+	const technician = useAppSelector((state: any) => state.technician);
+	const workingDays = technician.workingDays;
 	const [sevenDays, setSevenDays] = useState<Day[]>([]);
 	const allDays = [
 		{
 			label: 'M',
-			id: 'Mon',
+			id: 'Monday',
 			chosen: false,
 		},
 		{
 			label: 'T',
-			id: 'Tues',
+			id: 'Tuesday',
 			chosen: false,
 		},
 		{
 			label: 'W',
-			id: 'Wed',
+			id: 'Wednesday',
 			chosen: false,
 		},
 		{
 			label: 'T',
-			id: 'Thurs',
+			id: 'Thursday',
 			chosen: false,
 		},
 		{
 			label: 'F',
-			id: 'Fri',
+			id: 'Friday',
 			chosen: false,
 		},
 		{
 			label: 'S',
-			id: 'Sat',
+			id: 'Saturday',
 			chosen: false,
 		},
 		{
 			label: 'S',
-			id: 'Sun',
+			id: 'Sunday',
 			chosen: false,
 		},
 	];
+	// useEffect(() => {
+	// 	setSevenDays(allDays);
+	// }, []);
+
 	useEffect(() => {
-		setSevenDays(allDays);
-	}, []);
+		const updatedSevenDays = allDays.map((day) => ({
+			...day,
+			chosen: workingDays.includes(day.id),
+		}));
+		setSevenDays(updatedSevenDays);
+	}, [technician]);
 
 	const handleChange = (day: Day) => {
 		const updatedSevenDays = sevenDays.map((d) => (d.id === day.id ? { ...d, chosen: !day.chosen } : d));

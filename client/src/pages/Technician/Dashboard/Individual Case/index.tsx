@@ -164,7 +164,8 @@ const IndividualCase = () => {
 								<Flex
 									mt={'1rem'}
 									direction={'column'}
-									justify={'center'}>
+									justify={'center'}
+									gap={'1rem'}>
 									<Flex
 										alignItems={'center'}
 										w={'100%'}
@@ -198,6 +199,7 @@ const IndividualCase = () => {
 									<Accordion
 										allowMultiple
 										bg={'white'}
+										_hover={{ backgroundColor: 'accent' }}
 										h={'auto'}
 										boxShadow="0px 4px 8px rgba(0, 0, 0, 0.1)"
 										p={5}
