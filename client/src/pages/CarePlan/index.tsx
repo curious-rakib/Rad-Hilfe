@@ -3,38 +3,36 @@ import rotateBike from '../../assets/rotateBike.svg';
 import check from '../../assets/checkMark.svg';
 import { useEffect, useState } from 'react';
 import { getPlan, selectPlan } from '../../services/order';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { handleStreetSelection } from '@mapbox/search-js-web/dist/utils/autofill';
 
 const CarePlan = () => {
-  const [carePlan, setCarePlan] = useState('basic');
+  const [carePlan, setCarePlan] = useState('Basic');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
-      // console.log('from useEffect', carePlan);
-      // const plan = await getPlan();
-      const planService = await selectPlan({ plan: carePlan });
-      const plan = planService.plan
-      // console.log('from useEffect', plan);
+      const planService = await getPlan();
+      const plan = planService;
 
       setCarePlan(plan);
     };
 
     getData();
-  }, [carePlan]);
+  }, []);
 
-  useEffect(() => {
-    console.log('by clicking', carePlan);
-  }, [carePlan]);
+  const handleClick = async () => {
+    const planService = await selectPlan({ plan: carePlan });
+    const plan = planService.plan;
+    setCarePlan(plan);
+
+    setTimeout(() => {
+      navigate('/cart');
+    }, 100);
+  };
 
   return (
-    <Box
-      bg='third'
-      h={'100vh'}
-      top={'-1px'}
-      zIndex={'0'}
-      position={'relative'}
-      overflow={'hidden'}
-    >
+    <Box bg='third' h={'100vh'} top={'-1px'} zIndex={'0'} position={'relative'} overflow={'hidden'}>
       <Box>
         <Image
           src={rotateBike}
@@ -45,7 +43,7 @@ const CarePlan = () => {
           zIndex={'-1'}
         />
         <Box
-          onClick={() => setCarePlan('basic')}
+          onClick={() => setCarePlan('Basic')}
           color={'third'}
           position={'relative'}
           bg={'secondary'}
@@ -54,7 +52,7 @@ const CarePlan = () => {
           rounded={'xl'}
           mt={'-29px'}
         >
-          {carePlan === 'basic' && (
+          {carePlan === 'Basic' && (
             <Image
               src={check}
               alt='check'
@@ -81,8 +79,7 @@ const CarePlan = () => {
       <Flex>
         <VStack
           onClick={() => {
-
-            setCarePlan('qover');
+            setCarePlan('Qover');
           }}
           position={'relative'}
           bg={'#52D4A5'}
@@ -92,7 +89,7 @@ const CarePlan = () => {
           rounded={'xl'}
           color={'#001F3F'}
         >
-          {carePlan === 'qover' && (
+          {carePlan === 'Qover' && (
             <Image
               src={check}
               alt='check'
@@ -112,7 +109,7 @@ const CarePlan = () => {
           </Text>
         </VStack>
         <VStack
-          onClick={() => setCarePlan('jobrad')}
+          onClick={() => setCarePlan('Slipstream')}
           position={'relative'}
           bg={'fourth'}
           p={3}
@@ -120,7 +117,7 @@ const CarePlan = () => {
           rounded={'xl'}
           color={'#001F3F'}
         >
-          {carePlan === 'jobrad' && (
+          {carePlan === 'Slipstream' && (
             <Image
               src={check}
               alt='check'
@@ -142,18 +139,17 @@ const CarePlan = () => {
         </VStack>
       </Flex>
       <Center bg='third' mt='' h='20vh'>
-        <Link to={'/cart'}>
-          <Button
-            loadingText='Submitting'
-            size='lg'
-            bg='accent'
-            w='200px'
-            color='secondary'
-            fontWeight={'bold'}
-          >
-            Get Plan
-          </Button>
-        </Link>
+        <Button
+          onClick={handleClick}
+          loadingText='Submitting'
+          size='lg'
+          bg='accent'
+          w='200px'
+          color='secondary'
+          fontWeight={'bold'}
+        >
+          Get Plan
+        </Button>
       </Center>
     </Box>
   );

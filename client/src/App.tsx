@@ -32,18 +32,13 @@ import Chat from './pages/Chat';
 import TechnicianAccordian from './components/TechnicianAccordian';
 
 function App() {
-
   return (
     <>
       <Router>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          {/* <Route path='/home' element={<Home />} /> */}
-          <Route path='/cyclist-profile' element={<CyclistProfile />} />
-
           <Route path='/thankyou' element={<ThankYou></ThankYou>}></Route>
-
 
           <Route path='/setup-daily-route' element={<SetupDailyRoute />} />
           <Route path='/setup-bike-details' element={<SetupBikeDetails />} />
@@ -52,14 +47,15 @@ function App() {
         </Routes>
         <Routes>
           <Route element={<Navbar theme='secondary' />}>
-            <Route path='/individual-cyclist-case/:id' element={<IndividualCyclistCase />}></Route>
             <Route path='/home' element={<Home />} />
+            <Route path='/cyclist-profile' element={<CyclistProfile />} />
             <Route path='/bike-health' element={<HealthBar />} />
             <Route path='/delivery-details' element={<DelivaryDetails />} />
             <Route path='/expert-call' element={<SetUpExpertCall />} />
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/chat' element={<Chat />}></Route>
             <Route path='/cyclist-case' element={<CyclistTabCases />}></Route>
+            <Route path='/individual-cyclist-case/:id' element={<IndividualCyclistCase />}></Route>
             <Route path='/maintenance/:id' element={<Maintenance />} />
           </Route>
         </Routes>

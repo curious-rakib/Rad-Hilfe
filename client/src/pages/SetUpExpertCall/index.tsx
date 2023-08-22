@@ -22,13 +22,12 @@ const SetUpExpertCall = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   let [value, setValue] = React.useState('');
-  const [extractedTimeSlotsArray, setExtractedTimeSlotsArray] = useState<any[]>([])
+  const [extractedTimeSlotsArray, setExtractedTimeSlotsArray] = useState<any[]>([]);
 
   let handleInputChange = (e: { target: { value: any } }) => {
     let inputValue = e.target.value;
     setValue(inputValue);
   };
-
 
   useEffect(() => {
     const fetchSubPartData = async () => {
@@ -37,7 +36,7 @@ const SetUpExpertCall = () => {
       const subpartsId = damagedPartsBiCycle.map((subpartId: any) => subpartId._id);
       const timeSlots = await getTimeSlots(subpartsId);
 
-      // console.log('timeslots', timeSlots);
+      console.log('timeslots', timeSlots);
 
       const extractedTimeSlots = [];
       for (let i = 0; i < timeSlots.slots.length; i++) {
@@ -47,20 +46,18 @@ const SetUpExpertCall = () => {
             date,
             time: timeSlots.slots[i].slots[j].slotTime,
             id: timeSlots.slots[i].slots[j]._id + date,
-            chosen: false
-          })
+            chosen: false,
+          });
         }
       }
-      setSlots(extractedTimeSlots)
+      setSlots(extractedTimeSlots);
       // console.log('extracted', extractedTimeSlots);
       setExtractedTimeSlotsArray(extractedTimeSlots);
-
-    }
+    };
     fetchSubPartData();
-  }, [])
+  }, []);
 
-
-  const handleChange = () => { };
+  const handleChange = () => {};
   // const deliverySlots = [
   //   {
   //     id: 1,
@@ -108,7 +105,7 @@ const SetUpExpertCall = () => {
       const chosenDate = updatedSlots.filter((item) => item.chosen).map((item) => item.date);
       const slotObj = {
         slot: chosenTime[0],
-        date: chosenDate[0]
+        date: chosenDate[0],
       };
 
       setSelectedSlot(slotObj);
@@ -124,17 +121,28 @@ const SetUpExpertCall = () => {
     orderId: orderId,
     supportTime: selectedSlot.slot,
     firstCall: selectedSlot.date,
-    note: value
+    note: value,
   };
 
   localStorage.setItem('passive', JSON.stringify(passiveDetails));
 
-
-
   function getParsedDate(strDate: any) {
     const newDate = new Date(strDate);
     const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sept',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
     const day = daysOfTheWeek[newDate.getDay()];
     const date = newDate.getDate();
@@ -142,10 +150,7 @@ const SetUpExpertCall = () => {
     const year = newDate.getFullYear();
 
     return day + ' ' + date + ' ' + mon;
-
   }
-
-
 
   return (
     <Box px={4}>
@@ -199,32 +204,33 @@ const SetUpExpertCall = () => {
         Choose a time for expert call
       </Text>
       <Center ml={0}>
-        {/* <div style={{ height: '200px', overflowY: 'auto' }}> */}
-        <Flex flexWrap='wrap' gap={4}>
-          {slots.map((slot, index) => (
-            <Box
-              onClick={() => handleSlotClick(slot)}
-              bg={slot.chosen ? 'accent' : 'secondary'}
-              key={index}
-              px={3}
-              py={4}
-              width='calc(50% - 8px)'
-              color={slot.chosen ? 'secondary' : 'accent'}
-              border={'1px solid '}
-              borderColor={'accent'}
-              borderRadius={'10px'}
-            >
-              <Center>
-                <Text>{getParsedDate(slot.date)}</Text>
-              </Center>
-              <Text fontWeight={'500'} fontSize={'xl'}>
-                {slot.time}
-              </Text>
-            </Box>
-          ))}
-        </Flex>
-        {/* </div> */}
-
+        <div style={{ height: '200px', overflowY: 'auto' }}>
+          <Flex flexWrap='wrap' gap={4}>
+            {slots.map((slot, index) => (
+              <Box
+                onClick={() => handleSlotClick(slot)}
+                bg={slot.chosen ? 'accent' : 'secondary'}
+                key={index}
+                px={3}
+                py={4}
+                width='calc(50% - 8px)'
+                color={slot.chosen ? 'secondary' : 'accent'}
+                border={'1px solid '}
+                borderColor={'accent'}
+                borderRadius={'10px'}
+              >
+                <Center>
+                  <Text>{getParsedDate(slot.date)}</Text>
+                </Center>
+                <Center>
+                  <Text fontWeight={'500'} fontSize={'xl'}>
+                    {slot.time}
+                  </Text>
+                </Center>
+              </Box>
+            ))}
+          </Flex>
+        </div>
       </Center>
 
       <Center>

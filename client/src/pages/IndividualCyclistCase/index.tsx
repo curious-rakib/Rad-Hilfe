@@ -47,7 +47,20 @@ const IndividualCyclistCase = () => {
   function getParsedDate(strDate: any) {
     const newDate = new Date(strDate);
     const daysOfTheWeek = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sept',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
 
     const day = daysOfTheWeek[newDate.getDay()];
     const date = newDate.getDate();
@@ -55,7 +68,6 @@ const IndividualCyclistCase = () => {
     const year = newDate.getFullYear();
 
     return day + ' ' + date + ' ' + mon;
-
   }
 
   // {
@@ -137,14 +149,21 @@ const IndividualCyclistCase = () => {
 
               <hr />
             </Box>
-            <Stack spacing={1}>
-              <Text fontSize={'lg'} fontWeight={'semibold'}>
-                Intervention details
-              </Text>
-              <Text>First call: {getParsedDate(caseByIdState[0].note[1].text.slice(9))}  | {caseByIdState[0].order.slot}</Text>
-              <Text>Follow-up call: Pending</Text>
-              <Text>Support quality: ☆☆☆☆</Text>
-            </Stack>
+            {caseByIdState[0].type === 'Active' ? (
+              ''
+            ) : (
+              <Stack spacing={1}>
+                <Text fontSize={'lg'} fontWeight={'semibold'}>
+                  Intervention details
+                </Text>
+                <Text>
+                  First call: {getParsedDate(caseByIdState[0].note[1].text.slice(9))} |{' '}
+                  {caseByIdState[0].order.slot}
+                </Text>
+                <Text>Follow-up call: Pending</Text>
+                <Text>Support quality: ☆☆☆☆</Text>
+              </Stack>
+            )}
             <Box my={5}>
               <Flex gap={4} rounded={'full'}>
                 <Button bg={'third'} fontWeight={'bold'} p={6} rounded={'xl'} color={'secondary'}>

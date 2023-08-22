@@ -4,7 +4,7 @@ import InputField from '../../components/InputField';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { bicycleParts, delivery } from '../../features/cyclist/order-slice';
 import { time } from '../../features/cyclist/order-slice';
-import { order } from '../../services/order';
+import { getPlan, order } from '../../services/order';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { Link as ChakraLink, LinkProps } from '@chakra-ui/react';
 import { profile } from '../../services/authentication';
@@ -19,6 +19,19 @@ const DelivaryDetails = () => {
 
   const [slots, setSlots] = useState<Slots[]>([]);
   const [name, setName] = useState('');
+
+  const [carePlan, setCarePlan] = useState('Basic');
+
+  useEffect(() => {
+    const getData = async () => {
+      const planService = await getPlan();
+      const plan = planService;
+
+      setCarePlan(plan);
+    };
+
+    getData();
+  }, []);
 
   const deliverySlots = [
     {
@@ -190,7 +203,7 @@ const DelivaryDetails = () => {
             borderRadius={16}
             fontWeight={'700'}
           >
-            Buy now | €{totalPrice}
+            Buy now | €{carePlan === 'Slipstream' ? 0 : totalPrice}
           </Button>
         </Center>
       </ChakraLink>

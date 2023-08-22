@@ -4,11 +4,7 @@ import bcrypt from 'bcrypt';
 import { SessionData } from '../../interfaces/session.interface';
 import { OTP } from '../../interfaces/account.interface';
 
-import {
-  getSession,
-  createSession,
-  destroySession,
-} from '../../middlewares/sessionManagement';
+import { getSession, createSession, destroySession } from '../../middlewares/sessionManagement';
 import { sendOTP } from './mailer.controller';
 import {
   addCyclistAddress,
@@ -29,7 +25,7 @@ const signUp = async (req: Request, res: Response) => {
       password,
       phone,
       role = 'cyclist',
-      plan = 'basic',
+      plan = 'Basic',
       homeAddress = '',
       workAddress = '',
     } = req.body;
@@ -207,10 +203,10 @@ const setUpAddressEdit = async (req: Request, res: Response) => {
     const session: SessionData | undefined = getSession(token);
 
     if (session) {
-      await addCyclistAddress(session.userEmail, homeAddress, workAddress);
-
-      res.status(200).send('Home address and work address added');
-      return;
+      if (await addCyclistAddress(session.userEmail, homeAddress, workAddress)) {
+        res.status(200).send({ homeAddress, workAddress });
+        return;
+      }
     }
 
     res.status(401).send('Session is invalid.');
@@ -224,10 +220,7 @@ const weatherData = async (req: Request, res: Response) => {
   try {
     const { longitude, latitude } = req.body;
 
-    const weatherData = await getWeatherData(
-      Number(longitude),
-      Number(latitude)
-    );
+    const weatherData = await getWeatherData(Number(longitude), Number(latitude));
 
     res.status(200).send(weatherData);
   } catch (error) {

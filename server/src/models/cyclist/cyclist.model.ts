@@ -16,7 +16,7 @@ const cyclistSchema = new Schema({
   workAddress: { type: String, required: false },
   phone: { type: String, required: false },
   bicycle: { type: Types.ObjectId, ref: 'BicycleModel' },
-  plan: { type: String, enum: ['basic', 'qover', 'jobrad'], required: true },
+  plan: { type: String, enum: ['Basic', 'Qover', 'Slipstream'], required: true },
   orders: [{ type: Types.ObjectId, ref: 'OrderModel' }],
   cases: [{ type: Types.ObjectId, ref: 'CaseModel' }],
   imageUrl: { type: String },

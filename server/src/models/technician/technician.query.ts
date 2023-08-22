@@ -106,7 +106,7 @@ const findAvailableSupportTimeForCyclist = async (technicianId: string) => {
 
     for (let day = 0; day < 7; day++) {
       const checkingDay = new Date();
-      checkingDay.setDate(day);
+      checkingDay.setDate(new Date().getDate() + day + 2);
 
       if (technician.workingDays?.includes(Day[checkingDay.getDay()])) {
         if (allSupportTime === undefined || allSupportTime.length == 0) {

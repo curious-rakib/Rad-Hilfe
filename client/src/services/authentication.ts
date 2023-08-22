@@ -78,20 +78,20 @@ export const getCyclistName = async () => {
 
 export const updateAddress = async (address: any) => {
   try {
-    const response = await axios.put(
-      `${BASE_URL}/cyclist/set-up-address-edit`,
+    const response = await axios.post(
+      `${BASE_URL}/cyclist/set-up-address`,
+      JSON.stringify(address),
       {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-          body: JSON.stringify(address),
           authorization: `Bearer ${token}`,
         },
       }
     );
 
     const updatedAddress = response.data;
-    console.log('selectplan from service', updatedAddress);
+    console.log('Updated Address from service', updatedAddress);
     return updatedAddress;
   } catch (error) {
     console.log(error);

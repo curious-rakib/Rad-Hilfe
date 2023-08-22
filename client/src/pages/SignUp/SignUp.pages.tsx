@@ -66,7 +66,7 @@ const SignUp = () => {
         title: 'User is not registered',
         description: 'please,register yourself',
         status: 'error',
-        duration: 7000,
+        duration: 3000,
         position: 'top-right',
         isClosable: true,
       });
