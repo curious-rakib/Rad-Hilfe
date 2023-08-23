@@ -8,17 +8,24 @@ import SubmitButton from '../../components/Button';
 import logo from '../../assets/logo.svg';
 import { signup } from '../../features/cyclist/cyclistSignup-slice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { createAccount } from '../../services/authentication';
+import { createAccount, profile, userLogin } from '../../services/authentication';
 import facebookLogo from '../../assets/facebook-svgrepo-com.svg';
 import googleLogo from '../../assets/google-svgrepo-com.svg';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
-import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+  useUpdateProfile,
+} from 'react-firebase-hooks/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import auth, { googleProvider } from '../../firebase.init';
 
-
 const SignUp = () => {
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const toast = useToast();
@@ -62,11 +69,6 @@ const SignUp = () => {
     const name = first + ' ' + last;
     const cyclistData = { name, email, password, phone };
 
-
-
-
-
-
     localStorage.setItem('cyclistData', JSON.stringify(cyclistData));
     console.log(cyclistData);
     const registeredUser = await createAccount(cyclistData);
@@ -94,18 +96,70 @@ const SignUp = () => {
       const email = user.email;
       const googleAuthObj = { name, email };
       console.log(googleAuthObj);
+
       if (googleAuthObj) {
-        // navigate('/setup-daily-route')
+        const newCyclist = {
+          name: googleAuthObj.name,
+          email: googleAuthObj.email,
+          password: googleAuthObj.email,
+        };
 
+        const registeredUser = await createAccount(newCyclist);
+        if (registeredUser) {
+          const signInUserData = { email: googleAuthObj.email, password: googleAuthObj.email };
+          const token = await userLogin(signInUserData);
+          localStorage.setItem('accessToken', token);
+
+          if (token) {
+            toast({
+              title: 'Logged In Succefully',
+
+              status: 'success',
+              duration: 3000,
+              position: 'top-right',
+              isClosable: true,
+            });
+            if (localStorage.getItem('accessToken')) {
+              const cyclist = await profile();
+
+              if (cyclist && cyclist.bicycle) {
+                navigate('/home');
+              } else {
+                navigate('/setup-daily-route');
+              }
+            }
+          }
+        } else {
+          const signInUserData = { email: googleAuthObj.email, password: googleAuthObj.email };
+          const token = await userLogin(signInUserData);
+          localStorage.setItem('accessToken', token);
+
+          if (token) {
+            toast({
+              title: 'Logged In Succefully',
+
+              status: 'success',
+              duration: 3000,
+              position: 'top-right',
+              isClosable: true,
+            });
+            if (localStorage.getItem('accessToken')) {
+              const cyclist = await profile();
+
+              if (cyclist && cyclist.bicycle) {
+                navigate('/home');
+              } else {
+                navigate('/setup-daily-route');
+              }
+            }
+          }
+        }
       }
-
-
     } catch (err) {
       console.error(err);
     }
-
-
   };
+
   const handleFacebookAuth = async (event: any) => {
     event.preventDefault();
   };
