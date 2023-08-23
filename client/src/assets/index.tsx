@@ -4,6 +4,7 @@ import { ChevronLeftIcon, HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import home from './home.svg';
 import caseCyclist from './cases-cyclist.svg';
 import maintenance from './maintence.svg';
 import profile1 from './profile.svg';
@@ -138,6 +139,15 @@ function Navbar({ theme }: { theme: keyof themeCollections }) {
           </HStack>
 
           <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={28} mb={64}>
+            <Link to={'/home'}>
+              <Box height='40px'>
+                {' '}
+                <HStack spacing={7}>
+                  <Image src={home} boxSize='35px' />
+                  <Text fontWeight={'bold'}>Home</Text>
+                </HStack>
+              </Box>
+            </Link>
             <Link to={'cyclist-case'}>
               <Box height='40px'>
                 {' '}
