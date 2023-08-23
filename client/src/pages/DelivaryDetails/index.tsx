@@ -184,9 +184,11 @@ const DelivaryDetails = () => {
               {' '}
               <Text>{slot.day}</Text>
             </Center>
-            <Text fontWeight={'500'} fontSize={'xl'}>
-              {slot.time}
-            </Text>
+            <Center>
+              <Text fontWeight={'500'} fontSize={'xl'}>
+                {slot.time}
+              </Text>
+            </Center>
           </Box>
         ))}
       </Flex>

@@ -49,7 +49,7 @@ const Cart = () => {
           price: eachBicycle.price,
           category: eachBicycle.category,
           qty: 1,
-          plans: [updateplan],
+          plans: eachBicycle.plan,
         }));
 
         const sortedData = dataObj.sort(
@@ -93,7 +93,7 @@ const Cart = () => {
     }
 
     for (let i = 0; i < parts.length; i++) {
-      if (parts[i].plans[0] === 'Qover') {
+      if (parts[i].plans.length > 0) {
         continue;
       }
 
@@ -177,7 +177,7 @@ const Cart = () => {
               <GridItem h='10' color={'white'} ml={10}>
                 <Text>
                   {' '}
-                  €{carePlan === 'Slipstream' || p.plans[0] === 'Qover' ? 0 : p.qty * p.price}
+                  €{carePlan === 'Slipstream' || p.plans.length > 0 ? 0 : p.qty * p.price}
                 </Text>
               </GridItem>
             </Grid>
